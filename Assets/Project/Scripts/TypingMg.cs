@@ -10,7 +10,7 @@ public class Question {
     public string roman;
 }
 
-public partial class TypingManager : MonoBehaviour {
+public partial class TypingMg : MonoBehaviour {
     [SerializeField] private Question[] questions;
     [SerializeField] private TextMeshProUGUI textJapanese; // ここに日本語表示のTextMeshProをアタッチする。
     [SerializeField] private TextMeshProUGUI textRoman; // ここにローマ字表示のTextMeshProをアタッチする。

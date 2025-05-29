@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public partial class TypingManager {
+public partial class TypingMg {
     int InputKey(char inputChar) {
         char prevChar3 = _romanIndex >= 3 ? _roman[_romanIndex - 3] : '\0';
         char prevChar2 = _romanIndex >= 2 ? _roman[_romanIndex - 2] : '\0';
