@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
+using System.IO;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using NUnit.Framework.Internal;
 
 [Serializable]
 public class Question {
@@ -11,10 +13,10 @@ public class Question {
 }
 
 public partial class TypingMg : MonoBehaviour {
-    [SerializeField] private Question[] questions;
-    [SerializeField] private TextMeshProUGUI textJapanese; // ここに日本語表示のTextMeshProをアタッチする。
-    [SerializeField] private TextMeshProUGUI textRoman; // ここにローマ字表示のTextMeshProをアタッチする。
+    [SerializeField] private TextMeshProUGUI textJapanese;
+    [SerializeField] private TextMeshProUGUI textRoman;
 
+    private Question[] questions;
     private readonly List<char> _roman = new();
     private int _romanIndex;
     private readonly bool _isWindows;
@@ -38,6 +40,21 @@ public partial class TypingMg : MonoBehaviour {
         }
     }
 
+    private void Awake() {
+        LoadQuesitonsFromJson();
+    }
+
+    void LoadQuesitonsFromJson() {
+        // Resources フォルダから questions.json を読み込む
+        TextAsset jsonText = Resources.Load<TextAsset>("questions");
+        if (jsonText != null) {
+            questions = JsonHelper.FromJson<Question>(jsonText.text);
+        } else {
+            Debug.LogError("questions.json が見つかりません");
+        }
+    }
+
+    // 問題切り替え（重複有）
     void InitializeQuestion() {
         Question question = questions[UnityEngine.Random.Range(0, questions.Length)];
         _roman.Clear();
@@ -53,6 +70,7 @@ public partial class TypingMg : MonoBehaviour {
         textRoman.text = GenerateTextRoman();
     }
 
+    // ローマ字の表示を管理
     string GenerateTextRoman() {
         string text = "<style=typed>";
         for (int i = 0; i < _roman.Count; i++) {
@@ -63,6 +81,19 @@ public partial class TypingMg : MonoBehaviour {
         text += "</style>";
         return text;
     }
+}
 
-    
+// JsonHelper ユーティリティー
+public static class JsonHelper {
+    public static T[] FromJson<T>(string json) {
+        // JSONのルートが配列の場合、JsonUtilityが直接扱えないため、"array"というキーを持つオブジェクトでラップする
+        string newJson = "{ \"array\": " + json + "}";
+        Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(newJson);
+        return wrapper.array;
+    }
+
+    [System.Serializable]
+    private class Wrapper<T> { // FromJsonメソッド内でのみ使用されるヘルパー的な内部クラス
+        public T[] array;
+    }
 }
