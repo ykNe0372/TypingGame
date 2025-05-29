@@ -19,6 +19,18 @@ MonoBehaviour:
     m_ClosingDefinition: 
     m_OpeningTagArray: 
     m_ClosingTagArray: 
+  - m_Name: typed
+    m_HashCode: 97154844
+    m_OpeningDefinition: <color=#bfff00>
+    m_ClosingDefinition: </color>
+    m_OpeningTagArray: 3c000000630000006f0000006c0000006f000000720000003d000000230000006200000066000000660000006600000030000000300000003e000000
+    m_ClosingTagArray: 3c0000002f000000630000006f0000006c0000006f000000720000003e000000
+  - m_Name: untyped
+    m_HashCode: 195015815
+    m_OpeningDefinition: <color=#7f7f7f>
+    m_ClosingDefinition: </color>
+    m_OpeningTagArray: 3c000000630000006f0000006c0000006f000000720000003d000000230000003700000066000000370000006600000037000000660000003e000000
+    m_ClosingTagArray: 3c0000002f000000630000006f0000006c0000006f000000720000003e000000
   - m_Name: H1
     m_HashCode: 2425
     m_OpeningDefinition: <size=2em><b><#40ff80>*
