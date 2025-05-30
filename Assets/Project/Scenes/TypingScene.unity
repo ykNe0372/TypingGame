@@ -319,9 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17bffd1de62def49abddc087c05b01a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questions:
-  - japanese: "\u3066\u3059\u3068\u3066\u3059\u3068\u3066\u3059\u3068"
-    roman: tesutotesutotesuto
+  questions: []
   textJapanese: {fileID: 1591843017}
   textRoman: {fileID: 1505414586}
 --- !u!4 &984307237
