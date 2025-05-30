@@ -12,10 +12,25 @@ public class Question {
     public string roman;
 }
 
+public enum Difficulty {
+    Easy,
+    Normal,
+    Hard
+}
+
+[Serializable]
+public class DifficultyQuestions {
+    public Difficulty difficulty;
+    public List<Question> questions = new();
+}
+
 public partial class TypingMg : MonoBehaviour {
-    [SerializeField] private Question[] questions;
+    [SerializeField] private List<DifficultyQuestions> allQuestions;
+    [SerializeField] private Difficulty selectedDifficulty;
     [SerializeField] private TextMeshProUGUI textJapanese;
     [SerializeField] private TextMeshProUGUI textRoman;
+
+    private List<Question> currentQuestions;
 
     private readonly List<char> _roman = new();
     private int _romanIndex;
@@ -23,6 +38,12 @@ public partial class TypingMg : MonoBehaviour {
     private bool _isMac;
 
     private void Start() {
+        currentQuestions = allQuestions.Find(dq => dq.difficulty == selectedDifficulty)?.questions;
+        if (currentQuestions == null || currentQuestions.Count == 0) {
+            Debug.LogError("選択した難易度の問題がありません。");
+            return;
+        }
+
         InitializeQuestion();
 
         if (SystemInfo.operatingSystem.Contains("Windows")) {
@@ -49,7 +70,7 @@ public partial class TypingMg : MonoBehaviour {
 
     // 問題切り替え（重複有）
     void InitializeQuestion() {
-        Question question = questions[UnityEngine.Random.Range(0, questions.Length)];
+        Question question = currentQuestions[UnityEngine.Random.Range(0, currentQuestions.Count)];
         _roman.Clear();
         _romanIndex = 0;
         char[] characters = question.roman.ToCharArray();
