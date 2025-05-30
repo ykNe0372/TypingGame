@@ -319,9 +319,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17bffd1de62def49abddc087c05b01a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questions:
-  - japanese: "\u3066\u3059\u3068\u3066\u3059\u3068\u3066\u3059\u3068"
-    roman: tesutotesutotesuto
+  allQuestions:
+  - difficulty: 0
+    questions:
+    - japanese: "\u3068\u3063\u3066\u3082\u304B\u3093\u305F\u3093"
+      roman: tottemokantann
+  - difficulty: 1
+    questions:
+    - japanese: "\u3053\u308C\u304C\u304D\u3058\u3085\u3093"
+      roman: koregakijunn
+  - difficulty: 2
+    questions:
+    - japanese: "\u3059\u30FC\u3071\u30FC\u306F\u3044\u3071\u30FC\u3081\u3063\u3061\u3083\u3080\u305A\u304B\u3057\u3044"
+      roman: su-pa-haipa-mettyamuzukasii
+  selectedDifficulty: 2
   textJapanese: {fileID: 1591843017}
   textRoman: {fileID: 1505414586}
 --- !u!4 &984307237

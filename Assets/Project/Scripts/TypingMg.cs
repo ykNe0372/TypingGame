@@ -12,18 +12,46 @@ public class Question {
     public string roman;
 }
 
+public enum Difficulty {
+    Easy,
+    Normal,
+    Hard
+}
+
+[Serializable]
+public class DifficultyQuestions {
+    public Difficulty difficulty;
+    public List<Question> questions = new();
+}
+
 public partial class TypingMg : MonoBehaviour {
+    [SerializeField] private List<DifficultyQuestions> allQuestions;
+    [SerializeField] private Difficulty selectedDifficulty;
     [SerializeField] private TextMeshProUGUI textJapanese;
     [SerializeField] private TextMeshProUGUI textRoman;
 
-    private Question[] questions;
+    private List<Question> currentQuestions;
+
     private readonly List<char> _roman = new();
     private int _romanIndex;
-    private readonly bool _isWindows;
-    private readonly bool _isMac;
+    private bool _isWindows;
+    private bool _isMac;
 
     private void Start() {
+        currentQuestions = allQuestions.Find(dq => dq.difficulty == selectedDifficulty)?.questions;
+        if (currentQuestions == null || currentQuestions.Count == 0) {
+            Debug.LogError("選択した難易度の問題がありません。");
+            return;
+        }
+
         InitializeQuestion();
+
+        if (SystemInfo.operatingSystem.Contains("Windows")) {
+            _isWindows = true;
+        }
+        if (SystemInfo.operatingSystem.Contains("Mac")) {
+            _isMac = true;
+        }
     }
 
     private void OnGUI() {
@@ -40,23 +68,9 @@ public partial class TypingMg : MonoBehaviour {
         }
     }
 
-    private void Awake() {
-        LoadQuesitonsFromJson();
-    }
-
-    void LoadQuesitonsFromJson() {
-        // Resources フォルダから questions.json を読み込む
-        TextAsset jsonText = Resources.Load<TextAsset>("questions");
-        if (jsonText != null) {
-            questions = JsonHelper.FromJson<Question>(jsonText.text);
-        } else {
-            Debug.LogError("questions.json が見つかりません");
-        }
-    }
-
     // 問題切り替え（重複有）
     void InitializeQuestion() {
-        Question question = questions[UnityEngine.Random.Range(0, questions.Length)];
+        Question question = currentQuestions[UnityEngine.Random.Range(0, currentQuestions.Count)];
         _roman.Clear();
         _romanIndex = 0;
         char[] characters = question.roman.ToCharArray();
@@ -80,20 +94,5 @@ public partial class TypingMg : MonoBehaviour {
         }
         text += "</style>";
         return text;
-    }
-}
-
-// JsonHelper ユーティリティー
-public static class JsonHelper {
-    public static T[] FromJson<T>(string json) {
-        // JSONのルートが配列の場合、JsonUtilityが直接扱えないため、"array"というキーを持つオブジェクトでラップする
-        string newJson = "{ \"array\": " + json + "}";
-        Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(newJson);
-        return wrapper.array;
-    }
-
-    [System.Serializable]
-    private class Wrapper<T> { // FromJsonメソッド内でのみ使用されるヘルパー的な内部クラス
-        public T[] array;
     }
 }
