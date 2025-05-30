@@ -19,11 +19,18 @@ public partial class TypingMg : MonoBehaviour {
     private Question[] questions;
     private readonly List<char> _roman = new();
     private int _romanIndex;
-    private readonly bool _isWindows;
-    private readonly bool _isMac;
+    private bool _isWindows;
+    private bool _isMac;
 
     private void Start() {
         InitializeQuestion();
+
+        if (SystemInfo.operatingSystem.Contains("Windows")) {
+            _isWindows = true;
+        }
+        if (SystemInfo.operatingSystem.Contains("Mac")) {
+            _isMac = true;
+        }
     }
 
     private void OnGUI() {
