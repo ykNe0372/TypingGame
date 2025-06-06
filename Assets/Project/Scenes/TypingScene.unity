@@ -300,6 +300,7 @@ GameObject:
   m_Component:
   - component: {fileID: 984307237}
   - component: {fileID: 984307236}
+  - component: {fileID: 984307238}
   m_Layer: 0
   m_Name: TypingManager
   m_TagString: Untagged
@@ -319,20 +320,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17bffd1de62def49abddc087c05b01a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  correct: {fileID: 8300000, guid: 48a223642a878054190bcc5b3586559b, type: 3}
+  wrong: {fileID: 8300000, guid: ece6472ab13aef64993d8e2d2e1269ea, type: 3}
   allQuestions:
   - difficulty: 0
     questions:
-    - japanese: "\u3068\u3063\u3066\u3082\u304B\u3093\u305F\u3093"
-      roman: tottemokantann
+    - japanese: "\u671D"
+      roman: asa
+    - japanese: "\u96E8"
+      roman: ame
+    - japanese: "\u72AC"
+      roman: inu
+    - japanese: "\u99AC"
+      roman: uma
+    - japanese: "\u732B"
+      roman: neko
+    - japanese: "\u30D0\u30E9"
+      roman: bara
+    - japanese: "\u30D5\u30B0"
+      roman: hugu
+    - japanese: "\u30D8\u30D3"
+      roman: hebi
+    - japanese: "\u30A4\u30EB\u30AB"
+      roman: iruka
+    - japanese: "\u30A6\u30B5\u30AE"
+      roman: usagi
+    - japanese: "\u30B2\u30FC\u30E0"
+      roman: ge-mu
+    - japanese: "\u8F9E\u66F8"
+      roman: zisyo
+    - japanese: "\u30BF\u30CC\u30AD"
+      roman: tanuki
+    - japanese: "\u30B9\u30BF\u30F3\u30D7"
+      roman: sutanpu
+    - japanese: "\u306A\u305E\u306A\u305E"
+      roman: nazonazo
+    - japanese: "\u7D19\u888B"
+      roman: kamibukuro
+    - japanese: "\u65E5\u672C\u8A9E"
+      roman: nihongo
+    - japanese: "\u306C\u3044\u3050\u308B\u307F"
+      roman: nuigurumi
+    - japanese: "\u30DB\u30C3\u30C1\u30AD\u30B9"
+      roman: hottikisu
+    - japanese: "\u30EA\u30B3\u30FC\u30C0\u30FC"
+      roman: riko-da-
   - difficulty: 1
-    questions:
-    - japanese: "\u3053\u308C\u304C\u304D\u3058\u3085\u3093"
-      roman: koregakijunn
+    questions: []
   - difficulty: 2
-    questions:
-    - japanese: "\u3059\u30FC\u3071\u30FC\u306F\u3044\u3071\u30FC\u3081\u3063\u3061\u3083\u3080\u305A\u304B\u3057\u3044"
-      roman: su-pa-haipa-mettyamuzukasii
-  selectedDifficulty: 2
+    questions: []
+  - difficulty: 3
+    questions: []
+  - difficulty: 4
+    questions: []
+  selectedDifficulty: 0
   textJapanese: {fileID: 1591843017}
   textRoman: {fileID: 1505414586}
 --- !u!4 &984307237
@@ -350,6 +391,103 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &984307238
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 984307235}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 48a223642a878054190bcc5b3586559b, type: 3}
+  m_Resource: {fileID: 8300000, guid: 48a223642a878054190bcc5b3586559b, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.42
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1505414584
 GameObject:
   m_ObjectHideFlags: 0

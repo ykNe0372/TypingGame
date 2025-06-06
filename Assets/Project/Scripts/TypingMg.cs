@@ -15,7 +15,9 @@ public class Question {
 public enum Difficulty {
     Easy,
     Normal,
-    Hard
+    Hard,
+    VeryHard,
+    Impossible,
 }
 
 [Serializable]
@@ -25,19 +27,24 @@ public class DifficultyQuestions {
 }
 
 public partial class TypingMg : MonoBehaviour {
+    public AudioClip correct;
+    public AudioClip wrong;
+
     [SerializeField] private List<DifficultyQuestions> allQuestions;
     [SerializeField] private Difficulty selectedDifficulty;
     [SerializeField] private TextMeshProUGUI textJapanese;
     [SerializeField] private TextMeshProUGUI textRoman;
 
     private List<Question> currentQuestions;
-
     private readonly List<char> _roman = new();
     private int _romanIndex;
     private bool _isWindows;
     private bool _isMac;
 
+    AudioSource aud;
+
     private void Start() {
+        aud = GetComponent<AudioSource>();
         currentQuestions = allQuestions.Find(dq => dq.difficulty == selectedDifficulty)?.questions;
         if (currentQuestions == null || currentQuestions.Count == 0) {
             Debug.LogError("選択した難易度の問題がありません。");
@@ -61,8 +68,10 @@ public partial class TypingMg : MonoBehaviour {
                     _romanIndex++;
                     if (_roman[_romanIndex] == '@') InitializeQuestion(); // 「@」がタイピングの終わりの判定となる。
                     else textRoman.text = GenerateTextRoman();
+                    aud.PlayOneShot(correct);
                     break;
                 case 2: // ミスタイプ時
+                    aud.PlayOneShot(wrong);
                     break;
             }
         }
