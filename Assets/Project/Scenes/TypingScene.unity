@@ -351,6 +351,8 @@ MonoBehaviour:
       roman: zisyo
     - japanese: "\u30BF\u30CC\u30AD"
       roman: tanuki
+    - japanese: "\u6642\u8A08"
+      roman: tokei
     - japanese: "\u30B9\u30BF\u30F3\u30D7"
       roman: sutanpu
     - japanese: "\u306A\u305E\u306A\u305E"
@@ -359,20 +361,26 @@ MonoBehaviour:
       roman: kamibukuro
     - japanese: "\u65E5\u672C\u8A9E"
       roman: nihongo
+    - japanese: "\u7D19\u888B"
+      roman: kamibukuro
     - japanese: "\u306C\u3044\u3050\u308B\u307F"
       roman: nuigurumi
-    - japanese: "\u30DB\u30C3\u30C1\u30AD\u30B9"
-      roman: hottikisu
-    - japanese: "\u30EA\u30B3\u30FC\u30C0\u30FC"
-      roman: riko-da-
   - difficulty: 1
-    questions: []
+    questions:
+    - japanese: "\u4E94\u6587\u5B57\u304B\u3089\u4E5D\u6587\u5B57"
+      roman: gomozikarakyuumozi
   - difficulty: 2
-    questions: []
+    questions:
+    - japanese: "\u4E03\u6587\u5B57\u304B\u3089\u5341\u4E00\u6587\u5B57"
+      roman: nanamozikarajuuitimozi
   - difficulty: 3
-    questions: []
+    questions:
+    - japanese: "\u4E5D\u6587\u5B57\u304B\u3089\u5341\u56DB\u6587\u5B57"
+      roman: kyuumozikarajuuyonmozi
   - difficulty: 4
-    questions: []
+    questions:
+    - japanese: "\u5341\u4E8C\u6587\u5B57\u4EE5\u4E0A"
+      roman: juunimoziijou
   selectedDifficulty: 0
   textJapanese: {fileID: 1591843017}
   textRoman: {fileID: 1505414586}
