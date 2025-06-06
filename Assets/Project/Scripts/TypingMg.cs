@@ -38,8 +38,10 @@ public partial class TypingMg : MonoBehaviour {
     private List<Question> currentQuestions;
     private readonly List<char> _roman = new();
     private int _romanIndex;
+    private int _correctStreak;
     private bool _isWindows;
     private bool _isMac;
+    private bool _isBonus = false;
 
     AudioSource aud;
 
@@ -66,11 +68,22 @@ public partial class TypingMg : MonoBehaviour {
             switch (InputKey(GetCharFromKeyCode(Event.current.keyCode))) {
                 case 1: // 正解タイプ時
                     _romanIndex++;
-                    if (_roman[_romanIndex] == '@') InitializeQuestion(); // 「@」がタイピングの終わりの判定となる。
-                    else textRoman.text = GenerateTextRoman();
+
+                    if (_roman[_romanIndex] == '@') {
+                        InitializeQuestion(); // 「@」がタイピングの終わりの判定となる。
+                        _correctStreak++;
+                        if (_correctStreak == 5) { // ボーナス判定
+                            _isBonus = true;
+                            _correctStreak = 0;
+                            Debug.Log("ボーナス！");
+                        }
+                    } else textRoman.text = GenerateTextRoman();
+
                     aud.PlayOneShot(correct);
                     break;
                 case 2: // ミスタイプ時
+                    _correctStreak = 0;
+                    Debug.Log("リセット");
                     aud.PlayOneShot(wrong);
                     break;
             }
