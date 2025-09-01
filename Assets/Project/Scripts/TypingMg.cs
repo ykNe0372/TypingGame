@@ -34,11 +34,14 @@ public partial class TypingMg : MonoBehaviour {
     [SerializeField] private Difficulty selectedDifficulty;
     [SerializeField] private TextMeshProUGUI textJapanese;
     [SerializeField] private TextMeshProUGUI textRoman;
+    [SerializeField] private TextMeshProUGUI textNext;
 
     private List<Question> currentQuestions;
     private readonly List<char> _roman = new();
     private int _romanIndex;
     private int _correctStreak;
+    // private int _lastQuestionIndex = -1;
+    private int _nextQuestionIndex = -1;
     private bool _isWindows;
     private bool _isMac;
     private bool _isBonus = false;
@@ -92,7 +95,14 @@ public partial class TypingMg : MonoBehaviour {
 
     // 問題切り替え（重複有）
     void InitializeQuestion() {
-        Question question = currentQuestions[UnityEngine.Random.Range(0, currentQuestions.Count)];
+        // 次になる問題文を決定（1つ前の問題文とは重複しない）
+        int questionCount = currentQuestions.Count;
+        int newIndex = (_nextQuestionIndex == -1)
+            ? UnityEngine.Random.Range(0, questionCount) // 最初だけランダム
+            : _nextQuestionIndex;                        // 二回目以降は next から
+
+        // 現在の問題をセット
+        Question question = currentQuestions[newIndex];
         _roman.Clear();
         _romanIndex = 0;
         char[] characters = question.roman.ToCharArray();
@@ -104,6 +114,18 @@ public partial class TypingMg : MonoBehaviour {
         _roman.Add('@');
         textJapanese.text = question.japanese;
         textRoman.text = GenerateTextRoman();
+
+        // 次の問題文を決定（今の問題文とは重複しない）
+        int nextIndex;
+        do {
+            nextIndex = UnityEngine.Random.Range(0, questionCount);
+        } while (questionCount > 1 && nextIndex == newIndex);
+
+        // _lastQuestionIndex = newIndex;
+        _nextQuestionIndex = nextIndex;
+
+        // nextText に次の問題文を格納
+        textNext.text = currentQuestions[_nextQuestionIndex].japanese;
     }
 
     // ローマ字の表示を管理
