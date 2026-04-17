@@ -322,66 +322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correct: {fileID: 8300000, guid: 48a223642a878054190bcc5b3586559b, type: 3}
   wrong: {fileID: 8300000, guid: ece6472ab13aef64993d8e2d2e1269ea, type: 3}
-  allQuestions:
-  - difficulty: 0
-    questions:
-    - japanese: "\u671D"
-      roman: asa
-    - japanese: "\u96E8"
-      roman: ame
-    - japanese: "\u72AC"
-      roman: inu
-    - japanese: "\u99AC"
-      roman: uma
-    - japanese: "\u732B"
-      roman: neko
-    - japanese: "\u30D0\u30E9"
-      roman: bara
-    - japanese: "\u30D5\u30B0"
-      roman: hugu
-    - japanese: "\u30D8\u30D3"
-      roman: hebi
-    - japanese: "\u30A4\u30EB\u30AB"
-      roman: iruka
-    - japanese: "\u30A6\u30B5\u30AE"
-      roman: usagi
-    - japanese: "\u30B2\u30FC\u30E0"
-      roman: ge-mu
-    - japanese: "\u8F9E\u66F8"
-      roman: zisyo
-    - japanese: "\u30BF\u30CC\u30AD"
-      roman: tanuki
-    - japanese: "\u6642\u8A08"
-      roman: tokei
-    - japanese: "\u30B9\u30BF\u30F3\u30D7"
-      roman: sutanpu
-    - japanese: "\u306A\u305E\u306A\u305E"
-      roman: nazonazo
-    - japanese: "\u7D19\u888B"
-      roman: kamibukuro
-    - japanese: "\u65E5\u672C\u8A9E"
-      roman: nihongo
-    - japanese: "\u7D19\u888B"
-      roman: kamibukuro
-    - japanese: "\u306C\u3044\u3050\u308B\u307F"
-      roman: nuigurumi
-  - difficulty: 1
-    questions:
-    - japanese: "\u4E94\u6587\u5B57\u304B\u3089\u4E5D\u6587\u5B57"
-      roman: gomozikarakyuumozi
-  - difficulty: 2
-    questions:
-    - japanese: "\u4E03\u6587\u5B57\u304B\u3089\u5341\u4E00\u6587\u5B57"
-      roman: nanamozikarajuuitimozi
-  - difficulty: 3
-    questions:
-    - japanese: "\u4E5D\u6587\u5B57\u304B\u3089\u5341\u56DB\u6587\u5B57"
-      roman: kyuumozikarajuuyonmozi
-  - difficulty: 4
-    questions:
-    - japanese: "\u5341\u4E8C\u6587\u5B57\u4EE5\u4E0A"
-      roman: juunimoziijou
-  selectedDifficulty: 0
+  _questionJson: {fileID: 4900000, guid: 95bae2d64277b2e4abf5d14e4c3f55a9, type: 3}
   textJapanese: {fileID: 1591843017}
   textRoman: {fileID: 1505414586}
   textNext: {fileID: 1372482466}

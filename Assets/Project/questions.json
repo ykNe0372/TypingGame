@@ -1,0 +1,284 @@
+{
+  "questions": [
+    {
+      "display": "春",
+      "reading": "はる",
+      "rubies": [
+        { "text": "春", "ruby": "はる" }
+      ]
+    },
+    {
+      "display": "夏",
+      "reading": "なつ",
+      "rubies": [
+        { "text": "夏", "ruby": "なつ" }
+      ]
+    },
+    {
+      "display": "秋",
+      "reading": "あき",
+      "rubies": [
+        { "text": "秋", "ruby": "あき" }
+      ]
+    },
+    {
+      "display": "冬",
+      "reading": "ふゆ",
+      "rubies": [
+        { "text": "冬", "ruby": "ふゆ" }
+      ]
+    },
+    {
+      "display": "朝",
+      "reading": "あさ",
+      "rubies": [
+        { "text": "朝", "ruby": "あさ" }
+      ]
+    },
+    {
+      "display": "雨",
+      "reading": "あめ",
+      "rubies": [
+        { "text": "雨", "ruby": "あめ" }
+      ]
+    },
+    {
+      "display": "井戸",
+      "reading": "いど",
+      "rubies": [
+        { "text": "井戸", "ruby": "いど" }
+      ]
+    },
+    {
+      "display": "イヌ",
+      "reading": "いぬ",
+      "rubies": [
+        { "text": "", "ruby": "" }
+      ]
+    },
+    {
+      "display": "ウシ",
+      "reading": "うし",
+      "rubies": [
+        { "text": "", "ruby": "" }
+      ]
+    },
+    {
+      "display": "ウマ",
+      "reading": "うま",
+      "rubies": [
+        { "text": "", "ruby": "" }
+      ]
+    },
+    {
+      "display": "駅",
+      "reading": "えき",
+      "rubies": [
+        { "text": "駅", "ruby": "えき" }
+      ]
+    },
+    {
+      "display": "キク",
+      "reading": "きく",
+      "rubies": [
+        { "text": "", "ruby": "" }
+      ]
+    },
+    {
+      "display": "釘",
+      "reading": "くぎ",
+      "rubies": [
+        { "text": "釘", "ruby": "くぎ" }
+      ]
+    },
+    {
+      "display": "九九",
+      "reading": "くく",
+      "rubies": [
+        { "text": "九九", "ruby": "くく" }
+      ]
+    },
+    {
+      "display": "グミ",
+      "reading": "ぐみ",
+      "rubies": [
+        { "text": "", "ruby": "" }
+      ]
+    },
+    {
+      "display": "ケガ",
+      "reading": "けが",
+      "rubies": [
+        { "text": "", "ruby": "" }
+      ]
+    },
+    {
+      "display": "剣",
+      "reading": "けん",
+      "rubies": [
+        { "text": "剣", "ruby": "けん" }
+      ]
+    },
+    {
+      "display": "腰",
+      "reading": "こし",
+      "rubies": [
+        { "text": "腰", "ruby": "こし" }
+      ]
+    },
+    {
+      "display": "午後",
+      "reading": "ごご",
+      "rubies": [
+        { "text": "午後", "ruby": "ごご" }
+      ]
+    },
+    {
+      "display": "粉",
+      "reading": "こな",
+      "rubies": [
+        { "text": "粉", "ruby": "こな" }
+      ]
+    },
+    {
+      "display": "サメ",
+      "reading": "さめ",
+      "rubies": [
+        { "text": "", "ruby": "" }
+      ]
+    },
+    {
+      "display": "ザル",
+      "reading": "ざる",
+      "rubies": [
+        { "text": "", "ruby": "" }
+      ]
+    },
+    {
+      "display": "指示",
+      "reading": "しじ",
+      "rubies": [
+        { "text": "指示", "ruby": "しじ" }
+      ]
+    },
+    {
+      "display": "シダ",
+      "reading": "しだ",
+      "rubies": [
+        { "text": "", "ruby": "" }
+      ]
+    },
+    {
+      "display": "芝",
+      "reading": "しば",
+      "rubies": [
+        { "text": "芝", "ruby": "しば" }
+      ]
+    },
+    {
+      "display": "寿司",
+      "reading": "すし",
+      "rubies": [
+        { "text": "寿司", "ruby": "すし" }
+      ]
+    },
+    {
+      "display": "砂",
+      "reading": "すな",
+      "rubies": [
+        { "text": "砂", "ruby": "すな" }
+      ]
+    },
+    {
+      "display": "セミ",
+      "reading": "せみ",
+      "rubies": [
+        { "text": "", "ruby": "" }
+      ]
+    },
+    {
+      "display": "線",
+      "reading": "せん",
+      "rubies": [
+        { "text": "線", "ruby": "せん" }
+      ]
+    },
+    {
+      "display": "そば",
+      "reading": "そば",
+      "rubies": [
+        { "text": "", "ruby": "" }
+      ]
+    },
+    {
+      "display": "空",
+      "reading": "そら",
+      "rubies": [
+        { "text": "空", "ruby": "そら" }
+      ]
+    },
+    {
+      "display": "毒",
+      "reading": "どく",
+      "rubies": [
+        { "text": "毒", "ruby": "どく" }
+      ]
+    },
+    {
+      "display": "トラ",
+      "reading": "とら",
+      "rubies": [
+        { "text": "", "ruby": "" }
+      ]
+    },
+    {
+      "display": "ネコ",
+      "reading": "ねこ",
+      "rubies": [
+        { "text": "", "ruby": "" }
+      ]
+    },
+    {
+      "display": "バラ",
+      "reading": "ばら",
+      "rubies": [
+        { "text": "", "ruby": "" }
+      ]
+    },
+    {
+      "display": "フグ",
+      "reading": "ふぐ",
+      "rubies": [
+        { "text": "", "ruby": "" }
+      ]
+    },
+    {
+      "display": "船",
+      "reading": "ふね",
+      "rubies": [
+        { "text": "船", "ruby": "ふね" }
+      ]
+    },
+    {
+      "display": "村",
+      "reading": "むら",
+      "rubies": [
+        { "text": "村", "ruby": "むら" }
+      ]
+    },
+    {
+      "display": "森",
+      "reading": "もり",
+      "rubies": [
+        { "text": "森", "ruby": "もり" }
+      ]
+    },
+    {
+      "display": "紙袋",
+      "reading": "かみぶくろ",
+      "rubies": [
+        { "text": "紙袋", "ruby": "かみぶくろ" }
+      ]
+    }
+  ]
+}

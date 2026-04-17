@@ -8,89 +8,88 @@ using NUnit.Framework.Internal;
 
 [Serializable]
 public class Question {
-    public string japanese;
-    public string roman;
-}
-
-public enum Difficulty {
-    Easy,
-    Normal,
-    Hard,
-    VeryHard,
-    Impossible,
+    public string display;
+    public string reading;
 }
 
 [Serializable]
-public class DifficultyQuestions {
-    public Difficulty difficulty;
-    public List<Question> questions = new();
+public class QuestionList {
+    public List<Question> questions;
 }
 
+
+[RequireComponent(typeof(AudioSource))]
 public partial class TypingMg : MonoBehaviour {
     public AudioClip correct;
     public AudioClip wrong;
 
-    [SerializeField] private List<DifficultyQuestions> allQuestions;
-    [SerializeField] private Difficulty selectedDifficulty;
+    [SerializeField] private TextAsset _questionJson;
     [SerializeField] private TextMeshProUGUI textJapanese;
     [SerializeField] private TextMeshProUGUI textRoman;
     [SerializeField] private TextMeshProUGUI textNext;
 
+    private TypingInput _input = new();
     private List<Question> currentQuestions;
     private readonly List<char> _roman = new();
     private int _romanIndex;
     private int _correctStreak;
-    // private int _lastQuestionIndex = -1;
     private int _nextQuestionIndex = -1;
-    private bool _isWindows;
-    private bool _isMac;
-    private bool _isBonus = false;
+    // private bool _isBonus = false;
 
     AudioSource aud;
 
     private void Start() {
         aud = GetComponent<AudioSource>();
-        currentQuestions = allQuestions.Find(dq => dq.difficulty == selectedDifficulty)?.questions;
+        LoadQuestionsFromJson();
         if (currentQuestions == null || currentQuestions.Count == 0) {
-            Debug.LogError("選択した難易度の問題がありません。");
+            Debug.LogError("タイピング問題が存在しません。");
             return;
         }
-
         InitializeQuestion();
+    }
 
-        if (SystemInfo.operatingSystem.Contains("Windows")) {
-            _isWindows = true;
+    void LoadQuestionsFromJson() {
+        if (_questionJson == null) {
+            Debug.LogError("JSONファイルが設定されていません。");
+            return;
         }
-        if (SystemInfo.operatingSystem.Contains("Mac")) {
-            _isMac = true;
+        QuestionList data = JsonUtility.FromJson<QuestionList>(_questionJson.text);
+        if (data == null || data.questions == null) {
+            Debug.LogError("JSONファイルの読み込みに失敗しました。");
+            return;
         }
+        currentQuestions = data.questions;
     }
 
     private void OnGUI() {
-        if (Event.current.type == EventType.KeyDown) {
-            switch (InputKey(GetCharFromKeyCode(Event.current.keyCode))) {
-                case 1: // 正解タイプ時
-                    _romanIndex++;
+        if (Event.current.type != EventType.KeyDown) return;
 
-                    if (_roman[_romanIndex] == '@') {
-                        InitializeQuestion(); // 「@」がタイピングの終わりの判定となる。
-                        _correctStreak++;
-                        if (_correctStreak == 5) { // ボーナス判定
-                            _isBonus = true;
-                            _correctStreak = 0;
-                            Debug.Log("ボーナス！");
-                        }
-                    } else textRoman.text = GenerateTextRoman();
+        char inputChar = TypingInputUtility.GetCharFromKeyCode(Event.current.keyCode);
+        if (inputChar == '\0') return;
 
-                    aud.PlayOneShot(correct);
-                    break;
-                case 2: // ミスタイプ時
+        int result = _input.Input(inputChar);
+        switch (result) {
+            case 1: // 正解タイプ時
+                ++_romanIndex;
+                textRoman.text = GenerateTextRoman();
+                aud.PlayOneShot(correct);
+                break;
+            case 2: // タイプ完了時
+                InitializeQuestion();
+                ++_correctStreak;
+                if (_correctStreak == 5) {
+                    // _isBonus = true;
                     _correctStreak = 0;
-                    Debug.Log("リセット");
-                    aud.PlayOneShot(wrong);
-                    break;
-            }
+                    Debug.Log("ボーナス！");
+                }
+                break;
+            case 0:
+                _correctStreak = 0;
+                Debug.Log("リセット");
+                aud.PlayOneShot(wrong);
+                break;
         }
+
     }
 
     // 問題切り替え（重複有）
@@ -103,16 +102,16 @@ public partial class TypingMg : MonoBehaviour {
 
         // 現在の問題をセット
         Question question = currentQuestions[newIndex];
+        var candidates = RomajiConverter.Convert(question.reading);
+        _input.SetCandidates(candidates);
+
+        string displayRoman = candidates[0];
         _roman.Clear();
         _romanIndex = 0;
-        char[] characters = question.roman.ToCharArray();
-
-        foreach (char character in characters) {
-            _roman.Add(character);
-        }
-
+        foreach (char c in displayRoman) _roman.Add(c);
         _roman.Add('@');
-        textJapanese.text = question.japanese;
+
+        textJapanese.text = question.display;
         textRoman.text = GenerateTextRoman();
 
         // 次の問題文を決定（今の問題文とは重複しない）
@@ -125,17 +124,20 @@ public partial class TypingMg : MonoBehaviour {
         _nextQuestionIndex = nextIndex;
 
         // nextText に次の問題文を格納
-        textNext.text = currentQuestions[_nextQuestionIndex].japanese;
+        textNext.text = currentQuestions[_nextQuestionIndex].display;
     }
 
     // ローマ字の表示を管理
     string GenerateTextRoman() {
         string text = "<style=typed>";
-        for (int i = 0; i < _roman.Count; i++) {
-            if (_roman[i] == '@') break;
-            if (i == _romanIndex) text += "</style><style=untyped>";
-            text += _roman[i];
-        }
+        string current = _input.GetCurrent();
+        string candidate = _input.GetCurrentCandidate();
+        text += current;
+
+        int index = _input.GetCurrent().Length;
+
+        text += "</style><style=untyped>";
+        text += candidate.Substring(current.Length);
         text += "</style>";
         return text;
     }
