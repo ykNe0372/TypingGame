@@ -11,6 +11,7 @@ using UnityEngine.InputSystem;
 public class Question {
     public string display;
     public string reading;
+    public string ruby;
 }
 
 [Serializable]
@@ -26,6 +27,7 @@ public partial class TypingMg : MonoBehaviour {
 
     [SerializeField] private TextAsset _questionJson;
     [SerializeField] private TextMeshProUGUI textJapanese;
+    [SerializeField] private TextMeshProUGUI textRuby;
     [SerializeField] private TextMeshProUGUI textRoman;
     [SerializeField] private TextMeshProUGUI textNext;
 
@@ -35,6 +37,7 @@ public partial class TypingMg : MonoBehaviour {
     private int _romanIndex;
     private int _correctStreak;
     private int _nextQuestionIndex = -1;
+    private bool _isRubyEnabled = true;
     // private bool _isBonus = false;
 
     AudioSource aud;
@@ -117,6 +120,8 @@ public partial class TypingMg : MonoBehaviour {
 
         textJapanese.text = question.display;
         textRoman.text = GenerateTextRoman();
+        if (_isRubyEnabled) textRuby.text = question.reading;
+        else textRuby.text = "";
 
         // 次の問題文を決定（今の問題文とは重複しない）
         int nextIndex;
@@ -136,12 +141,10 @@ public partial class TypingMg : MonoBehaviour {
         string text = "<style=typed>";
         string current = _input.GetCurrent();
         string candidate = _input.GetCurrentCandidate();
+
         text += current;
-
-        int index = _input.GetCurrent().Length;
-
         text += "</style><style=untyped>";
-        text += candidate.Substring(current.Length);
+        text += candidate[current.Length..];
         text += "</style>";
         return text;
     }
