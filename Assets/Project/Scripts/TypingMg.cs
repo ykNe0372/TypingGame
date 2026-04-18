@@ -32,7 +32,8 @@ public partial class TypingMg : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI textNext;
 
     private TypingInput _input = new();
-    private List<Question> currentQuestions;
+    private List<Question> _currentQuestions;
+    private Question _currentQuestion;
     private readonly List<char> _roman = new();
     private int _romanIndex;
     private int _correctStreak;
@@ -45,7 +46,7 @@ public partial class TypingMg : MonoBehaviour {
     private void Start() {
         aud = GetComponent<AudioSource>();
         LoadQuestionsFromJson();
-        if (currentQuestions == null || currentQuestions.Count == 0) {
+        if (_currentQuestions == null || _currentQuestions.Count == 0) {
             Debug.LogError("タイピング問題が存在しません。");
             return;
         }
@@ -96,19 +97,21 @@ public partial class TypingMg : MonoBehaviour {
             Debug.LogError("JSONファイルの読み込みに失敗しました。");
             return;
         }
-        currentQuestions = data.questions;
+        _currentQuestions = data.questions;
     }
 
     // 問題切り替え（重複有）
     void InitializeQuestion() {
         // 次になる問題文を決定（1つ前の問題文とは重複しない）
-        int questionCount = currentQuestions.Count;
+        int questionCount = _currentQuestions.Count;
         int newIndex = (_nextQuestionIndex == -1)
             ? UnityEngine.Random.Range(0, questionCount) // 最初だけランダム
             : _nextQuestionIndex;                        // 二回目以降は next から
 
         // 現在の問題をセット
-        Question question = currentQuestions[newIndex];
+        _currentQuestion = _currentQuestions[newIndex];
+        Question question = _currentQuestion;
+
         var candidates = RomajiConverter.Convert(question.reading);
         _input.SetCandidates(candidates);
 
@@ -118,10 +121,7 @@ public partial class TypingMg : MonoBehaviour {
         foreach (char c in displayRoman) _roman.Add(c);
         _roman.Add('@');
 
-        textJapanese.text = question.display;
-        textRoman.text = GenerateTextRoman();
-        if (_isRubyEnabled) textRuby.text = question.reading;
-        else textRuby.text = "";
+        ApplyText();
 
         // 次の問題文を決定（今の問題文とは重複しない）
         int nextIndex;
@@ -133,7 +133,15 @@ public partial class TypingMg : MonoBehaviour {
         _nextQuestionIndex = nextIndex;
 
         // nextText に次の問題文を格納
-        textNext.text = currentQuestions[_nextQuestionIndex].display;
+        textNext.text = _currentQuestions[_nextQuestionIndex].display;
+    }
+
+    private void ApplyText() {
+        if (_currentQuestion == null) return;
+        textJapanese.text = _currentQuestion.display;
+        textRoman.text = GenerateTextRoman();
+        if (_isRubyEnabled) textRuby.text = _currentQuestion.reading;
+        else textRuby.text = "";
     }
 
     // ローマ字の表示を管理
@@ -147,5 +155,25 @@ public partial class TypingMg : MonoBehaviour {
         text += candidate[current.Length..];
         text += "</style>";
         return text;
+    }
+
+    // ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭  DEBUG MODE  ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭
+
+    public void Debug_NextQuestion() {
+        InitializeQuestion();
+        Debug.Log($"[DEBUG] Next Question");
+    }
+
+    public void Debug_ForceBonus() {
+        InitializeQuestion();
+        // _isBonus = true;
+        _correctStreak = 0;
+        Debug.Log($"[DEBUG] Bonus");
+    }
+
+    public void Debug_ToggleRuby() {
+        _isRubyEnabled = !_isRubyEnabled;
+        ApplyText();
+        Debug.Log($"[DEBUG] Toggle Ruby");
     }
 }
