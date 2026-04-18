@@ -49,5 +49,8 @@ public static class RomajiDictionary {
         { "きゃ", new[]{ "kya","kixya","kilya" } }, { "きゅ", new[]{ "kyu","kixyu","kilyu" } }, { "きょ", new[]{ "kyo","kixyo","kilyo" } },
         { "しゃ", new[]{ "sha","sya","cixya","cilya","sixya","shixya","silya","shilya" } }, { "しゅ", new[]{ "shu","syu","cixyu","cilyu","sixyu","shixyu","silyu","shilyu" } }, { "しょ", new[]{ "sho","syo","cixyo","cilyo","sixyo","shixyo","silyo","shilyo" } },
         { "ちゃ", new[]{ "cha","tya","cya","tixya", "chixya" } }, { "ちゅ", new[]{ "chu","tyu","cyu","tixyu", "chixyu" } }, { "ちょ", new[]{ "cho","tyo","cyo","tixyo", "chixyo" } },
+
+        // 記号
+        { "ー", new[]{ "-" } }, { "！", new[]{ "!" } }, { "？", new[]{ "?" } }, { "。", new[]{ "." } }, { "、", new[]{ "," } },
     };
 }

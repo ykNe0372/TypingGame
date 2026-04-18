@@ -4,13 +4,26 @@ using System.Linq;
 public static class RomajiConverter {
     public static List<string> Convert(string kana) {
         var tokens = KanaParser.Parse(kana);
+        var lists = new List<List<string>>();
 
-        // 各トークンの候補を取得
-        var lists = tokens
-            .Select(t => RomajiDictionary.Map.ContainsKey(t)
-                ? RomajiDictionary.Map[t]
-                : new[] { t }) // 未定義はそのまま
-            .ToList();
+        for (int i=0; i<tokens.Count; ++i) {
+            string token = tokens[i];
+            if (token == "ん") {
+                if (i == tokens.Count - 1) lists.Add(new List<string> { "n", "xn" });
+                else {
+                    string next = tokens[i+1];
+                    if (RomajiDictionary.Map.TryGetValue(next, out var nextRomajis)) {
+                        char head = nextRomajis[0][0];
+                        if ("aiueoy".Contains(head)) lists.Add(new List<string> { "nn", "xn" });
+                        else lists.Add(new List<string> {"n", "nn", "xn" });
+                    } else lists.Add(new List<string> { "n" });
+                }
+            continue;
+            }
+
+            if (RomajiDictionary.Map.TryGetValue(token, out var romajis)) lists.Add(romajis.ToList());
+            else lists.Add(new List<string> { token });
+        }
 
         // 直積で全候補生成
         List<string> results = new() {""};

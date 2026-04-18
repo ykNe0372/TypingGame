@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using NUnit.Framework.Internal;
+using UnityEngine.InputSystem;
 
 [Serializable]
 public class Question {
@@ -48,26 +49,17 @@ public partial class TypingMg : MonoBehaviour {
         InitializeQuestion();
     }
 
-    void LoadQuestionsFromJson() {
-        if (_questionJson == null) {
-            Debug.LogError("JSONファイルが設定されていません。");
-            return;
-        }
-        QuestionList data = JsonUtility.FromJson<QuestionList>(_questionJson.text);
-        if (data == null || data.questions == null) {
-            Debug.LogError("JSONファイルの読み込みに失敗しました。");
-            return;
-        }
-        currentQuestions = data.questions;
+    private void OnEnable() {
+        Keyboard.current.onTextInput += OnTextInput;
     }
 
-    private void OnGUI() {
-        if (Event.current.type != EventType.KeyDown) return;
+    private void OnDisable() {
+        Keyboard.current.onTextInput -= OnTextInput;
+    }
 
-        char inputChar = TypingInputUtility.GetCharFromKeyCode(Event.current.keyCode);
-        if (inputChar == '\0') return;
+    private void OnTextInput(char c) {
+        int result = _input.Input(c);
 
-        int result = _input.Input(inputChar);
         switch (result) {
             case 1: // 正解タイプ時
                 ++_romanIndex;
@@ -89,7 +81,19 @@ public partial class TypingMg : MonoBehaviour {
                 aud.PlayOneShot(wrong);
                 break;
         }
+    }
 
+    void LoadQuestionsFromJson() {
+        if (_questionJson == null) {
+            Debug.LogError("JSONファイルが設定されていません。");
+            return;
+        }
+        QuestionList data = JsonUtility.FromJson<QuestionList>(_questionJson.text);
+        if (data == null || data.questions == null) {
+            Debug.LogError("JSONファイルの読み込みに失敗しました。");
+            return;
+        }
+        currentQuestions = data.questions;
     }
 
     // 問題切り替え（重複有）

@@ -274,6 +274,48 @@
       ]
     },
     {
+      "display": "カッパ",
+      "reading": "かっぱ",
+      "rubies": [
+        { "text": "", "ruby": "" }
+      ]
+    },
+    {
+      "display": "フッ素",
+      "reading": "ふっそ",
+      "rubies": [
+        { "text": "素", "ruby": "そ" }
+      ]
+    },
+    {
+      "display": "心意",
+      "reading": "しんい",
+      "rubies": [
+        { "text": "心意", "ruby": "しんい" }
+      ]
+    },
+    {
+      "display": "はんだ",
+      "reading": "はんだ",
+      "rubies": [
+        { "text": "", "ruby": "" }
+      ]
+    },
+    {
+      "display": "ぬーん",
+      "reading": "ぬーん",
+      "rubies": [
+        { "text": "", "ruby": "" }
+      ]
+    },
+    {
+      "display": "！！？？、、。。",
+      "reading": "！！？？、、。。",
+      "rubies": [
+        { "text": "", "ruby": "" }
+      ]
+    },
+    {
       "display": "紙袋",
       "reading": "かみぶくろ",
       "rubies": [
