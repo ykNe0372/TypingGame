@@ -30,9 +30,12 @@ public partial class TypingMg : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI textRuby;
     [SerializeField] private TextMeshProUGUI textRoman;
     [SerializeField] private TextMeshProUGUI textNext;
+    [SerializeField] private int _minLength = 1;
+    [SerializeField] private int _maxLength = 15;
 
     private TypingInput _input = new();
     private List<Question> _currentQuestions;
+    private List<Question> _filteredQuestions = new();
     private Question _currentQuestion;
     private readonly List<char> _roman = new();
     private int _romanIndex;
@@ -100,16 +103,42 @@ public partial class TypingMg : MonoBehaviour {
         _currentQuestions = data.questions;
     }
 
+    void FilterQuestions() {
+        _filteredQuestions.Clear();
+        foreach (var q in _currentQuestions) {
+            int len = q.reading?.Length ?? 0;
+            if (len >= _minLength && len <= _maxLength) {
+                _filteredQuestions.Add(q);
+            }
+        }
+        if (_filteredQuestions.Count == 0) Debug.LogWarning($"該当する問題無し（条件: {_minLength}-{_maxLength}）");
+    }
+
+    public void SetLengthRange(int min, int max) {
+        if (min > max) {
+            (min, max) = (max, min);
+        }
+        _minLength = Mathf.Max(1, min);
+        _maxLength = Mathf.Max(_minLength, max);
+
+        Debug.Log($"[DEBUG] minLength: {_minLength}, maxLength: {_maxLength}");
+
+        _nextQuestionIndex = -1;
+        InitializeQuestion();
+    }
+
     // 問題切り替え（重複有）
     void InitializeQuestion() {
+        FilterQuestions();
+
         // 次になる問題文を決定（1つ前の問題文とは重複しない）
-        int questionCount = _currentQuestions.Count;
+        int questionCount = _filteredQuestions.Count;
         int newIndex = (_nextQuestionIndex == -1)
             ? UnityEngine.Random.Range(0, questionCount) // 最初だけランダム
             : _nextQuestionIndex;                        // 二回目以降は next から
 
         // 現在の問題をセット
-        _currentQuestion = _currentQuestions[newIndex];
+        _currentQuestion = _filteredQuestions[newIndex];
         Question question = _currentQuestion;
 
         var candidates = RomajiConverter.Convert(question.reading);
