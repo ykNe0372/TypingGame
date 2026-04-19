@@ -1,0 +1,208 @@
+{
+  "questions": [
+    {
+      "display": "春",
+      "reading": "はる"
+    },
+    {
+      "display": "夏",
+      "reading": "なつ"
+    },
+    {
+      "display": "秋",
+      "reading": "あき"
+    },
+    {
+      "display": "冬",
+      "reading": "ふゆ"
+    },
+    {
+      "display": "朝",
+      "reading": "あさ"
+    },
+    {
+      "display": "雨",
+      "reading": "あめ"
+    },
+    {
+      "display": "井戸",
+      "reading": "いど"
+    },
+    {
+      "display": "イヌ",
+      "reading": "いぬ"
+    },
+    {
+      "display": "ウシ",
+      "reading": "うし"
+    },
+    {
+      "display": "ウマ",
+      "reading": "うま"
+    },
+    {
+      "display": "駅",
+      "reading": "えき"
+    },
+    {
+      "display": "キク",
+      "reading": "きく"
+    },
+    {
+      "display": "釘",
+      "reading": "くぎ"
+    },
+    {
+      "display": "九九",
+      "reading": "くく"
+    },
+    {
+      "display": "グミ",
+      "reading": "ぐみ"
+    },
+    {
+      "display": "ケガ",
+      "reading": "けが"
+    },
+    {
+      "display": "剣",
+      "reading": "けん"
+    },
+    {
+      "display": "腰",
+      "reading": "こし"
+    },
+    {
+      "display": "午後",
+      "reading": "ごご"
+    },
+    {
+      "display": "粉",
+      "reading": "こな"
+    },
+    {
+      "display": "サメ",
+      "reading": "さめ"
+    },
+    {
+      "display": "ザル",
+      "reading": "ざる"
+    },
+    {
+      "display": "指示",
+      "reading": "しじ"
+    },
+    {
+      "display": "シダ",
+      "reading": "しだ"
+    },
+    {
+      "display": "芝",
+      "reading": "しば"
+    },
+    {
+      "display": "寿司",
+      "reading": "すし"
+    },
+    {
+      "display": "砂",
+      "reading": "すな"
+    },
+    {
+      "display": "セミ",
+      "reading": "せみ"
+    },
+    {
+      "display": "線",
+      "reading": "せん"
+    },
+    {
+      "display": "そば",
+      "reading": "そば"
+    },
+    {
+      "display": "空",
+      "reading": "そら"
+    },
+    {
+      "display": "タカ",
+      "reading": "たか"
+    },
+    {
+      "display": "出汁",
+      "reading": "だし"
+    },
+    {
+      "display": "タラ",
+      "reading": "たら"
+    },
+    {
+      "display": "地下",
+      "reading": "ちか"
+    },
+    {
+      "display": "地図",
+      "reading": "ちず"
+    },
+    {
+      "display": "毒",
+      "reading": "どく"
+    },
+    {
+      "display": "トラ",
+      "reading": "とら"
+    },
+    {
+      "display": "ネコ",
+      "reading": "ねこ"
+    },
+    {
+      "display": "バラ",
+      "reading": "ばら"
+    },
+    {
+      "display": "フグ",
+      "reading": "ふぐ"
+    },
+    {
+      "display": "船",
+      "reading": "ふね"
+    },
+    {
+      "display": "村",
+      "reading": "むら"
+    },
+    {
+      "display": "森",
+      "reading": "もり"
+    },
+    {
+      "display": "カッパ",
+      "reading": "かっぱ"
+    },
+    {
+      "display": "フッ素",
+      "reading": "ふっそ"
+    },
+    {
+      "display": "はんだ",
+      "reading": "はんだ"
+    },
+    {
+      "display": "ぬーん",
+      "reading": "ぬーん"
+    },
+    {
+      "display": "雰囲気",
+      "reading": "ふんいき"
+    },
+    {
+      "display": "紙袋",
+      "reading": "かみぶくろ"
+    },
+    {
+      "display": "鬼の居ぬ間に洗濯",
+      "reading": "おにのいぬまにせんたく"
+    }
+  ]
+}
