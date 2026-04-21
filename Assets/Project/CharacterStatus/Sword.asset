@@ -12,4 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acfa1c3f216d7495ebdb8f0619900937, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
-  _status: []
+  _status:
+  - statusType: 0
+    value: 100
+  - statusType: 1
+    value: 10
+  - statusType: 2
+    value: 5
+  - statusType: 3
+    value: 5
+  - statusType: 4
+    value: 10
+  - statusType: 5
+    value: 5
+  - statusType: 6
+    value: 5
+  - statusType: 7
+    value: 5
+  - statusType: 8
+    value: 50
+  - statusType: 9
+    value: 5
+  - statusType: 10
+    value: 5
