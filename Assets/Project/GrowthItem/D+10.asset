@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b1e30fa6e91248c9ac4293fa6eb15be, type: 3}
-  m_Name: MAup
+  m_Script: {fileID: 11500000, guid: a2d26a96df8e14f4ea61e919466b78eb, type: 3}
+  m_Name: D+10
   m_EditorClassIdentifier: 
-  _modifiers:
-  - statusType: 3
-    value: 5
+  _status:
+  - statusType: 4
+    value: 10

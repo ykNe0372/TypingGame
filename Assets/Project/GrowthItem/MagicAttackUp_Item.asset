@@ -10,8 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b1e30fa6e91248c9ac4293fa6eb15be, type: 3}
-  m_Name: PAup
+  m_Name: MagicAttackUp_Item
   m_EditorClassIdentifier: 
-  _modifiers:
-  - statusType: 2
-    value: 3
+  _effects:
+  - {fileID: 11400000, guid: c61d0ba0cae7443838124b7be0d83e16, type: 2}
