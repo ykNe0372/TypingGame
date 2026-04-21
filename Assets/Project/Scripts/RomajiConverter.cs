@@ -28,6 +28,8 @@ public static class RomajiConverter {
                         // フォールバック
                         patterns.Add("xtu");
                         patterns.Add("ltu");
+                        patterns.Add("xtsu");
+                        patterns.Add("ltsu");
                     }
 
                     lists.Add(patterns.Distinct().ToList());
