@@ -7,9 +7,17 @@ public class Character : MonoBehaviour {
 
     private List<Effect> _passiveEffects = new();
     private List<OnAttackEffect> _attackEffects = new();
+    private int _currentHP;
+
+    public int MaxHP => GetFinalStatus(StatusType.MaxHP);
 
     private void Awake() {
         BuildEffectList();
+        InitializeHP();
+    }
+
+    public void InitializeHP() {
+        _currentHP = MaxHP;
     }
 
     private void BuildEffectList() {
@@ -51,9 +59,9 @@ public class Character : MonoBehaviour {
 
     // ダメージ適応（仮）
     public void TakeDamage(int damage) {
-        int _currentHP = GetFinalStatus(StatusType.MaxHP);
         _currentHP -= damage;
-        Debug.Log($"{name} 残りHP: {_currentHP}");
+        _currentHP = Mathf.Max(0, _currentHP);
+        Debug.Log($"{name} HP: {_currentHP}/{MaxHP}");
     }
     
     public void TriggerAttack(AttackContext ctx) {
