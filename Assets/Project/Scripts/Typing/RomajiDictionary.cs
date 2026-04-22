@@ -46,9 +46,24 @@ public static class RomajiDictionary {
         { "ん", new[]{ "n","nn","xn" } },
 
         // 拗音
+        { "うぁ", new[]{ "wha","uxa","ula" } }, { "うぃ", new[]{ "whi","uxi","uli" } }, { "うぇ", new[]{ "whe","uxe","ule" } }, { "うぉ", new[]{ "who","uxo","ulo" } },
+
         { "きゃ", new[]{ "kya","kixya","kilya" } }, { "きゅ", new[]{ "kyu","kixyu","kilyu" } }, { "きょ", new[]{ "kyo","kixyo","kilyo" } },
+        { "ぎゃ", new[]{ "gya","gixya","gilya" } }, { "ぎゅ", new[]{ "gyu","gixyu","gilyu" } }, { "ぎょ", new[]{ "gyo","gixyo","gilyo" } },
+        { "くゃ", new[]{ "qya","kuxya","cuxya","kulya","culya" } }, { "くゅ", new[]{ "qyu","kuxyu","cuxyu","kulyu","culyu" } }, { "くょ", new[]{ "qyo","kuxyo","cuxyo","kulyo","culyo" } },
+        { "くぁ", new[]{ "qa","qwa","kuxa","cuxa","kula","cula" } }, { "くぇ", new[]{ "qe","qwe","kuxe","cuxe","kule","cule","kuxye","cuxye","quxye" } }, { "くぉ", new[]{ "qo","qwo","kuxo","cuxo","kulo","culo" } },
+
         { "しゃ", new[]{ "sha","sya","cixya","cilya","sixya","shixya","silya","shilya" } }, { "しゅ", new[]{ "shu","syu","cixyu","cilyu","sixyu","shixyu","silyu","shilyu" } }, { "しょ", new[]{ "sho","syo","cixyo","cilyo","sixyo","shixyo","silyo","shilyo" } },
+        { "じゃ", new[]{ "ja","zya","jixya","jilya","zixya","zilya" } }, { "じゅ", new[]{ "ju","zyu","jixyu","jilyu","zixyu","zilyu" } }, { "じょ", new[]{ "jo","zyo","jixyo","jilyo","zixyo","zilyo" } },
+
         { "ちゃ", new[]{ "cha","tya","cya","tixya", "chixya" } }, { "ちゅ", new[]{ "chu","tyu","cyu","tixyu", "chixyu" } }, { "ちょ", new[]{ "cho","tyo","cyo","tixyo", "chixyo" } },
+        { "つぁ", new[]{ "tsa","tuxa","tsuxa","tula","tsula" } }, { "つぃ", new[]{ "tsi","tuxi","tsuxi","tuli","tsuli" } }, { "つぇ", new[]{ "tse","tuxe","tsuxe","tule","tsule" } }, { "つぉ", new[]{ "tso","tuxo","tsuxo","tulo","tsulo" } },
+        { "てゃ", new[]{ "tha","texya","telya" } }, { "てぃ", new[]{ "thi","texi","teli" } }, { "てゅ", new[]{ "thu","texyu","telyu" } }, { "てぇ", new[]{ "the","texe","tele" } }, { "てょ", new[]{ "tho","texyo","telyo" } },
+        { "でゃ", new[]{ "dha","dexya","delya" } }, { "でぃ", new[]{ "dhi","dexi","deli" } }, { "でゅ", new[]{ "dhu","dexyu","delyu" } }, { "でぇ", new[]{ "dhe","dexe","dele" } }, { "でょ", new[]{ "dho","dexyo","delyo" } },
+        { "とぁ", new[]{ "twa","toxa","tola" } }, { "とぃ", new[]{ "twi","toxi","toli" } }, { "とぅ", new[]{ "twu","toxu","tolu" } }, { "とぇ", new[]{ "twe","toxe","tole" } }, { "とぉ", new[]{ "two","toxo","tolo" } },
+        { "どぁ", new[]{ "dwa","doxa","dola" } }, { "どぃ", new[]{ "dwi","doxi","doli" } }, { "どぅ", new[]{ "dwu","doxu","dolu" } }, { "どぇ", new[]{ "dwe","doxe","dole" } }, { "どぉ", new[]{ "dwo","doxo","dolo" } },
+
+        { "ふぁ", new[]{ "fa","fwa","huxa","fuxa","hula","fula" } }, { "ふぃ", new[]{ "fi","fwi","huxi","fuxi","huli","fuli" } }, { "ふぇ", new[]{ "fe","fwe","huxe","fuxe","hule","fule" } }, { "ふぉ", new[]{ "fo","fwo","huxo","fuxo","hulo","fulo" } },
 
         // 記号
         { "ー", new[]{ "-" } }, { "！", new[]{ "!" } }, { "？", new[]{ "?" } }, { "。", new[]{ "." } }, { "、", new[]{ "," } },

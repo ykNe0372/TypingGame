@@ -33,6 +33,8 @@ public partial class TypingMg : MonoBehaviour {
     [SerializeField] private int _minLength = 1;
     [SerializeField] private int _maxLength = 15;
 
+    [SerializeField] private CombatSystem _combatSystem;
+
     private TypingInput _input = new();
     private List<Question> _currentQuestions;
     private List<Question> _filteredQuestions = new();
@@ -75,6 +77,7 @@ public partial class TypingMg : MonoBehaviour {
                 break;
             case 2: // タイプ完了時
                 InitializeQuestion();
+                _combatSystem.RequestAttack();
                 ++_correctStreak;
                 if (_correctStreak == 5) {
                     // _isBonus = true;
