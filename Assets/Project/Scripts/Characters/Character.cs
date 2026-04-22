@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Character : MonoBehaviour {
-    [SerializeField] private CharacterBaseStatus _baseStatus;
-    [SerializeField] private List<GrowthItem> _items = new();
+    [SerializeField] private CharacterBaseStatus _baseStatus;   // 基礎ステータス
+    [SerializeField] private List<GrowthItem> _items = new();   // 強化アイテム
 
-    private List<Effect> _passiveEffects = new();
-    private List<OnAttackEffect> _attackEffects = new();
+    private List<Effect> _passiveEffects = new();     // ステータス変更系
+    private List<OnAttackEffect> _attackEffects = new();    // 攻撃変更（連撃）系
     private int _currentHP;
 
     public int MaxHP => GetFinalStatus(StatusType.MaxHP);
@@ -20,6 +20,7 @@ public class Character : MonoBehaviour {
         _currentHP = MaxHP;
     }
 
+    // 強化アイテム一覧
     private void BuildEffectList() {
         _passiveEffects.Clear();
         _attackEffects.Clear();

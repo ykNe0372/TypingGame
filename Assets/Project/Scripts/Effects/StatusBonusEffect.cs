@@ -12,6 +12,7 @@ public class StatusBonusEffect : Effect {
 
     [SerializeField] private List<StatusEntry> _status = new();
 
+    // 強化アイテムによるステータス変更を反映
     public override int GetStatusBonus(StatusType type) {
         int total = 0;
 
