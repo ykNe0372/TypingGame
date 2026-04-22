@@ -5,5 +5,8 @@ public abstract class Effect : ScriptableObject {
         return 0;
     }
     
-    // public virtual void OnAttack(CharacterContext context) { }
+    public virtual void OnAttack(AttackContext ctx) {
+        Debug.Log("OnAttack called");
+        Debug.Log($"Target Count: {ctx.Targets.Count}");
+    }
 }
