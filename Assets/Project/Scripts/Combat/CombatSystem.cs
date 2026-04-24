@@ -7,15 +7,15 @@ public class CombatSystem : MonoBehaviour {
 
     public void RequestAttack() {
         if (!CanAttack()) return;
-        ExecuteAttack();
+        RequestPlayerAttack();
     }
 
+    // スタン・クールタイムなどなど攻撃不可のタイミングが出てきたとき用
     private bool CanAttack() {
-        // スタン・クールタイムなどなど攻撃不可のタイミングが出てきたとき用
         return true;
     }
 
-    private void ExecuteAttack() {
+    private void RequestPlayerAttack() {
         var ctx = new AttackContext {
             Attacker = _player,
             Targets = GetTargets()

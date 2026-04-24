@@ -5,6 +5,7 @@ public abstract class Effect : ScriptableObject {
         return 0;
     }
 
-    // override 前提の設計
+    // 中間層でこの処理を override して設計する
     public virtual void OnAttack(AttackContext ctx) {}
+    public virtual void OnDamage(DamageContext ctx) {}
 }

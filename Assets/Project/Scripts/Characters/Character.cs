@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,8 +6,9 @@ public class Character : MonoBehaviour {
     [SerializeField] private CharacterBaseStatus _baseStatus;   // 基礎ステータス
     [SerializeField] private List<GrowthItem> _items = new();   // 強化アイテム
 
-    private List<Effect> _passiveEffects = new();     // ステータス変更系
+    private List<Effect> _passiveEffects = new();           // ステータス変更系
     private List<OnAttackEffect> _attackEffects = new();    // 攻撃変更（連撃）系
+    private List<OnDamageEffect> _damageEffects = new();    // ダメージ計算
     private int _currentHP;
 
     public int MaxHP => GetFinalStatus(StatusType.MaxHP);
@@ -28,6 +30,7 @@ public class Character : MonoBehaviour {
         foreach (var item in _items) {
             foreach (var effect in item.GetEffects()) {
                 if (effect is OnAttackEffect attackEffect) _attackEffects.Add(attackEffect);
+                else if (effect is OnDamageEffect damageEffect) _damageEffects.Add(damageEffect);
                 else _passiveEffects.Add(effect);
             }
         }
@@ -43,25 +46,24 @@ public class Character : MonoBehaviour {
 
     private void ExecuteAttack(AttackContext ctx) {
         foreach (var target in ctx.Targets) {
-            int damage = CalculateDamage(target);
-            target.TakeDamage(damage);
-            Debug.Log($"{name} → {target.name} に {damage} ダメージ");
+            var dmgCtx = new DamageContext {
+                Attacker = this,
+                Target = target,
+                BaseDamage = DamageCalculator.Calculate(this, target) // 基礎ダメージ計算
+            };
+            dmgCtx.FinalDamage = dmgCtx.BaseDamage;
+            target.TakeDamage(dmgCtx);   // 被弾処理
         }
     }
 
-    // ダメージ計算（仮）
-    private int CalculateDamage(Character target) {
-        int atk = GetFinalStatus(StatusType.PhysicalAttack);
-        int def = target.GetFinalStatus(StatusType.Defense);
-        
-        int damage = Mathf.Max(1, atk - def);
-        return damage;
-    }
-
     // ダメージ適応（仮）
-    public void TakeDamage(int damage) {
+    public void TakeDamage(DamageContext ctx) {
+        foreach (var effect in _damageEffects) effect.OnDamage(ctx);
+        int damage = Mathf.Max(0, ctx.FinalDamage);
+
         _currentHP -= damage;
         _currentHP = Mathf.Max(0, _currentHP);
+    
         Debug.Log($"{name} HP: {_currentHP}/{MaxHP}");
     }
     
