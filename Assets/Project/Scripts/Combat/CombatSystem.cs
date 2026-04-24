@@ -23,6 +23,16 @@ public class CombatSystem : MonoBehaviour {
         _player.TriggerAttack(ctx);
     }
 
+    public void RequestEnemyAttack(Character enemy) {
+        if (!CanAttack()) return;
+
+        var ctx = new AttackContext {
+            Attacker = enemy,
+            Targets = new List<Character> { _player }   // 分身を用意した時に使うかも
+        };
+        enemy.TriggerAttack(ctx);
+    }
+
     private List<Character> GetTargets() {
         // 取り敢えず今は敵全体が攻撃対象
         return _enemies;
