@@ -34,7 +34,13 @@ public class CombatSystem : MonoBehaviour {
     }
 
     private List<Character> GetTargets() {
-        // 取り敢えず今は敵全体が攻撃対象
-        return _enemies;
+        var skill = _player.CurrentSkill;
+
+        return skill.targetType switch {
+            SkillTargetType.Single => new List<Character> { _enemies[0] }, // 仮で先頭に飛ぶ
+            SkillTargetType.All => _enemies,
+            _ => _enemies,
+        };
+
     }
 }

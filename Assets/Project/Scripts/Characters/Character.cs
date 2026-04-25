@@ -5,13 +5,16 @@ using UnityEngine;
 public class Character : MonoBehaviour {
     [SerializeField] private CharacterBaseStatus _baseStatus;   // 基礎ステータス
     [SerializeField] private List<GrowthItem> _items = new();   // 強化アイテム
+    [SerializeField] private List<SkillData> _skills;
 
     private List<Effect> _passiveEffects = new();           // ステータス変更系
     private List<OnAttackEffect> _attackEffects = new();    // 攻撃変更（連撃）系
     private List<OnDamageEffect> _damageEffects = new();    // ダメージ計算
     private int _currentHP;
+    private int _currentSkillIndex = 0;
 
     public int MaxHP => GetFinalStatus(StatusType.MaxHP);
+    public SkillData CurrentSkill => _skills[_currentSkillIndex];
 
     private void Awake() {
         BuildEffectList();
@@ -51,7 +54,7 @@ public class Character : MonoBehaviour {
                 Target = target,
                 BaseDamage = DamageCalculator.Calculate(this, target) // 基礎ダメージ計算
             };
-            dmgCtx.FinalDamage = dmgCtx.BaseDamage;
+            dmgCtx.FinalDamage = Mathf.RoundToInt(dmgCtx.BaseDamage * CurrentSkill.powerMultiplier);
             target.TakeDamage(dmgCtx);   // 被弾処理
         }
     }
@@ -70,5 +73,13 @@ public class Character : MonoBehaviour {
     public void TriggerAttack(AttackContext ctx) {
         foreach (var effect in _attackEffects) effect.OnAttack(ctx);
         for (int i=0; i<ctx.AttackCount; ++i) ExecuteAttack(ctx);
+    }
+
+    // 数字キーで技を変える
+    public void ChangeSkill(int index) {
+        if (index < 0 || index >= _skills.Count) return;
+        _currentSkillIndex = index;
+
+        Debug.Log($"Skill Changed: {CurrentSkill.skillName}");
     }
 }
