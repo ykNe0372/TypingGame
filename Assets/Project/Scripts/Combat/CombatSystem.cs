@@ -19,8 +19,16 @@ public class CombatSystem : MonoBehaviour {
         var ctx = new AttackContext {
             Attacker = _player,
             Targets = GetTargets(),
-            Element = _player.CurrentElement
+            Element = _player.CurrentElement,
+            Skill = _player.CurrentSkill
         };
+
+        if (ctx.Element != ElementType.None) {
+            if (!_player.TryConsumeMP(ctx.Skill.MPCost)) {
+                Debug.Log("Change to None Element due to lacking MP");
+                ctx.Element = ElementType.None;
+            }
+        }
         _player.TriggerAttack(ctx);
     }
 

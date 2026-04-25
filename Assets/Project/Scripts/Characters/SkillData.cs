@@ -12,4 +12,5 @@ public class SkillData : ScriptableObject {
     public float powerMultiplier;  // 攻撃力の補正用
     public float speedMultiplier;  // 攻撃速度の補正用
     public SkillTargetType targetType;
+    public int MPCost;
 }

@@ -16,3 +16,4 @@ MonoBehaviour:
   powerMultiplier: 1
   speedMultiplier: 1
   targetType: 1
+  MPCost: 5
