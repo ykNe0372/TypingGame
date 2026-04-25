@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PA+3
   m_EditorClassIdentifier: 
   _status:
-  - statusType: 2
+  - statusType: 3
     value: 3

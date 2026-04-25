@@ -154,6 +154,7 @@ MonoBehaviour:
   _skills:
   - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
   _currentElement: 0
+  _currentMP: 0
 --- !u!4 &70926604
 Transform:
   m_ObjectHideFlags: 0
@@ -1896,6 +1897,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
   - {fileID: 11400000, guid: 43419116042304197ac093a26c0dfa7b, type: 2}
   _currentElement: 0
+  _currentMP: 0
 --- !u!4 &1093212729
 Transform:
   m_ObjectHideFlags: 0
@@ -2951,6 +2953,7 @@ MonoBehaviour:
   _skills:
   - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
   _currentElement: 0
+  _currentMP: 0
 --- !u!4 &1665860477
 Transform:
   m_ObjectHideFlags: 0
