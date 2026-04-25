@@ -9,20 +9,20 @@ public class CharacterBaseStatus : ScriptableObject {
     [Serializable]
     public class StatusEntry {
         public StatusType statusType;
-        public int value;
+        public float value;
     }
 
     [SerializeField] private List<StatusEntry> _status = new(); // Inspector 編集用
     
-    private Dictionary<StatusType, int> _statusDictionary;
+    private Dictionary<StatusType, float> _statusDictionary;
 
     private void Init() {
-        _statusDictionary = new Dictionary<StatusType, int>();
+        _statusDictionary = new Dictionary<StatusType, float>();
         foreach (var s in _status) _statusDictionary[s.statusType] = s.value;
     }
 
-    public int GetStatus(StatusType type) {
+    public float GetStatus(StatusType type) {
         if (_statusDictionary == null) Init();
-        return _statusDictionary.TryGetValue(type, out var value) ? value : 0;
+        return _statusDictionary.TryGetValue(type, out var value) ? value : 0f;
     }
 }

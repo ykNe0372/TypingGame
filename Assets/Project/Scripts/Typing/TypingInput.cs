@@ -5,6 +5,9 @@ public class TypingInput {
     private List<string> _candidates;
     private string _currentInput = "";
 
+    public string GetCurrent() => _currentInput;
+    public string GetCurrentCandidate() => _candidates.OrderBy(x => x.Length).First();
+
     public void SetCandidates(List<string> candidates) {
         _candidates = candidates;
         _currentInput = "";
@@ -29,6 +32,4 @@ public class TypingInput {
         return 1;
     }
 
-    public string GetCurrent() => _currentInput;
-    public string GetCurrentCandidate() => _candidates.OrderBy(x => x.Length).First();
 }

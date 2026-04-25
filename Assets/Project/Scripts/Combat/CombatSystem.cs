@@ -7,24 +7,49 @@ public class CombatSystem : MonoBehaviour {
 
     public void RequestAttack() {
         if (!CanAttack()) return;
-        ExecuteAttack();
+        RequestPlayerAttack();
     }
 
+    // スタン・クールタイムなどなど攻撃不可のタイミングが出てきたとき用
     private bool CanAttack() {
-        // スタン・クールタイムなどなど攻撃不可のタイミングが出てきたとき用
         return true;
     }
 
-    private void ExecuteAttack() {
+    private void RequestPlayerAttack() {
         var ctx = new AttackContext {
             Attacker = _player,
-            Targets = GetTargets()
+            Targets = GetTargets(),
+            Element = _player.CurrentElement,
+            Skill = _player.CurrentSkill
         };
+
+        if (ctx.Element != ElementType.None) {
+            if (!_player.TryConsumeMP(ctx.Skill.MPCost)) {
+                Debug.Log("Change to None Element due to lacking MP");
+                ctx.Element = ElementType.None;
+            }
+        }
         _player.TriggerAttack(ctx);
     }
 
+    public void RequestEnemyAttack(Character enemy) {
+        if (!CanAttack()) return;
+
+        var ctx = new AttackContext {
+            Attacker = enemy,
+            Targets = new List<Character> { _player }   // 分身を用意した時に使うかも
+        };
+        enemy.TriggerAttack(ctx);
+    }
+
     private List<Character> GetTargets() {
-        // 取り敢えず今は敵全体が攻撃対象
-        return _enemies;
+        var skill = _player.CurrentSkill;
+
+        return skill.targetType switch {
+            SkillTargetType.Single => new List<Character> { _enemies[0] }, // 仮で先頭に飛ぶ
+            SkillTargetType.All => _enemies,
+            _ => _enemies,
+        };
+
     }
 }

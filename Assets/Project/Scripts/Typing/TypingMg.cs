@@ -35,7 +35,8 @@ public partial class TypingMg : MonoBehaviour {
 
     [SerializeField] private CombatSystem _combatSystem;
 
-    private TypingInput _input = new();
+    private TypingInput _typingInput = new();
+    private InputManager _inputManager;
     private List<Question> _currentQuestions;
     private List<Question> _filteredQuestions = new();
     private Question _currentQuestion;
@@ -50,24 +51,28 @@ public partial class TypingMg : MonoBehaviour {
 
     private void Start() {
         aud = GetComponent<AudioSource>();
+    
         LoadQuestionsFromJson();
-        if (_currentQuestions == null || _currentQuestions.Count == 0) {
-            Debug.LogError("タイピング問題が存在しません。");
-            return;
-        }
+        if (_currentQuestions == null || _currentQuestions.Count == 0) return;
         InitializeQuestion();
     }
 
+    private void Awake() {
+        _inputManager = FindFirstObjectByType<InputManager>();  // Start() よりも前に取る
+    }
+
     private void OnEnable() {
-        Keyboard.current.onTextInput += OnTextInput;
+        // Keyboard.current.onTextInput += OnTextInput;
+        _inputManager.OnCharInput += OnTextInput;
     }
 
     private void OnDisable() {
-        Keyboard.current.onTextInput -= OnTextInput;
+        // Keyboard.current.onTextInput -= OnTextInput;
+        _inputManager.OnCharInput -= OnTextInput;
     }
 
     private void OnTextInput(char c) {
-        int result = _input.Input(c);
+        int result = _typingInput.Input(c);
 
         switch (result) {
             case 1: // 正解タイプ時
@@ -145,7 +150,7 @@ public partial class TypingMg : MonoBehaviour {
         Question question = _currentQuestion;
 
         var candidates = RomajiConverter.Convert(question.reading);
-        _input.SetCandidates(candidates);
+        _typingInput.SetCandidates(candidates);
 
         string displayRoman = candidates[0];
         _roman.Clear();
@@ -179,8 +184,8 @@ public partial class TypingMg : MonoBehaviour {
     // ローマ字の表示を管理
     string GenerateTextRoman() {
         string text = "<style=typed>";
-        string current = _input.GetCurrent();
-        string candidate = _input.GetCurrentCandidate();
+        string current = _typingInput.GetCurrent();
+        string candidate = _typingInput.GetCurrentCandidate();
 
         text += current;
         text += "</style><style=untyped>";

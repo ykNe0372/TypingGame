@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2d26a96df8e14f4ea61e919466b78eb, type: 3}
-  m_Name: PA+3
+  m_Script: {fileID: 11500000, guid: 22d3daa54d5dd4b0b92779070033c568, type: 3}
+  m_Name: DEBUG_ALL
   m_EditorClassIdentifier: 
-  _status:
-  - statusType: 3
-    value: 3
+  skillName: DEBUG_ALL
+  powerMultiplier: 1
+  speedMultiplier: 1
+  targetType: 1
+  MPCost: 5

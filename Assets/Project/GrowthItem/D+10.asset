@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: D+10
   m_EditorClassIdentifier: 
   _status:
-  - statusType: 4
+  - statusType: 5
     value: 10

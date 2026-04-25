@@ -18,20 +18,22 @@ MonoBehaviour:
   - statusType: 1
     value: 10
   - statusType: 2
-    value: 5
+    value: 0.5
   - statusType: 3
     value: 5
   - statusType: 4
-    value: 10
-  - statusType: 5
     value: 5
+  - statusType: 5
+    value: 10
   - statusType: 6
     value: 5
   - statusType: 7
     value: 5
   - statusType: 8
-    value: 50
+    value: 5
   - statusType: 9
+    value: 100
+  - statusType: 10
     value: 5
   - statusType: 10
     value: 5
