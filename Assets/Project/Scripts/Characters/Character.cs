@@ -14,17 +14,18 @@ public class Character : MonoBehaviour {
     [SerializeField] private List<GrowthItem> _items = new();   // 強化アイテム
     [SerializeField] private List<SkillData> _skills;
     [SerializeField] private ElementType _currentElement = ElementType.None;
+    
     public float _currentMP;
 
     private List<Effect> _passiveEffects = new();           // ステータス変更系
     private List<OnAttackEffect> _attackEffects = new();    // 攻撃変更（連撃）系
     private List<OnDamageEffect> _damageEffects = new();    // ダメージ計算
-    private int _currentHP;
+    private float _currentHP;
     private float _regenTimer = 0f;
     private int _currentSkillIndex = 0;
 
-    public int MaxHP => GetFinalStatus(StatusType.MaxHP);
-    public int MaxMP => GetFinalStatus(StatusType.MaxMP);
+    public float MaxHP => GetFinalStatus(StatusType.MaxHP);
+    public float MaxMP => GetFinalStatus(StatusType.MaxMP);
     public SkillData CurrentSkill => _skills[_currentSkillIndex];
     public ElementType CurrentElement => _currentElement;
 
@@ -35,7 +36,7 @@ public class Character : MonoBehaviour {
     }
 
     private void Update() {
-        RecoverMP(Time.deltaTime);
+        RecoverMP();
     }
 
     public void InitializeHP() {
@@ -60,9 +61,9 @@ public class Character : MonoBehaviour {
         }
     }
 
-    public int GetFinalStatus(StatusType type) {
-        int baseValue = _baseStatus.GetStatus(type);
-        int bonus = 0;
+    public float GetFinalStatus(StatusType type) {
+        float baseValue = _baseStatus.GetStatus(type);
+        float bonus = 0f;
         
         foreach (var effect in _passiveEffects) bonus += effect.GetStatusBonus(type);
         return baseValue + bonus;
@@ -88,7 +89,7 @@ public class Character : MonoBehaviour {
     // ダメージ適応（仮）
     public void TakeDamage(DamageContext ctx) {
         foreach (var effect in _damageEffects) effect.OnDamage(ctx);
-        int damage = Mathf.Max(0, ctx.FinalDamage);
+        int damage = Mathf.FloorToInt(Mathf.Max(0, ctx.FinalDamage));
 
         _currentHP -= damage;
         _currentHP = Mathf.Max(0, _currentHP);
@@ -120,12 +121,12 @@ public class Character : MonoBehaviour {
     }
 
     // MP回復
-    private void RecoverMP(float deltaTime) {
+    private void RecoverMP() {
         float regen = GetFinalStatus(StatusType.MPRegen);
         if (regen <= 0) return;
 
-        _regenTimer += Time.deltaTime;
         float interval = 1f / regen;
+        _regenTimer += Time.deltaTime;
 
         if (_regenTimer >= interval) {
             _currentMP += 1;

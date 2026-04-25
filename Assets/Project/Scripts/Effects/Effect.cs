@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public abstract class Effect : ScriptableObject {
-    public virtual int GetStatusBonus(StatusType type) {
+    public virtual float GetStatusBonus(StatusType type) {
         return 0;
     }
 
