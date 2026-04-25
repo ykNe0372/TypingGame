@@ -1,11 +1,19 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+public enum ElementType {
+        None,
+        Fire,
+        Ice,
+        Lightning
+    }
 
 public class Character : MonoBehaviour {
+
     [SerializeField] private CharacterBaseStatus _baseStatus;   // 基礎ステータス
     [SerializeField] private List<GrowthItem> _items = new();   // 強化アイテム
     [SerializeField] private List<SkillData> _skills;
+    [SerializeField] private ElementType _currentElement = ElementType.None;
 
     private List<Effect> _passiveEffects = new();           // ステータス変更系
     private List<OnAttackEffect> _attackEffects = new();    // 攻撃変更（連撃）系
@@ -15,6 +23,7 @@ public class Character : MonoBehaviour {
 
     public int MaxHP => GetFinalStatus(StatusType.MaxHP);
     public SkillData CurrentSkill => _skills[_currentSkillIndex];
+    public ElementType CurrentElement => _currentElement;
 
     private void Awake() {
         BuildEffectList();
@@ -81,5 +90,13 @@ public class Character : MonoBehaviour {
         _currentSkillIndex = index;
 
         Debug.Log($"Skill Changed: {CurrentSkill.skillName}");
+    }
+
+    // 属性を次に回す（無→炎→氷→電→無→...）
+    public void CycleElement() {
+        int next = ((int)_currentElement + 1) % Enum.GetValues(typeof(ElementType)).Length;
+        _currentElement = (ElementType)next;
+
+        Debug.Log($"Element Changed: {_currentElement}");
     }
 }

@@ -153,6 +153,7 @@ MonoBehaviour:
   _items: []
   _skills:
   - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
+  _currentElement: 0
 --- !u!4 &70926604
 Transform:
   m_ObjectHideFlags: 0
@@ -1868,7 +1869,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1093212726}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9febd9299fba4a87954aaf254bcac63, type: 3}
   m_Name: 
@@ -1894,6 +1895,7 @@ MonoBehaviour:
   _skills:
   - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
   - {fileID: 11400000, guid: 43419116042304197ac093a26c0dfa7b, type: 2}
+  _currentElement: 0
 --- !u!4 &1093212729
 Transform:
   m_ObjectHideFlags: 0
@@ -1922,6 +1924,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 1093212728}
+  _doublePressThreshold: 0.3
 --- !u!1 &1124659648
 GameObject:
   m_ObjectHideFlags: 0
@@ -2947,6 +2950,7 @@ MonoBehaviour:
   _items: []
   _skills:
   - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
+  _currentElement: 0
 --- !u!4 &1665860477
 Transform:
   m_ObjectHideFlags: 0
@@ -3488,12 +3492,12 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
-  - {fileID: 1815338205}
+  - {fileID: 1395542358}
   - {fileID: 984307237}
+  - {fileID: 614157280}
   - {fileID: 530182743}
   - {fileID: 1840306831}
   - {fileID: 1093212729}
   - {fileID: 70926604}
   - {fileID: 1665860477}
-  - {fileID: 614157280}
-  - {fileID: 1395542358}
+  - {fileID: 1815338205}

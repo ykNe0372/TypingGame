@@ -18,7 +18,8 @@ public class CombatSystem : MonoBehaviour {
     private void RequestPlayerAttack() {
         var ctx = new AttackContext {
             Attacker = _player,
-            Targets = GetTargets()
+            Targets = GetTargets(),
+            Element = _player.CurrentElement
         };
         _player.TriggerAttack(ctx);
     }

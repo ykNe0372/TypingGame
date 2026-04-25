@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour {
     // 攻撃速度を決定（仮）
     private float GetAttackInterval() {
         int speed = _character.GetFinalStatus(StatusType.Speed);
-        return 5.0f / (1f + speed * 0.1f);
+        return 50.0f / (1f + speed * 0.1f);
     }
 
     private void RequestAttack() {
