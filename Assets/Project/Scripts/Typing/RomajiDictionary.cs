@@ -63,7 +63,12 @@ public static class RomajiDictionary {
         { "とぁ", new[]{ "twa","toxa","tola" } }, { "とぃ", new[]{ "twi","toxi","toli" } }, { "とぅ", new[]{ "twu","toxu","tolu" } }, { "とぇ", new[]{ "twe","toxe","tole" } }, { "とぉ", new[]{ "two","toxo","tolo" } },
         { "どぁ", new[]{ "dwa","doxa","dola" } }, { "どぃ", new[]{ "dwi","doxi","doli" } }, { "どぅ", new[]{ "dwu","doxu","dolu" } }, { "どぇ", new[]{ "dwe","doxe","dole" } }, { "どぉ", new[]{ "dwo","doxo","dolo" } },
 
+        { "ひゃ", new[]{ "hya","hixya","hilya" } }, { "ひゅ", new[]{ "hyu","hixyu","hilyu" } }, { "ひょ", new[]{ "hyo","hixyo","hilyo" } },
         { "ふぁ", new[]{ "fa","fwa","huxa","fuxa","hula","fula" } }, { "ふぃ", new[]{ "fi","fwi","huxi","fuxi","huli","fuli" } }, { "ふぇ", new[]{ "fe","fwe","huxe","fuxe","hule","fule" } }, { "ふぉ", new[]{ "fo","fwo","huxo","fuxo","hulo","fulo" } },
+
+        { "みゃ", new[]{ "mya","mixya","milya" } }, { "みゅ", new[]{ "myu","mixyu","milyu" } }, { "みょ", new[]{ "myo","mixyo","milyo" } },
+        
+        { "りゃ", new[]{ "rya","rixya","rilya" } }, { "りゅ", new[]{ "ryu","rixyu","rilyu" } }, { "りょ", new[]{ "ryo","rixyo","rilyo" } },
 
         // 記号
         { "ー", new[]{ "-" } }, { "！", new[]{ "!" } }, { "？", new[]{ "?" } }, { "。", new[]{ "." } }, { "、", new[]{ "," } },
