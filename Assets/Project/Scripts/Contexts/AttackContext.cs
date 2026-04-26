@@ -6,4 +6,5 @@ public class AttackContext {
     public int AttackCount = 1;
     public ElementType Element;      // 属性
     public SkillData Skill;
+    public StatusEffectData StatusEffect;
 }

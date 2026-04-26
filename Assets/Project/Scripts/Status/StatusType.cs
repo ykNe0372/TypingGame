@@ -5,8 +5,9 @@ public enum StatusType {
     PhysicalAttack,
     MagicAttack,
     Defense,
-    AbnormalDamage,
-    AbnormalResistance,
+    StatusInfliction,
+    StatusResistance,
+    StatusInflictionRate,  // 状態異常付与に失敗した際の上昇率
     CritRate,
     CritDamage,
     Speed,

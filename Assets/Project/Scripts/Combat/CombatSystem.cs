@@ -4,6 +4,9 @@ using UnityEngine;
 public class CombatSystem : MonoBehaviour {
     [SerializeField] private Character _player;
     [SerializeField] private List<Character> _enemies;
+    [SerializeField] private StatusEffectData _burn;
+    [SerializeField] private StatusEffectData _freeze;
+    [SerializeField] private StatusEffectData _shock;
 
     public void RequestAttack() {
         if (!CanAttack()) return;
@@ -20,7 +23,8 @@ public class CombatSystem : MonoBehaviour {
             Attacker = _player,
             Targets = GetTargets(),
             Element = _player.CurrentElement,
-            Skill = _player.CurrentSkill
+            Skill = _player.CurrentSkill,
+            StatusEffect = GetStatusEffectFromElement(_player.CurrentElement)
         };
 
         if (ctx.Element != ElementType.None) {
@@ -37,7 +41,8 @@ public class CombatSystem : MonoBehaviour {
 
         var ctx = new AttackContext {
             Attacker = enemy,
-            Targets = new List<Character> { _player }   // 分身を用意した時に使うかも
+            Targets = new List<Character> { _player },   // 分身を用意した時に使うかも
+            StatusEffect = GetStatusEffectFromElement(enemy.CurrentElement)
         };
         enemy.TriggerAttack(ctx);
     }
@@ -50,6 +55,14 @@ public class CombatSystem : MonoBehaviour {
             SkillTargetType.All => _enemies,
             _ => _enemies,
         };
+    }
 
+    private StatusEffectData GetStatusEffectFromElement(ElementType element) {
+        return element switch {
+            ElementType.Fire => _burn,
+            ElementType.Ice => _freeze,
+            ElementType.Lightning => _shock,
+            _ => null
+        };
     }
 }

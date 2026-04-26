@@ -14,12 +14,14 @@ public class Character : MonoBehaviour {
     [SerializeField] private List<GrowthItem> _items = new();   // 強化アイテム
     [SerializeField] private List<SkillData> _skills;
     [SerializeField] private ElementType _currentElement = ElementType.None;
+    [SerializeField] private List<StatusEffectInstance> _statusEffects = new();
     
     public float _currentMP;
 
     private List<Effect> _passiveEffects = new();           // ステータス変更系
     private List<OnAttackEffect> _attackEffects = new();    // 攻撃変更（連撃）系
     private List<OnDamageEffect> _damageEffects = new();    // ダメージ計算
+    private Dictionary<StatusEffectType, float> _inflictionBonus = new();
     private float _currentHP;
     private float _regenTimer = 0f;
     private int _currentSkillIndex = 0;
@@ -37,6 +39,7 @@ public class Character : MonoBehaviour {
 
     private void Update() {
         RecoverMP();
+        UpdateStatusEffects();
     }
 
     public void InitializeHP() {
@@ -83,6 +86,9 @@ public class Character : MonoBehaviour {
             };
             dmgCtx.FinalDamage = Mathf.RoundToInt(dmgCtx.BaseDamage * CurrentSkill.powerMultiplier);
             target.TakeDamage(dmgCtx);   // 被弾処理
+            if (ctx.StatusEffect != null) {
+                target.TryApplyStatus(ctx.Attacker, ctx.StatusEffect);  // 状態異常付与
+            }
         }
     }
 
@@ -111,6 +117,41 @@ public class Character : MonoBehaviour {
         _currentElement = (ElementType)next;
 
         Debug.Log($"Element Changed: {_currentElement}");
+    }
+
+    private void UpdateStatusEffects() {
+        for (int i=_statusEffects.Count -1; i>-0; --i) {
+            var effect = _statusEffects[i];
+            effect.RemainingTime -= Time.deltaTime;
+
+            if (effect.RemainingTime <= 0) _statusEffects.RemoveAt(i);
+        }
+    }
+
+    private bool TryApplyStatus(Character attacker, StatusEffectData data) {
+        float bonus = _inflictionBonus.GetValueOrDefault(data.type, 0f);
+
+        float infliction = attacker.GetFinalStatus(StatusType.StatusInfliction) / 100f;  // 付与確率を (StatusInfliction) % アップ
+        float resistance = GetFinalStatus(StatusType.StatusResistance) / 100f;           // 付与確率を (StatusResistance) % ダウン
+        float chance = (data.baseChance + bonus) * (1 + infliction) * (1f - resistance);
+
+        if (UnityEngine.Random.value < chance) {
+            ApplyStatus(data, attacker);
+            _inflictionBonus[data.type] = 0f;
+            return true;
+        } else {
+            float rate = attacker.GetFinalStatus(StatusType.StatusInflictionRate) / 100f;  // 付与上昇率を (StatusInflictionRate) % アップ
+            bonus += data.accumulationPerFail * (1 + rate);
+            bonus = Mathf.Min(bonus, data.maxBonus);    // 上昇率が 100% を超えないように
+
+            _inflictionBonus[data.type] = bonus;
+            return false;
+        }
+    }
+
+    private void ApplyStatus(StatusEffectData data, Character source) {
+        var instance = new StatusEffectInstance(data, source);
+        _statusEffects.Add(instance);
     }
 
     // MP消費

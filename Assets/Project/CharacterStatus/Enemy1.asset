@@ -28,12 +28,14 @@ MonoBehaviour:
   - statusType: 6
     value: 5
   - statusType: 7
-    value: 5
+    value: 1
   - statusType: 8
-    value: 5
+    value: 10
   - statusType: 9
-    value: 50
-  - statusType: 10
     value: 5
+  - statusType: 10
+    value: 50
   - statusType: 11
+    value: 5
+  - statusType: 12
     value: 5
