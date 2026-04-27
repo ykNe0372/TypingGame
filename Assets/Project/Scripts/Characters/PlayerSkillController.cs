@@ -3,7 +3,6 @@ using UnityEngine.Pool;
 
 public class PlayerSkillController : MonoBehaviour {
     [SerializeField] private Character _player;
-    [SerializeField] private float _doublePressThreshold = 0.3f;  // 押し間違い対策
 
     private InputManager _inputManager;
     private int _lastIndex = -1;
@@ -25,7 +24,7 @@ public class PlayerSkillController : MonoBehaviour {
         float now = Time.time;
 
         // 属性・技を切り替える
-        if (_lastIndex == index && now - _lastInputTime < _doublePressThreshold) _player.CycleElement();
+        if (_lastIndex == index) _player.CycleElement();
         else _player.ChangeSkill(index);
 
         _lastIndex = index;
