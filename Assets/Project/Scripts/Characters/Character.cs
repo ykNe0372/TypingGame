@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 public enum ElementType {
-        None,
-        Fire,
-        Ice,
-        Lightning
-    }
+    None,
+    Fire,
+    Ice,
+    Lightning
+}
 
 public class Character : MonoBehaviour {
 
@@ -16,13 +16,13 @@ public class Character : MonoBehaviour {
     [SerializeField] private ElementType _currentElement = ElementType.None;
     [SerializeField] private List<StatusEffectInstance> _statusEffects = new();
     
-    public float _currentMP;
 
     private List<Effect> _passiveEffects = new();           // ステータス変更系
     private List<OnAttackEffect> _attackEffects = new();    // 攻撃変更（連撃）系
     private List<OnDamageEffect> _damageEffects = new();    // ダメージ計算
     private Dictionary<StatusEffectType, float> _inflictionBonus = new();
     private float _currentHP;
+    private float _currentMP;
     private float _regenTimer = 0f;
     private int _currentSkillIndex = 0;
 
@@ -164,7 +164,7 @@ public class Character : MonoBehaviour {
     // MP回復
     private void RecoverMP() {
         float regen = GetFinalStatus(StatusType.MPRegen);
-        if (regen <= 0) return;
+        if (regen <= 0f) return;
 
         float interval = 1f / regen;
         _regenTimer += Time.deltaTime;

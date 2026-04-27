@@ -14,7 +14,7 @@ public class StatusBonusEffect : Effect {
 
     // 強化アイテムによるステータス変更を反映
     public override float GetStatusBonus(StatusType type) {
-        float total = 0;
+        float total = 0f;
 
         foreach (var s in _status) {
             if (s.statusType == type) total += s.value;

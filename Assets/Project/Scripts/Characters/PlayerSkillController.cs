@@ -6,7 +6,6 @@ public class PlayerSkillController : MonoBehaviour {
 
     private InputManager _inputManager;
     private int _lastIndex = -1;
-    private float _lastInputTime;
 
     private void Awake() {
         _inputManager = FindFirstObjectByType<InputManager>();
@@ -21,13 +20,10 @@ public class PlayerSkillController : MonoBehaviour {
     }
 
     public void OnDigitInput(int index) {
-        float now = Time.time;
-
         // 属性・技を切り替える
         if (_lastIndex == index) _player.CycleElement();
         else _player.ChangeSkill(index);
 
         _lastIndex = index;
-        _lastInputTime = now;
     }
 }
