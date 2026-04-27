@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 public enum ElementType {
     None,
@@ -15,6 +16,9 @@ public class Character : MonoBehaviour {
     [SerializeField] private List<SkillData> _skills;
     [SerializeField] private ElementType _currentElement = ElementType.None;
     [SerializeField] private List<StatusEffectInstance> _statusEffects = new();
+
+    [SerializeField] private TextMeshProUGUI _element;
+    [SerializeField] private TextMeshProUGUI _effectText;
     
 
     private List<Effect> _passiveEffects = new();           // ステータス変更系
@@ -100,7 +104,7 @@ public class Character : MonoBehaviour {
         _currentHP -= damage;
         _currentHP = Mathf.Max(0, _currentHP);
     
-        Debug.Log($"{name} HP: {_currentHP}/{MaxHP}");
+        Debug.Log($"{name} HP: {_currentHP}/{MaxHP}");;
     }
     
     // 数字キーで技を変える
@@ -117,6 +121,7 @@ public class Character : MonoBehaviour {
         _currentElement = (ElementType)next;
 
         Debug.Log($"Element Changed: {_currentElement}");
+        _element.text = $"{_currentElement}";   // 仮表示
     }
 
     private void UpdateStatusEffects() {
@@ -152,6 +157,8 @@ public class Character : MonoBehaviour {
     private void ApplyStatus(StatusEffectData data, Character source) {
         var instance = new StatusEffectInstance(data, source);
         _statusEffects.Add(instance);
+
+        _effectText.text = $"{data.type}!";  // 仮表示
     }
 
     // MP消費
