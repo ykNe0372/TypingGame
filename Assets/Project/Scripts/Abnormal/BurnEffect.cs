@@ -3,7 +3,7 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Data/StatusEffect/Burn")]
 public class BurnEffect: StatusEffectBehaviour {
-    [SerializeField] private float damageInterval = 1.0f;
+    [SerializeField] private float _damageInterval = 1.0f;
 
     private Dictionary<StatusEffectInstance, float> _timers = new(); // 燃焼ごとにタイマーを持つ
 
@@ -13,8 +13,8 @@ public class BurnEffect: StatusEffectBehaviour {
 
     public override void OnUpdate(Character target, StatusEffectInstance instance, float deltaTime) {
         _timers[instance] += deltaTime;
-        if (_timers[instance] >= damageInterval) {
-            _timers[instance] -= damageInterval;
+        if (_timers[instance] >= _damageInterval) {
+            _timers[instance] -= _damageInterval;
 
             float magic = instance.Source.GetFinalStatus(StatusType.MagicAttack);
             int damage = Mathf.FloorToInt(magic);    // 仮で MagicAttack = ATK とする

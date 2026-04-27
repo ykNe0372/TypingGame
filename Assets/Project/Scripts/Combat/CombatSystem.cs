@@ -10,6 +10,7 @@ public class CombatSystem : MonoBehaviour {
 
     public void RequestAttack() {
         if (!CanAttack()) return;
+        if (_player.IsFrozen) return;
         RequestPlayerAttack();
     }
 

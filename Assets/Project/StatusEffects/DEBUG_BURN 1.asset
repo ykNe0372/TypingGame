@@ -17,3 +17,7 @@ MonoBehaviour:
   duration: 3
   accumulationPerFail: 0.01
   maxBonus: 0.99
+  behaviour: {fileID: 11400000, guid: f1a86d0c7036b4c239bb671ff54c6eee, type: 2}
+  freezeBreakBaseChance: 0.5
+  freezeBreakAccumulation: 0.1
+  freezeBreakMaxBonus: 0.9

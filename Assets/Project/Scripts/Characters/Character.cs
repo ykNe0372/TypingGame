@@ -16,6 +16,7 @@ public class Character : MonoBehaviour {
     [SerializeField] private List<SkillData> _skills;
     [SerializeField] private ElementType _currentElement = ElementType.None;
     [SerializeField] private List<StatusEffectInstance> _statusEffects = new();
+    [SerializeField] private List<StatusEffectInstance> _removeQuere = new();
 
     [SerializeField] private TextMeshProUGUI _element;
     [SerializeField] private TextMeshProUGUI _effectText;
@@ -29,9 +30,11 @@ public class Character : MonoBehaviour {
     private float _currentMP;
     private float _regenTimer = 0f;
     private int _currentSkillIndex = 0;
+    private bool _isFrozen;
 
     public float MaxHP => GetFinalStatus(StatusType.MaxHP);
     public float MaxMP => GetFinalStatus(StatusType.MaxMP);
+    public bool IsFrozen => _isFrozen;
     public SkillData CurrentSkill => _skills[_currentSkillIndex];
     public ElementType CurrentElement => _currentElement;
 
@@ -44,6 +47,7 @@ public class Character : MonoBehaviour {
     private void Update() {
         RecoverMP();
         UpdateStatusEffects();
+        ProcessRemoveQuere();
     }
 
     public void InitializeHP() {
@@ -99,8 +103,12 @@ public class Character : MonoBehaviour {
     // ダメージ適応（仮）
     public void TakeDamage(DamageContext ctx) {
         foreach (var effect in _damageEffects) effect.OnDamage(ctx);
-        int damage = Mathf.FloorToInt(Mathf.Max(0, ctx.FinalDamage));
+        for (int i=_statusEffects.Count-1; i>=0; --i) {  // 要素を削除しても大丈夫なように逆順にする 
+            var status = _statusEffects[i];
+            status.Data.behaviour.OnDamage(this, status, ctx);
+        }
 
+        int damage = Mathf.FloorToInt(Mathf.Max(0f, ctx.FinalDamage));
         _currentHP -= damage;
         _currentHP = Mathf.Max(0, _currentHP);
     
@@ -160,6 +168,16 @@ public class Character : MonoBehaviour {
     }
 
     private void ApplyStatus(StatusEffectData data, Character source) {
+        if (data.type == StatusEffectType.Freeze) {
+            var existing = GetStatus(StatusEffectType.Freeze);
+            if (existing != null) {
+                // 既に凍結している → 重ねがけせずに解除
+                RequestRemoveStatus(existing);
+                Debug.Log("Freeze Shattered");
+                return;  // 新規付与しない
+            }
+        }
+
         var instance = new StatusEffectInstance(data, source);
         _statusEffects.Add(instance);
         data.behaviour.OnApply(this, instance);
@@ -167,14 +185,31 @@ public class Character : MonoBehaviour {
         _effectText.text = $"{data.type}!";  // 仮表示
     }
 
-    // MP消費
+    public StatusEffectInstance GetStatus(StatusEffectType type) {
+        return _statusEffects.Find(x => x.Data.type == type);
+    }
+
+    public void SetFrozen(bool value) {
+        _isFrozen = value;
+    }
+
+    public void RequestRemoveStatus(StatusEffectInstance instance) {
+        if (!_removeQuere.Contains(instance)) _removeQuere.Add(instance);
+    }
+
+    private void ProcessRemoveQuere() {
+        foreach (var instance in _removeQuere) {
+            if (_statusEffects.Remove(instance)) instance.Data.behaviour.OnRemove(this, instance);
+        }
+        _removeQuere.Clear();
+    }
+
     public bool TryConsumeMP(int amount) {
         if (_currentMP < amount) return false;
         _currentMP -= amount;
         return true;
     }
 
-    // MP回復
     private void RecoverMP() {
         float regen = GetFinalStatus(StatusType.MPRegen);
         if (regen <= 0f) return;

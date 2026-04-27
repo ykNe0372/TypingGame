@@ -7,4 +7,5 @@ public abstract class StatusEffectBehaviour : ScriptableObject {
     public abstract void OnUpdate(Character target, StatusEffectInstance instance, float deltaTime);
     // 解除時
     public virtual void OnRemove(Character target, StatusEffectInstance instance) {}
-}
+    public virtual void OnDamage(Character target, StatusEffectInstance instance, DamageContext ctx) {}
+ }
