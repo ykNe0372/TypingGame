@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36239240861724af4a2005107f9341b4, type: 3}
-  m_Name: DEBUG_BURN
+  m_Script: {fileID: 11500000, guid: 32f388a7c02aa45b0ba0f7f6c19f9789, type: 3}
+  m_Name: DEBUG_BURN_EFFECT
   m_EditorClassIdentifier: 
-  type: 0
-  baseChance: 0.1
-  duration: 3
-  accumulationPerFail: 0.01
-  maxBonus: 0.99
+  damageInterval: 1

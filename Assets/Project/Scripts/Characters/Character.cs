@@ -125,11 +125,16 @@ public class Character : MonoBehaviour {
     }
 
     private void UpdateStatusEffects() {
-        for (int i=_statusEffects.Count -1; i>-0; --i) {
+        for (int i=_statusEffects.Count-1; i>=0; --i) {
             var effect = _statusEffects[i];
+            effect.Data.behaviour.OnUpdate(this, effect, Time.deltaTime); // 挙動を更新
             effect.RemainingTime -= Time.deltaTime;
 
-            if (effect.RemainingTime <= 0) _statusEffects.RemoveAt(i);
+            // 終了処理
+            if (effect.RemainingTime <= 0f) {
+                effect.Data.behaviour.OnRemove(this, effect);
+                _statusEffects.RemoveAt(i);
+            }
         }
     }
 
@@ -157,6 +162,7 @@ public class Character : MonoBehaviour {
     private void ApplyStatus(StatusEffectData data, Character source) {
         var instance = new StatusEffectInstance(data, source);
         _statusEffects.Add(instance);
+        data.behaviour.OnApply(this, instance);
 
         _effectText.text = $"{data.type}!";  // 仮表示
     }
