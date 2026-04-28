@@ -4,24 +4,28 @@ using UnityEngine;
 public class CombatSystem : MonoBehaviour {
     [SerializeField] private Character _player;
     [SerializeField] private List<Character> _enemies;
-
+    [SerializeField] private StatusEffectResolver _resolver;
     public void RequestAttack() {
-        if (!CanAttack()) return;
+        if (!CanAttack(_player)) return;
         RequestPlayerAttack();
     }
 
-    // スタン・クールタイムなどなど攻撃不可のタイミングが出てきたとき用
-    private bool CanAttack() {
-        return true;
+    private bool CanAttack(Character actor) {
+        return actor.CanAct();
+    }
+
+    private AttackContext CreateContext(Character attacker) {
+        return new AttackContext {
+            Attacker = attacker,
+            Targets = GetTargets(attacker, attacker.CurrentSkill),
+            Element = attacker.CurrentElement,
+            Skill = attacker.CurrentSkill,
+            StatusEffect = _resolver.Get(attacker.CurrentElement)
+        };
     }
 
     private void RequestPlayerAttack() {
-        var ctx = new AttackContext {
-            Attacker = _player,
-            Targets = GetTargets(),
-            Element = _player.CurrentElement,
-            Skill = _player.CurrentSkill
-        };
+        var ctx = CreateContext(_player);
 
         if (ctx.Element != ElementType.None) {
             if (!_player.TryConsumeMP(ctx.Skill.MPCost)) {
@@ -33,23 +37,24 @@ public class CombatSystem : MonoBehaviour {
     }
 
     public void RequestEnemyAttack(Character enemy) {
-        if (!CanAttack()) return;
+        if (!CanAttack(enemy)) return;
 
-        var ctx = new AttackContext {
-            Attacker = enemy,
-            Targets = new List<Character> { _player }   // 分身を用意した時に使うかも
-        };
+        var ctx = CreateContext(enemy);
         enemy.TriggerAttack(ctx);
     }
 
-    private List<Character> GetTargets() {
-        var skill = _player.CurrentSkill;
+    public List<Character> GetEnemies(Character requester) {
+        if (requester == _player) return _enemies;
+        else return new List<Character> { _player };  // 仮でプレイヤーだけ、分身など味方 NPC が出てきた時は変更
+    }
+
+    private List<Character> GetTargets(Character attacker, SkillData skill) {
+        var enemies = GetEnemies(attacker);
 
         return skill.targetType switch {
-            SkillTargetType.Single => new List<Character> { _enemies[0] }, // 仮で先頭に飛ぶ
-            SkillTargetType.All => _enemies,
-            _ => _enemies,
+            SkillTargetType.Single => new List<Character> { enemies[0] },  // 仮で先頭の敵に飛ぶようにする
+            SkillTargetType.All => enemies,
+            _ => enemies,
         };
-
     }
 }

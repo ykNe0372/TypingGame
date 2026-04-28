@@ -6,6 +6,6 @@ public static class DamageCalculator {
         float atk = attacker.GetFinalStatus(StatusType.PhysicalAttack);
         float def = target.GetFinalStatus(StatusType.Defense);
 
-        return Mathf.Max(1, atk - def);
+        return Mathf.Max(1f, atk - def);
     }
 }

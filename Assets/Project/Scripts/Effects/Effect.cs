@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class Effect : ScriptableObject {
     public virtual float GetStatusBonus(StatusType type) {
-        return 0;
+        return 0f;
     }
 
     // 中間層でこの処理を override して設計する

@@ -1,26 +1,32 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+
 public enum ElementType {
-        None,
-        Fire,
-        Ice,
-        Lightning
-    }
+    None,
+    Fire,
+    Ice,
+    Lightning
+}
 
 public class Character : MonoBehaviour {
-
     [SerializeField] private CharacterBaseStatus _baseStatus;   // 基礎ステータス
     [SerializeField] private List<GrowthItem> _items = new();   // 強化アイテム
     [SerializeField] private List<SkillData> _skills;
     [SerializeField] private ElementType _currentElement = ElementType.None;
-    
-    public float _currentMP;
+    [SerializeField] private CombatSystem _combatSystems;
 
-    private List<Effect> _passiveEffects = new();           // ステータス変更系
-    private List<OnAttackEffect> _attackEffects = new();    // 攻撃変更（連撃）系
-    private List<OnDamageEffect> _damageEffects = new();    // ダメージ計算
+    [SerializeField] private TextMeshProUGUI _element;
+    [SerializeField] private TextMeshProUGUI _effectText;
+    
+
+    private StatusManager _statusManager;
+    private readonly List<Effect> _passiveEffects = new();           // ステータス変更系
+    private readonly List<OnAttackEffect> _attackEffects = new();    // 攻撃変更（連撃）系
+    private readonly List<OnDamageEffect> _damageEffects = new();    // ダメージ計算
     private float _currentHP;
+    private float _currentMP;
     private float _regenTimer = 0f;
     private int _currentSkillIndex = 0;
 
@@ -30,6 +36,8 @@ public class Character : MonoBehaviour {
     public ElementType CurrentElement => _currentElement;
 
     private void Awake() {
+        _statusManager = new StatusManager(this);
+        
         BuildEffectList();
         InitializeHP();
         InitializeMP();
@@ -37,6 +45,7 @@ public class Character : MonoBehaviour {
 
     private void Update() {
         RecoverMP();
+        UpdateStatusEffects();
     }
 
     public void InitializeHP() {
@@ -66,7 +75,13 @@ public class Character : MonoBehaviour {
         float bonus = 0f;
         
         foreach (var effect in _passiveEffects) bonus += effect.GetStatusBonus(type);
-        return baseValue + bonus;
+        float value =  baseValue + bonus;
+
+        foreach (var s in _statusManager.Effects) {
+            value = s.Data.behaviour.ModifyStat(type, value, s);
+        }
+
+        return value;
     }
 
     public void TriggerAttack(AttackContext ctx) {
@@ -83,18 +98,25 @@ public class Character : MonoBehaviour {
             };
             dmgCtx.FinalDamage = Mathf.RoundToInt(dmgCtx.BaseDamage * CurrentSkill.powerMultiplier);
             target.TakeDamage(dmgCtx);   // 被弾処理
+            if (ctx.StatusEffect != null) {
+                target.TryApplyStatus(ctx.Attacker, ctx.StatusEffect);  // 状態異常付与
+            }
         }
     }
 
     // ダメージ適応（仮）
     public void TakeDamage(DamageContext ctx) {
         foreach (var effect in _damageEffects) effect.OnDamage(ctx);
-        int damage = Mathf.FloorToInt(Mathf.Max(0, ctx.FinalDamage));
+        for (int i=_statusManager.Effects.Count-1; i>=0; --i) {  // 要素を削除しても大丈夫なように逆順にする 
+            var status = _statusManager.Effects[i];
+            status.Data.behaviour.OnDamage(this, status, ctx);
+        }
 
+        int damage = Mathf.FloorToInt(Mathf.Max(0f, ctx.FinalDamage));
         _currentHP -= damage;
         _currentHP = Mathf.Max(0, _currentHP);
     
-        Debug.Log($"{name} HP: {_currentHP}/{MaxHP}");
+        Debug.Log($"{name} HP: {_currentHP}/{MaxHP}");;
     }
     
     // 数字キーで技を変える
@@ -111,19 +133,71 @@ public class Character : MonoBehaviour {
         _currentElement = (ElementType)next;
 
         Debug.Log($"Element Changed: {_currentElement}");
+        _element.text = $"{_currentElement}";   // 仮表示
     }
 
-    // MP消費
+    private void UpdateStatusEffects() {
+        for (int i=_statusManager.Effects.Count-1; i>=0; --i) {
+            var effect = _statusManager.Effects[i];
+            effect.Data.behaviour.OnUpdate(this, effect, Time.deltaTime); // 挙動を更新
+            effect.RemainingTime -= Time.deltaTime;
+
+            // 終了処理
+            if (effect.RemainingTime <= 0f) {
+                effect.Data.behaviour.OnRemove(this, effect);
+                _statusManager.Effects.RemoveAt(i);
+            }
+        }
+    }
+
+    private bool TryApplyStatus(Character attacker, StatusEffectData data) {
+        return _statusManager.TryApply(attacker, data);
+    }
+
+    private void ApplyStatus(StatusEffectData data, Character source) {
+        var existing = GetStatus(data.type);
+        
+        if (existing != null) {
+            if (existing.Data.behaviour.OnReapply(this, source, data)) return;   // true が返れば新規付与しない
+        }
+
+        var instance = new StatusEffectInstance(data, source);
+        _statusManager.Effects.Add(instance);
+        data.behaviour.OnApply(this, instance);
+
+        _effectText.text = $"{data.type}!";  // 仮表示
+    }
+
+    public StatusEffectInstance GetStatus(StatusEffectType type) {
+        return _statusManager.Get(type);
+    }
+
+    // 削除予約（ループ中に変化させないため）
+    public void RequestRemoveStatus(StatusEffectInstance instance) {
+        _statusManager.RequestRemoveStatus(instance);
+    }
+
+    public List<Character> GetCombatTargets(Character source) {
+        return _combatSystems.GetEnemies(source);
+    }
+
+    // 行動可能か
+    public bool CanAct() {
+        foreach (var s in _statusManager.Effects) {
+            if (s.Data.behaviour.ShouldBlockAction(this, s)) return false;
+        }
+        return true;
+    }
+
     public bool TryConsumeMP(int amount) {
         if (_currentMP < amount) return false;
         _currentMP -= amount;
         return true;
     }
 
-    // MP回復
     private void RecoverMP() {
         float regen = GetFinalStatus(StatusType.MPRegen);
-        if (regen <= 0) return;
+        if (regen <= 0f) return;
 
         float interval = 1f / regen;
         _regenTimer += Time.deltaTime;

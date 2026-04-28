@@ -53,10 +53,10 @@ public static class RomajiDictionary {
         { "くゃ", new[]{ "qya","kuxya","cuxya","kulya","culya" } }, { "くゅ", new[]{ "qyu","kuxyu","cuxyu","kulyu","culyu" } }, { "くょ", new[]{ "qyo","kuxyo","cuxyo","kulyo","culyo" } },
         { "くぁ", new[]{ "qa","qwa","kuxa","cuxa","kula","cula" } }, { "くぇ", new[]{ "qe","qwe","kuxe","cuxe","kule","cule","kuxye","cuxye","quxye" } }, { "くぉ", new[]{ "qo","qwo","kuxo","cuxo","kulo","culo" } },
 
-        { "しゃ", new[]{ "sha","sya","cixya","cilya","sixya","shixya","silya","shilya" } }, { "しゅ", new[]{ "shu","syu","cixyu","cilyu","sixyu","shixyu","silyu","shilyu" } }, { "しょ", new[]{ "sho","syo","cixyo","cilyo","sixyo","shixyo","silyo","shilyo" } },
+        { "しゃ", new[]{ "sha","sya","cixya","cilya","sixya","shixya","silya","shilya" } }, { "しゅ", new[]{ "shu","syu","cixyu","cilyu","sixyu","shixyu","silyu","shilyu" } }, { "しぇ", new[]{ "she","sye","cixe","cile","sixe","sile","shixe","shile" }}, { "しょ", new[]{ "sho","syo","cixyo","cilyo","sixyo","shixyo","silyo","shilyo" } },
         { "じゃ", new[]{ "ja","zya","jixya","jilya","zixya","zilya" } }, { "じゅ", new[]{ "ju","zyu","jixyu","jilyu","zixyu","zilyu" } }, { "じょ", new[]{ "jo","zyo","jixyo","jilyo","zixyo","zilyo" } },
 
-        { "ちゃ", new[]{ "cha","tya","cya","tixya", "chixya" } }, { "ちゅ", new[]{ "chu","tyu","cyu","tixyu", "chixyu" } }, { "ちょ", new[]{ "cho","tyo","cyo","tixyo", "chixyo" } },
+        { "ちゃ", new[]{ "cha","tya","cya","tixya","chixya","tilya","chilya" } }, { "ちぃ", new[]{ "tyi","cyi","tixi","tili","chixi","chili" } }, { "ちゅ", new[]{ "chu","tyu","cyu","tixyu","chixyu","tilya","chilya" } }, { "ちぇ", new[]{ "tye","cye","che","tixe","tile","chixe","chile" } }, { "ちょ", new[]{ "cho","tyo","cyo","tixyo", "chixyo","tilya","chilya" } },
         { "つぁ", new[]{ "tsa","tuxa","tsuxa","tula","tsula" } }, { "つぃ", new[]{ "tsi","tuxi","tsuxi","tuli","tsuli" } }, { "つぇ", new[]{ "tse","tuxe","tsuxe","tule","tsule" } }, { "つぉ", new[]{ "tso","tuxo","tsuxo","tulo","tsulo" } },
         { "てゃ", new[]{ "tha","texya","telya" } }, { "てぃ", new[]{ "thi","texi","teli" } }, { "てゅ", new[]{ "thu","texyu","telyu" } }, { "てぇ", new[]{ "the","texe","tele" } }, { "てょ", new[]{ "tho","texyo","telyo" } },
         { "でゃ", new[]{ "dha","dexya","delya" } }, { "でぃ", new[]{ "dhi","dexi","deli" } }, { "でゅ", new[]{ "dhu","dexyu","delyu" } }, { "でぇ", new[]{ "dhe","dexe","dele" } }, { "でょ", new[]{ "dho","dexyo","delyo" } },
