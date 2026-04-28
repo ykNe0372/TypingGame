@@ -14,6 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   baseChance: 0.1
-  duration: 3
+  duration: 10
   accumulationPerFail: 0.01
   maxBonus: 0.99
+  behaviour: {fileID: 11400000, guid: 99ae1492073d941f4b05ef93e036e7c4, type: 2}
+  freezeBreakBaseChance: 0.5
+  freezeBreakAccumulation: 0.1
+  freezeBreakMaxBonus: 0.95
+  shockSpeedMultiplier: 0.8
+  shockFailChance: 0.1
+  overShockBaseMultiplier: 1.2
+  overShockChainDecay: 0.5

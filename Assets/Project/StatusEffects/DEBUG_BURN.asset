@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36239240861724af4a2005107f9341b4, type: 3}
-  m_Name: DEBUG_BURN 1
+  m_Name: DEBUG_BURN
   m_EditorClassIdentifier: 
   type: 0
   baseChance: 0.1

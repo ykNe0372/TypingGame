@@ -20,7 +20,6 @@ public class FreezeEffect : StatusEffectBehaviour {
             FinalDamage = damage
         };
         target.TakeDamage(ctx);
-        target.SetFrozen(true);
     }
 
     public override void OnUpdate(Character target, StatusEffectInstance instance, float deltaTime) {
@@ -43,25 +42,30 @@ public class FreezeEffect : StatusEffectBehaviour {
         }
     }
 
-    public override void OnRemove(Character target, StatusEffectInstance instance) {
-        float magic = instance.Source.GetFinalStatus(StatusType.MagicAttack);
-        float ratio = instance.RemainingTime / instance.InitialDuration;     // 残り時間割合
-        float multipiler = Mathf.Lerp(minMultiplier, maxMultiplier, ratio);  // 倍率補間
-        int damage = Mathf.FloorToInt(magic * multipiler);
-
-        var ctx = new DamageContext {
-            Attacker = instance.Source,
-            Target = target,
-            FinalDamage = damage
-        };
-        target.TakeDamage(ctx);
-        
-        target.SetFrozen(false);
-        _breakBonus.Remove(instance);
-        Debug.Log($"[FreezeBreak] ratio: {ratio:F2}, mul: {multipiler:F2}, dmg: {damage}");
-    }
+    public override void OnRemove(Character target, StatusEffectInstance instance) { }
 
     private void ForceRemove(Character target, StatusEffectInstance instance) {
         target.RequestRemoveStatus(instance);
+    }
+
+    public override bool ShouldBlockAction(Character target, StatusEffectInstance instance) {
+        return true;    // 凍結中は行動不能
+    }
+
+    public override bool OnReapply(Character target, Character source, StatusEffectData data) {
+        var existing = target.GetStatus(StatusEffectType.Freeze);
+        if (existing == null) return false;
+
+        float magic = source.GetFinalStatus(StatusType.MagicAttack);
+        float ratio = existing.RemainingTime / existing.InitialDuration;     // 残り時間割合
+        float multipiler = Mathf.Lerp(minMultiplier, maxMultiplier, ratio);  // 倍率補間
+        int damage = Mathf.FloorToInt(magic * multipiler);
+
+        var ctx = DamageContextFactory.CreateFixed(source, target, damage);
+        target.TakeDamage(ctx);
+
+        target.RequestRemoveStatus(existing);  // 凍結解除予約
+        Debug.Log($"[FreezeBreak] ratio: {ratio:F2}, mul: {multipiler:F2}, dmg: {damage}");
+        return true;
     }
 }

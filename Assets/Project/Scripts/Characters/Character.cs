@@ -15,30 +15,29 @@ public class Character : MonoBehaviour {
     [SerializeField] private List<GrowthItem> _items = new();   // 強化アイテム
     [SerializeField] private List<SkillData> _skills;
     [SerializeField] private ElementType _currentElement = ElementType.None;
-    [SerializeField] private List<StatusEffectInstance> _statusEffects = new();
-    [SerializeField] private List<StatusEffectInstance> _removeQuere = new();
+    [SerializeField] private CombatSystem _combatSystems;
 
     [SerializeField] private TextMeshProUGUI _element;
     [SerializeField] private TextMeshProUGUI _effectText;
     
 
+    private StatusManager _statusManager;
     private readonly List<Effect> _passiveEffects = new();           // ステータス変更系
     private readonly List<OnAttackEffect> _attackEffects = new();    // 攻撃変更（連撃）系
     private readonly List<OnDamageEffect> _damageEffects = new();    // ダメージ計算
-    private readonly Dictionary<StatusEffectType, float> _inflictionBonus = new();
     private float _currentHP;
     private float _currentMP;
     private float _regenTimer = 0f;
     private int _currentSkillIndex = 0;
-    private bool _isFrozen;
 
     public float MaxHP => GetFinalStatus(StatusType.MaxHP);
     public float MaxMP => GetFinalStatus(StatusType.MaxMP);
-    public bool IsFrozen => _isFrozen;
     public SkillData CurrentSkill => _skills[_currentSkillIndex];
     public ElementType CurrentElement => _currentElement;
 
     private void Awake() {
+        _statusManager = new StatusManager(this);
+        
         BuildEffectList();
         InitializeHP();
         InitializeMP();
@@ -47,7 +46,6 @@ public class Character : MonoBehaviour {
     private void Update() {
         RecoverMP();
         UpdateStatusEffects();
-        ProcessRemoveQuere();
     }
 
     public void InitializeHP() {
@@ -77,7 +75,13 @@ public class Character : MonoBehaviour {
         float bonus = 0f;
         
         foreach (var effect in _passiveEffects) bonus += effect.GetStatusBonus(type);
-        return baseValue + bonus;
+        float value =  baseValue + bonus;
+
+        foreach (var s in _statusManager.Effects) {
+            value = s.Data.behaviour.ModifyStat(type, value, s);
+        }
+
+        return value;
     }
 
     public void TriggerAttack(AttackContext ctx) {
@@ -103,8 +107,8 @@ public class Character : MonoBehaviour {
     // ダメージ適応（仮）
     public void TakeDamage(DamageContext ctx) {
         foreach (var effect in _damageEffects) effect.OnDamage(ctx);
-        for (int i=_statusEffects.Count-1; i>=0; --i) {  // 要素を削除しても大丈夫なように逆順にする 
-            var status = _statusEffects[i];
+        for (int i=_statusManager.Effects.Count-1; i>=0; --i) {  // 要素を削除しても大丈夫なように逆順にする 
+            var status = _statusManager.Effects[i];
             status.Data.behaviour.OnDamage(this, status, ctx);
         }
 
@@ -133,75 +137,56 @@ public class Character : MonoBehaviour {
     }
 
     private void UpdateStatusEffects() {
-        for (int i=_statusEffects.Count-1; i>=0; --i) {
-            var effect = _statusEffects[i];
+        for (int i=_statusManager.Effects.Count-1; i>=0; --i) {
+            var effect = _statusManager.Effects[i];
             effect.Data.behaviour.OnUpdate(this, effect, Time.deltaTime); // 挙動を更新
             effect.RemainingTime -= Time.deltaTime;
 
             // 終了処理
             if (effect.RemainingTime <= 0f) {
                 effect.Data.behaviour.OnRemove(this, effect);
-                _statusEffects.RemoveAt(i);
+                _statusManager.Effects.RemoveAt(i);
             }
         }
     }
 
     private bool TryApplyStatus(Character attacker, StatusEffectData data) {
-        float bonus = _inflictionBonus.GetValueOrDefault(data.type, 0f);
-
-        float infliction = attacker.GetFinalStatus(StatusType.StatusInfliction) / 100f;  // 付与確率を (StatusInfliction) % アップ
-        float resistance = GetFinalStatus(StatusType.StatusResistance) / 100f;           // 付与確率を (StatusResistance) % ダウン
-        float chance = (data.baseChance + bonus) * (1 + infliction) * (1f - resistance);
-
-        if (UnityEngine.Random.value < chance) {
-            ApplyStatus(data, attacker);
-            _inflictionBonus[data.type] = 0f;
-            return true;
-        } else {
-            float rate = attacker.GetFinalStatus(StatusType.StatusInflictionRate) / 100f;  // 付与上昇率を (StatusInflictionRate) % アップ
-            bonus += data.accumulationPerFail * (1 + rate);
-            bonus = Mathf.Min(bonus, data.maxBonus);    // 上昇率が 100% を超えないように
-
-            _inflictionBonus[data.type] = bonus;
-            return false;
-        }
+        return _statusManager.TryApply(attacker, data);
     }
 
     private void ApplyStatus(StatusEffectData data, Character source) {
-        if (data.type == StatusEffectType.Freeze) {
-            var existing = GetStatus(StatusEffectType.Freeze);
-            if (existing != null) {
-                // 既に凍結している → 重ねがけせずに解除
-                RequestRemoveStatus(existing);
-                Debug.Log("Freeze Shattered");
-                return;  // 新規付与しない
-            }
+        var existing = GetStatus(data.type);
+        
+        if (existing != null) {
+            if (existing.Data.behaviour.OnReapply(this, source, data)) return;   // true が返れば新規付与しない
         }
 
         var instance = new StatusEffectInstance(data, source);
-        _statusEffects.Add(instance);
+        _statusManager.Effects.Add(instance);
         data.behaviour.OnApply(this, instance);
 
         _effectText.text = $"{data.type}!";  // 仮表示
     }
 
     public StatusEffectInstance GetStatus(StatusEffectType type) {
-        return _statusEffects.Find(x => x.Data.type == type);
+        return _statusManager.Get(type);
     }
 
-    public void SetFrozen(bool value) {
-        _isFrozen = value;
-    }
-
+    // 削除予約（ループ中に変化させないため）
     public void RequestRemoveStatus(StatusEffectInstance instance) {
-        if (!_removeQuere.Contains(instance)) _removeQuere.Add(instance);
+        _statusManager.RequestRemoveStatus(instance);
     }
 
-    private void ProcessRemoveQuere() {
-        foreach (var instance in _removeQuere) {
-            if (_statusEffects.Remove(instance)) instance.Data.behaviour.OnRemove(this, instance);
+    public List<Character> GetCombatTargets(Character source) {
+        return _combatSystems.GetEnemies(source);
+    }
+
+    // 行動可能か
+    public bool CanAct() {
+        foreach (var s in _statusManager.Effects) {
+            if (s.Data.behaviour.ShouldBlockAction(this, s)) return false;
         }
-        _removeQuere.Clear();
+        return true;
     }
 
     public bool TryConsumeMP(int amount) {

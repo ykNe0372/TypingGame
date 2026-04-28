@@ -154,6 +154,7 @@ MonoBehaviour:
   _skills:
   - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
   _currentElement: 0
+  _combatSystems: {fileID: 614157279}
   _element: {fileID: 0}
   _effectText: {fileID: 1798959667}
 --- !u!4 &70926604
@@ -1053,9 +1054,7 @@ MonoBehaviour:
   _enemies:
   - {fileID: 70926603}
   - {fileID: 1665860476}
-  _burn: {fileID: 11400000, guid: 8cdd812f05158434fbb306717d338f9c, type: 2}
-  _freeze: {fileID: 11400000, guid: 0de93e7ea7cc6494b82e3f4e7d23a0a8, type: 2}
-  _shock: {fileID: 11400000, guid: 6100c019a89454379bd41bf863d0dcd5, type: 2}
+  _resolver: {fileID: 11400000, guid: e997d989d3f934b56ac6604504790dcc, type: 2}
 --- !u!4 &614157280
 Transform:
   m_ObjectHideFlags: 0
@@ -2037,6 +2036,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
   - {fileID: 11400000, guid: 43419116042304197ac093a26c0dfa7b, type: 2}
   _currentElement: 0
+  _combatSystems: {fileID: 614157279}
   _element: {fileID: 1344551154}
   _effectText: {fileID: 1798959667}
 --- !u!4 &1093212729
@@ -3230,6 +3230,7 @@ MonoBehaviour:
   _skills:
   - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
   _currentElement: 0
+  _combatSystems: {fileID: 614157279}
   _element: {fileID: 0}
   _effectText: {fileID: 1798959667}
 --- !u!4 &1665860477

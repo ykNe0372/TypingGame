@@ -18,4 +18,9 @@ public class StatusEffectData : ScriptableObject {
     public float freezeBreakBaseChance = 0.5f;    // 初期解除確率
     public float freezeBreakAccumulation = 0.1f;  // 非解除時の上昇率
     public float freezeBreakMaxBonus = 0.95f;     // 解除確率の上限
+
+    public float shockSpeedMultiplier = 0.8f;     // 攻撃速度を (1f - shockSpeedMultiplier) % 低下
+    public float shockFailChance = 0.1f;          // 攻撃不発確率
+    public float overShockBaseMultiplier = 1.2f;  // 迅雷直撃時の攻撃倍率
+    public float overShockChainDecay = 0.5f;      // 迅雷伝播時の攻撃倍率
 }

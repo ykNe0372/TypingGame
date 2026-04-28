@@ -19,11 +19,7 @@ public class BurnEffect: StatusEffectBehaviour {
             float magic = instance.Source.GetFinalStatus(StatusType.MagicAttack);
             int damage = Mathf.FloorToInt(magic);    // 仮で MagicAttack = ATK とする
             
-            var ctx = new DamageContext {
-                Attacker = instance.Source,
-                Target = target,
-                FinalDamage = damage
-            };
+            var ctx = DamageContextFactory.CreateFixed(instance.Source, target, damage);
             target.TakeDamage(ctx);
 
             Debug.Log($"[Burn] {target.name} に {damage} ダメージ");
