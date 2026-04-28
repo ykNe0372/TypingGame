@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+
 public enum ElementType {
     None,
     Fire,
@@ -10,7 +11,6 @@ public enum ElementType {
 }
 
 public class Character : MonoBehaviour {
-
     [SerializeField] private CharacterBaseStatus _baseStatus;   // 基礎ステータス
     [SerializeField] private List<GrowthItem> _items = new();   // 強化アイテム
     [SerializeField] private List<SkillData> _skills;
@@ -22,10 +22,10 @@ public class Character : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI _effectText;
     
 
-    private List<Effect> _passiveEffects = new();           // ステータス変更系
-    private List<OnAttackEffect> _attackEffects = new();    // 攻撃変更（連撃）系
-    private List<OnDamageEffect> _damageEffects = new();    // ダメージ計算
-    private Dictionary<StatusEffectType, float> _inflictionBonus = new();
+    private readonly List<Effect> _passiveEffects = new();           // ステータス変更系
+    private readonly List<OnAttackEffect> _attackEffects = new();    // 攻撃変更（連撃）系
+    private readonly List<OnDamageEffect> _damageEffects = new();    // ダメージ計算
+    private readonly Dictionary<StatusEffectType, float> _inflictionBonus = new();
     private float _currentHP;
     private float _currentMP;
     private float _regenTimer = 0f;

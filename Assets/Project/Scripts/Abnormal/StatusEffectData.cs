@@ -17,5 +17,5 @@ public class StatusEffectData : ScriptableObject {
 
     public float freezeBreakBaseChance = 0.5f;    // 初期解除確率
     public float freezeBreakAccumulation = 0.1f;  // 非解除時の上昇率
-    public float freezeBreakMaxBonus = 0.90f;     // 解除確率の上限
+    public float freezeBreakMaxBonus = 0.95f;     // 解除確率の上限
 }

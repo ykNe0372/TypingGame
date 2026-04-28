@@ -35,10 +35,10 @@ public partial class TypingMg : MonoBehaviour {
 
     [SerializeField] private CombatSystem _combatSystem;
 
-    private TypingInput _typingInput = new();
+    private readonly TypingInput _typingInput = new();
     private InputManager _inputManager;
     private List<Question> _currentQuestions;
-    private List<Question> _filteredQuestions = new();
+    private readonly List<Question> _filteredQuestions = new();
     private Question _currentQuestion;
     private readonly List<char> _roman = new();
     private int _romanIndex;

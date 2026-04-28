@@ -58,7 +58,7 @@ public class FreezeEffect : StatusEffectBehaviour {
         
         target.SetFrozen(false);
         _breakBonus.Remove(instance);
-        Debug.Log($"[FreezeBreak] ratio: {ratio:F2}, mul: {multipiler: F2}, dmg: {damage}");
+        Debug.Log($"[FreezeBreak] ratio: {ratio:F2}, mul: {multipiler:F2}, dmg: {damage}");
     }
 
     private void ForceRemove(Character target, StatusEffectInstance instance) {

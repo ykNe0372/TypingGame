@@ -5,7 +5,7 @@ using UnityEngine;
 public class BurnEffect: StatusEffectBehaviour {
     [SerializeField] private float _damageInterval = 1.0f;
 
-    private Dictionary<StatusEffectInstance, float> _timers = new(); // 燃焼ごとにタイマーを持つ
+    private readonly Dictionary<StatusEffectInstance, float> _timers = new(); // 燃焼ごとにタイマーを持つ
 
     public override void OnApply(Character target, StatusEffectInstance instance) {
         _timers[instance] = 0f;
