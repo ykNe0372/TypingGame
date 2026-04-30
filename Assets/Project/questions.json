@@ -601,12 +601,20 @@
       "reading": "こたい"
     },
     {
+      "display": "コップ",
+      "reading": "こっぷ"
+    },
+    {
       "display": "言葉",
       "reading": "ことば"
     },
     {
       "display": "古墳",
       "reading": "こふん"
+    },
+    {
+      "display": "ゴルフ",
+      "reading": "ごるふ"
     },
     {
       "display": "サイン",
@@ -667,6 +675,14 @@
     {
       "display": "タヌキ",
       "reading": "たぬき"
+    },
+    {
+      "display": "タライ",
+      "reading": "たらい"
+    },
+    {
+      "display": "ダンス",
+      "reading": "だんす"
     },
     {
       "display": "チェロ",
@@ -761,6 +777,10 @@
       "reading": "ひょう"
     },
     {
+      "display": "夫婦",
+      "reading": "ふうふ"
+    },
+    {
       "display": "布団",
       "reading": "ふとん"
     },
@@ -773,12 +793,28 @@
       "reading": "べーす"
     },
     {
+      "display": "ホタテ",
+      "reading": "ほたて"
+    },
+    {
       "display": "ボタン",
       "reading": "ぼたん"
     },
     {
+      "display": "ホラー",
+      "reading": "ほらー"
+    },
+    {
       "display": "ボール",
       "reading": "ぼーる"
+    },
+    {
+      "display": "枕",
+      "reading": "まくら"
+    },
+    {
+      "display": "祭り",
+      "reading": "まつり"
     },
     {
       "display": "ミント",
@@ -813,6 +849,10 @@
       "reading": "きっちん"
     },
     {
+      "display": "グローブ",
+      "reading": "ぐろーぶ"
+    },
+    {
       "display": "呼吸",
       "reading": "こきゅう"
     },
@@ -835,6 +875,10 @@
     {
       "display": "冒険",
       "reading": "ぼうけん"
+    },
+    {
+      "display": "抹茶",
+      "reading": "まっちゃ"
     },
     {
       "display": "ライオン",
