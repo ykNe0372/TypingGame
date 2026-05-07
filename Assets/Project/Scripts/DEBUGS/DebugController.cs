@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class DebugController : MonoBehaviour {
     [SerializeField] private bool _isDebugMode = true;
     [SerializeField] private GameObject _debugPanel;
-    [SerializeField] private TypingMg _typingMg;
+    [SerializeField] private TypingManager _typingMg;
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.F12)) _debugPanel.SetActive(!_debugPanel.activeSelf);

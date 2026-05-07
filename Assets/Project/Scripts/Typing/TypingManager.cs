@@ -21,7 +21,7 @@ public class QuestionList {
 
 
 [RequireComponent(typeof(AudioSource))]
-public partial class TypingMg : MonoBehaviour {
+public partial class TypingManager : MonoBehaviour {
     public AudioClip correct;
     public AudioClip wrong;
 
