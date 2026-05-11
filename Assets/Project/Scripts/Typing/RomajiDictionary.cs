@@ -46,7 +46,7 @@ public static class RomajiDictionary {
         { "ん", new[]{ "n","nn","xn" } },
 
         // 拗音
-        { "うぁ", new[]{ "wha","uxa","ula" } }, { "うぃ", new[]{ "whi","uxi","uli" } }, { "うぇ", new[]{ "whe","uxe","ule" } }, { "うぉ", new[]{ "who","uxo","ulo" } },
+        { "うぁ", new[]{ "wha","uxa","ula" } }, { "うぃ", new[]{ "wi","whi","uxi","uli" } }, { "うぇ", new[]{ "we","whe","uxe","ule" } }, { "うぉ", new[]{ "who","uxo","ulo" } },
 
         { "きゃ", new[]{ "kya","kixya","kilya" } }, { "きゅ", new[]{ "kyu","kixyu","kilyu" } }, { "きょ", new[]{ "kyo","kixyo","kilyo" } },
         { "ぎゃ", new[]{ "gya","gixya","gilya" } }, { "ぎゅ", new[]{ "gyu","gixyu","gilyu" } }, { "ぎょ", new[]{ "gyo","gixyo","gilyo" } },
