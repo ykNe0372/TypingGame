@@ -92,7 +92,9 @@ public class Character : MonoBehaviour {
     private void ExecuteAttack(AttackContext ctx) {
         foreach (var target in ctx.Targets) {
             var dmgCtx = DamageContextFactory.CreateAttack(this, target);
-            dmgCtx.FinalDamage = Mathf.RoundToInt(dmgCtx.BaseDamage * CurrentSkill.powerMultiplier);
+            dmgCtx.FinalDamage = dmgCtx.BaseDamage * CurrentSkill.powerMultiplier;
+            CriticalCalculator.Apply(dmgCtx);
+            
             target.TakeDamage(dmgCtx);   // 被弾処理
             if (ctx.StatusEffect != null) {
                 target.TryApplyStatus(ctx.Attacker, ctx.StatusEffect);  // 状態異常付与
