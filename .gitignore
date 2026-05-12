@@ -75,3 +75,6 @@ crashlytics-build.properties
 +/[Aa]ssets/*
 
 +!/[Aa]ssets/Project/
+
+# Mac の表示ファイル関連の隠しファイル
+.DS_Store
