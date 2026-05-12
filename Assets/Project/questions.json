@@ -665,6 +665,10 @@
       "reading": "すもも"
     },
     {
+      "display": "星座",
+      "reading": "せいざ"
+    },
+    {
       "display": "世界",
       "reading": "せかい"
     },
@@ -699,6 +703,10 @@
     {
       "display": "ダンス",
       "reading": "だんす"
+    },
+    {
+      "display": "暖炉",
+      "reading": "だんろ"
     },
     {
       "display": "チェロ",
@@ -853,6 +861,10 @@
       "reading": "まつり"
     },
     {
+      "display": "魔法",
+      "reading": "まほう"
+    },
+    {
       "display": "ミカン",
       "reading": "みかん"
     },
@@ -903,6 +915,10 @@
     {
       "display": "野菜",
       "reading": "やさい"
+    },
+    {
+      "display": "屋台",
+      "reading": "やたい"
     },
     {
       "display": "ヤモリ",
@@ -1033,16 +1049,40 @@
       "reading": "かいがん"
     },
     {
+      "display": "額縁",
+      "reading": "がくぶち"
+    },
+    {
+      "display": "学校",
+      "reading": "がっこう"
+    },
+    {
+      "display": "贋作",
+      "reading": "がんさく"
+    },
+    {
       "display": "カーテン",
       "reading": "かーてん"
+    },
+    {
+      "display": "気球",
+      "reading": "ききゅう"
     },
     {
       "display": "キッチン",
       "reading": "きっちん"
     },
     {
+      "display": "霧雨",
+      "reading": "きりさめ"
+    },
+    {
       "display": "クエスト",
       "reading": "くえすと"
+    },
+    {
+      "display": "黒猫",
+      "reading": "くろねこ"
     },
     {
       "display": "グローブ",
@@ -1061,24 +1101,76 @@
       "reading": "こくばん"
     },
     {
+      "display": "木漏れ日",
+      "reading": "こもれび"
+    },
+    {
+      "display": "シャベル",
+      "reading": "しゃべる"
+    },
+    {
+      "display": "スコップ",
+      "reading": "すこっぷ"
+    },
+    {
+      "display": "整備士",
+      "reading": "せいびし"
+    },
+    {
+      "display": "石炭",
+      "reading": "せきたん"
+    },
+    {
+      "display": "セーター",
+      "reading": "せーたー"
+    },
+    {
+      "display": "掃除機",
+      "reading": "そうじき"
+    },
+    {
       "display": "タイマー",
       "reading": "たいまー"
+    },
+    {
+      "display": "太陽",
+      "reading": "たいよう"
     },
     {
       "display": "手錠",
       "reading": "てじょう"
     },
     {
-      "display": "電卓",
-      "reading": "でんたく"
+      "display": "哲学",
+      "reading": "てつがく"
+    },
+    {
+      "display": "電車",
+      "reading": "でんしゃ"
     },
     {
       "display": "トランプ",
       "reading": "とらんぷ"
     },
     {
+      "display": "ドーナツ",
+      "reading": "どーなつ"
+    },
+    {
       "display": "配線",
       "reading": "はいせん"
+    },
+    {
+      "display": "排熱",
+      "reading": "はいねつ"
+    },
+    {
+      "display": "歯車",
+      "reading": "はぐるま"
+    },
+    {
+      "display": "花束",
+      "reading": "はなたば"
     },
     {
       "display": "便箋",
@@ -1087,6 +1179,10 @@
     {
       "display": "ヒーター",
       "reading": "ひーたー"
+    },
+    {
+      "display": "踏切",
+      "reading": "ふみきり"
     },
     {
       "display": "雰囲気",
@@ -1117,20 +1213,56 @@
       "reading": "まないた"
     },
     {
+      "display": "マフラー",
+      "reading": "まふらー"
+    },
+    {
       "display": "マラカス",
       "reading": "まらかす"
+    },
+    {
+      "display": "魔力",
+      "reading": "まりょく"
+    },
+    {
+      "display": "三日月",
+      "reading": "みかづき"
+    },
+    {
+      "display": "メーター",
+      "reading": "めーたー"
+    },
+    {
+      "display": "モノクル",
+      "reading": "ものくる"
     },
     {
       "display": "モモンガ",
       "reading": "ももんが"
     },
     {
+      "display": "モーター",
+      "reading": "もーたー"
+    },
+    {
       "display": "ヤシの木",
       "reading": "やしのき"
     },
     {
+      "display": "夕焼け",
+      "reading": "ゆうやけ"
+    },
+    {
       "display": "幽霊",
       "reading": "ゆうれい"
+    },
+    {
+      "display": "宵闇",
+      "reading": "よいやみ"
+    },
+    {
+      "display": "溶接",
+      "reading": "ようせつ"
     },
     {
       "display": "ヨーヨー",
@@ -1141,8 +1273,20 @@
       "reading": "らいおん"
     },
     {
+      "display": "ランタン",
+      "reading": "らんたん"
+    },
+    {
       "display": "ロウソク",
       "reading": "ろうそく"
+    },
+    {
+      "display": "ロボット",
+      "reading": "ろぼっと"
+    },
+    {
+      "display": "アプローチ",
+      "reading": "あぷろーち"
     },
     {
       "display": "アーモンド",
@@ -1153,8 +1297,16 @@
       "reading": "うえきばち"
     },
     {
+      "display": "腕時計",
+      "reading": "うでどけい"
+    },
+    {
       "display": "エメラルド",
       "reading": "えめらるど"
+    },
+    {
+      "display": "温度計",
+      "reading": "おんどけい"
     },
     {
       "display": "カスタード",
@@ -1169,8 +1321,32 @@
       "reading": "かみぶくろ"
     },
     {
+      "display": "乾電池",
+      "reading": "かんでんち"
+    },
+    {
+      "display": "喫茶店",
+      "reading": "きっさてん"
+    },
+    {
+      "display": "弓道",
+      "reading": "きゅうどう"
+    },
+    {
       "display": "キーボード",
       "reading": "きーぼーど"
+    },
+    {
+      "display": "計算機",
+      "reading": "けいさんき"
+    },
+    {
+      "display": "湿度計",
+      "reading": "しつどけい"
+    },
+    {
+      "display": "授業",
+      "reading": "じゅぎょう"
     },
     {
       "display": "スクリーン",
@@ -1181,6 +1357,10 @@
       "reading": "すぴーかー"
     },
     {
+      "display": "星座盤",
+      "reading": "せいざばん"
+    },
+    {
       "display": "世界樹",
       "reading": "せかいじゅ"
     },
@@ -1189,8 +1369,16 @@
       "reading": "たぶれっと"
     },
     {
+      "display": "地平線",
+      "reading": "ちへいせん"
+    },
+    {
       "display": "チャンバラ",
       "reading": "ちゃんばら"
+    },
+    {
+      "display": "チョーカー",
+      "reading": "ちょーかー"
     },
     {
       "display": "ティラミス",
@@ -1205,6 +1393,10 @@
       "reading": "ばってりー"
     },
     {
+      "display": "花曇り",
+      "reading": "はなぐもり"
+    },
+    {
       "display": "パンケーキ",
       "reading": "ぱんけーき"
     },
@@ -1213,12 +1405,20 @@
       "reading": "ぴくにっく"
     },
     {
+      "display": "秘密基地",
+      "reading": "ひみつきち"
+    },
+    {
       "display": "昼休み",
       "reading": "ひるやすみ"
     },
     {
       "display": "二日酔い",
       "reading": "ふつかよい"
+    },
+    {
+      "display": "フライパン",
+      "reading": "ふらいぱん"
     },
     {
       "display": "フラフープ",
@@ -1245,8 +1445,24 @@
       "reading": "ましんがん"
     },
     {
+      "display": "マニュアル",
+      "reading": "まにゅある"
+    },
+    {
       "display": "モノローグ",
       "reading": "ものろーぐ"
+    },
+    {
+      "display": "羅針盤",
+      "reading": "らしんばん"
+    },
+    {
+      "display": "有象無象",
+      "reading": "うぞうむぞう"
+    },
+    {
+      "display": "オーケストラ",
+      "reading": "おーけすとら"
     },
     {
       "display": "花粉症",
@@ -1257,20 +1473,68 @@
       "reading": "かれーらいす"
     },
     {
+      "display": "ガスバーナー",
+      "reading": "がすばーなー"
+    },
+    {
       "display": "漢方薬",
       "reading": "かんぽうやく"
+    },
+    {
+      "display": "喜怒哀楽",
+      "reading": "きどあいらく"
+    },
+    {
+      "display": "牛乳",
+      "reading": "ぎゅうにゅう"
     },
     {
       "display": "広葉樹",
       "reading": "こうようじゅ"
     },
     {
+      "display": "五臓六腑",
+      "reading": "ごぞうろっぷ"
+    },
+    {
+      "display": "コンデンサー",
+      "reading": "こんでんさー"
+    },
+    {
+      "display": "潤滑油",
+      "reading": "じゅんかつゆ"
+    },
+    {
       "display": "針葉樹",
       "reading": "しんようじゅ"
     },
     {
+      "display": "水蒸気",
+      "reading": "すいじょうき"
+    },
+    {
+      "display": "洗濯板",
+      "reading": "せんたくいた"
+    },
+    {
+      "display": "雑木林",
+      "reading": "ぞうきばやし"
+    },
+    {
+      "display": "ソフトウェア",
+      "reading": "そふとうぇあ"
+    },
+    {
       "display": "チーズケーキ",
       "reading": "ちーずけーき"
+    },
+    {
+      "display": "白昼夢",
+      "reading": "はくちゅうむ"
+    },
+    {
+      "display": "博物館",
+      "reading": "はくぶつかん"
     },
     {
       "display": "美術館",
@@ -1297,12 +1561,24 @@
       "reading": "きたはんきゅう"
     },
     {
+      "display": "消毒液",
+      "reading": "しょうどくえき"
+    },
+    {
       "display": "スマートフォン",
       "reading": "すまーとふぉん"
     },
     {
+      "display": "線香花火",
+      "reading": "せんこうはなび"
+    },
+    {
       "display": "二酸化炭素",
       "reading": "にさんかたんそ"
+    },
+    {
+      "display": "入道雲",
+      "reading": "にゅうどうぐも"
     },
     {
       "display": "猫は液体",
@@ -1333,12 +1609,32 @@
       "reading": "ぷろぐらみんぐ"
     },
     {
+      "display": "北極星",
+      "reading": "ほっきょくせい"
+    },
+    {
       "display": "ホワイトボード",
       "reading": "ほわいとぼーど"
     },
     {
+      "display": "麦わら帽子",
+      "reading": "むぎわらぼうし"
+    },
+    {
+      "display": "螺旋階段",
+      "reading": "らせんかいだん"
+    },
+    {
       "display": "路面電車",
       "reading": "ろめんでんしゃ"
+    },
+    {
+      "display": "アプリケーション",
+      "reading": "あぷりけーしょん"
+    },
+    {
+      "display": "宇宙飛行士",
+      "reading": "うちゅうひこうし"
     },
     {
       "display": "ウーパールーパー",
@@ -1349,12 +1645,16 @@
       "reading": "えんせきがいせん"
     },
     {
-      "display": "環境変数",
-      "reading": "かんきょうへんすう"
+      "display": "懐中時計",
+      "reading": "かいちゅうどけい"
     },
     {
       "display": "ショルダーバッグ",
       "reading": "しょるだーばっぐ"
+    },
+    {
+      "display": "天体観測",
+      "reading": "てんたいかんそく"
     },
     {
       "display": "拍手喝采",
@@ -1373,8 +1673,20 @@
       "reading": "みなみはんきゅう"
     },
     {
+      "display": "算数と数学",
+      "reading": "さんすうとすうがく"
+    },
+    {
+      "display": "蒸気機関車",
+      "reading": "じょうききかんしゃ"
+    },
+    {
       "display": "南極大陸",
       "reading": "なんきょくたいりく"
+    },
+    {
+      "display": "南十字星",
+      "reading": "みなみじゅうじせい"
     },
     {
       "display": "四つ葉のクローバー",
@@ -1395,6 +1707,10 @@
     {
       "display": "鬼の居ぬ間に洗濯",
       "reading": "おにのいぬまにせんたく"
+    },
+    {
+      "display": "覆水盆に返らず",
+      "reading": "ふくすいぼんにかえらず"
     },
     {
       "display": "東京特許許可局",

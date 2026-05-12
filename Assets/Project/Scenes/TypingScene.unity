@@ -153,6 +153,7 @@ MonoBehaviour:
   _items: []
   _skills:
   - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
+  _bonusAttacks: []
   _currentElement: 0
   _combatSystems: {fileID: 614157279}
   _element: {fileID: 0}
@@ -2035,6 +2036,11 @@ MonoBehaviour:
   _skills:
   - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
   - {fileID: 11400000, guid: 43419116042304197ac093a26c0dfa7b, type: 2}
+  _bonusAttacks:
+  - {fileID: 11400000, guid: b5d760fe8f01c42bba797a32dbd998ae, type: 2}
+  - {fileID: 11400000, guid: 368639989689f4a0aa9460398a4e8508, type: 2}
+  - {fileID: 11400000, guid: 0fb60e8c3de8a40bfaa7ed5345abdae6, type: 2}
+  - {fileID: 11400000, guid: 005bf1311709e4bdc829fe993ffe2667, type: 2}
   _currentElement: 0
   _combatSystems: {fileID: 614157279}
   _element: {fileID: 1344551154}
@@ -3229,6 +3235,7 @@ MonoBehaviour:
   _items: []
   _skills:
   - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
+  _bonusAttacks: []
   _currentElement: 0
   _combatSystems: {fileID: 614157279}
   _element: {fileID: 0}
@@ -3589,7 +3596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isDebugMode: 1
   _debugPanel: {fileID: 803467467}
-  _typingMg: {fileID: 984307236}
+  _typingManager: {fileID: 984307236}
 --- !u!4 &1815338205
 Transform:
   m_ObjectHideFlags: 0
