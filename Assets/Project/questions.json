@@ -1105,6 +1105,18 @@
       "reading": "こもれび"
     },
     {
+      "display": "採血",
+      "reading": "さいけつ"
+    },
+    {
+      "display": "さざ波",
+      "reading": "さざなみ"
+    },
+    {
+      "display": "実験",
+      "reading": "じっけん"
+    },
+    {
       "display": "シャベル",
       "reading": "しゃべる"
     },
@@ -1305,6 +1317,14 @@
       "reading": "えめらるど"
     },
     {
+      "display": "演算子",
+      "reading": "えんざんし"
+    },
+    {
+      "display": "オルゴール",
+      "reading": "おるごーる"
+    },
+    {
       "display": "温度計",
       "reading": "おんどけい"
     },
@@ -1349,6 +1369,14 @@
       "reading": "じゅぎょう"
     },
     {
+      "display": "商人",
+      "reading": "しょうにん"
+    },
+    {
+      "display": "水晶",
+      "reading": "すいしょう"
+    },
+    {
       "display": "スクリーン",
       "reading": "すくりーん"
     },
@@ -1387,6 +1415,14 @@
     {
       "display": "ドライヤー",
       "reading": "どらいやー"
+    },
+    {
+      "display": "熱帯夜",
+      "reading": "ねったいや"
+    },
+    {
+      "display": "農業",
+      "reading": "のうぎょう"
     },
     {
       "display": "バッテリー",
@@ -1501,6 +1537,10 @@
       "reading": "こんでんさー"
     },
     {
+      "display": "桜並木",
+      "reading": "さくらなみき"
+    },
+    {
       "display": "潤滑油",
       "reading": "じゅんかつゆ"
     },
@@ -1527,6 +1567,10 @@
     {
       "display": "チーズケーキ",
       "reading": "ちーずけーき"
+    },
+    {
+      "display": "ノスタルジア",
+      "reading": "のすたるじあ"
     },
     {
       "display": "白昼夢",
@@ -1597,6 +1641,10 @@
       "reading": "ばいうぜんせん"
     },
     {
+      "display": "微分積分",
+      "reading": "びぶんせきぶん"
+    },
+    {
       "display": "百分率",
       "reading": "ひゃくぶんりつ"
     },
@@ -1623,6 +1671,10 @@
     {
       "display": "螺旋階段",
       "reading": "らせんかいだん"
+    },
+    {
+      "display": "輪廻転生",
+      "reading": "りんねてんせい"
     },
     {
       "display": "路面電車",

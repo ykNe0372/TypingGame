@@ -12,6 +12,7 @@ public enum ElementType {
 
 public class Character : MonoBehaviour {
     [SerializeField] private CharacterBaseStatus _baseStatus;   // 基礎ステータス
+    [SerializeField] private RelicData _relic;                  // レリック
     [SerializeField] private List<GrowthItem> _items = new();   // 強化アイテム
     [SerializeField] private List<SkillData> _skills;
     [SerializeField] private List<BonusAttackData> _bonusAttacks;
@@ -23,6 +24,7 @@ public class Character : MonoBehaviour {
     
 
     private StatusManager _statusManager;
+    private readonly List<RelicEffect> _relicEffects = new();        // レリック効果
     private readonly List<Effect> _passiveEffects = new();           // ステータス変更系
     private readonly List<OnAttackEffect> _attackEffects = new();    // 攻撃変更（連撃）系
     private readonly List<OnDamageEffect> _damageEffects = new();    // ダメージ計算
@@ -57,7 +59,7 @@ public class Character : MonoBehaviour {
         _currentMP = Mathf.FloorToInt(MaxMP);
     }
 
-    // 強化アイテム一覧
+    // 強化アイテム一覧、レリック効果
     private void BuildEffectList() {
         _passiveEffects.Clear();
         _attackEffects.Clear();
@@ -69,6 +71,10 @@ public class Character : MonoBehaviour {
                 else _passiveEffects.Add(effect);
             }
         }
+
+        if (_relic != null) {
+            foreach (var effect in _relic.effects) _relicEffects.Add(effect);
+        }
     }
 
     public float GetFinalStatus(StatusType type) {
@@ -76,6 +82,7 @@ public class Character : MonoBehaviour {
         float bonus = 0f;
         
         foreach (var effect in _passiveEffects) bonus += effect.GetStatusBonus(type);
+        foreach (var effect in _relicEffects) bonus += effect.GetStatusBonus(type);
         float value =  baseValue + bonus;
 
         foreach (var s in _statusManager.Effects) {
