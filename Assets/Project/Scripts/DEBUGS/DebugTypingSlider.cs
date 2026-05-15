@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 
 public class DebugTypingSlider : MonoBehaviour {
-    [SerializeField] private TypingMg _typingMg;
+    [SerializeField] private TypingManager _typingMg;
     [SerializeField] private Slider _minSlider;
     [SerializeField] private Slider _maxSlider;
     [SerializeField] private TMPro.TextMeshProUGUI _minText;

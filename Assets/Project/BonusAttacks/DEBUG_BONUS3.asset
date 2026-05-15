@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39f0e0b77b77046acbd0f583c78391bd, type: 3}
-  m_Name: DEBUG_ATTACK_EXTRA
+  m_Script: {fileID: 11500000, guid: 7dc911c662a9048cfa53db5a1dd183c5, type: 3}
+  m_Name: DEBUG_BONUS3
   m_EditorClassIdentifier: 
-  _extraCount: 1
+  multiplier: 0.6
+  targetType: 1

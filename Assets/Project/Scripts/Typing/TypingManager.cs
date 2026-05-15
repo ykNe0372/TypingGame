@@ -21,7 +21,7 @@ public class QuestionList {
 
 
 [RequireComponent(typeof(AudioSource))]
-public partial class TypingMg : MonoBehaviour {
+public partial class TypingManager : MonoBehaviour {
     public AudioClip correct;
     public AudioClip wrong;
 
@@ -42,10 +42,10 @@ public partial class TypingMg : MonoBehaviour {
     private Question _currentQuestion;
     private readonly List<char> _roman = new();
     private int _romanIndex;
-    private int _correctStreak;
+    private int _correctStreak;  // 連続正解数
+    private int _bonusChain;     // ボーナス段階
     private int _nextQuestionIndex = -1;
     private bool _isRubyEnabled = true;
-    // private bool _isBonus = false;
 
     AudioSource aud;
 
@@ -84,14 +84,17 @@ public partial class TypingMg : MonoBehaviour {
                 InitializeQuestion();
                 _combatSystem.RequestAttack();
                 ++_correctStreak;
-                if (_correctStreak == 5) {
-                    // _isBonus = true;
+
+                if (_correctStreak >= 5) {
                     _correctStreak = 0;
-                    Debug.Log("ボーナス！");
+                    _combatSystem.RequestBonusAttack(_bonusChain);
+                    ++_bonusChain;
+                    Debug.Log($"Bonus: {_bonusChain}");
                 }
                 break;
             case 0:
                 _correctStreak = 0;
+                _bonusChain = 0;
                 Debug.Log("リセット");
                 aud.PlayOneShot(wrong);
                 break;
@@ -203,9 +206,10 @@ public partial class TypingMg : MonoBehaviour {
 
     public void Debug_ForceBonus() {
         InitializeQuestion();
-        // _isBonus = true;
         _correctStreak = 0;
-        Debug.Log($"[DEBUG] Bonus");
+        _combatSystem.RequestBonusAttack(_bonusChain);
+        ++_bonusChain;
+        Debug.Log($"[DEBUG] Bonus: {_bonusChain}");
     }
 
     public void Debug_ToggleRuby() {

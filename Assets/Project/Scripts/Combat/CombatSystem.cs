@@ -36,6 +36,14 @@ public class CombatSystem : MonoBehaviour {
         _player.TriggerAttack(ctx);
     }
 
+    public void RequestBonusAttack(int chain) {
+        var bonus = _player.GetBonusAttack(chain);
+        if (bonus == null) return;
+
+        var targets = GetBonusTargets(bonus);
+        _player.TriggerBonusAttack(targets, bonus);
+    }
+
     public void RequestEnemyAttack(Character enemy) {
         if (!CanAttack(enemy)) return;
 
@@ -55,6 +63,15 @@ public class CombatSystem : MonoBehaviour {
             SkillTargetType.Single => new List<Character> { enemies[0] },  // 仮で先頭の敵に飛ぶようにする
             SkillTargetType.All => enemies,
             _ => enemies,
+        };
+    }
+
+    // 仮、後で↑と統合するかも
+    private List<Character> GetBonusTargets(BonusAttackData bonus) {
+        return bonus.targetType switch {
+            SkillTargetType.Single => new List<Character> { _enemies[0] },
+            SkillTargetType.All => _enemies,
+            _ => _enemies,
         };
     }
 }

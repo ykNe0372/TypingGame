@@ -12,8 +12,10 @@ public enum ElementType {
 
 public class Character : MonoBehaviour {
     [SerializeField] private CharacterBaseStatus _baseStatus;   // 基礎ステータス
+    [SerializeField] private RelicData _relic;                  // レリック
     [SerializeField] private List<GrowthItem> _items = new();   // 強化アイテム
     [SerializeField] private List<SkillData> _skills;
+    [SerializeField] private List<BonusAttackData> _bonusAttacks;
     [SerializeField] private ElementType _currentElement = ElementType.None;
     [SerializeField] private CombatSystem _combatSystems;
 
@@ -22,6 +24,7 @@ public class Character : MonoBehaviour {
     
 
     private StatusManager _statusManager;
+    private readonly List<RelicEffect> _relicEffects = new();        // レリック効果
     private readonly List<Effect> _passiveEffects = new();           // ステータス変更系
     private readonly List<OnAttackEffect> _attackEffects = new();    // 攻撃変更（連撃）系
     private readonly List<OnDamageEffect> _damageEffects = new();    // ダメージ計算
@@ -56,7 +59,7 @@ public class Character : MonoBehaviour {
         _currentMP = Mathf.FloorToInt(MaxMP);
     }
 
-    // 強化アイテム一覧
+    // 強化アイテム一覧、レリック効果
     private void BuildEffectList() {
         _passiveEffects.Clear();
         _attackEffects.Clear();
@@ -68,6 +71,10 @@ public class Character : MonoBehaviour {
                 else _passiveEffects.Add(effect);
             }
         }
+
+        if (_relic != null) {
+            foreach (var effect in _relic.effects) _relicEffects.Add(effect);
+        }
     }
 
     public float GetFinalStatus(StatusType type) {
@@ -75,6 +82,7 @@ public class Character : MonoBehaviour {
         float bonus = 0f;
         
         foreach (var effect in _passiveEffects) bonus += effect.GetStatusBonus(type);
+        foreach (var effect in _relicEffects) bonus += effect.GetStatusBonus(type);
         float value =  baseValue + bonus;
 
         foreach (var s in _statusManager.Effects) {
@@ -84,6 +92,13 @@ public class Character : MonoBehaviour {
         return value;
     }
 
+    public BonusAttackData GetBonusAttack(int chain) {
+        if (_bonusAttacks.Count == 0) return null;
+
+        int index = chain % _bonusAttacks.Count;
+        return _bonusAttacks[index];
+    }
+
     public void TriggerAttack(AttackContext ctx) {
         foreach (var effect in _attackEffects) effect.OnAttack(ctx);
         for (int i=0; i<ctx.AttackCount; ++i) ExecuteAttack(ctx);
@@ -91,16 +106,29 @@ public class Character : MonoBehaviour {
 
     private void ExecuteAttack(AttackContext ctx) {
         foreach (var target in ctx.Targets) {
-            var dmgCtx = new DamageContext {
-                Attacker = this,
-                Target = target,
-                BaseDamage = DamageCalculator.Calculate(this, target) // 基礎ダメージ計算
-            };
-            dmgCtx.FinalDamage = Mathf.RoundToInt(dmgCtx.BaseDamage * CurrentSkill.powerMultiplier);
+            var dmgCtx = DamageContextFactory.CreateAttack(this, target);
+            dmgCtx.FinalDamage = dmgCtx.BaseDamage * CurrentSkill.powerMultiplier;
+            CriticalCalculator.Apply(dmgCtx);
+            
             target.TakeDamage(dmgCtx);   // 被弾処理
             if (ctx.StatusEffect != null) {
                 target.TryApplyStatus(ctx.Attacker, ctx.StatusEffect);  // 状態異常付与
             }
+        }
+    }
+
+    public void TriggerBonusAttack(List<Character> targets, BonusAttackData bonus) {
+        ExecuteBonusAttack(targets, bonus);
+    }
+
+    private void ExecuteBonusAttack(List<Character> targets, BonusAttackData bonus) {
+        foreach (var target in targets) {
+            var dmgCtx = DamageContextFactory.CreateAttack(this, target);
+            dmgCtx.FinalDamage = dmgCtx.BaseDamage * bonus.multiplier;
+            CriticalCalculator.Apply(dmgCtx);
+            Debug.Log("Bonus Atatck Executed.");
+
+            target.TakeDamage(dmgCtx);
         }
     }
 
@@ -154,19 +182,19 @@ public class Character : MonoBehaviour {
         return _statusManager.TryApply(attacker, data);
     }
 
-    private void ApplyStatus(StatusEffectData data, Character source) {
-        var existing = GetStatus(data.type);
+    // private void ApplyStatus(StatusEffectData data, Character source) {
+    //     var existing = GetStatus(data.type);
         
-        if (existing != null) {
-            if (existing.Data.behaviour.OnReapply(this, source, data)) return;   // true が返れば新規付与しない
-        }
+    //     if (existing != null) {
+    //         if (existing.Data.behaviour.OnReapply(this, source, data)) return;   // true が返れば新規付与しない
+    //     }
 
-        var instance = new StatusEffectInstance(data, source);
-        _statusManager.Effects.Add(instance);
-        data.behaviour.OnApply(this, instance);
+    //     var instance = new StatusEffectInstance(data, source);
+    //     _statusManager.Effects.Add(instance);
+    //     data.behaviour.OnApply(this, instance);
 
-        _effectText.text = $"{data.type}!";  // 仮表示
-    }
+    //     _effectText.text = $"{data.type}!";  // 仮表示
+    // }
 
     public StatusEffectInstance GetStatus(StatusEffectType type) {
         return _statusManager.Get(type);
