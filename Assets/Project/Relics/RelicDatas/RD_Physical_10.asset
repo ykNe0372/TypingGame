@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b1e30fa6e91248c9ac4293fa6eb15be, type: 3}
-  m_Name: PhysicalAttack_Item
+  m_Script: {fileID: 11500000, guid: 8ffeab195bd0c44ff90fa6fde7cb90f7, type: 3}
+  m_Name: RD_Physical_10
   m_EditorClassIdentifier: 
-  _effects:
-  - {fileID: 11400000, guid: 01e3f2d2460324a8b9d863957604001f, type: 2}
+  relicName: DEBUG_Attack+10
+  effects:
+  - {fileID: 11400000, guid: 77fbdd943fef94ba4b51848cba3df27f, type: 2}

@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b1e30fa6e91248c9ac4293fa6eb15be, type: 3}
-  m_Name: DefenceUp_Item
+  m_Script: {fileID: 11500000, guid: a2d26a96df8e14f4ea61e919466b78eb, type: 3}
+  m_Name: I_Defence_10
   m_EditorClassIdentifier: 
-  _effects:
-  - {fileID: 11400000, guid: e657ce6796aa6447cbaa4e6b56148ad5, type: 2}
+  _status:
+  - statusType: 5
+    value: 10
