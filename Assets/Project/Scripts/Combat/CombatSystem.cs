@@ -15,13 +15,18 @@ public class CombatSystem : MonoBehaviour {
     }
 
     private AttackContext CreateContext(Character attacker) {
-        return new AttackContext {
+        var ctx = new AttackContext {
             Attacker = attacker,
             Targets = GetTargets(attacker, attacker.CurrentSkill),
             Element = attacker.CurrentElement,
             Skill = attacker.CurrentSkill,
             StatusEffect = _resolver.Get(attacker.CurrentElement)
         };
+        ctx.AttackInstances.Add(new AttackInstance {
+            PowerMultiplier = 1f
+        });
+
+        return ctx;
     }
 
     private void RequestPlayerAttack() {

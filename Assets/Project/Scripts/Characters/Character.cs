@@ -101,12 +101,14 @@ public class Character : MonoBehaviour {
 
     public void TriggerAttack(AttackContext ctx) {
         foreach (var effect in _attackEffects) effect.OnAttack(ctx);
-        for (int i=0; i<ctx.AttackCount; ++i) ExecuteAttack(ctx);
+        foreach (var attack in ctx.AttackInstances) ExecuteAttack(ctx, attack);
     }
 
-    private void ExecuteAttack(AttackContext ctx) {
+    private void ExecuteAttack(AttackContext ctx, AttackInstance attack) {
         foreach (var target in ctx.Targets) {
             var dmgCtx = DamageContextFactory.CreateAttack(this, target);
+
+            dmgCtx.BaseDamage *= attack.PowerMultiplier;
             dmgCtx.FinalDamage = dmgCtx.BaseDamage * CurrentSkill.powerMultiplier;
             CriticalCalculator.Apply(dmgCtx);
             
