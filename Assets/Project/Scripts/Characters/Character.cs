@@ -184,20 +184,6 @@ public class Character : MonoBehaviour {
         return _statusManager.TryApply(attacker, data);
     }
 
-    // private void ApplyStatus(StatusEffectData data, Character source) {
-    //     var existing = GetStatus(data.type);
-        
-    //     if (existing != null) {
-    //         if (existing.Data.behaviour.OnReapply(this, source, data)) return;   // true が返れば新規付与しない
-    //     }
-
-    //     var instance = new StatusEffectInstance(data, source);
-    //     _statusManager.Effects.Add(instance);
-    //     data.behaviour.OnApply(this, instance);
-
-    //     _effectText.text = $"{data.type}!";  // 仮表示
-    // }
-
     public StatusEffectInstance GetStatus(StatusEffectType type) {
         return _statusManager.Get(type);
     }

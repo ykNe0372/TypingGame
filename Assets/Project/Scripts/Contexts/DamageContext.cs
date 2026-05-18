@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 public class DamageContext {
     public Character Attacker;
     public Character Target;

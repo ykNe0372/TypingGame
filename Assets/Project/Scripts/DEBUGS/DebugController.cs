@@ -1,6 +1,4 @@
 using UnityEngine;
-using System;
-using System.Collections.Generic;
 
 public class DebugController : MonoBehaviour {
     [SerializeField] private bool _isDebugMode = true;

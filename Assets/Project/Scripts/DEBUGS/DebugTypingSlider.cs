@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System;
-using System.Collections.Generic;
 
 public class DebugTypingSlider : MonoBehaviour {
     [SerializeField] private TypingManager _typingMg;

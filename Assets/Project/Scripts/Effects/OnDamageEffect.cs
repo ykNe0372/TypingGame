@@ -1,7 +1,5 @@
-using UnityEngine;
 
-public abstract class OnDamageEffect : Effect
-{
+public abstract class OnDamageEffect : Effect {
     public sealed override void OnDamage(DamageContext ctx) {
         Apply(ctx);
     }

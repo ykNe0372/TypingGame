@@ -1,11 +1,7 @@
 using System;
-using System.Collections;
-using System.IO;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using NUnit.Framework.Internal;
-using UnityEngine.InputSystem;
 
 [Serializable]
 public class Question {
