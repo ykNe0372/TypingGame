@@ -41,7 +41,7 @@ public static class RomajiConverter {
                     string next = tokens[i+1];
                     if (RomajiDictionary.Map.TryGetValue(next, out var nextRomajis)) {
                         char head = nextRomajis[0][0];
-                        if ("aiueoy".Contains(head)) lists.Add(new List<string> { "nn", "xn" });
+                        if ("aiueoyn".Contains(head)) lists.Add(new List<string> { "nn", "xn" });
                         else lists.Add(new List<string> {"n", "nn", "xn" });
                     } else lists.Add(new List<string> { "n" });
                 }
