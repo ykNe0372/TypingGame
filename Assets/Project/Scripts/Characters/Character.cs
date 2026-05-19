@@ -30,13 +30,17 @@ public class Character : MonoBehaviour {
     private readonly List<OnDamageEffect> _damageEffects = new();    // ダメージ計算
     private float _currentHP;
     private float _currentMP;
+    private bool _isDead;
     private float _regenTimer = 0f;
     private int _currentSkillIndex = 0;
 
     public float MaxHP => GetFinalStatus(StatusType.MaxHP);
     public float MaxMP => GetFinalStatus(StatusType.MaxMP);
+    public bool IsDead => _isDead;
     public SkillData CurrentSkill => _skills[_currentSkillIndex];
     public ElementType CurrentElement => _currentElement;
+
+    public event Action<Character> OnDead;
 
     private void Awake() {
         _statusManager = new StatusManager(this);
@@ -100,6 +104,8 @@ public class Character : MonoBehaviour {
     }
 
     public void TriggerAttack(AttackContext ctx) {
+        if (_isDead) return;
+
         foreach (var effect in _attackEffects) effect.OnAttack(ctx);
         foreach (var attack in ctx.AttackInstances) ExecuteAttack(ctx, attack);
     }
@@ -145,8 +151,19 @@ public class Character : MonoBehaviour {
         int damage = Mathf.FloorToInt(Mathf.Max(0f, ctx.FinalDamage));
         _currentHP -= damage;
         _currentHP = Mathf.Max(0, _currentHP);
+
+        if (_currentHP <= 0) Die();
     
         Debug.Log($"{name} HP: {_currentHP}/{MaxHP}");;
+    }
+
+    private void Die() {
+        if (_isDead) return;
+        
+        _isDead = true;
+        OnDead?.Invoke(this);
+
+        // TODO: 死亡アニメーション・死亡エフェクトの再生など
     }
     
     // 数字キーで技を変える

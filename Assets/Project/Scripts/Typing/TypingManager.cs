@@ -58,18 +58,17 @@ public partial class TypingManager : MonoBehaviour {
     }
 
     private void OnEnable() {
-        // Keyboard.current.onTextInput += OnTextInput;
         _inputManager.OnCharInput += OnTextInput;
     }
 
     private void OnDisable() {
-        // Keyboard.current.onTextInput -= OnTextInput;
         _inputManager.OnCharInput -= OnTextInput;
     }
 
     private void OnTextInput(char c) {
+        if (_combatSystem.State != CombatState.Playing) return;
+    
         int result = _typingInput.Input(c);
-
         switch (result) {
             case 1: // 正解タイプ時
                 ++_romanIndex;

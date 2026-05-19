@@ -7,6 +7,8 @@ public class EnemyController : MonoBehaviour {
     private float _attackTimer;
 
     private void Update() {
+        if (_combatSystem.State != CombatState.Playing) return;
+
         _attackTimer += Time.deltaTime;     // 重かったら Coroutine に切り替えるかも
         float interval = GetAttackInterval();
 

@@ -5,12 +5,9 @@ public class TargetInput : MonoBehaviour {
     [SerializeField] private CombatSystem _combatSystem;
 
     private void Update() {
-        if (Keyboard.current.leftArrowKey.wasPressedThisFrame) {
-            _combatSystem.MoveTargetLeft();
-        }
-
-        if (Keyboard.current.rightArrowKey.wasPressedThisFrame) {
-            _combatSystem.MoveTargetRight();
-        }
+        if (_combatSystem.State != CombatState.Playing) return;
+    
+        if (Keyboard.current.leftArrowKey.wasPressedThisFrame) _combatSystem.MoveTargetLeft();
+        if (Keyboard.current.rightArrowKey.wasPressedThisFrame) _combatSystem.MoveTargetRight();
     }
 }
