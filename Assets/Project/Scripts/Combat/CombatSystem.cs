@@ -5,6 +5,9 @@ public class CombatSystem : MonoBehaviour {
     [SerializeField] private Character _player;
     [SerializeField] private List<Character> _enemies;
     [SerializeField] private StatusEffectResolver _resolver;
+
+    private int _currentTargetIndex = 0;
+
     public void RequestAttack() {
         if (!CanAttack(_player)) return;
         RequestPlayerAttack();
@@ -61,11 +64,25 @@ public class CombatSystem : MonoBehaviour {
         else return new List<Character> { _player };  // 仮でプレイヤーだけ、分身など味方 NPC が出てきた時は変更
     }
 
+    public void MoveTargetLeft() {
+        if (_enemies.Count == 0) return;
+
+        _currentTargetIndex = (_currentTargetIndex - 1 + _enemies.Count) % _enemies.Count;
+        Debug.Log($"Target: {_enemies[_currentTargetIndex].name}");
+    }
+
+    public void MoveTargetRight() {
+        if (_enemies.Count == 0) return;
+
+        _currentTargetIndex = (_currentTargetIndex + 1) % _enemies.Count;
+        Debug.Log($"Target: {_enemies[_currentTargetIndex].name}");
+    }
+
     private List<Character> GetTargets(Character attacker, SkillData skill) {
         var enemies = GetEnemies(attacker);
 
         return skill.targetType switch {
-            SkillTargetType.Single => new List<Character> { enemies[0] },  // 仮で先頭の敵に飛ぶようにする
+            SkillTargetType.Single => new List<Character> { enemies[_currentTargetIndex] },  // 仮で先頭の敵に飛ぶようにする
             SkillTargetType.All => enemies,
             _ => enemies,
         };
@@ -74,7 +91,7 @@ public class CombatSystem : MonoBehaviour {
     // 仮、後で↑と統合するかも
     private List<Character> GetBonusTargets(BonusAttackData bonus) {
         return bonus.targetType switch {
-            SkillTargetType.Single => new List<Character> { _enemies[0] },
+            SkillTargetType.Single => new List<Character> { _enemies[_currentTargetIndex] },
             SkillTargetType.All => _enemies,
             _ => _enemies,
         };
