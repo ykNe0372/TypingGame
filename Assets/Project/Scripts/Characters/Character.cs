@@ -18,9 +18,6 @@ public class Character : MonoBehaviour {
     [SerializeField] private List<BonusAttackData> _bonusAttacks;
     [SerializeField] private ElementType _currentElement = ElementType.None;
     [SerializeField] private CombatSystem _combatSystems;
-
-    [SerializeField] private TextMeshProUGUI _element;
-    [SerializeField] private TextMeshProUGUI _effectText;
     
 
     private StatusManager _statusManager;
@@ -180,7 +177,6 @@ public class Character : MonoBehaviour {
         _currentElement = (ElementType)next;
 
         Debug.Log($"Element Changed: {_currentElement}");
-        _element.text = $"{_currentElement}";   // 仮表示
     }
 
     private void UpdateStatusEffects() {
