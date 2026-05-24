@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b1e30fa6e91248c9ac4293fa6eb15be, type: 3}
   m_Name: ID_Magic_5
   m_EditorClassIdentifier: 
+  _itemName: "\u6C34\u6676\u7389"
+  _description: "\u9B54\u6CD5\u653B\u6483\u529B\u304C5\u4E0A\u304C\u308B"
+  _icon: {fileID: 0}
   _effects:
   - {fileID: 11400000, guid: c61d0ba0cae7443838124b7be0d83e16, type: 2}

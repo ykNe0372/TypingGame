@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b1e30fa6e91248c9ac4293fa6eb15be, type: 3}
   m_Name: ID_Physical_3
   m_EditorClassIdentifier: 
+  _itemName: "\u6728\u306E\u5263"
+  _description: "\u7269\u7406\u653B\u6483\u529B\u304C3\u4E0A\u304C\u308B"
+  _icon: {fileID: 0}
   _effects:
   - {fileID: 11400000, guid: 01e3f2d2460324a8b9d863957604001f, type: 2}

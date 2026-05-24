@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b1e30fa6e91248c9ac4293fa6eb15be, type: 3}
   m_Name: ID_Defence_10
   m_EditorClassIdentifier: 
+  _itemName: "\u92FC\u306E\u93A7"
+  _description: "\u9632\u5FA1\u529B\u304C10\u4E0A\u304C\u308B"
+  _icon: {fileID: 0}
   _effects:
   - {fileID: 11400000, guid: e657ce6796aa6447cbaa4e6b56148ad5, type: 2}

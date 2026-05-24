@@ -9,6 +9,7 @@ public class CombatSystem : MonoBehaviour {
     [SerializeField] private float _freezeDelay = 2f;
     [SerializeField] private CombatState _state = CombatState.Playing;
     [SerializeField] private StatusEffectResolver _resolver;
+    [SerializeField] private RewardSystem _rewardSystem;
 
     private int _currentTargetIndex = 0;
     private float _gameOverTimer;
@@ -165,7 +166,9 @@ public class CombatSystem : MonoBehaviour {
         _state = CombatState.Victory;
         Debug.Log("Victory");
 
-        // TODO: 勝利演出・リザルトUI・報酬処理など
+        _rewardSystem.ShowReward(_player);
+
+        // TODO: 勝利演出・リザルトUIなど
     }
 
     private void HandleGameOver() {

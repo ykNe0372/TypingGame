@@ -78,6 +78,12 @@ public class Character : MonoBehaviour {
         }
     }
 
+    public void AddItem(GrowthItem item) {
+        _items.Add(item);
+        BuildEffectList();  // 効果一覧を再構築
+        Debug.Log($"Get Item: {item.ItemName}");
+    }
+
     public float GetFinalStatus(StatusType type) {
         float baseValue = _baseStatus.GetStatus(type);
         float bonus = 0f;

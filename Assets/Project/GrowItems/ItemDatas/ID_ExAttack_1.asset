@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b1e30fa6e91248c9ac4293fa6eb15be, type: 3}
   m_Name: ID_ExAttack_1
   m_EditorClassIdentifier: 
+  _itemName: "\u9023\u6483\u306E\u66F8"
+  _description: "\u653B\u6483\u3057\u305F\u969B\u3001\u4F4E\u78BA\u7387\u3067\u3082\u3046\u4E00\u5EA6\u653B\u6483\u3059\u308B\u3088\u3046\u306B\u306A\u308B"
+  _icon: {fileID: 0}
   _effects:
   - {fileID: 11400000, guid: 88bc829e671974b53baa6e33df0c0994, type: 2}
