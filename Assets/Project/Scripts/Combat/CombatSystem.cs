@@ -1,27 +1,36 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class CombatSystem : MonoBehaviour {
     [SerializeField] private Character _player;
     [SerializeField] private List<Character> _enemies;
-    // [SerializeField] private bool _isPaused;
     [SerializeField] private float _freezeDelay = 2f;
     [SerializeField] private CombatState _state = CombatState.Playing;
     [SerializeField] private StatusEffectResolver _resolver;
     [SerializeField] private RewardSystem _rewardSystem;
+    [SerializeField] private List<BattleModifierBase> _battleModifiers = new();
 
     private int _currentTargetIndex = 0;
+    private BattleContext _battleContext;
     private float _gameOverTimer;
 
     public CombatState State => _state;
 
     private void Start() {
+        _battleContext = new BattleContext {
+            CombatSystem = this,
+            Player = _player,
+            Enemies = _enemies
+        };
+
+        foreach (var modifier in _battleModifiers) modifier.OnBattleStart(_battleContext);
+
         _player.OnDead += HandlePlayerDead;
         foreach (var enemy in _enemies) enemy.OnDead += HandleEnemyDead;
     }
 
     private void Update() {
+        foreach (var modifier in _battleModifiers) modifier.OnUpdate(_battleContext, Time.deltaTime);
         CheckBattleResult();
 
         if (_state == CombatState.GameOver) {
