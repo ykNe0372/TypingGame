@@ -5,7 +5,7 @@ public class DebugMapViewer : MonoBehaviour {
     [SerializeField] private MapGenerator _mapGenerator;
 
     private void Start() {
-        MapData mapData = _mapGenerator.Generate();
+        MapData mapData = RunManager.Instance.MapData;
 
         PrintMap(mapData);
     }

@@ -10,30 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acfa1c3f216d7495ebdb8f0619900937, type: 3}
-  m_Name: Enemy1
+  m_Name: Boss1
   m_EditorClassIdentifier: 
   _status:
   - statusType: 0
-    value: 50
+    value: 150
   - statusType: 1
-    value: 10
+    value: 20
   - statusType: 2
     value: 0.5
   - statusType: 3
-    value: 15
-  - statusType: 4
-    value: 5
-  - statusType: 5
-    value: 5
-  - statusType: 6
-    value: 5
-  - statusType: 7
-    value: 1
-  - statusType: 8
     value: 10
+  - statusType: 4
+    value: 10
+  - statusType: 5
+    value: 10
+  - statusType: 6
+    value: 10
+  - statusType: 7
+    value: 5
+  - statusType: 8
+    value: 5
   - statusType: 9
     value: 10
   - statusType: 10
     value: 50
   - statusType: 11
-    value: 5
+    value: 10

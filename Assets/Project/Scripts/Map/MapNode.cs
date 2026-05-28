@@ -8,7 +8,6 @@ public enum NodeType {
     Boss
 }
 
-[System.Serializable]
 public class MapNode {
     public int Id;
     public NodeType Type;
@@ -18,7 +17,7 @@ public class MapNode {
     public List<BattleModifierBase> BattleModifiers = new();  // ハプニング用
     public bool IsVisited; // 到達済みか
 
-    // DEBUG
+    // ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭  DEBUG  ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭
     public override string ToString() {
         return $"Node[{Id}] " + $"Floor: {FloorIndex} " + $"Type: {Type}";
     }

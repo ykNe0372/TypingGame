@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 using System.Collections.Generic;
 
 public class RewardSelectionUI : MonoBehaviour {
@@ -10,6 +11,8 @@ public class RewardSelectionUI : MonoBehaviour {
     private Character _player;
     private int _currentIndex;
     private bool _isOpen;
+
+    public Action OnRewardClosed;
 
     private void Update() {
         if (!_isOpen) return;
@@ -64,5 +67,6 @@ public class RewardSelectionUI : MonoBehaviour {
         foreach (var card in _cards) Destroy(card.gameObject);
         _cards.Clear();
         gameObject.SetActive(false);
+        OnRewardClosed?.Invoke();
     }
 }

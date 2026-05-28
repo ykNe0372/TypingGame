@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 public class MapGenerator : MonoBehaviour {
     [SerializeField] private int _floorCount = 5;
@@ -38,7 +37,7 @@ public class MapGenerator : MonoBehaviour {
             List<MapNode> nextFloor = floors[x+1];
 
             foreach (var node in currentFloor) {
-                int connectionCount = Random.Range(1, Mathf.Min(3, nextFloor.Count) + 1);
+                int connectionCount = Random.Range(1, Mathf.Min(2, nextFloor.Count) + 1);
                 List<MapNode> shuffled = new(nextFloor);
                 Shuffle(shuffled);
                 for (int i=0; i<connectionCount; ++i) node.ConnectedNodes.Add(shuffled[i]);

@@ -52,11 +52,17 @@ public class Character : MonoBehaviour {
         UpdateStatusEffects();
     }
 
-    public void InitializeHP() {
+    public void Initialize() {
+        InitializeHP();
+        InitializeMP();
+        _isDead = false;
+    }
+
+    private void InitializeHP() {
         _currentHP = MaxHP;
     }
 
-    public void InitializeMP() {
+    private void InitializeMP() {
         _currentMP = Mathf.FloorToInt(MaxMP);
     }
 
@@ -167,6 +173,7 @@ public class Character : MonoBehaviour {
         OnDead?.Invoke(this);
 
         // TODO: 死亡アニメーション・死亡エフェクトの再生など
+        gameObject.SetActive(false); // 仮実装
     }
     
     // 数字キーで技を変える

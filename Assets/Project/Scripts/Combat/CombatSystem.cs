@@ -39,16 +39,20 @@ public class CombatSystem : MonoBehaviour {
         }
     }
 
+    public void BeginBattle(Character player, List<Character> enemies) {
+        _state = CombatState.Playing;
+        _player = player;
+        _enemies = enemies;
+        foreach (var enemy in _enemies) enemy.Initialize();
+    }
+
     private void HandlePlayerDead(Character player) {
         Debug.Log("Player Dead");
-        // TODO: 死亡アニメーション・死亡エフェクトの再生・UI演出開始など
     }
 
     private void HandleEnemyDead(Character enemy) {
         Debug.Log($"{enemy.name} defeated");
         ValidateTarget();
-
-        // TODO: 死亡アニメーション・死亡エフェクトの再生など
     }
 
     // 撃破時にターゲットを自動に切り替える

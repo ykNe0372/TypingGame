@@ -8,6 +8,8 @@ public class PlayerSkillController : MonoBehaviour {
     private int _lastIndex = -1;
 
     private void Update() {
+        if (!GameStateManager.Instance.IsState(GameState.Battle)) return;
+
         CheckDigitKey(0, Keyboard.current.digit1Key);
         CheckDigitKey(1, Keyboard.current.digit2Key);
         CheckDigitKey(2, Keyboard.current.digit3Key);
