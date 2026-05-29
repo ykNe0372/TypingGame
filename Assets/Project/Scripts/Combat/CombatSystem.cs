@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CombatSystem : MonoBehaviour {
@@ -40,10 +41,22 @@ public class CombatSystem : MonoBehaviour {
     }
 
     public void BeginBattle(Character player, List<Character> enemies) {
+        // 前戦闘の OnDead イベント購読を解除
+        if (_enemies != null) {
+            foreach (var enemy in _enemies) {
+                if (enemy != null) enemy.OnDead -= HandleEnemyDead;
+            }
+        }
+
         _state = CombatState.Playing;
         _player = player;
-        _enemies = enemies;
-        foreach (var enemy in _enemies) enemy.Initialize();
+        _enemies = new List<Character>(enemies);
+
+        // 新規敵が OnDead イベントを購読し直す
+        foreach (var enemy in _enemies) {
+            enemy.Initialize();
+            enemy.OnDead += HandleEnemyDead;
+        }
     }
 
     private void HandlePlayerDead(Character player) {
@@ -57,7 +70,7 @@ public class CombatSystem : MonoBehaviour {
 
     // 撃破時にターゲットを自動に切り替える
     private void ValidateTarget() {
-        _enemies.RemoveAll(x => x.IsDead);
+        _enemies.Where(x => x != null && !x.IsDead);
         if (_enemies.Count == 0) return;
 
         _currentTargetIndex %= _enemies.Count;
@@ -76,7 +89,7 @@ public class CombatSystem : MonoBehaviour {
     private AttackContext CreateContext(Character attacker) {
         var ctx = new AttackContext {
             Attacker = attacker,
-            Targets = GetTargets(attacker, attacker.CurrentSkill),
+            Targets = GetTargets(attacker, attacker.CurrentSkill.targetType),
             Element = attacker.CurrentElement,
             Skill = attacker.CurrentSkill,
             StatusEffect = _resolver.Get(attacker.CurrentElement)
@@ -102,9 +115,9 @@ public class CombatSystem : MonoBehaviour {
 
     public void RequestBonusAttack(int chain) {
         var bonus = _player.GetBonusAttack(chain);
-        if (bonus == null) return;
+        var targets = GetTargets(_player, bonus.targetType);
+        if (bonus == null || targets.Count == 0) return;
 
-        var targets = GetBonusTargets(bonus);
         _player.TriggerBonusAttack(targets, bonus);
     }
 
@@ -116,8 +129,12 @@ public class CombatSystem : MonoBehaviour {
     }
 
     public List<Character> GetEnemies(Character requester) {
-        if (requester == _player) return _enemies;
-        else return new List<Character> { _player };  // 仮でプレイヤーだけ、分身など味方 NPC が出てきた時は変更
+        List<Character> targets;
+    
+        if (requester == _player) targets = _enemies;
+        else targets = new List<Character>{ _player };  // 仮でプレイヤーだけ、分身など味方 NPC が出てきた時は変更
+
+        return targets.Where(x => x != null && !x.IsDead).ToList();
     }
 
     public void MoveTargetLeft() {
@@ -134,22 +151,14 @@ public class CombatSystem : MonoBehaviour {
         Debug.Log($"Target: {_enemies[_currentTargetIndex].name}");
     }
 
-    private List<Character> GetTargets(Character attacker, SkillData skill) {
+    private List<Character> GetTargets(Character attacker, SkillTargetType targetType) {
         var enemies = GetEnemies(attacker);
 
-        return skill.targetType switch {
-            SkillTargetType.Single => new List<Character> { enemies[_currentTargetIndex] },  // 仮で先頭の敵に飛ぶようにする
+        ValidateTarget();
+        return targetType switch {
+            SkillTargetType.Single => new List<Character> { enemies[_currentTargetIndex] },
             SkillTargetType.All => enemies,
             _ => enemies,
-        };
-    }
-
-    // 仮、後で↑と統合するかも
-    private List<Character> GetBonusTargets(BonusAttackData bonus) {
-        return bonus.targetType switch {
-            SkillTargetType.Single => new List<Character> { _enemies[_currentTargetIndex] },
-            SkillTargetType.All => _enemies,
-            _ => _enemies,
         };
     }
 
