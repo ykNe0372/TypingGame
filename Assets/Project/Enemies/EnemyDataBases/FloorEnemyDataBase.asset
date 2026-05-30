@@ -17,6 +17,8 @@ MonoBehaviour:
     NormalEnemies:
     - EnemyData: {fileID: 11400000, guid: d46669f4b20714110b9788575bf75bd2, type: 2}
       SpawnWeight: 3
+    - EnemyData: {fileID: 11400000, guid: c22dd22633cfe466e83399366a3678b0, type: 2}
+      SpawnWeight: 3
     BossEnemy:
     - EnemyData: {fileID: 11400000, guid: 41cbf5d6d6c6a491387f00a1d213a543, type: 2}
       SpawnWeight: 1
