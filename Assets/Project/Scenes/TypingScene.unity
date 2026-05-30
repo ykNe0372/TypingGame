@@ -1595,7 +1595,7 @@ MonoBehaviour:
   _resolver: {fileID: 11400000, guid: e997d989d3f934b56ac6604504790dcc, type: 2}
   _rewardSystem: {fileID: 614157281}
   _battleModifiers:
-  - {fileID: 11400000, guid: 49d9dce582304490a947fd94c3814c1a, type: 2}
+  - {fileID: 11400000, guid: 85b20d0d28adf4b43b620366e8aa46a0, type: 2}
 --- !u!4 &614157280
 Transform:
   m_ObjectHideFlags: 0

@@ -5,4 +5,5 @@ public class DamageContext {
     public float FinalDamage;   // 計算後ダメージ
     public bool IsCritical;
     public float CritMultiplier;
+    public bool IsEnvironmentDamage;  // 環境ダメージか
 }

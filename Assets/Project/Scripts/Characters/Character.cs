@@ -151,7 +151,9 @@ public class Character : MonoBehaviour {
 
     // ダメージ適応（仮）
     public void TakeDamage(DamageContext ctx) {
-        foreach (var effect in _damageEffects) effect.OnDamage(ctx);
+        if (!ctx.IsEnvironmentDamage)
+            foreach (var effect in _damageEffects) effect.OnDamage(ctx);
+
         for (int i=_statusManager.Effects.Count-1; i>=0; --i) {  // 要素を削除しても大丈夫なように逆順にする 
             var status = _statusManager.Effects[i];
             status.Data.behaviour.OnDamage(this, status, ctx);

@@ -14,7 +14,7 @@ public class FreezeEffect : StatusEffectBehaviour {
         float magic = instance.Source.GetFinalStatus(StatusType.MagicAttack);
         int damage = Mathf.FloorToInt(magic);    // 仮で MagicAttack = ATK
         
-        var ctx = DamageContextFactory.CreateFixed(instance.Source, target, damage);
+        var ctx = DamageContextFactory.CreateFixed(instance.Source, target, damage, true);
         target.TakeDamage(ctx);
     }
 
@@ -57,7 +57,7 @@ public class FreezeEffect : StatusEffectBehaviour {
         float multipiler = Mathf.Lerp(minMultiplier, maxMultiplier, ratio);  // 倍率補間
         int damage = Mathf.FloorToInt(magic * multipiler);
 
-        var ctx = DamageContextFactory.CreateFixed(source, target, damage);
+        var ctx = DamageContextFactory.CreateFixed(source, target, damage, true);
         target.TakeDamage(ctx);
 
         target.RequestRemoveStatus(existing);  // 凍結解除予約
