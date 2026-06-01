@@ -239,6 +239,7 @@ public class Character : MonoBehaviour {
         return true;
     }
 
+    // MP の自然回復効果
     private void RecoverMP() {
         float regen = GetFinalStatus(StatusType.MPRegen);
         if (regen <= 0f) return;
@@ -251,5 +252,21 @@ public class Character : MonoBehaviour {
             _regenTimer -= interval;
             _currentMP = Mathf.Min(_currentMP, MaxMP);
         }
+    }
+
+    // 「加護」効果による HP 回復効果
+    public void ProvidenceRecoverHP(int amount) {
+        if (amount <= 0) return;
+        
+        _currentHP += amount;
+        _currentHP = Math.Min(_currentHP, MaxHP);
+    }
+
+    // 「加護」効果による MP 回復効果
+    public void ProvidenceRecoverMP(int amount) {
+        if (amount <= 0) return;
+
+        _currentMP += amount;
+        _currentMP = Math.Min(_currentMP, MaxMP);
     }
 }
