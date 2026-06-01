@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Data/StatusEffect/Shock")]
@@ -44,7 +43,7 @@ public class ShockEffect : StatusEffectBehaviour {
             float multiplier = (t == target) ? data.overShockBaseMultiplier : data.overShockChainDecay;
             int damage = Mathf.FloorToInt(magic * multiplier);
 
-            var ctx = DamageContextFactory.CreateFixed(source, t, damage);
+            var ctx = DamageContextFactory.CreateFixed(source, t, damage, true);
             t.TakeDamage(ctx);
 
             t.RequestRemoveStatus(shock);  // 連鎖後は敵全体の感電を解除

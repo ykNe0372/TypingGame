@@ -1,6 +1,5 @@
 using UnityEngine;
-using System;
-using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class DebugController : MonoBehaviour {
     [SerializeField] private bool _isDebugMode = true;
@@ -8,7 +7,7 @@ public class DebugController : MonoBehaviour {
     [SerializeField] private TypingManager _typingManager;
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.F12)) _debugPanel.SetActive(!_debugPanel.activeSelf);
+        if (Keyboard.current.f12Key.wasPressedThisFrame) _debugPanel.SetActive(!_debugPanel.activeSelf);
         if (!_isDebugMode) return;
     }
 

@@ -9,12 +9,13 @@ public static class DamageContextFactory {
     }
 
     // 固定ダメージ用（状態異常など）
-    public static DamageContext CreateFixed(Character attacker, Character target, float damage) {
+    public static DamageContext CreateFixed(Character attacker, Character target, float damage, bool isEnvironmentDamage) {
         return new DamageContext {
             Attacker = attacker,
             Target = target,
             BaseDamage = damage,
-            FinalDamage = damage   // 仮でそのまま出力
+            FinalDamage = damage,   // 仮でそのまま出力
+            IsEnvironmentDamage = isEnvironmentDamage
         };
     }
 }

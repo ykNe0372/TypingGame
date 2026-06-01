@@ -18,9 +18,6 @@ public class Character : MonoBehaviour {
     [SerializeField] private List<BonusAttackData> _bonusAttacks;
     [SerializeField] private ElementType _currentElement = ElementType.None;
     [SerializeField] private CombatSystem _combatSystems;
-
-    [SerializeField] private TextMeshProUGUI _element;
-    [SerializeField] private TextMeshProUGUI _effectText;
     
 
     private StatusManager _statusManager;
@@ -30,13 +27,17 @@ public class Character : MonoBehaviour {
     private readonly List<OnDamageEffect> _damageEffects = new();    // ダメージ計算
     private float _currentHP;
     private float _currentMP;
+    private bool _isDead;
     private float _regenTimer = 0f;
     private int _currentSkillIndex = 0;
 
     public float MaxHP => GetFinalStatus(StatusType.MaxHP);
     public float MaxMP => GetFinalStatus(StatusType.MaxMP);
+    public bool IsDead => _isDead;
     public SkillData CurrentSkill => _skills[_currentSkillIndex];
     public ElementType CurrentElement => _currentElement;
+
+    public event Action<Character> OnDead;
 
     private void Awake() {
         _statusManager = new StatusManager(this);
@@ -51,11 +52,17 @@ public class Character : MonoBehaviour {
         UpdateStatusEffects();
     }
 
-    public void InitializeHP() {
+    public void Initialize() {
+        InitializeHP();
+        InitializeMP();
+        _isDead = false;
+    }
+
+    private void InitializeHP() {
         _currentHP = MaxHP;
     }
 
-    public void InitializeMP() {
+    private void InitializeMP() {
         _currentMP = Mathf.FloorToInt(MaxMP);
     }
 
@@ -75,6 +82,12 @@ public class Character : MonoBehaviour {
         if (_relic != null) {
             foreach (var effect in _relic.effects) _relicEffects.Add(effect);
         }
+    }
+
+    public void AddItem(GrowthItem item) {
+        _items.Add(item);
+        BuildEffectList();  // 効果一覧を再構築
+        Debug.Log($"Get Item: {item.ItemName}");
     }
 
     public float GetFinalStatus(StatusType type) {
@@ -100,13 +113,17 @@ public class Character : MonoBehaviour {
     }
 
     public void TriggerAttack(AttackContext ctx) {
+        if (_isDead) return;
+
         foreach (var effect in _attackEffects) effect.OnAttack(ctx);
-        for (int i=0; i<ctx.AttackCount; ++i) ExecuteAttack(ctx);
+        foreach (var attack in ctx.AttackInstances) ExecuteAttack(ctx, attack);
     }
 
-    private void ExecuteAttack(AttackContext ctx) {
+    private void ExecuteAttack(AttackContext ctx, AttackInstance attack) {
         foreach (var target in ctx.Targets) {
             var dmgCtx = DamageContextFactory.CreateAttack(this, target);
+
+            dmgCtx.BaseDamage *= attack.PowerMultiplier;
             dmgCtx.FinalDamage = dmgCtx.BaseDamage * CurrentSkill.powerMultiplier;
             CriticalCalculator.Apply(dmgCtx);
             
@@ -134,7 +151,9 @@ public class Character : MonoBehaviour {
 
     // ダメージ適応（仮）
     public void TakeDamage(DamageContext ctx) {
-        foreach (var effect in _damageEffects) effect.OnDamage(ctx);
+        if (!ctx.IsEnvironmentDamage)
+            foreach (var effect in _damageEffects) effect.OnDamage(ctx);
+
         for (int i=_statusManager.Effects.Count-1; i>=0; --i) {  // 要素を削除しても大丈夫なように逆順にする 
             var status = _statusManager.Effects[i];
             status.Data.behaviour.OnDamage(this, status, ctx);
@@ -143,8 +162,20 @@ public class Character : MonoBehaviour {
         int damage = Mathf.FloorToInt(Mathf.Max(0f, ctx.FinalDamage));
         _currentHP -= damage;
         _currentHP = Mathf.Max(0, _currentHP);
+
+        if (_currentHP <= 0) Die();
     
         Debug.Log($"{name} HP: {_currentHP}/{MaxHP}");;
+    }
+
+    private void Die() {
+        if (_isDead) return;
+        
+        _isDead = true;
+        OnDead?.Invoke(this);
+
+        // TODO: 死亡アニメーション・死亡エフェクトの再生など
+        gameObject.SetActive(false); // 仮実装
     }
     
     // 数字キーで技を変える
@@ -161,7 +192,6 @@ public class Character : MonoBehaviour {
         _currentElement = (ElementType)next;
 
         Debug.Log($"Element Changed: {_currentElement}");
-        _element.text = $"{_currentElement}";   // 仮表示
     }
 
     private void UpdateStatusEffects() {
@@ -181,20 +211,6 @@ public class Character : MonoBehaviour {
     private bool TryApplyStatus(Character attacker, StatusEffectData data) {
         return _statusManager.TryApply(attacker, data);
     }
-
-    // private void ApplyStatus(StatusEffectData data, Character source) {
-    //     var existing = GetStatus(data.type);
-        
-    //     if (existing != null) {
-    //         if (existing.Data.behaviour.OnReapply(this, source, data)) return;   // true が返れば新規付与しない
-    //     }
-
-    //     var instance = new StatusEffectInstance(data, source);
-    //     _statusManager.Effects.Add(instance);
-    //     data.behaviour.OnApply(this, instance);
-
-    //     _effectText.text = $"{data.type}!";  // 仮表示
-    // }
 
     public StatusEffectInstance GetStatus(StatusEffectType type) {
         return _statusManager.Get(type);
@@ -223,6 +239,7 @@ public class Character : MonoBehaviour {
         return true;
     }
 
+    // MP の自然回復効果
     private void RecoverMP() {
         float regen = GetFinalStatus(StatusType.MPRegen);
         if (regen <= 0f) return;
@@ -235,5 +252,21 @@ public class Character : MonoBehaviour {
             _regenTimer -= interval;
             _currentMP = Mathf.Min(_currentMP, MaxMP);
         }
+    }
+
+    // 「加護」効果による HP 回復効果
+    public void ProvidenceRecoverHP(int amount) {
+        if (amount <= 0) return;
+        
+        _currentHP += amount;
+        _currentHP = Math.Min(_currentHP, MaxHP);
+    }
+
+    // 「加護」効果による MP 回復効果
+    public void ProvidenceRecoverMP(int amount) {
+        if (amount <= 0) return;
+
+        _currentMP += amount;
+        _currentMP = Math.Min(_currentMP, MaxMP);
     }
 }

@@ -86,6 +86,7 @@ Assets/Project/Scripts/
   OnDamageEffect.cs
   StatusBonusEffect.cs
  Enemies/EnemyController.cs
+ Instances/AttackInstance.cs
  Items/GrowthItem.cs
  Relics/
   RelicData.cs
