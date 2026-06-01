@@ -9,11 +9,11 @@ public class CombatSystem : MonoBehaviour {
     [SerializeField] private CombatState _state = CombatState.Playing;
     [SerializeField] private StatusEffectResolver _resolver;
     [SerializeField] private RewardSystem _rewardSystem;
-    [SerializeField] private List<BattleModifierBase> _battleModifiers = new();
 
     private int _currentTargetIndex = 0;
-    private BattleContext _battleContext;
     private float _gameOverTimer;
+    private BattleContext _battleContext;
+    private readonly List<BattleModifierBase> _activeModifiers = new();
 
     public CombatState State => _state;
 
@@ -24,20 +24,25 @@ public class CombatSystem : MonoBehaviour {
             Enemies = _enemies
         };
 
-        foreach (var modifier in _battleModifiers) modifier.OnBattleStart(_battleContext);
+        foreach (var modifier in _activeModifiers) modifier.OnBattleStart(_battleContext);
 
         _player.OnDead += HandlePlayerDead;
         foreach (var enemy in _enemies) enemy.OnDead += HandleEnemyDead;
     }
 
     private void Update() {
-        foreach (var modifier in _battleModifiers) modifier.OnUpdate(_battleContext, Time.deltaTime);
+        foreach (var modifier in _activeModifiers) modifier.OnUpdate(_battleContext, Time.deltaTime);
         CheckBattleResult();
 
         if (_state == CombatState.GameOver) {
             _gameOverTimer += Time.deltaTime;
             if (_gameOverTimer >= _freezeDelay) Time.timeScale = 0f;
         }
+    }
+
+    public void SetBattleModifiers(List<BattleModifierBase> modifiers) {
+        _activeModifiers.Clear();
+        _activeModifiers.AddRange(modifiers);
     }
 
     public void BeginBattle(Character player, List<Character> enemies) {

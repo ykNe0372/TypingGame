@@ -56,6 +56,13 @@ public class RunManager : MonoBehaviour {
         Debug.Log("Start Battle");
         GameStateManager.Instance.ChangeState(GameState.Battle);
         List<Character> enemies = CreateEnemies(node);
+
+        List<BattleModifierBase> modifiers = new();
+        if (node.BattleModifiers != null) 
+            foreach (var modifier in node.BattleModifiers) modifiers.Add(modifier);
+        _combatSystem.SetBattleModifiers(modifiers);
+        Debug.Log($"[Happening] {node.IsHappening}");
+
         _combatSystem.BeginBattle(_player, enemies);
     }
 

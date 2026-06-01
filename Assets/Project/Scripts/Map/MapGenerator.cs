@@ -5,6 +5,8 @@ public class MapGenerator : MonoBehaviour {
     [SerializeField] private int _floorCount = 5;
     [SerializeField] private int _minNodesPerFloor = 2;
     [SerializeField] private int _maxNodesPerFloor = 4;
+    [SerializeField] private List<BattleModifierBase> _allBattleModifiers = new();
+    [SerializeField] private float _happeningRate = 5f;
 
     private int _nodeId;
 
@@ -37,6 +39,7 @@ public class MapGenerator : MonoBehaviour {
             List<MapNode> nextFloor = floors[x+1];
 
             foreach (var node in currentFloor) {
+                AssignHappening(node);
                 int connectionCount = Random.Range(1, Mathf.Min(2, nextFloor.Count) + 1);
                 List<MapNode> shuffled = new(nextFloor);
                 Shuffle(shuffled);
@@ -91,5 +94,13 @@ public class MapGenerator : MonoBehaviour {
             int randomIndex = Random.Range(i, list.Count);
             (list[i], list[randomIndex]) = (list[randomIndex], list[i]);
         }
+    }
+
+    private void AssignHappening(MapNode node) {
+        if (node.Type != NodeType.Battle) return;
+        if (Random.value > (_happeningRate / 100f)) return;
+
+        int index = Random.Range(0, _allBattleModifiers.Count);
+        node.BattleModifiers = new List<BattleModifierBase> { _allBattleModifiers[index] };
     }
 }
