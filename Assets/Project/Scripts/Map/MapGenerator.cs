@@ -6,6 +6,8 @@ public class MapGenerator : MonoBehaviour {
     [SerializeField] private int _minNodesPerFloor = 2;
     [SerializeField] private int _maxNodesPerFloor = 4;
     [SerializeField] private List<BattleModifierBase> _allBattleModifiers = new();
+    [SerializeField] private float _battleRate = 65f;
+    [SerializeField] private float _shopRate = 20f;
     [SerializeField] private float _happeningRate = 5f;
 
     private int _nodeId;
@@ -84,8 +86,8 @@ public class MapGenerator : MonoBehaviour {
         if (floorIndex == _floorCount - 1) return NodeType.Boss;  // 最終層はボス固定
 
         float random = Random.value;
-        if (random < 0.65f) return NodeType.Battle;
-        if (random < 0.85f) return NodeType.Shop;
+        if (random < (_battleRate / 100f)) return NodeType.Battle;
+        if (random < (_shopRate / 100f)) return NodeType.Shop;
         return NodeType.Medical;
     }
 
