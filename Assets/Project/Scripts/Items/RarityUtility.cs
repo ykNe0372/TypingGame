@@ -9,12 +9,13 @@ public static class RarityUtility {
         };
     }
 
-    public static ItemRarity GetHigherRarity(ItemRarity rarity) {
+    public static ItemRarity? GetHigherRarity(ItemRarity rarity) {
         return rarity switch {
             ItemRarity.Common => ItemRarity.Rare,
             ItemRarity.Rare => ItemRarity.Epic,
             ItemRarity.Epic => ItemRarity.Legendary,
-            _ => ItemRarity.Legendary
+            ItemRarity.Legendary => null,
+            _ => null
         };
     }
 }

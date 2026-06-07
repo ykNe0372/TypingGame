@@ -67,20 +67,24 @@ public class ShopSystem : MonoBehaviour {
 
     private bool HasMaterials(Character player, GrowthItem item) {
         ItemRarity rarity = item.Rarity;
+        ItemRarity? higherRarity = RarityUtility.GetHigherRarity(rarity);
         ItemRarity? lowerRarity = RarityUtility.GetLowerRarity(rarity);
         
         bool same = player.CountItemsByRarity(rarity) >= 1;
+        bool higher = higherRarity.HasValue && player.CountItemsByRarity(higherRarity.Value) >= 1;
         bool lower = lowerRarity.HasValue && player.CountItemsByRarity(lowerRarity.Value) >= 2;
 
-        Debug.Log($"same: {player.CountItemsByRarity(rarity)}" +
+        Debug.Log($"same: {player.CountItemsByRarity(rarity)}, " +
+            $"higher: {(higherRarity.HasValue ? player.CountItemsByRarity(higherRarity.Value) : 0)}, " +
             $"lower: {(lowerRarity.HasValue ? player.CountItemsByRarity(lowerRarity.Value) : 0)}");
 
-        return same || lower;
+        return same || higher || lower;
     }
 
     private List<GrowthItem> AutoSelectMaterials(Character player, GrowthItem targetItem) {
         ItemRarity rarity = targetItem.Rarity;
         ItemRarity? lowerRarity = RarityUtility.GetLowerRarity(rarity);
+        ItemRarity? higherRarity = RarityUtility.GetHigherRarity(rarity);
         
         // 下位レア2個（優先）
         if (lowerRarity.HasValue) {
@@ -91,6 +95,12 @@ public class ShopSystem : MonoBehaviour {
         // 同レア1個
         var sameItems = player.GetItemsByRarity(rarity, 1);
         if (sameItems.Count >= 1) return sameItems;
+
+        // 上位レア1個（仮実装）
+        if (higherRarity.HasValue) {
+            var higherItems = player.GetItemsByRarity(higherRarity.Value, 1);
+            if (higherItems.Count >= 1) return higherItems;
+        }
 
         return new List<GrowthItem>();
     }
