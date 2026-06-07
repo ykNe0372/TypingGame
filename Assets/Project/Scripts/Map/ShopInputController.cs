@@ -19,6 +19,8 @@ public class ShopInputController : MonoBehaviour {
             return;
         }
 
+        if (!GameStateManager.Instance.IsState(GameState.Shop)) return;
+
         if (Keyboard.current.digit1Key.wasPressedThisFrame) _shopSystem.Purchase(_player, 0);
         if (Keyboard.current.digit2Key.wasPressedThisFrame) _shopSystem.Purchase(_player, 1);
         if (Keyboard.current.digit3Key.wasPressedThisFrame) _shopSystem.Purchase(_player, 2);
@@ -26,7 +28,6 @@ public class ShopInputController : MonoBehaviour {
         if (Keyboard.current.digit5Key.wasPressedThisFrame) _shopSystem.Purchase(_player, 4);
 
         if (Keyboard.current.rKey.wasPressedThisFrame) _shopSystem.Reroll();
-
         if (Keyboard.current.escapeKey.wasPressedThisFrame) _shopSystem.ExitShop(_player);
     }
 }

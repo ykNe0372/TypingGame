@@ -57,8 +57,8 @@ public class ShopSystem : MonoBehaviour {
         List<GrowthItem> materials = AutoSelectMaterials(player, offer.Item);
         if (materials.Count == 0) return false;
 
-        player.AddItem(offer.Item);
         if (materials != null) ConsumeMaterials(player, materials);
+        player.AddItem(offer.Item);
         offer.IsSoldOut = true;
         _hasPurchased = true;
 

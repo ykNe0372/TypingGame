@@ -2589,7 +2589,7 @@ MonoBehaviour:
   _currentElement: 0
   _combatSystems: {fileID: 614157279}
   _startItems:
-  - {fileID: 11400000, guid: c12863c2a179749beafc183330bc9532, type: 2}
+  - {fileID: 11400000, guid: 8afb5bf551f6f48768f41b5e0cd19278, type: 2}
 --- !u!4 &1093212729
 Transform:
   m_ObjectHideFlags: 0

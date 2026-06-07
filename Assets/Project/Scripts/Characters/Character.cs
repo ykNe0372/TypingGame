@@ -12,7 +12,6 @@ public enum ElementType {
 
 public class Character : MonoBehaviour {
     [SerializeField] private CharacterBaseStatus _baseStatus;   // 基礎ステータス
-    [SerializeField] private ItemInventory _itemInventory;
     [SerializeField] private RelicData _relic;                  // レリック
     [SerializeField] private List<SkillData> _skills;
     [SerializeField] private List<BonusAttackData> _bonusAttacks;
@@ -21,6 +20,8 @@ public class Character : MonoBehaviour {
     
 
     private StatusManager _statusManager;
+    private readonly ItemInventory _itemInventory = new();
+    private readonly SubItemInventory _subInventory = new();
     private readonly List<RelicEffect> _relicEffects = new();        // レリック効果
     private readonly List<Effect> _passiveEffects = new();           // ステータス変更系
     private readonly List<OnAttackEffect> _attackEffects = new();    // 攻撃変更（連撃）系
@@ -36,7 +37,8 @@ public class Character : MonoBehaviour {
     public bool IsDead => _isDead;
     public SkillData CurrentSkill => _skills[_currentSkillIndex];
     public ElementType CurrentElement => _currentElement;
-    public IReadOnlyList<GrowthItem> Items => _itemInventory.Items;
+    public ItemInventory Inventory => _itemInventory;
+    public SubItemInventory SubInventory => _subInventory;
 
     public event Action<Character> OnDead;
 
@@ -90,19 +92,54 @@ public class Character : MonoBehaviour {
     }
 
     public void AddItem(GrowthItem item) {
-        _itemInventory.AddItem(item);
-        BuildEffectList();  // 効果一覧を再構築
-        Debug.Log($"Get Item: {item.ItemName}");
+        if (_itemInventory.HasSpace()) {
+            _itemInventory.AddItem(item);
+            BuildEffectList();  // 効果一覧を再構築
+            Debug.Log($"[Inventory] Get Item: {item.ItemName}");
+            return;
+        }
+
+        if (_subInventory.HasSpace()) {
+            _subInventory.AddItem(item);
+            Debug.Log($"[SubInventory] Get Item: {item.ItemName}");
+            return;
+        }
+
+        Debug.Log($"Item Discarded: {item.ItemName}");
     }
 
     public void RemoveItem(GrowthItem item) {
-        _itemInventory.RemoveItem(item);
-        if (item != null) BuildEffectList();
-        Debug.Log($"Remove Item: {item.ItemName}");
+        if (_subInventory.RemoveItem(item)) {
+            BuildEffectList();
+            Debug.Log($"[SubInventory] Remove Item: {item.ItemName}");
+            return;
+        }
+        if (_itemInventory.RemoveItem(item)) {
+            BuildEffectList();
+            Debug.Log($"[Inventory] Remove Item: {item.ItemName}");
+            return;
+        }
     }
 
     public int CountItemsByRarity(ItemRarity rarity) {
-        return _itemInventory.CountByRarity(rarity);
+        return _itemInventory.CountByRarity(rarity) + _subInventory.CountByRarity(rarity);
+    }
+
+    // 指定レアリティのアイテムを取得
+    public List<GrowthItem> GetItemsByRarity(ItemRarity rarity, int count) {
+        List<GrowthItem> result = new();
+        foreach (var item in _subInventory.GetItemsByRarity(rarity)) {
+            result.Add(item);
+            if (result.Count >= count) return result;
+        }
+
+        // 不足分はメインインベントリから
+        foreach (var item in _itemInventory.GetItemsByRarity(rarity)) {
+            result.Add(item);
+            if (result.Count >= count) return result;
+        }
+
+        return result;
     }
 
     public float GetFinalStatus(StatusType type) {
