@@ -12,8 +12,8 @@ public enum ElementType {
 
 public class Character : MonoBehaviour {
     [SerializeField] private CharacterBaseStatus _baseStatus;   // 基礎ステータス
+    [SerializeField] private ItemInventory _itemInventory;
     [SerializeField] private RelicData _relic;                  // レリック
-    [SerializeField] private List<GrowthItem> _items = new();   // 強化アイテム
     [SerializeField] private List<SkillData> _skills;
     [SerializeField] private List<BonusAttackData> _bonusAttacks;
     [SerializeField] private ElementType _currentElement = ElementType.None;
@@ -36,11 +36,14 @@ public class Character : MonoBehaviour {
     public bool IsDead => _isDead;
     public SkillData CurrentSkill => _skills[_currentSkillIndex];
     public ElementType CurrentElement => _currentElement;
+    public IReadOnlyList<GrowthItem> Items => _itemInventory.Items;
 
     public event Action<Character> OnDead;
 
     private void Awake() {
         _statusManager = new StatusManager(this);
+
+        foreach (var item in _startItems) AddItem(item);  // 初期アイテム（多分デバッグのみ）
         
         BuildEffectList();
         InitializeHP();
@@ -68,10 +71,12 @@ public class Character : MonoBehaviour {
 
     // 強化アイテム一覧、レリック効果
     private void BuildEffectList() {
+        if (_itemInventory == null) return;
+        
         _passiveEffects.Clear();
         _attackEffects.Clear();
 
-        foreach (var item in _items) {
+        foreach (var item in _itemInventory.Items) {
             foreach (var effect in item.GetEffects()) {
                 if (effect is OnAttackEffect attackEffect) _attackEffects.Add(attackEffect);
                 else if (effect is OnDamageEffect damageEffect) _damageEffects.Add(damageEffect);
@@ -85,9 +90,19 @@ public class Character : MonoBehaviour {
     }
 
     public void AddItem(GrowthItem item) {
-        _items.Add(item);
+        _itemInventory.AddItem(item);
         BuildEffectList();  // 効果一覧を再構築
         Debug.Log($"Get Item: {item.ItemName}");
+    }
+
+    public void RemoveItem(GrowthItem item) {
+        _itemInventory.RemoveItem(item);
+        if (item != null) BuildEffectList();
+        Debug.Log($"Remove Item: {item.ItemName}");
+    }
+
+    public int CountItemsByRarity(ItemRarity rarity) {
+        return _itemInventory.CountByRarity(rarity);
     }
 
     public float GetFinalStatus(StatusType type) {
@@ -268,5 +283,14 @@ public class Character : MonoBehaviour {
 
         _currentMP += amount;
         _currentMP = Math.Min(_currentMP, MaxMP);
+    }
+
+    // ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭  DEBUG MODE  ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭
+
+    [SerializeField] private List<GrowthItem> _startItems = new();
+    
+    public void Debug_PrintItems() {
+        Debug.Log("xxx--- ITEM LIST ---xxx");
+        foreach (var item in _itemInventory.Items) Debug.Log($"{item.ItemName} [{item.Rarity}]");
     }
 }

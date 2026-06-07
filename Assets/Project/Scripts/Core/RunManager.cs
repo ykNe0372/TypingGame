@@ -6,6 +6,7 @@ public class RunManager : MonoBehaviour {
     [SerializeField] private EnemyDataBase _enemyDataBase;
     [SerializeField] private EnemyFactory _enemyFactory;
     [SerializeField] private CombatSystem _combatSystem;
+    [SerializeField] private ShopSystem _shopSystem;
     [SerializeField] private RewardSelectionUI _rewardSelectionUI;
     [SerializeField] private MapGenerator _mapGenerator;
 
@@ -68,7 +69,9 @@ public class RunManager : MonoBehaviour {
 
     private void OpenShop(MapNode node) {
         Debug.Log("Open Shop");
-        GameStateManager.Instance.ChangeState(GameState.MapSelect);  // 仮実装、即 Map に戻す
+        GameStateManager.Instance.ChangeState(GameState.Shop);
+        _shopSystem.EnterShop(node);
+        // GameStateManager.Instance.ChangeState(GameState.MapSelect);  // 仮実装、即 Map に戻す
     }
 
     private void OpenMedical(MapNode node) {
