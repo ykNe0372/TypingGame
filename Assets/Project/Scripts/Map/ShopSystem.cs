@@ -24,10 +24,7 @@ public class ShopSystem : MonoBehaviour {
     public void ExitShop(Character player) {
         if (!_hasPurchased) {
             GrowthItem item = GetServiceItem();  // 所持上限に達していた時用に抽選と取得は分ける
-            if (item != null) {
-                player.AddItem(item);
-                Debug.Log($"Service Item: {item.ItemName}");
-            }
+            if (item != null) player.AddItem(item);
         }
 
         Debug.Log("Shop Exit");
@@ -54,11 +51,8 @@ public class ShopSystem : MonoBehaviour {
         if (offerIndex < 0 || offerIndex >= _offers.Count) return false;
 
         ShopOffer offer = _offers[offerIndex];
-        if (!CanPurchase(player, offer.Item)) return false;
-        if (offer.IsSoldOut) {
-            Debug.Log("Already SoldOut");
-            return false;
-        }
+        if (!HasMaterials(player, offer.Item)) return false;
+        if (offer.IsSoldOut) return false;
 
         List<GrowthItem> materials = AutoSelectMaterials(player, offer.Item);
         if (materials.Count == 0) return false;
@@ -71,7 +65,7 @@ public class ShopSystem : MonoBehaviour {
         return true;
     }
 
-    private bool CanPurchase(Character player, GrowthItem item) {
+    private bool HasMaterials(Character player, GrowthItem item) {
         ItemRarity rarity = item.Rarity;
         ItemRarity? lowerRarity = RarityUtility.GetLowerRarity(rarity);
         
@@ -87,20 +81,16 @@ public class ShopSystem : MonoBehaviour {
     private List<GrowthItem> AutoSelectMaterials(Character player, GrowthItem targetItem) {
         ItemRarity rarity = targetItem.Rarity;
         ItemRarity? lowerRarity = RarityUtility.GetLowerRarity(rarity);
-        List<GrowthItem> lowerItems = new();
         
         // 下位レア2個（優先）
         if (lowerRarity.HasValue) {
-            foreach (var item in player.Items) {
-                if (item.Rarity == lowerRarity) lowerItems.Add(item);
-                if (lowerItems.Count >= 2) return new List<GrowthItem>{ lowerItems[0], lowerItems[1] };
-            }
+            var lowerItems = player.GetItemsByRarity(lowerRarity.Value, 2);
+            if (lowerItems.Count >= 2) return lowerItems;
         }
 
         // 同レア1個
-        foreach (var item in player.Items) {
-            if (item.Rarity == rarity) return new List<GrowthItem>{ item };
-        }
+        var sameItems = player.GetItemsByRarity(rarity, 1);
+        if (sameItems.Count >= 1) return sameItems;
 
         return new List<GrowthItem>();
     }
