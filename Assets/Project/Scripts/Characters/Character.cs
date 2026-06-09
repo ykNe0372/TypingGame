@@ -1,14 +1,6 @@
 using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-
-public enum ElementType {
-    None,
-    Fire,
-    Ice,
-    Lightning
-}
 
 public class Character : MonoBehaviour {
     [SerializeField] private CharacterBaseStatus _baseStatus;   // 基礎ステータス
@@ -53,7 +45,7 @@ public class Character : MonoBehaviour {
     }
 
     private void Update() {
-        RecoverMP();
+        UpdateMPRegeneration();
         UpdateStatusEffects();
     }
 
@@ -285,14 +277,8 @@ public class Character : MonoBehaviour {
         return true;
     }
 
-    public bool TryConsumeMP(int amount) {
-        if (_currentMP < amount) return false;
-        _currentMP -= amount;
-        return true;
-    }
-
     // MP の自然回復効果
-    private void RecoverMP() {
+    private void UpdateMPRegeneration() {
         float regen = GetFinalStatus(StatusType.MPRegen);
         if (regen <= 0f) return;
 
@@ -300,26 +286,31 @@ public class Character : MonoBehaviour {
         _regenTimer += Time.deltaTime;
 
         if (_regenTimer >= interval) {
-            _currentMP += 1;
+            RecoverMP(1);
             _regenTimer -= interval;
-            _currentMP = Mathf.Min(_currentMP, MaxMP);
         }
     }
 
-    // 「加護」効果による HP 回復効果
-    public void ProvidenceRecoverHP(int amount) {
+    public void RecoverHP(int amount) {
         if (amount <= 0) return;
-        
+
         _currentHP += amount;
-        _currentHP = Math.Min(_currentHP, MaxHP);
+        _currentHP = Mathf.Min(_currentHP, MaxHP);
+        Debug.Log($"{name} Recover HP: {amount}");
     }
 
-    // 「加護」効果による MP 回復効果
-    public void ProvidenceRecoverMP(int amount) {
+    public void RecoverMP(int amount) {
         if (amount <= 0) return;
 
         _currentMP += amount;
-        _currentMP = Math.Min(_currentMP, MaxMP);
+        _currentMP = Mathf.Min(_currentMP, MaxMP);
+        Debug.Log($"{name} Recover MP: {amount}");
+    }
+
+    public bool TryConsumeMP(int amount) {
+        if (_currentMP < amount) return false;
+        _currentMP -= amount;
+        return true;
     }
 
     // ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭  DEBUG MODE  ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭

@@ -81,14 +81,14 @@ public class MapGenerator : MonoBehaviour {
     }
 
     // エリア生成（仮）
-    private NodeType GetRandomNodeType(int floorIndex) {
-        if (floorIndex == 0) return NodeType.Battle;
-        if (floorIndex == _floorCount - 1) return NodeType.Boss;  // 最終層はボス固定
+    private MapType GetRandomNodeType(int floorIndex) {
+        if (floorIndex == 0) return MapType.Battle;
+        if (floorIndex == _floorCount - 1) return MapType.Boss;  // 最終層はボス固定
 
         float random = Random.value;
-        if (random < (_battleRate / 100f)) return NodeType.Battle;
-        if (random < (_shopRate / 100f)) return NodeType.Shop;
-        return NodeType.Medical;
+        if (random < (_battleRate / 100f)) return MapType.Battle;
+        if (random < (_shopRate / 100f)) return MapType.Shop;
+        return MapType.Rest;
     }
 
     private void Shuffle<T>(List<T> list) {
@@ -99,7 +99,7 @@ public class MapGenerator : MonoBehaviour {
     }
 
     private void AssignHappening(MapNode node) {
-        if (node.Type != NodeType.Battle) return;
+        if (node.Type != MapType.Battle) return;
         if (Random.value > (_happeningRate / 100f)) return;
 
         int index = Random.Range(0, _allBattleModifiers.Count);

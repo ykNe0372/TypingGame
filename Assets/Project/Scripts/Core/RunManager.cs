@@ -38,16 +38,16 @@ public class RunManager : MonoBehaviour {
         Debug.Log($"Enter Node: {node}");
 
         switch (node.Type) {
-            case NodeType.Battle:
+            case MapType.Battle:
                 StartBattle(node);
                 break;
-            case NodeType.Shop:
+            case MapType.Shop:
                 OpenShop(node);
                 break;
-            case NodeType.Medical:
+            case MapType.Rest:
                 OpenMedical(node);
                 break;
-            case NodeType.Boss:
+            case MapType.Boss:
                 StartBossBattle(node);
                 break;
         }
@@ -96,7 +96,7 @@ public class RunManager : MonoBehaviour {
         }
 
         // ボス戦
-        if (node.Type == NodeType.Boss) {
+        if (node.Type == MapType.Boss) {
             EnemyData bossData = GetRandomEnemy(floorSet.BossEnemy);
             Character boss = _enemyFactory.CreateEnemy(bossData, 1);
             enemies.Add(boss);
