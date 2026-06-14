@@ -1,7 +1,7 @@
 public enum GameState {
     Battle,
     Shop,
-    Medical,
+    Rest,
     Pause,
     MapSelect,
     Result,

@@ -7,6 +7,7 @@ public class RunManager : MonoBehaviour {
     [SerializeField] private EnemyFactory _enemyFactory;
     [SerializeField] private CombatSystem _combatSystem;
     [SerializeField] private ShopSystem _shopSystem;
+    [SerializeField] private RestSystem _restSystem;
     [SerializeField] private RewardSelectionUI _rewardSelectionUI;
     [SerializeField] private MapGenerator _mapGenerator;
 
@@ -45,7 +46,7 @@ public class RunManager : MonoBehaviour {
                 OpenShop(node);
                 break;
             case MapType.Rest:
-                OpenMedical(node);
+                OpenRest(node);
                 break;
             case MapType.Boss:
                 StartBossBattle(node);
@@ -71,12 +72,12 @@ public class RunManager : MonoBehaviour {
         Debug.Log("Open Shop");
         GameStateManager.Instance.ChangeState(GameState.Shop);
         _shopSystem.EnterShop(node);
-        // GameStateManager.Instance.ChangeState(GameState.MapSelect);  // 仮実装、即 Map に戻す
     }
 
-    private void OpenMedical(MapNode node) {
-        Debug.Log("Open Medical");
-        GameStateManager.Instance.ChangeState(GameState.MapSelect);  // 仮実装、即 Map に戻す
+    private void OpenRest(MapNode node) {
+        Debug.Log("Open Rest");
+        GameStateManager.Instance.ChangeState(GameState.Rest);
+        _restSystem.EnterRest(_player);
     }
 
     private void StartBossBattle(MapNode node) {
@@ -134,5 +135,32 @@ public class RunManager : MonoBehaviour {
 
     private void HandleRewardClosed() {
         GameStateManager.Instance.ChangeState(GameState.MapSelect);
+    }
+
+    // ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭  DEBUG MODE  ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭
+
+    public void Debug_MoveTo(MapType type) {
+        MapNode node = new() {
+            Type = type
+        };
+
+        switch(type) {
+            case MapType.Battle:
+                StartBattle(node);
+                break;
+            case MapType.Shop:
+                OpenShop(node);
+                break;
+            case MapType.Rest:
+                OpenRest(node);
+                break;
+            case MapType.Boss:
+                StartBossBattle(node);
+                break;
+        }
+    }
+
+    public void Debug_CompleteBattle() {
+        _player.OnBattleEnd();
     }
 }

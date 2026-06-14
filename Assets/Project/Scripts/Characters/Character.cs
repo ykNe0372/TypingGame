@@ -16,6 +16,7 @@ public class Character : MonoBehaviour {
     private readonly SubItemInventory _subInventory = new();
     private readonly List<RelicEffect> _relicEffects = new();        // レリック効果
     private readonly List<Effect> _passiveEffects = new();           // ステータス変更系
+    private readonly List<BuffInstance> _activeBuffs = new();        // バフ・デバフ
     private readonly List<OnAttackEffect> _attackEffects = new();    // 攻撃変更（連撃）系
     private readonly List<OnDamageEffect> _damageEffects = new();    // ダメージ計算
     private float _currentHP;
@@ -69,6 +70,7 @@ public class Character : MonoBehaviour {
         
         _passiveEffects.Clear();
         _attackEffects.Clear();
+        _relicEffects.Clear();
 
         foreach (var item in _itemInventory.Items) {
             foreach (var effect in item.GetEffects()) {
@@ -134,13 +136,51 @@ public class Character : MonoBehaviour {
         return result;
     }
 
+    // 仮実装（本実装でアイテム一覧を返してプレイヤーが選べるようにする）
+    public GrowthItem SelectPaymentItem() {
+        if (_subInventory.Count > 0) return _subInventory.Items[0];
+        if (_itemInventory.Count > 0) return _itemInventory.Items[0];
+        return null;
+    }
+
+    public void AddBuff(BuffData data) {
+        _activeBuffs.Add(new BuffInstance(data));
+
+        // Debug.Log($"[DEBUG] PhysicalAttack: {GetFinalStatus(StatusType.PhysicalAttack)}");
+        // Debug.Log($"[DEBUG] MagicAttack: {GetFinalStatus(StatusType.MagicAttack)}");
+    }
+
+    public void OnBattleEnd() {
+        for (int i=_activeBuffs.Count-1; i>=0; --i) {
+            --_activeBuffs[i].RemainingBattleCount;
+            if (_activeBuffs[i].RemainingBattleCount <= 0) {
+                Debug.Log($"Buff Expired: {_activeBuffs[i].Data.BuffName}");
+                _activeBuffs.RemoveAt(i);
+            }
+        }
+    }
+
+    public float GetBuffTotal(StatusType statusType) {
+        float totalMultiplier = 1f;
+
+        foreach (var buff in _activeBuffs) {
+            foreach (var modifier in buff.Data.Modifiers) {
+                if (modifier.StatusType == statusType) totalMultiplier += modifier.Value;
+            }
+        }
+
+        return totalMultiplier;
+    }
+
     public float GetFinalStatus(StatusType type) {
         float baseValue = _baseStatus.GetStatus(type);
         float bonus = 0f;
         
         foreach (var effect in _passiveEffects) bonus += effect.GetStatusBonus(type);
         foreach (var effect in _relicEffects) bonus += effect.GetStatusBonus(type);
+        
         float value =  baseValue + bonus;
+        value *= GetBuffTotal(type);
 
         foreach (var s in _statusManager.Effects) {
             value = s.Data.behaviour.ModifyStat(type, value, s);
@@ -296,7 +336,6 @@ public class Character : MonoBehaviour {
 
         _currentHP += amount;
         _currentHP = Mathf.Min(_currentHP, MaxHP);
-        Debug.Log($"{name} Recover HP: {amount}");
     }
 
     public void RecoverMP(int amount) {
@@ -304,7 +343,6 @@ public class Character : MonoBehaviour {
 
         _currentMP += amount;
         _currentMP = Mathf.Min(_currentMP, MaxMP);
-        Debug.Log($"{name} Recover MP: {amount}");
     }
 
     public bool TryConsumeMP(int amount) {

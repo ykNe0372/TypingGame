@@ -193,6 +193,7 @@ public class CombatSystem : MonoBehaviour {
         _state = CombatState.Victory;
         Debug.Log("Victory");
 
+        _player.OnBattleEnd();
         _rewardSystem.ShowReward(_player);
 
         // TODO: 勝利演出・リザルトUIなど
