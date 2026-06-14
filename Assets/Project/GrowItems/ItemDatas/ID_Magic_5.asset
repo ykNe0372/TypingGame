@@ -15,5 +15,7 @@ MonoBehaviour:
   _itemName: "\u6C34\u6676\u7389"
   _description: "\u9B54\u6CD5\u653B\u6483\u529B\u304C5\u4E0A\u304C\u308B"
   _icon: {fileID: 0}
+  _rarity: 0
   _effects:
   - {fileID: 11400000, guid: c61d0ba0cae7443838124b7be0d83e16, type: 2}
+  _nextRarityItem: {fileID: 0}

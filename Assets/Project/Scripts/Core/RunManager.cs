@@ -6,6 +6,8 @@ public class RunManager : MonoBehaviour {
     [SerializeField] private EnemyDataBase _enemyDataBase;
     [SerializeField] private EnemyFactory _enemyFactory;
     [SerializeField] private CombatSystem _combatSystem;
+    [SerializeField] private ShopSystem _shopSystem;
+    [SerializeField] private RestSystem _restSystem;
     [SerializeField] private RewardSelectionUI _rewardSelectionUI;
     [SerializeField] private MapGenerator _mapGenerator;
 
@@ -37,16 +39,16 @@ public class RunManager : MonoBehaviour {
         Debug.Log($"Enter Node: {node}");
 
         switch (node.Type) {
-            case NodeType.Battle:
+            case MapType.Battle:
                 StartBattle(node);
                 break;
-            case NodeType.Shop:
+            case MapType.Shop:
                 OpenShop(node);
                 break;
-            case NodeType.Medical:
-                OpenMedical(node);
+            case MapType.Rest:
+                OpenRest(node);
                 break;
-            case NodeType.Boss:
+            case MapType.Boss:
                 StartBossBattle(node);
                 break;
         }
@@ -68,12 +70,14 @@ public class RunManager : MonoBehaviour {
 
     private void OpenShop(MapNode node) {
         Debug.Log("Open Shop");
-        GameStateManager.Instance.ChangeState(GameState.MapSelect);  // 仮実装、即 Map に戻す
+        GameStateManager.Instance.ChangeState(GameState.Shop);
+        _shopSystem.EnterShop(node);
     }
 
-    private void OpenMedical(MapNode node) {
-        Debug.Log("Open Medical");
-        GameStateManager.Instance.ChangeState(GameState.MapSelect);  // 仮実装、即 Map に戻す
+    private void OpenRest(MapNode node) {
+        Debug.Log("Open Rest");
+        GameStateManager.Instance.ChangeState(GameState.Rest);
+        _restSystem.EnterRest(_player);
     }
 
     private void StartBossBattle(MapNode node) {
@@ -93,7 +97,7 @@ public class RunManager : MonoBehaviour {
         }
 
         // ボス戦
-        if (node.Type == NodeType.Boss) {
+        if (node.Type == MapType.Boss) {
             EnemyData bossData = GetRandomEnemy(floorSet.BossEnemy);
             Character boss = _enemyFactory.CreateEnemy(bossData, 1);
             enemies.Add(boss);
@@ -131,5 +135,32 @@ public class RunManager : MonoBehaviour {
 
     private void HandleRewardClosed() {
         GameStateManager.Instance.ChangeState(GameState.MapSelect);
+    }
+
+    // ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭  DEBUG MODE  ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭
+
+    public void Debug_MoveTo(MapType type) {
+        MapNode node = new() {
+            Type = type
+        };
+
+        switch(type) {
+            case MapType.Battle:
+                StartBattle(node);
+                break;
+            case MapType.Shop:
+                OpenShop(node);
+                break;
+            case MapType.Rest:
+                OpenRest(node);
+                break;
+            case MapType.Boss:
+                StartBossBattle(node);
+                break;
+        }
+    }
+
+    public void Debug_CompleteBattle() {
+        _player.OnBattleEnd();
     }
 }

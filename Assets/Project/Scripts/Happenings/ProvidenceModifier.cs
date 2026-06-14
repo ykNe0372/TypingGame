@@ -25,8 +25,8 @@ public class ProvidenceModifier : BattleModifierBase {
         if (hpRecover == 0) hpRecover = 1;
         if (mpRecover == 0) mpRecover = 1;
 
-        player.ProvidenceRecoverHP(hpRecover);
-        player.ProvidenceRecoverMP(mpRecover);
+        player.RecoverHP(hpRecover);
+        player.RecoverMP(mpRecover);
         Debug.Log($"[Providence] HP: {hpRecover}, MP: {mpRecover}");
     }
 }

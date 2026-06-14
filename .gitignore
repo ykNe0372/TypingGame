@@ -78,3 +78,6 @@ crashlytics-build.properties
 
 # Mac の表示ファイル関連の隠しファイル
 *.DS_Store
+
+# クラッシュ時の生成ファイル
+*.blob

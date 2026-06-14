@@ -1,19 +1,10 @@
 using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-
-public enum ElementType {
-    None,
-    Fire,
-    Ice,
-    Lightning
-}
 
 public class Character : MonoBehaviour {
     [SerializeField] private CharacterBaseStatus _baseStatus;   // 基礎ステータス
     [SerializeField] private RelicData _relic;                  // レリック
-    [SerializeField] private List<GrowthItem> _items = new();   // 強化アイテム
     [SerializeField] private List<SkillData> _skills;
     [SerializeField] private List<BonusAttackData> _bonusAttacks;
     [SerializeField] private ElementType _currentElement = ElementType.None;
@@ -21,8 +12,11 @@ public class Character : MonoBehaviour {
     
 
     private StatusManager _statusManager;
+    private readonly ItemInventory _itemInventory = new();
+    private readonly SubItemInventory _subInventory = new();
     private readonly List<RelicEffect> _relicEffects = new();        // レリック効果
     private readonly List<Effect> _passiveEffects = new();           // ステータス変更系
+    private readonly List<BuffInstance> _activeBuffs = new();        // バフ・デバフ
     private readonly List<OnAttackEffect> _attackEffects = new();    // 攻撃変更（連撃）系
     private readonly List<OnDamageEffect> _damageEffects = new();    // ダメージ計算
     private float _currentHP;
@@ -36,11 +30,15 @@ public class Character : MonoBehaviour {
     public bool IsDead => _isDead;
     public SkillData CurrentSkill => _skills[_currentSkillIndex];
     public ElementType CurrentElement => _currentElement;
+    public ItemInventory Inventory => _itemInventory;
+    public SubItemInventory SubInventory => _subInventory;
 
     public event Action<Character> OnDead;
 
     private void Awake() {
         _statusManager = new StatusManager(this);
+
+        foreach (var item in _startItems) AddItem(item);  // 初期アイテム（多分デバッグのみ）
         
         BuildEffectList();
         InitializeHP();
@@ -48,7 +46,7 @@ public class Character : MonoBehaviour {
     }
 
     private void Update() {
-        RecoverMP();
+        UpdateMPRegeneration();
         UpdateStatusEffects();
     }
 
@@ -68,10 +66,13 @@ public class Character : MonoBehaviour {
 
     // 強化アイテム一覧、レリック効果
     private void BuildEffectList() {
+        if (_itemInventory == null) return;
+        
         _passiveEffects.Clear();
         _attackEffects.Clear();
+        _relicEffects.Clear();
 
-        foreach (var item in _items) {
+        foreach (var item in _itemInventory.Items) {
             foreach (var effect in item.GetEffects()) {
                 if (effect is OnAttackEffect attackEffect) _attackEffects.Add(attackEffect);
                 else if (effect is OnDamageEffect damageEffect) _damageEffects.Add(damageEffect);
@@ -85,9 +86,90 @@ public class Character : MonoBehaviour {
     }
 
     public void AddItem(GrowthItem item) {
-        _items.Add(item);
-        BuildEffectList();  // 効果一覧を再構築
-        Debug.Log($"Get Item: {item.ItemName}");
+        if (_itemInventory.HasSpace()) {
+            _itemInventory.AddItem(item);
+            BuildEffectList();  // 効果一覧を再構築
+            Debug.Log($"[Inventory] Get Item: {item.ItemName}");
+            return;
+        }
+
+        if (_subInventory.HasSpace()) {
+            _subInventory.AddItem(item);
+            Debug.Log($"[SubInventory] Get Item: {item.ItemName}");
+            return;
+        }
+
+        Debug.Log($"Item Discarded: {item.ItemName}");
+    }
+
+    public void RemoveItem(GrowthItem item) {
+        if (_subInventory.RemoveItem(item)) {
+            BuildEffectList();
+            Debug.Log($"[SubInventory] Remove Item: {item.ItemName}");
+            return;
+        }
+        if (_itemInventory.RemoveItem(item)) {
+            BuildEffectList();
+            Debug.Log($"[Inventory] Remove Item: {item.ItemName}");
+            return;
+        }
+    }
+
+    public int CountItemsByRarity(ItemRarity rarity) {
+        return _itemInventory.CountByRarity(rarity) + _subInventory.CountByRarity(rarity);
+    }
+
+    // 指定レアリティのアイテムを取得
+    public List<GrowthItem> GetItemsByRarity(ItemRarity rarity, int count) {
+        List<GrowthItem> result = new();
+        foreach (var item in _subInventory.GetItemsByRarity(rarity)) {
+            result.Add(item);
+            if (result.Count >= count) return result;
+        }
+
+        // 不足分はメインインベントリから
+        foreach (var item in _itemInventory.GetItemsByRarity(rarity)) {
+            result.Add(item);
+            if (result.Count >= count) return result;
+        }
+
+        return result;
+    }
+
+    // 仮実装（本実装でアイテム一覧を返してプレイヤーが選べるようにする）
+    public GrowthItem SelectPaymentItem() {
+        if (_subInventory.Count > 0) return _subInventory.Items[0];
+        if (_itemInventory.Count > 0) return _itemInventory.Items[0];
+        return null;
+    }
+
+    public void AddBuff(BuffData data) {
+        _activeBuffs.Add(new BuffInstance(data));
+
+        // Debug.Log($"[DEBUG] PhysicalAttack: {GetFinalStatus(StatusType.PhysicalAttack)}");
+        // Debug.Log($"[DEBUG] MagicAttack: {GetFinalStatus(StatusType.MagicAttack)}");
+    }
+
+    public void OnBattleEnd() {
+        for (int i=_activeBuffs.Count-1; i>=0; --i) {
+            --_activeBuffs[i].RemainingBattleCount;
+            if (_activeBuffs[i].RemainingBattleCount <= 0) {
+                Debug.Log($"Buff Expired: {_activeBuffs[i].Data.BuffName}");
+                _activeBuffs.RemoveAt(i);
+            }
+        }
+    }
+
+    public float GetBuffTotal(StatusType statusType) {
+        float totalMultiplier = 1f;
+
+        foreach (var buff in _activeBuffs) {
+            foreach (var modifier in buff.Data.Modifiers) {
+                if (modifier.StatusType == statusType) totalMultiplier += modifier.Value;
+            }
+        }
+
+        return totalMultiplier;
     }
 
     public float GetFinalStatus(StatusType type) {
@@ -96,7 +178,9 @@ public class Character : MonoBehaviour {
         
         foreach (var effect in _passiveEffects) bonus += effect.GetStatusBonus(type);
         foreach (var effect in _relicEffects) bonus += effect.GetStatusBonus(type);
+        
         float value =  baseValue + bonus;
+        value *= GetBuffTotal(type);
 
         foreach (var s in _statusManager.Effects) {
             value = s.Data.behaviour.ModifyStat(type, value, s);
@@ -233,14 +317,8 @@ public class Character : MonoBehaviour {
         return true;
     }
 
-    public bool TryConsumeMP(int amount) {
-        if (_currentMP < amount) return false;
-        _currentMP -= amount;
-        return true;
-    }
-
     // MP の自然回復効果
-    private void RecoverMP() {
+    private void UpdateMPRegeneration() {
         float regen = GetFinalStatus(StatusType.MPRegen);
         if (regen <= 0f) return;
 
@@ -248,25 +326,37 @@ public class Character : MonoBehaviour {
         _regenTimer += Time.deltaTime;
 
         if (_regenTimer >= interval) {
-            _currentMP += 1;
+            RecoverMP(1);
             _regenTimer -= interval;
-            _currentMP = Mathf.Min(_currentMP, MaxMP);
         }
     }
 
-    // 「加護」効果による HP 回復効果
-    public void ProvidenceRecoverHP(int amount) {
+    public void RecoverHP(int amount) {
         if (amount <= 0) return;
-        
+
         _currentHP += amount;
-        _currentHP = Math.Min(_currentHP, MaxHP);
+        _currentHP = Mathf.Min(_currentHP, MaxHP);
     }
 
-    // 「加護」効果による MP 回復効果
-    public void ProvidenceRecoverMP(int amount) {
+    public void RecoverMP(int amount) {
         if (amount <= 0) return;
 
         _currentMP += amount;
-        _currentMP = Math.Min(_currentMP, MaxMP);
+        _currentMP = Mathf.Min(_currentMP, MaxMP);
+    }
+
+    public bool TryConsumeMP(int amount) {
+        if (_currentMP < amount) return false;
+        _currentMP -= amount;
+        return true;
+    }
+
+    // ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭  DEBUG MODE  ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭
+
+    [SerializeField] private List<GrowthItem> _startItems = new();
+    
+    public void Debug_PrintItems() {
+        Debug.Log("xxx--- ITEM LIST ---xxx");
+        foreach (var item in _itemInventory.Items) Debug.Log($"{item.ItemName} [{item.Rarity}]");
     }
 }
