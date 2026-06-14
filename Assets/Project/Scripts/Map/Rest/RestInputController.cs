@@ -7,6 +7,7 @@ public class RestInputController : MonoBehaviour {
 
     private bool _waitKeyRelease;
     private GameState _previousState;
+    private RestState _restState;
 
     private void Update() {
         // 入場時に押す数字キーで選択しないようにキーを離すまでロック
@@ -21,12 +22,17 @@ public class RestInputController : MonoBehaviour {
 
         if (!GameStateManager.Instance.IsState(GameState.Rest)) return;
 
+        if (_restSystem.State == RestState.BlessingSelect) {
+            if (Keyboard.current.digit1Key.wasPressedThisFrame) _restSystem.SelectBlessing(_player, 0);
+            if (Keyboard.current.digit2Key.wasPressedThisFrame) _restSystem.SelectBlessing(_player, 1);
+            if (Keyboard.current.digit3Key.wasPressedThisFrame) _restSystem.SelectBlessing(_player, 2);
+            return;
+        }
+
         if (Keyboard.current.digit1Key.wasPressedThisFrame) _restSystem.RecoverHP(_player);
         if (Keyboard.current.digit2Key.wasPressedThisFrame) _restSystem.RecoverMP(_player);
-        if (Keyboard.current.digit3Key.wasPressedThisFrame) _restSystem.ReceiveBlessingAttack(_player);
-        // if (Keyboard.current.digit4Key.wasPressedThisFrame) _shopSystem.Purchase(_player, 3);
-        // if (Keyboard.current.digit5Key.wasPressedThisFrame) _shopSystem.Purchase(_player, 4);
+        if (Keyboard.current.digit3Key.wasPressedThisFrame) _restSystem.OpenBlessingMenu(_player);
 
-        if (Keyboard.current.escapeKey.wasPressedThisFrame) _restSystem.ExitRest();
+        if (Keyboard.current.escapeKey.wasPressedThisFrame && _restSystem.State == RestState.MainMenu) _restSystem.ExitRest();
     }
 }

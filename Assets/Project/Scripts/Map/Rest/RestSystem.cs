@@ -1,16 +1,24 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class RestSystem : MonoBehaviour {
     [SerializeField] private float _hpRecoverPercent = 30f;
     [SerializeField] private float _mpRecoverPercent = 30f;
-    [SerializeField] private BuffData _attackBuff;
+    [SerializeField] private BlessingDataBase _dataBase;
 
-    private bool _isFreeAvailable;
+    private RestState _state;
+    private bool _isFreeAvailable;  // 初回かどうか
+    private bool _hasTakenBlessing; // 恩恵を受けたかどうか
     private Character _player;
+    private readonly List<BuffData> _currentBlessings = new();
+
+    public RestState State => _state;
 
     public void EnterRest(Character player) {
+        _state = RestState.MainMenu;
         _isFreeAvailable = true;
+        _hasTakenBlessing = false;
         _player = player;
     }
 
@@ -52,10 +60,45 @@ public class RestSystem : MonoBehaviour {
         Debug.Log($"[Rest] MP Recover: {amount}");
     }
 
-    public void ReceiveBlessingAttack(Character player) {
-        if (!TryConsumeItem(player)) return;
+    public bool OpenBlessingMenu(Character player) {
+        if (_hasTakenBlessing) return false;
+        if (!TryConsumeItem(player)) return false;
 
-        player.AddBuff(_attackBuff);
-        Debug.Log("攻撃の恩恵を獲得");        
+        GenerateBlessings(3);
+        _state = RestState.BlessingSelect;
+        PrintBlessings();
+        return true;
+    }
+
+    private void GenerateBlessings(int count) {
+        _currentBlessings.Clear();
+        List<BuffData> pool = new(_dataBase.Items);
+
+        for (int i=0; i<count; ++i) {
+            int index = Random.Range(0, pool.Count);
+            _currentBlessings.Add(pool[index]);
+            pool.RemoveAt(index);
+        }
+    }
+
+    private void PrintBlessings() {
+        Debug.Log("xxx--- Blessings ---xxx");
+        for (int i=0; i<_currentBlessings.Count; ++i) {
+            Debug.Log($"{i+1}: {_currentBlessings[i].BuffName}");
+        }
+    }
+
+    public bool SelectBlessing(Character player, int index) {
+        if (_state != RestState.BlessingSelect) return false;
+        if (index < 0 || index >= _currentBlessings.Count) return false;
+
+        BuffData blessing = _currentBlessings[index];
+        player.AddBuff(blessing);
+        _hasTakenBlessing = true;    // 恩恵は1回まで
+        _currentBlessings.Clear();
+        _state = RestState.MainMenu;
+
+        Debug.Log($"Receive Blessing: {blessing.BuffName}");
+        return true;
     }
 }

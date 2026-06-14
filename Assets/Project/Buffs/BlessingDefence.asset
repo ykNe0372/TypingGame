@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BlessingDefence
   m_EditorClassIdentifier: 
   _buffName: Debug_DefenceType
+  _buffDescription: "\u9632\u5FA1\u529B20%UP\n\u7D20\u65E9\u305510%UP"
   _durationBattleCount: 3
   _modifiers:
   - StatusType: 5

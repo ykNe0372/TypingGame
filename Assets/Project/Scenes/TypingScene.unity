@@ -2766,7 +2766,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hpRecoverPercent: 30
   _mpRecoverPercent: 30
-  _attackBuff: {fileID: 11400000, guid: d437c80e4b214480e81c7127ba86db2c, type: 2}
+  _dataBase: {fileID: 11400000, guid: 2a08ddff5266343bb9298639348c6859, type: 2}
 --- !u!4 &673164260
 Transform:
   m_ObjectHideFlags: 0

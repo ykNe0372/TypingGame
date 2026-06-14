@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: BlessingCritical
   m_EditorClassIdentifier: 
   _buffName: Debug_CriticalType
+  _buffDescription: "\u4F1A\u5FC3\u738710%UP\n\u4F1A\u5FC3\u30C0\u30E1\u30FC\u30B830%UP"
   _durationBattleCount: 3
   _modifiers:
   - StatusType: 9
     Value: 0.1
   - StatusType: 10
-    Value: 0.5
+    Value: 0.3

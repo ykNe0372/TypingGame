@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BlessingAbnormal
   m_EditorClassIdentifier: 
   _buffName: Debug_AbnormalType
+  _buffDescription: "\u72B6\u614B\u7570\u5E38\u4ED8\u4E0E\u738720%UP\n\u72B6\u614B\u7570\u5E38\u8010\u602720%UP"
   _durationBattleCount: 3
   _modifiers:
   - StatusType: 6
