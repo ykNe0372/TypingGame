@@ -43,10 +43,10 @@ public class RunManager : MonoBehaviour {
                 StartBattle(node);
                 break;
             case MapType.Shop:
-                OpenShop(node);
+                OpenShop();
                 break;
             case MapType.Rest:
-                OpenRest(node);
+                OpenRest();
                 break;
             case MapType.Boss:
                 StartBossBattle(node);
@@ -68,16 +68,16 @@ public class RunManager : MonoBehaviour {
         _combatSystem.BeginBattle(_player, enemies);
     }
 
-    private void OpenShop(MapNode node) {
+    private void OpenShop() {
         Debug.Log("Open Shop");
         GameStateManager.Instance.ChangeState(GameState.Shop);
-        _shopSystem.EnterShop(node);
+        _shopSystem.EnterShop();
     }
 
-    private void OpenRest(MapNode node) {
+    private void OpenRest() {
         Debug.Log("Open Rest");
         GameStateManager.Instance.ChangeState(GameState.Rest);
-        _restSystem.EnterRest(_player);
+        _restSystem.EnterRest();
     }
 
     private void StartBossBattle(MapNode node) {
@@ -149,10 +149,10 @@ public class RunManager : MonoBehaviour {
                 StartBattle(node);
                 break;
             case MapType.Shop:
-                OpenShop(node);
+                OpenShop();
                 break;
             case MapType.Rest:
-                OpenRest(node);
+                OpenRest();
                 break;
             case MapType.Boss:
                 StartBossBattle(node);

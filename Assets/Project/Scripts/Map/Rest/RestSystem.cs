@@ -10,20 +10,18 @@ public class RestSystem : MonoBehaviour {
     private RestState _state;
     private bool _isFreeAvailable;  // 初回かどうか
     private bool _hasTakenBlessing; // 恩恵を受けたかどうか
-    private Character _player;
     private readonly List<BuffData> _currentBlessings = new();
 
     public RestState State => _state;
 
-    public void EnterRest(Character player) {
+    public void EnterRest() {
         _state = RestState.MainMenu;
         _isFreeAvailable = true;
         _hasTakenBlessing = false;
-        _player = player;
     }
 
     public void ExitRest() {
-        Debug.Log("Shop Rest");
+        Debug.Log("Rest Exit");
         GameStateManager.Instance.ChangeState(GameState.MapSelect);
     }
 
@@ -47,16 +45,16 @@ public class RestSystem : MonoBehaviour {
     public void RecoverHP(Character player) {
         if (!TryConsumeItem(player)) return;
 
-        int amount = Mathf.FloorToInt(_player.MaxHP * (_hpRecoverPercent / 100f));
-        _player.RecoverHP(amount);
+        int amount = Mathf.FloorToInt(player.MaxHP * (_hpRecoverPercent / 100f));
+        player.RecoverHP(amount);
         Debug.Log($"[Rest] HP Recover: {amount}");
     }
 
     public void RecoverMP(Character player) {
         if (!TryConsumeItem(player)) return;
 
-        int amount = Mathf.FloorToInt(_player.MaxMP * (_mpRecoverPercent / 100f));
-        _player.RecoverMP(amount);
+        int amount = Mathf.FloorToInt(player.MaxMP * (_mpRecoverPercent / 100f));
+        player.RecoverMP(amount);
         Debug.Log($"[Rest] MP Recover: {amount}");
     }
 

@@ -12,7 +12,7 @@ public class ShopSystem : MonoBehaviour {
 
     public IReadOnlyList<ShopOffer> Offers => _offers;
 
-    public void EnterShop(MapNode node) {
+    public void EnterShop() {
         _rerolled = false;
         _hasPurchased = false;
         GenerateOffers(5);
