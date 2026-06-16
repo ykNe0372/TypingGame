@@ -1029,6 +1029,10 @@
       "reading": "えあこん"
     },
     {
+      "display": "遠足",
+      "reading": "えんそく"
+    },
+    {
       "display": "エンジン",
       "reading": "えんじん"
     },
@@ -1039,10 +1043,6 @@
     {
       "display": "お花見",
       "reading": "おはなみ"
-    },
-    {
-      "display": "遠足",
-      "reading": "えんそく"
     },
     {
       "display": "海岸",
@@ -1149,6 +1149,34 @@
       "reading": "たいよう"
     },
     {
+      "display": "七夕",
+      "reading": "たなばた"
+    },
+    {
+      "display": "千切り絵",
+      "reading": "ちぎりえ"
+    },
+    {
+      "display": "秩序",
+      "reading": "ちつじょ"
+    },
+    {
+      "display": "追随",
+      "reading": "ついずい"
+    },
+    {
+      "display": "束の間",
+      "reading": "つかのま"
+    },
+    {
+      "display": "筒抜け",
+      "reading": "つつぬけ"
+    },
+    {
+      "display": "丁字路",
+      "reading": "ていじろ"
+    },
+    {
       "display": "手錠",
       "reading": "てじょう"
     },
@@ -1167,6 +1195,46 @@
     {
       "display": "ドーナツ",
       "reading": "どーなつ"
+    },
+    {
+      "display": "内緒",
+      "reading": "ないしょ"
+    },
+    {
+      "display": "南国",
+      "reading": "なんごく"
+    },
+    {
+      "display": "荷車",
+      "reading": "にぐるま"
+    },
+    {
+      "display": "日光",
+      "reading": "にっこう"
+    },
+    {
+      "display": "忍耐",
+      "reading": "にんたい"
+    },
+    {
+      "display": "寝返り",
+      "reading": "ねがえり"
+    },
+    {
+      "display": "年齢",
+      "reading": "ねんれい"
+    },
+    {
+      "display": "農作",
+      "reading": "のうさく"
+    },
+    {
+      "display": "残り香",
+      "reading": "のこりが"
+    },
+    {
+      "display": "野良猫",
+      "reading": "のらねこ"
     },
     {
       "display": "配線",
@@ -1199,6 +1267,10 @@
     {
       "display": "雰囲気",
       "reading": "ふんいき"
+    },
+    {
+      "display": "ベクトル",
+      "reading": "べくとる"
     },
     {
       "display": "ペンギン",
@@ -1239,6 +1311,26 @@
     {
       "display": "三日月",
       "reading": "みかづき"
+    },
+    {
+      "display": "魅力",
+      "reading": "みりょく"
+    },
+    {
+      "display": "無機物",
+      "reading": "むきぶつ"
+    },
+    {
+      "display": "虫食い",
+      "reading": "むしくい"
+    },
+    {
+      "display": "名所",
+      "reading": "めいしょ"
+    },
+    {
+      "display": "メレンゲ",
+      "reading": "めれんげ"
     },
     {
       "display": "メーター",
@@ -1289,6 +1381,34 @@
       "reading": "らんたん"
     },
     {
+      "display": "理科室",
+      "reading": "りかしつ"
+    },
+    {
+      "display": "リソース",
+      "reading": "りそーす"
+    },
+    {
+      "display": "漁師",
+      "reading": "りょうし"
+    },
+    {
+      "display": "留守番",
+      "reading": "るすばん"
+    },
+    {
+      "display": "冷凍",
+      "reading": "れいとう"
+    },
+    {
+      "display": "列車",
+      "reading": "れっしゃ"
+    },
+    {
+      "display": "レンコン",
+      "reading": "れんこん"
+    },
+    {
       "display": "ロウソク",
       "reading": "ろうそく"
     },
@@ -1297,12 +1417,28 @@
       "reading": "ろぼっと"
     },
     {
+      "display": "脇道",
+      "reading": "わきみち"
+    },
+    {
+      "display": "惑星",
+      "reading": "わくせい"
+    },
+    {
+      "display": "愛嬌",
+      "reading": "あいきょう"
+    },
+    {
       "display": "アプローチ",
       "reading": "あぷろーち"
     },
     {
       "display": "アーモンド",
       "reading": "あーもんど"
+    },
+    {
+      "display": "印象",
+      "reading": "いんしょう"
     },
     {
       "display": "植木鉢",
@@ -1357,8 +1493,44 @@
       "reading": "きーぼーど"
     },
     {
+      "display": "屈強",
+      "reading": "くっきょう"
+    },
+    {
+      "display": "群衆",
+      "reading": "ぐんしゅう"
+    },
+    {
       "display": "計算機",
       "reading": "けいさんき"
+    },
+    {
+      "display": "劇場",
+      "reading": "げきじょう"
+    },
+    {
+      "display": "桁外れ",
+      "reading": "けたはずれ"
+    },
+    {
+      "display": "工業",
+      "reading": "こうぎょう"
+    },
+    {
+      "display": "強情",
+      "reading": "ごうじょう"
+    },
+    {
+      "display": "国境",
+      "reading": "こっきょう"
+    },
+    {
+      "display": "桜餅",
+      "reading": "さくらもち"
+    },
+    {
+      "display": "サルベージ",
+      "reading": "さるべーじ"
     },
     {
       "display": "湿度計",
@@ -1393,8 +1565,24 @@
       "reading": "せかいじゅ"
     },
     {
+      "display": "測量",
+      "reading": "そくりょう"
+    },
+    {
+      "display": "ソーセージ",
+      "reading": "そーせーじ"
+    },
+    {
+      "display": "宝箱",
+      "reading": "たからばこ"
+    },
+    {
       "display": "タブレット",
       "reading": "たぶれっと"
+    },
+    {
+      "display": "タンバリン",
+      "reading": "たんばりん"
     },
     {
       "display": "地平線",
@@ -1409,8 +1597,36 @@
       "reading": "ちょーかー"
     },
     {
+      "display": "通称",
+      "reading": "つうしょう"
+    },
+    {
+      "display": "包み紙",
+      "reading": "つつみがみ"
+    },
+    {
+      "display": "つまみ食い",
+      "reading": "つまみぐい"
+    },
+    {
       "display": "ティラミス",
       "reading": "てぃらみす"
+    },
+    {
+      "display": "鉄格子",
+      "reading": "てつごうし"
+    },
+    {
+      "display": "電話線",
+      "reading": "でんわせん"
+    },
+    {
+      "display": "唐辛子",
+      "reading": "とうがらし"
+    },
+    {
+      "display": "鬨の声",
+      "reading": "ときのこえ"
     },
     {
       "display": "ドライヤー",
@@ -1485,6 +1701,10 @@
       "reading": "まにゅある"
     },
     {
+      "display": "メヌエット",
+      "reading": "めぬえっと"
+    },
+    {
       "display": "モノローグ",
       "reading": "ものろーぐ"
     },
@@ -1523,6 +1743,10 @@
     {
       "display": "牛乳",
       "reading": "ぎゅうにゅう"
+    },
+    {
+      "display": "クラリネット",
+      "reading": "くらりねっと"
     },
     {
       "display": "広葉樹",
@@ -1583,6 +1807,10 @@
     {
       "display": "美術館",
       "reading": "びじゅつかん"
+    },
+    {
+      "display": "ブランケット",
+      "reading": "ぶらんけっと"
     },
     {
       "display": "ポニーテール",
@@ -1703,6 +1931,10 @@
     {
       "display": "ショルダーバッグ",
       "reading": "しょるだーばっぐ"
+    },
+    {
+      "display": "相乗効果",
+      "reading": "そうじょうこうか"
     },
     {
       "display": "天体観測",
