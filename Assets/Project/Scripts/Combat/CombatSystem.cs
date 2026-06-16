@@ -13,9 +13,11 @@ public class CombatSystem : MonoBehaviour {
     private int _currentTargetIndex = 0;
     private float _gameOverTimer;
     private BattleContext _battleContext;
+    private BattleType _battleType;
     private readonly List<BattleModifierBase> _activeModifiers = new();
 
     public CombatState State => _state;
+    public BattleType BattleType => _battleType;
 
     private void Start() {
         _battleContext = new BattleContext {
@@ -24,14 +26,18 @@ public class CombatSystem : MonoBehaviour {
             Enemies = _enemies
         };
 
-        foreach (var modifier in _activeModifiers) modifier.OnBattleStart(_battleContext);
+        if (_battleType == BattleType.Normal) {
+            foreach (var modifier in _activeModifiers) modifier.OnBattleStart(_battleContext);
+        }
 
         _player.OnDead += HandlePlayerDead;
         foreach (var enemy in _enemies) enemy.OnDead += HandleEnemyDead;
     }
 
     private void Update() {
-        foreach (var modifier in _activeModifiers) modifier.OnUpdate(_battleContext, Time.deltaTime);
+        if (_battleType == BattleType.Normal) {
+            foreach (var modifier in _activeModifiers) modifier.OnUpdate(_battleContext, Time.deltaTime);
+        }
         CheckBattleResult();
 
         if (_state == CombatState.GameOver) {
@@ -45,7 +51,9 @@ public class CombatSystem : MonoBehaviour {
         _activeModifiers.AddRange(modifiers);
     }
 
-    public void BeginBattle(Character player, List<Character> enemies) {
+    public void BeginBattle(Character player, List<Character> enemies, BattleType battleType) {
+        _battleType = battleType;
+
         // 前戦闘の OnDead イベント購読を解除
         if (_enemies != null) {
             foreach (var enemy in _enemies) {
@@ -191,10 +199,17 @@ public class CombatSystem : MonoBehaviour {
         if (_state != CombatState.Playing) return;
 
         _state = CombatState.Victory;
+        _player.OnBattleEnd();
         Debug.Log("Victory");
 
-        _player.OnBattleEnd();
-        _rewardSystem.ShowReward(_player);
+        switch (_battleType) {
+            case BattleType.Normal: 
+                _rewardSystem.ShowReward(_player);
+                break;
+            case BattleType.Boss:
+                // _rewardSystem.ShowBossReward(_player);
+                break;
+        }
 
         // TODO: 勝利演出・リザルトUIなど
     }

@@ -11,10 +11,13 @@ public class RunManager : MonoBehaviour {
     [SerializeField] private RewardSelectionUI _rewardSelectionUI;
     [SerializeField] private MapGenerator _mapGenerator;
 
+    private int _currentSection = 1;    // 何区画目か（スタート〜ボスで1区画）
+
     public static RunManager Instance;
 
     public MapData MapData { get; private set; }
     public MapNavigator Navigator { get; private set; }
+    public int CurrentSection => _currentSection;
 
     private void Start() {
         _rewardSelectionUI.OnRewardClosed += HandleRewardClosed;
@@ -65,7 +68,7 @@ public class RunManager : MonoBehaviour {
         _combatSystem.SetBattleModifiers(modifiers);
         Debug.Log($"[Happening] {node.IsHappening}");
 
-        _combatSystem.BeginBattle(_player, enemies);
+        _combatSystem.BeginBattle(_player, enemies, BattleType.Normal);
     }
 
     private void OpenShop() {
@@ -82,7 +85,11 @@ public class RunManager : MonoBehaviour {
 
     private void StartBossBattle(MapNode node) {
         Debug.Log("Start Boss Battle");
-        GameStateManager.Instance.ChangeState(GameState.MapSelect);  // 仮実装、即 Map に戻す
+        GameStateManager.Instance.ChangeState(GameState.Battle);
+        List<Character> boss = CreateEnemies(node);
+
+        _combatSystem.BeginBattle(_player, boss, BattleType.Boss);
+        // GameStateManager.Instance.ChangeState(GameState.MapSelect);  // 仮実装、即 Map に戻す
     }
 
     private List<Character> CreateEnemies(MapNode node) {
