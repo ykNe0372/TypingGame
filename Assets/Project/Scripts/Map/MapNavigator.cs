@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 
 public class MapNavigator {
-    private readonly MapData _mapData;
+    private MapData _mapData;
     
     public MapNode CurrentNode => _mapData.CurrentNode;
     public MapNavigator(MapData mapData) {
         _mapData = mapData;
-        _mapData.CurrentNode = _mapData.Nodes[0];
-        _mapData.CurrentNode.IsVisited = true;
+        if (_mapData.CurrentNode != null) _mapData.CurrentNode.IsVisited = true;
     }
 
     // 移動可能なノード一覧を取得
@@ -22,5 +21,12 @@ public class MapNavigator {
         nextNode.IsVisited = true;
         _mapData.CurrentNode = nextNode;
         return true;
+    }
+
+    public void SetMap(MapData mapData) {
+        _mapData = mapData;
+
+        // _mapData.CurrentNode = _mapData.StartNode;
+        // _mapData.CurrentNode.IsVisited = true;
     }
 }

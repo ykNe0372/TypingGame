@@ -8,10 +8,14 @@ public class RunManager : MonoBehaviour {
     [SerializeField] private CombatSystem _combatSystem;
     [SerializeField] private ShopSystem _shopSystem;
     [SerializeField] private RestSystem _restSystem;
+    [SerializeField] private BossAreaSystem _bossAreaSystem;
+    [SerializeField] private RewardSystem _rewardSystem;
     [SerializeField] private RewardSelectionUI _rewardSelectionUI;
     [SerializeField] private MapGenerator _mapGenerator;
 
     private int _currentSection = 1;    // 何区画目か（スタート〜ボスで1区画）
+    private MapData _currentMap;  // 今いる区画
+    private MapData _nextMap;  // 次の区画
 
     public static RunManager Instance;
 
@@ -20,8 +24,11 @@ public class RunManager : MonoBehaviour {
     public int CurrentSection => _currentSection;
 
     private void Start() {
+        _combatSystem.OnBattleVictory += HandleBattleVictory;
+        _combatSystem.OnBattleDefeat += HandleBattleDefeat;
         _rewardSelectionUI.OnRewardClosed += HandleRewardClosed;
-        MapData mapData = _mapGenerator.Generate();
+
+        MapData mapData = _mapGenerator.Generate(_currentSection);
         StartRun(mapData);
     }
 
@@ -88,7 +95,7 @@ public class RunManager : MonoBehaviour {
         GameStateManager.Instance.ChangeState(GameState.Battle);
         List<Character> boss = CreateEnemies(node);
 
-        _combatSystem.BeginBattle(_player, boss, BattleType.Boss);
+        _bossAreaSystem.EnterBossArea(_player, boss);
         // GameStateManager.Instance.ChangeState(GameState.MapSelect);  // 仮実装、即 Map に戻す
     }
 
@@ -138,6 +145,37 @@ public class RunManager : MonoBehaviour {
     // 仮実装
     private int GetFloorGroup(int floor) {
         return floor / 5;
+    }
+
+    private void HandleBattleVictory(BattleType battleType) {
+        if (battleType != BattleType.Normal) return;
+
+        Debug.Log("[Battle] Victory");
+        _rewardSystem.ShowReward(_player);
+
+        // TODO: 勝利演出・リザルトUIなど
+    }
+
+    private void HandleBattleDefeat() {
+        Debug.Log("[Battle] GAME OVER");
+        // TODO: ゲームオーバーUI・BGM停止など
+    }
+
+    public void GenerateNextSection() {
+        ++_currentSection;
+        _nextMap = _mapGenerator.Generate(_currentSection);
+        Debug.Log($"Section {_currentSection} Generated");
+    }
+
+    public IReadOnlyList<MapNode> GetStartNodes() {
+        return _nextMap.StartNodes;
+    }
+
+    public void EnterNextFloor(MapNode node) {
+        _nextMap.CurrentNode = node;
+        node.IsVisited = true;
+
+        EnterNode(node);
     }
 
     private void HandleRewardClosed() {

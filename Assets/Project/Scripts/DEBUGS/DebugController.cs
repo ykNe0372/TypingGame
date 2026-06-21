@@ -8,6 +8,7 @@ public class DebugController : MonoBehaviour {
     [SerializeField] private Character _player;
     [SerializeField] private TypingManager _typingManager;
     [SerializeField] private RunManager _runManager;
+    [SerializeField] private DebugMapViewer _mapViewer;
 
     private void Update() {
         if (Keyboard.current.f12Key.wasPressedThisFrame) _debugPanel.SetActive(!_debugPanel.activeSelf);
@@ -24,4 +25,5 @@ public class DebugController : MonoBehaviour {
     public void Debug_EnterBoss() => _runManager.Debug_MoveTo(MapType.Boss);
     public void Debug_StatusCheck() => _testStatus.Debug_StatusCheckPMD();
     public void Debug_CompleteBattle() => _runManager.Debug_CompleteBattle();
+    public void Debug_MapVier() => _mapViewer.PrintMap();
 }

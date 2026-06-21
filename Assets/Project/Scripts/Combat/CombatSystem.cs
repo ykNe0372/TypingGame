@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,7 +9,6 @@ public class CombatSystem : MonoBehaviour {
     [SerializeField] private float _freezeDelay = 2f;
     [SerializeField] private CombatState _state = CombatState.Playing;
     [SerializeField] private StatusEffectResolver _resolver;
-    [SerializeField] private RewardSystem _rewardSystem;
 
     private int _currentTargetIndex = 0;
     private float _gameOverTimer;
@@ -18,6 +18,9 @@ public class CombatSystem : MonoBehaviour {
 
     public CombatState State => _state;
     public BattleType BattleType => _battleType;
+
+    public event Action<BattleType> OnBattleVictory;
+    public event Action OnBattleDefeat;
 
     private void Start() {
         _battleContext = new BattleContext {
@@ -200,26 +203,15 @@ public class CombatSystem : MonoBehaviour {
 
         _state = CombatState.Victory;
         _player.OnBattleEnd();
-        Debug.Log("Victory");
 
-        switch (_battleType) {
-            case BattleType.Normal: 
-                _rewardSystem.ShowReward(_player);
-                break;
-            case BattleType.Boss:
-                // _rewardSystem.ShowBossReward(_player);
-                break;
-        }
-
-        // TODO: 勝利演出・リザルトUIなど
+        OnBattleVictory?.Invoke(_battleType);
     }
 
     private void HandleGameOver() {
         if (_state != CombatState.Playing) return;
 
         _state = CombatState.GameOver;
-        Debug.Log("Game Over");
 
-        // TODO: ゲームオーバーUI・BGM停止など
+        OnBattleDefeat?.Invoke();
     }
 }
