@@ -27,6 +27,7 @@ public class BossAreaSystem : MonoBehaviour {
         EnterPreOrganize();
     }
 
+    // ボス戦前の整理エリア
     private void EnterPreOrganize() {
         _state = BossAreaState.PreOrganize;
         Debug.Log("[BossArea] Enter: PreOrganize");
@@ -41,6 +42,7 @@ public class BossAreaSystem : MonoBehaviour {
         _combatSystem.BeginBattle(_player, _boss, BattleType.Boss);
     }
 
+    // ボス戦後の整理エリア
     private void EnterPostOrganize() {
         _state = BossAreaState.PostOrganize;
         Debug.Log("[BossArea] Enter: PostOrganize");
@@ -53,21 +55,6 @@ public class BossAreaSystem : MonoBehaviour {
         Debug.Log("[BossArea] Enter: SelectNextFloor");
 
         RunManager.Instance.GenerateNextSection();
-
-        var nodes = RunManager.Instance.GetStartNodes();
-
-        Debug.Log("xxx--- Next Floor ---xxx");
-        for (int i=0; i<nodes.Count; ++i) Debug.Log($"{i+1}: {nodes[i].Type}");
-    }
-
-    public void SelectNextFloor(int index) {
-        var nodes = RunManager.Instance.GetStartNodes();
-        if (index < 0 || index >= nodes.Count) return;
-
-        Debug.Log("xxx--- Next Floor ---xxx");
-        for (int i=0; i<nodes.Count; ++i) Debug.Log($"{i+1}: {nodes[i].Type}");
-
-        RunManager.Instance.EnterNextFloor(nodes[index]);
     }
 
     private void Complete() {

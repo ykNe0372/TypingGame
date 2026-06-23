@@ -2,13 +2,16 @@ using UnityEngine;
 using System.Collections.Generic;
 
 public class MapGenerator : MonoBehaviour {
-    [SerializeField] private int _floorCount = 5;
+    [SerializeField, Header("階層数")] private int _floorCount = 5;
+    [Header("候補数")]
     [SerializeField] private int _minNodesPerFloor = 2;
     [SerializeField] private int _maxNodesPerFloor = 4;
-    [SerializeField] private List<BattleModifierBase> _allBattleModifiers = new();
+    [Header("出現確率")]
     [SerializeField] private float _battleRate = 65f;
     [SerializeField] private float _shopRate = 20f;
     [SerializeField] private float _happeningRate = 5f;
+    
+    [SerializeField, Header("ハプニング効果一覧")] private List<BattleModifierBase> _allBattleModifiers = new();
 
     private int _nodeId;
 
@@ -57,7 +60,7 @@ public class MapGenerator : MonoBehaviour {
 
         // mapData.StartNodes = new List<MapNode>(floors[0]);
         // if (mapData.StartNodes.Count > 0) mapData.CurrentNode = mapData.StartNodes[0];
-        mapData.StartNodes = null;  // null で生成→選択時に上書き
+        mapData.StartNodes = new(floors[0]);  // null で生成→選択時に上書き
         mapData.CurrentNode = null;
         return mapData;
     }

@@ -2,12 +2,18 @@ using UnityEngine;
 using System.Collections.Generic;
 
 public class RewardSystem : MonoBehaviour {
-    [SerializeField] private List<GrowthItem> _itemPool = new();
+    [SerializeField, Header("報酬（強化アイテム）候補")] private List<GrowthItem> _itemPool = new();
     [SerializeField] private RewardSelectionUI _selectionUI;
 
     public void ShowReward(Character player) {
         var rewards = GetRandomItems(3);
         _selectionUI.Open(rewards, player);
+    }
+
+    public void ShowBossReward(Character player) {
+        ShowReward(player);
+        // ShowRelicReward(player);
+        Debug.Log("ShowBossReward Called");
     }
 
     private List<GrowthItem> GetRandomItems(int count) {

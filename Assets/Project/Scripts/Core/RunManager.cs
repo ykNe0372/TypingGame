@@ -2,26 +2,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RunManager : MonoBehaviour {
+    [Header("プレイヤー")]
     [SerializeField] private Character _player;
+    [Header("敵データ")]
     [SerializeField] private EnemyDataBase _enemyDataBase;
     [SerializeField] private EnemyFactory _enemyFactory;
+    [Header("エリア処理")]
     [SerializeField] private CombatSystem _combatSystem;
     [SerializeField] private ShopSystem _shopSystem;
     [SerializeField] private RestSystem _restSystem;
     [SerializeField] private BossAreaSystem _bossAreaSystem;
+    [Header("報酬処理")]
     [SerializeField] private RewardSystem _rewardSystem;
     [SerializeField] private RewardSelectionUI _rewardSelectionUI;
+    [Header("マップ生成機")]
     [SerializeField] private MapGenerator _mapGenerator;
 
     private int _currentSection = 1;    // 何区画目か（スタート〜ボスで1区画）
-    private MapData _currentMap;  // 今いる区画
     private MapData _nextMap;  // 次の区画
+    private MapSelectionMode _selectionMode;
 
     public static RunManager Instance;
 
     public MapData MapData { get; private set; }
     public MapNavigator Navigator { get; private set; }
     public int CurrentSection => _currentSection;
+    public MapSelectionMode SelectionMode => _selectionMode;
 
     private void Start() {
         _combatSystem.OnBattleVictory += HandleBattleVictory;
@@ -40,8 +46,12 @@ public class RunManager : MonoBehaviour {
     public void StartRun(MapData mapData) {
         MapData = mapData;
         Navigator = new MapNavigator(mapData);
-        MapNode startNode = mapData.CurrentNode;
+
+        MapNode startNode = mapData.StartNodes[0];
+        Navigator.SelectStartNode(startNode);
         EnterNode(startNode);
+        // if (_currentSection == 1) EnterNode(mapData.StartNodes[0]);
+        // else ShowStartNodeSelection(mapData.StartNodes);
     }
 
     public void EnterNode(MapNode node) {
@@ -148,10 +158,16 @@ public class RunManager : MonoBehaviour {
     }
 
     private void HandleBattleVictory(BattleType battleType) {
-        if (battleType != BattleType.Normal) return;
-
-        Debug.Log("[Battle] Victory");
-        _rewardSystem.ShowReward(_player);
+        switch(battleType) {
+            case BattleType.Normal:
+                Debug.Log("[Battle] Victory");
+                _rewardSystem.ShowReward(_player);
+                break;
+            case BattleType.Boss:
+                Debug.Log("[Boss] Victory");
+                _rewardSystem.ShowBossReward(_player);
+                break;
+        }
 
         // TODO: 勝利演出・リザルトUIなど
     }
@@ -164,7 +180,46 @@ public class RunManager : MonoBehaviour {
     public void GenerateNextSection() {
         ++_currentSection;
         _nextMap = _mapGenerator.Generate(_currentSection);
+        _selectionMode = MapSelectionMode.NextSection;
+
         Debug.Log($"Section {_currentSection} Generated");
+    }
+
+    public IReadOnlyList<MapNode> GetCurrentSelectableNodes() {
+        return _selectionMode switch {
+            MapSelectionMode.NextSection => _nextMap.StartNodes,
+            _ => Navigator.GetSelectableNodes(),
+        };
+
+    }
+
+    public void SelectNode(int index) {
+        switch (_selectionMode) {
+            case MapSelectionMode.Normal:
+                SelectNormalNode(index);
+                break;
+            case MapSelectionMode.NextSection:
+                SelectNextSectionNode(index);
+                break;
+        }
+    }
+
+    private void SelectNormalNode(int index) {
+        var selectable = Navigator.GetSelectableNodes();
+        MapNode node = selectable[index];
+        EnterNode(node);
+    }
+
+    private void SelectNextSectionNode(int index) {
+        MapNode node = _nextMap.StartNodes[index];
+
+        _nextMap.CurrentNode = node;
+        node.IsVisited = true;
+
+        MapData = _nextMap;
+        Navigator = new MapNavigator(_nextMap);
+        _selectionMode = MapSelectionMode.Normal;
+        EnterNode(node);
     }
 
     public IReadOnlyList<MapNode> GetStartNodes() {
