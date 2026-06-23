@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ffeab195bd0c44ff90fa6fde7cb90f7, type: 3}
-  m_Name: RD_Physical_10
+  m_Name: RD_Defence_10
   m_EditorClassIdentifier: 
-  relicName: DEBUG_Physical+10
+  relicName: DEBUG_Attack+10
   effects:
-  - {fileID: 11400000, guid: 77fbdd943fef94ba4b51848cba3df27f, type: 2}
+  - {fileID: 11400000, guid: 87864a7b9574d448dba58caa372e8697, type: 2}

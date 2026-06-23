@@ -1417,7 +1417,8 @@ MonoBehaviour:
   _enemyDataBase: {fileID: 11400000, guid: 6342bb0e1d74c422ba04e6954163fc41, type: 2}
   _enemyFactory: {fileID: 1853858980}
   _combatSystem: {fileID: 614157279}
-  _shopSystem: {fileID: 520219644}
+  _itemShopSystem: {fileID: 520219644}
+  _relicShopSystem: {fileID: 568412306}
   _restSystem: {fileID: 673164259}
   _bossAreaSystem: {fileID: 337872841}
   _rewardSystem: {fileID: 1844255516}
@@ -1590,11 +1591,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d29b615e21b4a148b37aa1fc2339f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _floorCount: 5
+  _floorCount: 10
   _minNodesPerFloor: 2
-  _maxNodesPerFloor: 3
-  _battleRate: 33
-  _shopRate: 33
+  _maxNodesPerFloor: 4
+  _battleRate: 65
+  _itemShopRate: 0
+  _relicShopRate: 10
   _happeningRate: 0
   _allBattleModifiers:
   - {fileID: 11400000, guid: 85b20d0d28adf4b43b620366e8aa46a0, type: 2}
@@ -2479,6 +2481,51 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &568412305
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 568412307}
+  - component: {fileID: 568412306}
+  m_Layer: 0
+  m_Name: RelicShopManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &568412306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568412305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e65cca39e6224e74aeef83ae90199b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dataBase: {fileID: 0}
+--- !u!4 &568412307
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568412305}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 163.0792, y: 103.605125, z: -2.4684267}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &614157278
 GameObject:
   m_ObjectHideFlags: 0
@@ -7182,6 +7229,7 @@ SceneRoots:
   - {fileID: 1395542358}
   - {fileID: 357868477}
   - {fileID: 378634485}
+  - {fileID: 568412307}
   - {fileID: 673164260}
   - {fileID: 1844255517}
   - {fileID: 520219645}
