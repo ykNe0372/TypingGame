@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class CombatSystem : MonoBehaviour {
     [SerializeField] private Character _player;
-    [SerializeField] private List<Character> _enemies;
     [SerializeField] private float _freezeDelay = 2f;
     [SerializeField] private CombatState _state = CombatState.Playing;
     [SerializeField] private StatusEffectResolver _resolver;
 
+    private List<Character> _enemies;
     private int _currentTargetIndex = 0;
     private float _gameOverTimer;
     private BattleContext _battleContext;
