@@ -137,6 +137,14 @@ public class CombatSystem : MonoBehaviour {
         _player.TriggerBonusAttack(targets, bonus);
     }
 
+    public void RequestSpecialAttack(int level) {
+        var special = _player.GetSpecialAttack(level);
+        var targets = GetTargets(_player, special.targetType);
+        if (special == null || targets.Count == 0) return;
+
+        _player.TriggerSpecialAttack(targets, special);
+    }
+
     public void RequestEnemyAttack(Character enemy) {
         if (!CanAttack(enemy)) return;
 

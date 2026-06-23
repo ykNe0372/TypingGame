@@ -1593,12 +1593,12 @@ MonoBehaviour:
   _floorCount: 5
   _minNodesPerFloor: 2
   _maxNodesPerFloor: 3
-  _allBattleModifiers:
-  - {fileID: 11400000, guid: 85b20d0d28adf4b43b620366e8aa46a0, type: 2}
-  - {fileID: 11400000, guid: 0cd522713730a4d839e6dab4a41b792a, type: 2}
   _battleRate: 33
   _shopRate: 33
   _happeningRate: 0
+  _allBattleModifiers:
+  - {fileID: 11400000, guid: 85b20d0d28adf4b43b620366e8aa46a0, type: 2}
+  - {fileID: 11400000, guid: 0cd522713730a4d839e6dab4a41b792a, type: 2}
 --- !u!4 &378634485
 Transform:
   m_ObjectHideFlags: 0
@@ -2509,9 +2509,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 1093212728}
-  _enemies:
-  - {fileID: 0}
-  - {fileID: 0}
   _freezeDelay: 2
   _state: 0
   _resolver: {fileID: 11400000, guid: e997d989d3f934b56ac6604504790dcc, type: 2}
@@ -3877,7 +3874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseStatus: {fileID: 11400000, guid: 974a0fe223b8c4e039e3afc00f2fb283, type: 2}
-  _relic: {fileID: 11400000, guid: 04d7c9d84c5ca4c229c1ac7e67e033a8, type: 2}
+  _relic: {fileID: 0}
   _skills:
   - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
   - {fileID: 11400000, guid: 43419116042304197ac093a26c0dfa7b, type: 2}
@@ -3886,6 +3883,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 368639989689f4a0aa9460398a4e8508, type: 2}
   - {fileID: 11400000, guid: 0fb60e8c3de8a40bfaa7ed5345abdae6, type: 2}
   - {fileID: 11400000, guid: 005bf1311709e4bdc829fe993ffe2667, type: 2}
+  _specialAttacks:
+  - {fileID: 11400000, guid: b8cdbeab3585241a2a6ea5400b8e0bb5, type: 2}
+  - {fileID: 11400000, guid: 48629808f99a146fe999f16ae0f56f75, type: 2}
+  - {fileID: 11400000, guid: 85f0c2622e29d45d8bf16bb72b9478c8, type: 2}
   _currentElement: 0
   _combatSystems: {fileID: 614157279}
   _startItems: []

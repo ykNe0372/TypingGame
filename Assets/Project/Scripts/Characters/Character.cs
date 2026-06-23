@@ -7,6 +7,7 @@ public class Character : MonoBehaviour {
     [SerializeField] private RelicData _relic;                  // レリック
     [SerializeField] private List<SkillData> _skills;
     [SerializeField] private List<BonusAttackData> _bonusAttacks;
+    [SerializeField] private List<SpecialAttackData> _specialAttacks;
     [SerializeField] private ElementType _currentElement = ElementType.None;
     [SerializeField] private CombatSystem _combatSystems;
     
@@ -196,6 +197,12 @@ public class Character : MonoBehaviour {
         return _bonusAttacks[index];
     }
 
+    public SpecialAttackData GetSpecialAttack(int level) {
+        if (_specialAttacks.Count == 0) return null;
+
+        return _specialAttacks[level - 1];
+    }
+
     public void TriggerAttack(AttackContext ctx) {
         if (_isDead) return;
 
@@ -228,6 +235,16 @@ public class Character : MonoBehaviour {
             dmgCtx.FinalDamage = dmgCtx.BaseDamage * bonus.multiplier;
             CriticalCalculator.Apply(dmgCtx);
             Debug.Log("Bonus Atatck Executed.");
+
+            target.TakeDamage(dmgCtx);
+        }
+    }
+
+    public void TriggerSpecialAttack(List<Character> targets, SpecialAttackData special) {
+        foreach (var target in targets) {
+            var dmgCtx = DamageContextFactory.CreateAttack(this, target);
+            dmgCtx.FinalDamage = dmgCtx.BaseDamage * special.multiplier;
+            Debug.Log("Special Attack Executed.");
 
             target.TakeDamage(dmgCtx);
         }
