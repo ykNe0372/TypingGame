@@ -2,14 +2,16 @@ using UnityEngine;
 using System.Collections.Generic;
 
 public class MapGenerator : MonoBehaviour {
-    [SerializeField, Header("階層数")] private int _floorCount = 5;
+    [Header("階層数")]
+    [SerializeField] private int _floorCount;
     [Header("候補数")]
-    [SerializeField] private int _minNodesPerFloor = 2;
-    [SerializeField] private int _maxNodesPerFloor = 4;
+    [SerializeField] private int _minNodesPerFloor;
+    [SerializeField] private int _maxNodesPerFloor;
     [Header("出現確率")]
-    [SerializeField] private float _battleRate = 65f;
-    [SerializeField] private float _shopRate = 20f;
-    [SerializeField] private float _happeningRate = 5f;
+    [SerializeField] private float _battleRate;
+    [SerializeField] private float _itemShopRate;
+    [SerializeField] private float _relicShopRate;
+    [SerializeField] private float _happeningRate;
     
     [SerializeField, Header("ハプニング効果一覧")] private List<BattleModifierBase> _allBattleModifiers = new();
 
@@ -58,10 +60,8 @@ public class MapGenerator : MonoBehaviour {
 
         EnsureAllNodesConnected(floors);
 
-        // mapData.StartNodes = new List<MapNode>(floors[0]);
-        // if (mapData.StartNodes.Count > 0) mapData.CurrentNode = mapData.StartNodes[0];
-        mapData.StartNodes = new(floors[0]);  // null で生成→選択時に上書き
-        mapData.CurrentNode = null;
+        mapData.StartNodes = new(floors[0]);
+        mapData.CurrentNode = null;  // null で生成→選択時に上書き
         return mapData;
     }
 
@@ -96,7 +96,8 @@ public class MapGenerator : MonoBehaviour {
 
         float random = Random.value;
         if (random < (_battleRate / 100f)) return MapType.Battle;
-        if (random < (_battleRate / 100f + _shopRate / 100f)) return MapType.Shop;
+        if (random < (_battleRate / 100f + _itemShopRate / 100f)) return MapType.ItemShop;
+        if (random < (_battleRate / 100f + _itemShopRate / 100f + _relicShopRate / 100)) return MapType.RelicShop;
         return MapType.Rest;
     }
 

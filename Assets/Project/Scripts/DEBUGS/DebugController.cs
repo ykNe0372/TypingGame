@@ -20,7 +20,8 @@ public class DebugController : MonoBehaviour {
     public void Debug_ToggleRuby() => _typingManager.Debug_ToggleRuby();
     public void Debug_PrintItems() => _player.Debug_PrintItems();
     public void Debug_EnterBattle() => _runManager.Debug_MoveTo(MapType.Battle);
-    public void Debug_EnterShop() => _runManager.Debug_MoveTo(MapType.Shop);
+    public void Debug_EnterItemShop() => _runManager.Debug_MoveTo(MapType.ItemShop);
+    public void Debug_EnterRelicShop() => _runManager.Debug_MoveTo(MapType.RelicShop);
     public void Debug_EnterRest() => _runManager.Debug_MoveTo(MapType.Rest);
     public void Debug_EnterBoss() => _runManager.Debug_MoveTo(MapType.Boss);
     public void Debug_StatusCheck() => _testStatus.Debug_StatusCheckPMD();

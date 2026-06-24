@@ -1,6 +1,7 @@
 public enum MapType {
     Battle,
-    Shop,
+    ItemShop,
+    RelicShop,
     Rest,
     Boss
 }

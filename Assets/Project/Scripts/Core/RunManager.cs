@@ -9,7 +9,8 @@ public class RunManager : MonoBehaviour {
     [SerializeField] private EnemyFactory _enemyFactory;
     [Header("エリア処理")]
     [SerializeField] private CombatSystem _combatSystem;
-    [SerializeField] private ShopSystem _shopSystem;
+    [SerializeField] private ItemShopSystem _itemShopSystem;
+    [SerializeField] private RelicShopSystem _relicShopSystem;
     [SerializeField] private RestSystem _restSystem;
     [SerializeField] private BossAreaSystem _bossAreaSystem;
     [Header("報酬処理")]
@@ -62,8 +63,11 @@ public class RunManager : MonoBehaviour {
             case MapType.Battle:
                 StartBattle(node);
                 break;
-            case MapType.Shop:
+            case MapType.ItemShop:
                 OpenShop();
+                break;
+            case MapType.RelicShop:
+                OpenRelicShop();
                 break;
             case MapType.Rest:
                 OpenRest();
@@ -90,8 +94,14 @@ public class RunManager : MonoBehaviour {
 
     private void OpenShop() {
         Debug.Log("Open Shop");
-        GameStateManager.Instance.ChangeState(GameState.Shop);
-        _shopSystem.EnterShop();
+        GameStateManager.Instance.ChangeState(GameState.ItemShop);
+        _itemShopSystem.EnterShop(_player);
+    }
+
+    private void OpenRelicShop() {
+        Debug.Log("Open RelicShop");
+        GameStateManager.Instance.ChangeState(GameState.RelicShop);
+        _relicShopSystem.EnterRelicShop(_player);
     }
 
     private void OpenRest() {
@@ -248,8 +258,11 @@ public class RunManager : MonoBehaviour {
             case MapType.Battle:
                 StartBattle(node);
                 break;
-            case MapType.Shop:
+            case MapType.ItemShop:
                 OpenShop();
+                break;
+            case MapType.RelicShop:
+                OpenRelicShop();
                 break;
             case MapType.Rest:
                 OpenRest();

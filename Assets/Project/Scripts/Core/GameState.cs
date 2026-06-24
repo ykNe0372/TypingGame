@@ -1,6 +1,7 @@
 public enum GameState {
     Battle,
-    Shop,
+    ItemShop,
+    RelicShop,
     Rest,
     Pause,
     MapSelect,

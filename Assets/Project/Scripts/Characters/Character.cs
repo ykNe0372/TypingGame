@@ -86,6 +86,16 @@ public class Character : MonoBehaviour {
         }
     }
 
+    // レリック装備用
+    public void EquipRelic(RelicData relic) {
+        _relic = relic;
+        Debug.Log($"[Relic] Get Relic: {_relic.RelicName}");
+    }
+
+    public bool HasRelic() {
+        return _relic != null;
+    }
+
     public void AddItem(GrowthItem item) {
         if (_itemInventory.HasSpace()) {
             _itemInventory.AddItem(item);
