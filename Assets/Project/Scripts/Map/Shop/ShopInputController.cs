@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
 public class ShopInputController : MonoBehaviour {
-    [SerializeField] private Character _player;
     [SerializeField] private GameState _shopState;
     [SerializeField] private MonoBehaviour _shopBehaviour;
 

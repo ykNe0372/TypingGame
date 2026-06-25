@@ -107,7 +107,7 @@ public class RunManager : MonoBehaviour {
     private void OpenRest() {
         Debug.Log("Open Rest");
         GameStateManager.Instance.ChangeState(GameState.Rest);
-        _restSystem.EnterRest();
+        _restSystem.EnterRest(_player);
     }
 
     private void StartBossBattle(MapNode node) {
@@ -116,7 +116,6 @@ public class RunManager : MonoBehaviour {
         List<Character> boss = CreateEnemies(node);
 
         _bossAreaSystem.EnterBossArea(_player, boss);
-        // GameStateManager.Instance.ChangeState(GameState.MapSelect);  // 仮実装、即 Map に戻す
     }
 
     private List<Character> CreateEnemies(MapNode node) {
