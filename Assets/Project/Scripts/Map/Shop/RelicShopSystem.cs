@@ -2,11 +2,19 @@ using UnityEngine;
 using System.Collections.Generic;
 
 public class RelicShopSystem : MonoBehaviour, IShop {
+    private enum RelicShopState {
+        SelectingRelic,
+        SelectingCost
+    }
+
     [SerializeField] private RelicShopDataBase _dataBase;
+    [SerializeField] private float _costPercent;
 
     private Character _player;
+    private RelicShopState _state;
     private readonly List<RelicShopOffer> _offers = new();
     private bool _rerolled;
+    private int _selectedOfferIndex;
 
     public IReadOnlyList<RelicShopOffer> RelicOffers => _offers;
     public GameState ShopState => GameState.RelicShop;
@@ -31,27 +39,71 @@ public class RelicShopSystem : MonoBehaviour, IShop {
         foreach (var relic in relics) _offers.Add(new RelicShopOffer(relic));
     }
 
-    public bool Purchase(int offerIndex) {
+    public void OnDigitPressed(int index) {
+        switch (_state) {
+            case RelicShopState.SelectingRelic:
+                SelectRelic(index);
+                break;
+            case RelicShopState.SelectingCost:
+                SelectCost(index);
+                break;
+        }
+    }
+
+    private void SelectRelic(int index) {
+        if (index < 0 || index >= _offers.Count) return;
+
+        _selectedOfferIndex = index;
+        _state = RelicShopState.SelectingCost;
+
+        Debug.Log("支払い方法を選択 | 1: HP / 2: MP");
+    }
+
+    private void SelectCost(int index) {
+        switch (index) {
+            case 0:
+                Purchase(_selectedOfferIndex, RelicCostType.HP);
+                break;
+            case 1:
+                Purchase(_selectedOfferIndex, RelicCostType.MP);
+                break;
+            default:
+                return;
+        }
+    }
+
+    private bool Purchase(int offerIndex, RelicCostType type) {
         if (!CanPurchase(offerIndex)) return false;
 
-        ExecutePurchase(offerIndex);
+        ExecutePurchase(offerIndex, type);
         return true;
+    }
+
+    private bool CanPurchase(int offerIndex) {
+        if (offerIndex < 0 || offerIndex >= _offers.Count) return false;
+
+        float consumeHPPercent = _player.GetCurrentHPRatio();
+        float consumeMPPercent = _player.GetCurrentMPRatio();
+
+        // HP は購入で 0 になると変、MP は購入で 0 になっても変じゃない
+        return consumeHPPercent > (_costPercent / 100f) || consumeMPPercent >= (_costPercent / 100f);
     }
 
     // UI 実装前の仮実装（自動選択、本実装では選択式にする）
     // 多分 ExecutePurchase(Character player, ShopOffer offer, List<GrowthItem> materials) とかになる
-    private bool CanPurchase(int offerIndex) {
-        if (offerIndex < 0 || offerIndex >= _offers.Count) return false;
-        // HP or MPが消費%以上あるか（購入可能かを確認）
-
-        return true;
-    }
-
-    private void ExecutePurchase(int offerIndex) {
+    private void ExecutePurchase(int offerIndex, RelicCostType type) {
         RelicShopOffer offer = _offers[offerIndex];
-        // 実際に消費する処理
-        _player.EquipRelic(offer.Relic);
+        
+        switch (type) {
+            case RelicCostType.HP:
+                _player.TakePercentDamage(_costPercent);
+                break;
+            case RelicCostType.MP:
+                _player.ConsumePercentMP(_costPercent);
+                break;
+        }
 
+        _player.EquipRelic(offer.Relic);
         ExitShop();
     }
 

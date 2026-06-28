@@ -40,7 +40,11 @@ public class ItemShopSystem : MonoBehaviour, IShop {
         foreach (var item in items) _offers.Add(new ItemShopOffer(item));
     }
 
-    public bool Purchase(int offerIndex) {
+    public void OnDigitPressed(int index) {
+        Purchase(index);
+    }
+
+    private bool Purchase(int offerIndex) {
         if (!CanPurchase(offerIndex)) return false;
 
         ExecutePurchase(offerIndex);

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ffeab195bd0c44ff90fa6fde7cb90f7, type: 3}
   m_Name: RD_Defence_10
   m_EditorClassIdentifier: 
-  relicName: DEBUG_Attack+10
+  RelicName: "\u9632\u5FA1\u306E\u6975\u610F"
   effects:
   - {fileID: 11400000, guid: 87864a7b9574d448dba58caa372e8697, type: 2}

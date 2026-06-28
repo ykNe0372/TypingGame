@@ -276,7 +276,22 @@ public class Character : MonoBehaviour {
 
         if (_currentHP <= 0) Die();
     
-        Debug.Log($"{name} HP: {_currentHP}/{MaxHP}");;
+        Debug.Log($"{name} HP: {_currentHP}/{MaxHP}");
+    }
+
+    public void TakePercentDamage(float percent) {
+        float damage = MaxHP * (percent / 100f);
+        if (_currentHP <= damage) return;
+
+        var dmgCtx = DamageContextFactory.CreateFixed(null, this, damage, true);
+        TakeDamage(dmgCtx);
+    }
+
+    public void ConsumePercentMP(float percent) {
+        float consume = MaxMP * (percent / 100f);
+        if (_currentMP < consume) return;
+
+        TryConsumeMP(Mathf.FloorToInt(consume));
     }
 
     private void Die() {
@@ -344,6 +359,14 @@ public class Character : MonoBehaviour {
         return true;
     }
 
+    public float GetCurrentHPRatio() {
+        return _currentHP / GetFinalStatus(StatusType.MaxHP);
+    }
+
+    public float GetCurrentMPRatio() {
+        return _currentMP / GetFinalStatus(StatusType.MaxMP);
+    }
+
     // MP の自然回復効果
     private void UpdateMPRegeneration() {
         float regen = GetFinalStatus(StatusType.MPRegen);
@@ -375,6 +398,7 @@ public class Character : MonoBehaviour {
     public bool TryConsumeMP(int amount) {
         if (_currentMP < amount) return false;
         _currentMP -= amount;
+        Debug.Log($"{name} HP: {_currentMP}/{MaxMP}");
         return true;
     }
 

@@ -40,6 +40,6 @@ public class ShopInputController : MonoBehaviour {
     private void CheckPurchase(int index, KeyControl key) {
         if (!key.wasPressedThisFrame) return;
 
-        _shop.Purchase(index);
+        _shop.OnDigitPressed(index);
     }
 }

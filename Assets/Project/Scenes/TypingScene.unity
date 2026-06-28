@@ -2511,6 +2511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dataBase: {fileID: 11400000, guid: ac848c11d59174d83babc4347cdfee70, type: 2}
+  _costPercent: 20
 --- !u!4 &568412307
 Transform:
   m_ObjectHideFlags: 0
@@ -2688,7 +2689,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7eb06879c094cb5994661f798eecd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 1093212728}
   _freezeDelay: 2
   _state: 0
   _resolver: {fileID: 11400000, guid: e997d989d3f934b56ac6604504790dcc, type: 2}
@@ -5188,7 +5188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20b19c5ae5e3f4515870db1d9ac7db32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 1093212728}
   _shopState: 1
   _shopBehaviour: {fileID: 520219644}
 --- !u!114 &1395542363
@@ -5203,7 +5202,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1bfa1a9b6f7d48e69ffcf1123b98ac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 1093212728}
   _restSystem: {fileID: 673164259}
 --- !u!114 &1395542364
 MonoBehaviour:
@@ -5217,7 +5215,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20b19c5ae5e3f4515870db1d9ac7db32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 1093212728}
   _shopState: 2
   _shopBehaviour: {fileID: 568412306}
 --- !u!1 &1457735525
