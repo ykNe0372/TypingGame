@@ -7,62 +7,62 @@ public class RestSystem : MonoBehaviour {
     [SerializeField] private float _mpRecoverPercent = 30f;
     [SerializeField] private BlessingDataBase _dataBase;
 
+    private Character _player;
     private RestState _state;
     private bool _isFreeAvailable;  // 初回かどうか
     private bool _hasTakenBlessing; // 恩恵を受けたかどうか
-    private Character _player;
     private readonly List<BuffData> _currentBlessings = new();
 
     public RestState State => _state;
 
     public void EnterRest(Character player) {
+        _player = player;
         _state = RestState.MainMenu;
         _isFreeAvailable = true;
         _hasTakenBlessing = false;
-        _player = player;
     }
 
     public void ExitRest() {
-        Debug.Log("Shop Rest");
+        Debug.Log("Rest Exit");
         GameStateManager.Instance.ChangeState(GameState.MapSelect);
     }
 
-    private bool TryConsumeItem(Character player) {
+    private bool TryConsumeItem() {
         if (_isFreeAvailable) {
             _isFreeAvailable = false;
             return true;
         }
 
-        GrowthItem item = player.SelectPaymentItem();
+        GrowthItem item = _player.SelectPaymentItem();
         if (item == null) return false;
 
-        ConsumePaymentItem(player, item);
+        ConsumePaymentItem(item);
         return true;
     }
 
-    private void ConsumePaymentItem(Character player, GrowthItem item) {
-        player.RemoveItem(item);
+    private void ConsumePaymentItem(GrowthItem item) {
+        _player.RemoveItem(item);
     }
 
-    public void RecoverHP(Character player) {
-        if (!TryConsumeItem(player)) return;
+    public void RecoverHP() {
+        if (!TryConsumeItem()) return;
 
         int amount = Mathf.FloorToInt(_player.MaxHP * (_hpRecoverPercent / 100f));
         _player.RecoverHP(amount);
         Debug.Log($"[Rest] HP Recover: {amount}");
     }
 
-    public void RecoverMP(Character player) {
-        if (!TryConsumeItem(player)) return;
+    public void RecoverMP() {
+        if (!TryConsumeItem()) return;
 
         int amount = Mathf.FloorToInt(_player.MaxMP * (_mpRecoverPercent / 100f));
         _player.RecoverMP(amount);
         Debug.Log($"[Rest] MP Recover: {amount}");
     }
 
-    public bool OpenBlessingMenu(Character player) {
+    public bool OpenBlessingMenu() {
         if (_hasTakenBlessing) return false;
-        if (!TryConsumeItem(player)) return false;
+        if (!TryConsumeItem()) return false;
 
         GenerateBlessings(3);
         _state = RestState.BlessingSelect;
@@ -88,12 +88,12 @@ public class RestSystem : MonoBehaviour {
         }
     }
 
-    public bool SelectBlessing(Character player, int index) {
+    public bool SelectBlessing(int index) {
         if (_state != RestState.BlessingSelect) return false;
         if (index < 0 || index >= _currentBlessings.Count) return false;
 
         BuffData blessing = _currentBlessings[index];
-        player.AddBuff(blessing);
+        _player.AddBuff(blessing);
         _hasTakenBlessing = true;    // 恩恵は1回まで
         _currentBlessings.Clear();
         _state = RestState.MainMenu;

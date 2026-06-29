@@ -4,13 +4,9 @@ using System.Text;
 public class DebugMapViewer : MonoBehaviour {
     [SerializeField] private MapGenerator _mapGenerator;
 
-    private void Start() {
+    public void PrintMap() {
         MapData mapData = RunManager.Instance.MapData;
 
-        PrintMap(mapData);
-    }
-
-    private void PrintMap(MapData mapData) {
         StringBuilder builder = new();
         builder.AppendLine("===== MAP START =====");
 

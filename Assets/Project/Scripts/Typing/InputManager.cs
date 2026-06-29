@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour {
     public event Action<char> OnCharInput;
+    public event Action OnSpecialInput;
 
     private void OnEnable() {
         Keyboard.current.onTextInput += HandleTextInput;
@@ -11,6 +12,10 @@ public class InputManager : MonoBehaviour {
 
     private void OnDisable() {
         Keyboard.current.onTextInput -= HandleTextInput;
+    }
+
+    private void Update() {
+        if (Keyboard.current.enterKey.wasPressedThisFrame) OnSpecialInput?.Invoke();
     }
 
     private void HandleTextInput(char c) {

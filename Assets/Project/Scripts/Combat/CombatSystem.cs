@@ -1,37 +1,40 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class CombatSystem : MonoBehaviour {
-    [SerializeField] private Character _player;
-    [SerializeField] private List<Character> _enemies;
     [SerializeField] private float _freezeDelay = 2f;
     [SerializeField] private CombatState _state = CombatState.Playing;
     [SerializeField] private StatusEffectResolver _resolver;
-    [SerializeField] private RewardSystem _rewardSystem;
 
+    private Character _player;
+    private List<Character> _enemies;
     private int _currentTargetIndex = 0;
     private float _gameOverTimer;
     private BattleContext _battleContext;
+    private BattleType _battleType;
     private readonly List<BattleModifierBase> _activeModifiers = new();
 
     public CombatState State => _state;
+    public BattleType BattleType => _battleType;
+
+    public event Action<BattleType> OnBattleVictory;
+    public event Action OnBattleDefeat;
 
     private void Start() {
-        _battleContext = new BattleContext {
-            CombatSystem = this,
-            Player = _player,
-            Enemies = _enemies
-        };
-
-        foreach (var modifier in _activeModifiers) modifier.OnBattleStart(_battleContext);
+        if (_battleType == BattleType.Normal) {
+            foreach (var modifier in _activeModifiers) modifier.OnBattleStart(_battleContext);
+        }
 
         _player.OnDead += HandlePlayerDead;
         foreach (var enemy in _enemies) enemy.OnDead += HandleEnemyDead;
     }
 
     private void Update() {
-        foreach (var modifier in _activeModifiers) modifier.OnUpdate(_battleContext, Time.deltaTime);
+        if (_battleType == BattleType.Normal) {
+            foreach (var modifier in _activeModifiers) modifier.OnUpdate(_battleContext, Time.deltaTime);
+        }
         CheckBattleResult();
 
         if (_state == CombatState.GameOver) {
@@ -45,7 +48,8 @@ public class CombatSystem : MonoBehaviour {
         _activeModifiers.AddRange(modifiers);
     }
 
-    public void BeginBattle(Character player, List<Character> enemies) {
+    public void BeginBattle(Character player, List<Character> enemies, BattleType battleType) {
+
         // 前戦闘の OnDead イベント購読を解除
         if (_enemies != null) {
             foreach (var enemy in _enemies) {
@@ -53,15 +57,26 @@ public class CombatSystem : MonoBehaviour {
             }
         }
 
-        _state = CombatState.Playing;
         _player = player;
         _enemies = new List<Character>(enemies);
+        _battleType = battleType;
+        _state = CombatState.Playing;
+
+        RefreshBattleContext();
 
         // 新規敵が OnDead イベントを購読し直す
         foreach (var enemy in _enemies) {
             enemy.Initialize();
             enemy.OnDead += HandleEnemyDead;
         }
+    }
+
+    private void RefreshBattleContext() {
+        _battleContext = new BattleContext {
+            CombatSystem = this,
+            Player = _player,
+            Enemies = _enemies
+        };
     }
 
     private void HandlePlayerDead(Character player) {
@@ -124,6 +139,14 @@ public class CombatSystem : MonoBehaviour {
         if (bonus == null || targets.Count == 0) return;
 
         _player.TriggerBonusAttack(targets, bonus);
+    }
+
+    public void RequestSpecialAttack(int level) {
+        var special = _player.GetSpecialAttack(level);
+        var targets = GetTargets(_player, special.targetType);
+        if (special == null || targets.Count == 0) return;
+
+        _player.TriggerSpecialAttack(targets, special);
     }
 
     public void RequestEnemyAttack(Character enemy) {
@@ -191,20 +214,16 @@ public class CombatSystem : MonoBehaviour {
         if (_state != CombatState.Playing) return;
 
         _state = CombatState.Victory;
-        Debug.Log("Victory");
-
         _player.OnBattleEnd();
-        _rewardSystem.ShowReward(_player);
 
-        // TODO: 勝利演出・リザルトUIなど
+        OnBattleVictory?.Invoke(_battleType);
     }
 
     private void HandleGameOver() {
         if (_state != CombatState.Playing) return;
 
         _state = CombatState.GameOver;
-        Debug.Log("Game Over");
 
-        // TODO: ゲームオーバーUI・BGM停止など
+        OnBattleDefeat?.Invoke();
     }
 }

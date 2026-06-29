@@ -15,4 +15,4 @@ MonoBehaviour:
   BaseStatus: {fileID: 11400000, guid: 833923a6d0591480dbb363c0f464e9f1, type: 2}
   Skills:
   - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 776073343331131492, guid: e41a0f069dccf4e929b89b56169d7520, type: 3}

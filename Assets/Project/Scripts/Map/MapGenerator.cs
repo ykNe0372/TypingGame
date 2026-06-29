@@ -2,36 +2,45 @@ using UnityEngine;
 using System.Collections.Generic;
 
 public class MapGenerator : MonoBehaviour {
-    [SerializeField] private int _floorCount = 5;
-    [SerializeField] private int _minNodesPerFloor = 2;
-    [SerializeField] private int _maxNodesPerFloor = 4;
-    [SerializeField] private List<BattleModifierBase> _allBattleModifiers = new();
-    [SerializeField] private float _battleRate = 65f;
-    [SerializeField] private float _shopRate = 20f;
-    [SerializeField] private float _happeningRate = 5f;
+    [Header("階層数")]
+    [SerializeField] private int _floorCount;
+    [Header("候補数")]
+    [SerializeField] private int _minNodesPerFloor;
+    [SerializeField] private int _maxNodesPerFloor;
+    [Header("出現確率")]
+    [SerializeField] private float _battleRate;
+    [SerializeField] private float _itemShopRate;
+    [SerializeField] private float _relicShopRate;
+    [SerializeField] private float _happeningRate;
+    
+    [SerializeField, Header("ハプニング効果一覧")] private List<BattleModifierBase> _allBattleModifiers = new();
 
     private int _nodeId;
 
-    public MapData Generate() {
+    public MapData Generate(int sectionNumber) {
         MapData mapData = new();
         List<List<MapNode>> floors = new();
 
         // 各階層生成
         for (int x=0; x<_floorCount; ++x) {
-            int nodeCount = (x == 0 || x == _floorCount - 1) ? 1 : Random.Range(_minNodesPerFloor, _maxNodesPerFloor + 1);
-            List<MapNode> floor = new();
+            int nodeCount;
+            if (x == 0) nodeCount = sectionNumber == 1 ? 1 : Random.Range(_minNodesPerFloor, _maxNodesPerFloor + 1);  // 第1区画 or 第2区画以降 で分類
+            else if (x == _floorCount - 1) nodeCount = 1;   // 最後層はボス戦用に必ず1つ
+            else nodeCount = Random.Range(_minNodesPerFloor, _maxNodesPerFloor + 1);
 
+            List<MapNode> floor = new();
             for (int y=0; y<nodeCount; ++y) {
                 MapNode node = new() {
                     Id = ++_nodeId,
                     FloorIndex = x,
                     Position = new Vector2(x, y),
-                    Type = GetRandomNodeType(x)
+                    Type = GetRandomNodeType(x, sectionNumber)
                 };
 
                 floor.Add(node);
                 mapData.Nodes.Add(node);
             }
+
             floors.Add(floor);
         }
 
@@ -51,8 +60,8 @@ public class MapGenerator : MonoBehaviour {
 
         EnsureAllNodesConnected(floors);
 
-        mapData.StartNode = floors[0][0];
-        mapData.CurrentNode = mapData.StartNode;
+        mapData.StartNodes = new(floors[0]);
+        mapData.CurrentNode = null;  // null で生成→選択時に上書き
         return mapData;
     }
 
@@ -80,14 +89,15 @@ public class MapGenerator : MonoBehaviour {
         }
     }
 
-    // エリア生成（仮）
-    private MapType GetRandomNodeType(int floorIndex) {
-        if (floorIndex == 0) return MapType.Battle;
+    // エリア生成
+    private MapType GetRandomNodeType(int floorIndex, int sectionNumber) {
+        if (floorIndex == 0 && sectionNumber == 1) return MapType.Battle;  // 第1区画 かつ 第1層 -> 戦闘固定
         if (floorIndex == _floorCount - 1) return MapType.Boss;  // 最終層はボス固定
 
         float random = Random.value;
         if (random < (_battleRate / 100f)) return MapType.Battle;
-        if (random < (_shopRate / 100f)) return MapType.Shop;
+        if (random < (_battleRate / 100f + _itemShopRate / 100f)) return MapType.ItemShop;
+        if (random < (_battleRate / 100f + _itemShopRate / 100f + _relicShopRate / 100)) return MapType.RelicShop;
         return MapType.Rest;
     }
 

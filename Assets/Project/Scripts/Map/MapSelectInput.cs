@@ -16,18 +16,16 @@ public class MapSelectInput : MonoBehaviour {
         _navigator = RunManager.Instance.Navigator;
         if (_navigator == null) return;
 
-        var selectable = _navigator.GetSelectableNodes();
+        var selectable = RunManager.Instance.GetCurrentSelectableNodes();
         CheckSelect(0, Keyboard.current.digit1Key, selectable);
         CheckSelect(1, Keyboard.current.digit2Key, selectable);
         CheckSelect(2, Keyboard.current.digit3Key, selectable);
     }
 
-    private void CheckSelect(int index, KeyControl key, List<MapNode> selectable) {
+    private void CheckSelect(int index, KeyControl key, IReadOnlyList<MapNode> selectable) {
         if (!key.wasPressedThisFrame) return;
         if (index >= selectable.Count) return;
 
-        MapNode nextNode = selectable[index];
-        RunManager.Instance.EnterNode(nextNode);
-        // GameStateManager.Instance.ChangeState(GameState.Battle);
+        RunManager.Instance.SelectNode(index);
     }
 }

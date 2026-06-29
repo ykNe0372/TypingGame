@@ -7,6 +7,7 @@ public class Character : MonoBehaviour {
     [SerializeField] private RelicData _relic;                  // レリック
     [SerializeField] private List<SkillData> _skills;
     [SerializeField] private List<BonusAttackData> _bonusAttacks;
+    [SerializeField] private List<SpecialAttackData> _specialAttacks;
     [SerializeField] private ElementType _currentElement = ElementType.None;
     [SerializeField] private CombatSystem _combatSystems;
     
@@ -81,8 +82,18 @@ public class Character : MonoBehaviour {
         }
 
         if (_relic != null) {
-            foreach (var effect in _relic.effects) _relicEffects.Add(effect);
+            foreach (var effect in _relic.GetEffects()) _relicEffects.Add(effect);
         }
+    }
+
+    // レリック装備用
+    public void EquipRelic(RelicData relic) {
+        _relic = relic;
+        Debug.Log($"[Relic] Get Relic: {_relic.RelicName}");
+    }
+
+    public bool HasRelic() {
+        return _relic != null;
     }
 
     public void AddItem(GrowthItem item) {
@@ -196,6 +207,12 @@ public class Character : MonoBehaviour {
         return _bonusAttacks[index];
     }
 
+    public SpecialAttackData GetSpecialAttack(int level) {
+        if (_specialAttacks.Count == 0) return null;
+
+        return _specialAttacks[level - 1];
+    }
+
     public void TriggerAttack(AttackContext ctx) {
         if (_isDead) return;
 
@@ -233,6 +250,16 @@ public class Character : MonoBehaviour {
         }
     }
 
+    public void TriggerSpecialAttack(List<Character> targets, SpecialAttackData special) {
+        foreach (var target in targets) {
+            var dmgCtx = DamageContextFactory.CreateAttack(this, target);
+            dmgCtx.FinalDamage = dmgCtx.BaseDamage * special.multiplier;
+            Debug.Log("Special Attack Executed.");
+
+            target.TakeDamage(dmgCtx);
+        }
+    }
+
     // ダメージ適応（仮）
     public void TakeDamage(DamageContext ctx) {
         if (!ctx.IsEnvironmentDamage)
@@ -249,7 +276,22 @@ public class Character : MonoBehaviour {
 
         if (_currentHP <= 0) Die();
     
-        Debug.Log($"{name} HP: {_currentHP}/{MaxHP}");;
+        Debug.Log($"{name} HP: {_currentHP}/{MaxHP}");
+    }
+
+    public void TakePercentDamage(float percent) {
+        float damage = MaxHP * (percent / 100f);
+        if (_currentHP <= damage) return;
+
+        var dmgCtx = DamageContextFactory.CreateFixed(null, this, damage, true);
+        TakeDamage(dmgCtx);
+    }
+
+    public void ConsumePercentMP(float percent) {
+        float consume = MaxMP * (percent / 100f);
+        if (_currentMP < consume) return;
+
+        TryConsumeMP(Mathf.FloorToInt(consume));
     }
 
     private void Die() {
@@ -317,6 +359,14 @@ public class Character : MonoBehaviour {
         return true;
     }
 
+    public float GetCurrentHPRatio() {
+        return _currentHP / GetFinalStatus(StatusType.MaxHP);
+    }
+
+    public float GetCurrentMPRatio() {
+        return _currentMP / GetFinalStatus(StatusType.MaxMP);
+    }
+
     // MP の自然回復効果
     private void UpdateMPRegeneration() {
         float regen = GetFinalStatus(StatusType.MPRegen);
@@ -348,6 +398,7 @@ public class Character : MonoBehaviour {
     public bool TryConsumeMP(int amount) {
         if (_currentMP < amount) return false;
         _currentMP -= amount;
+        Debug.Log($"{name} HP: {_currentMP}/{MaxMP}");
         return true;
     }
 
