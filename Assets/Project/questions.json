@@ -585,6 +585,10 @@
       "reading": "きつね"
     },
     {
+      "display": "詭弁",
+      "reading": "きべん"
+    },
+    {
       "display": "キリン",
       "reading": "きりん"
     },
@@ -889,6 +893,10 @@
       "reading": "めがね"
     },
     {
+      "display": "メッキ",
+      "reading": "めっき"
+    },
+    {
       "display": "メロン",
       "reading": "めろん"
     },
@@ -1005,6 +1013,10 @@
       "reading": "あざらし"
     },
     {
+      "display": "軋轢",
+      "reading": "あつれき"
+    },
+    {
       "display": "アルパカ",
       "reading": "あるぱか"
     },
@@ -1015,6 +1027,10 @@
     {
       "display": "イヤホン",
       "reading": "いやほん"
+    },
+    {
+      "display": "医療",
+      "reading": "いりょう"
     },
     {
       "display": "梅干し",
@@ -1037,6 +1053,10 @@
       "reading": "えんじん"
     },
     {
+      "display": "王冠",
+      "reading": "おうかん"
+    },
+    {
       "display": "オオカミ",
       "reading": "おおかみ"
     },
@@ -1055,6 +1075,10 @@
     {
       "display": "学校",
       "reading": "がっこう"
+    },
+    {
+      "display": "搦め手",
+      "reading": "からめて"
     },
     {
       "display": "贋作",
@@ -1109,8 +1133,16 @@
       "reading": "さいけつ"
     },
     {
+      "display": "賽の目",
+      "reading": "さいのめ"
+    },
+    {
       "display": "さざ波",
       "reading": "さざなみ"
+    },
+    {
+      "display": "残像",
+      "reading": "ざんぞう"
     },
     {
       "display": "実験",
@@ -1119,6 +1151,10 @@
     {
       "display": "シャベル",
       "reading": "しゃべる"
+    },
+    {
+      "display": "推測",
+      "reading": "すいそく"
     },
     {
       "display": "スコップ",
@@ -1261,8 +1297,16 @@
       "reading": "ひーたー"
     },
     {
+      "display": "フィルム",
+      "reading": "ふぃるむ"
+    },
+    {
       "display": "踏切",
       "reading": "ふみきり"
+    },
+    {
+      "display": "フルート",
+      "reading": "ふるーと"
     },
     {
       "display": "雰囲気",
@@ -1283,6 +1327,14 @@
     {
       "display": "冒険",
       "reading": "ぼうけん"
+    },
+    {
+      "display": "暴走",
+      "reading": "ぼうそう"
+    },
+    {
+      "display": "法螺貝",
+      "reading": "ほらがい"
     },
     {
       "display": "マカロン",
@@ -1327,6 +1379,10 @@
     {
       "display": "名所",
       "reading": "めいしょ"
+    },
+    {
+      "display": "メガホン",
+      "reading": "めがほん"
     },
     {
       "display": "メレンゲ",
@@ -1449,6 +1505,10 @@
       "reading": "うでどけい"
     },
     {
+      "display": "枝分かれ",
+      "reading": "えだわかれ"
+    },
+    {
       "display": "エメラルド",
       "reading": "えめらるど"
     },
@@ -1463,6 +1523,10 @@
     {
       "display": "温度計",
       "reading": "おんどけい"
+    },
+    {
+      "display": "影法師",
+      "reading": "かげぼうし"
     },
     {
       "display": "カスタード",
@@ -1541,6 +1605,10 @@
       "reading": "じゅぎょう"
     },
     {
+      "display": "勝算",
+      "reading": "しょうさん"
+    },
+    {
       "display": "商人",
       "reading": "しょうにん"
     },
@@ -1549,8 +1617,12 @@
       "reading": "すいしょう"
     },
     {
-      "display": "スクリーン",
-      "reading": "すくりーん"
+      "display": "ストライプ",
+      "reading": "すとらいぷ"
+    },
+    {
+      "display": "スナイパー",
+      "reading": "すないぱー"
     },
     {
       "display": "スピーカー",
@@ -1697,6 +1769,10 @@
       "reading": "ましんがん"
     },
     {
+      "display": "魔導書",
+      "reading": "まどうしょ"
+    },
+    {
       "display": "マニュアル",
       "reading": "まにゅある"
     },
@@ -1711,6 +1787,14 @@
     {
       "display": "羅針盤",
       "reading": "らしんばん"
+    },
+    {
+      "display": "アンチテーゼ",
+      "reading": "あんちてーぜ"
+    },
+    {
+      "display": "右往左往",
+      "reading": "うおうさおう"
     },
     {
       "display": "有象無象",
@@ -1733,12 +1817,20 @@
       "reading": "がすばーなー"
     },
     {
+      "display": "紙飛行機",
+      "reading": "かみひこうき"
+    },
+    {
       "display": "漢方薬",
       "reading": "かんぽうやく"
     },
     {
       "display": "喜怒哀楽",
       "reading": "きどあいらく"
+    },
+    {
+      "display": "キャスケット",
+      "reading": "きゃすけっと"
     },
     {
       "display": "牛乳",
@@ -1785,12 +1877,20 @@
       "reading": "ぞうきばやし"
     },
     {
-      "display": "ソフトウェア",
-      "reading": "そふとうぇあ"
+      "display": "チェック柄",
+      "reading": "ちぇっくがら"
+    },
+    {
+      "display": "蝶番",
+      "reading": "ちょうつがい"
     },
     {
       "display": "チーズケーキ",
       "reading": "ちーずけーき"
+    },
+    {
+      "display": "ティータイム",
+      "reading": "てぃーたいむ"
     },
     {
       "display": "ノスタルジア",
@@ -1825,12 +1925,24 @@
       "reading": "らぴすらずり"
     },
     {
+      "display": "六芒星",
+      "reading": "ろくぼうせい"
+    },
+    {
+      "display": "アンビバレンス",
+      "reading": "あんびばれんす"
+    },
+    {
       "display": "オーバーヒート",
       "reading": "おーばーひーと"
     },
     {
       "display": "北半球",
       "reading": "きたはんきゅう"
+    },
+    {
+      "display": "手榴弾",
+      "reading": "しゅりゅうだん"
     },
     {
       "display": "消毒液",
@@ -1851,6 +1963,10 @@
     {
       "display": "入道雲",
       "reading": "にゅうどうぐも"
+    },
+    {
+      "display": "二律背反",
+      "reading": "にりつはいはん"
     },
     {
       "display": "猫は液体",
@@ -1893,6 +2009,10 @@
       "reading": "ほわいとぼーど"
     },
     {
+      "display": "魔法少女",
+      "reading": "まほうしょうじょ"
+    },
+    {
       "display": "麦わら帽子",
       "reading": "むぎわらぼうし"
     },
@@ -1927,6 +2047,10 @@
     {
       "display": "懐中時計",
       "reading": "かいちゅうどけい"
+    },
+    {
+      "display": "起承転結",
+      "reading": "きしょうてんけつ"
     },
     {
       "display": "ショルダーバッグ",
