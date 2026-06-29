@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ffeab195bd0c44ff90fa6fde7cb90f7, type: 3}
   m_Name: RD_Magical_10
   m_EditorClassIdentifier: 
-  RelicName: "\u9B54\u8853\u306E\u6975\u610F"
-  effects:
+  _relicName: "\u9B54\u8853\u306E\u6975\u610F"
+  _description: "\u9B54\u6CD5\u653B\u6483\u529B\u304C10\u4E0A\u304C\u308B"
+  _icon: {fileID: 0}
+  _effects:
   - {fileID: 11400000, guid: c1b3b1f38f7e9441f954a76cd153bd27, type: 2}

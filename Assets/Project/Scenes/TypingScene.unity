@@ -6702,6 +6702,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c12863c2a179749beafc183330bc9532, type: 2}
   - {fileID: 11400000, guid: 8afb5bf551f6f48768f41b5e0cd19278, type: 2}
   - {fileID: 11400000, guid: c665fcde0a0924ea4a1099d1837db3b7, type: 2}
+  _relicPool:
+  - {fileID: 11400000, guid: 04d7c9d84c5ca4c229c1ac7e67e033a8, type: 2}
+  - {fileID: 11400000, guid: 3815b5ba9590f46428c1d65ae5459c80, type: 2}
+  - {fileID: 11400000, guid: c666c6226d9ee49b58fa4d3845606eb0, type: 2}
   _selectionUI: {fileID: 957821961}
 --- !u!4 &1844255517
 Transform:

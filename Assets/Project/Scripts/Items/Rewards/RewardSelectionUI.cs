@@ -8,11 +8,10 @@ public class RewardSelectionUI : MonoBehaviour {
     [SerializeField] private Transform _cardRoot;
 
     private readonly List<RewardCardUI> _cards = new();
-    private Character _player;
     private int _currentIndex;
     private bool _isOpen;
 
-    public Action OnRewardClosed;
+    public event Action<int> OnSelected;    // 何番目が選ばれているかだけ知る
 
     private void Update() {
         if (!_isOpen) return;
@@ -34,9 +33,7 @@ public class RewardSelectionUI : MonoBehaviour {
     }
 
     private void Decide() {
-        var item = _cards[_currentIndex].Item;
-        _player.AddItem(item);
-        Close();
+        OnSelected?.Invoke(_currentIndex);
     }
 
     // 選択表示の更新
@@ -46,9 +43,8 @@ public class RewardSelectionUI : MonoBehaviour {
         }
     }
 
-    public void Open(List<GrowthItem> items, Character player) {
+    public void OpenItems(List<GrowthItem> items) {
         gameObject.SetActive(true);
-        _player = player;
         _isOpen = true;
         _currentIndex = 0;
         _cards.Clear();  // 念の為初期化
@@ -56,17 +52,33 @@ public class RewardSelectionUI : MonoBehaviour {
         foreach (var item in items) {
             var card = Instantiate(_cardPrefab, _cardRoot);
             card.SetItem(item);
+            card.SetIndex(_currentIndex);
             _cards.Add(card);
         }
 
         RefreshSelection();
     }
 
-    private void Close() {
+    public void OpenRelics(List<RelicData> relics) {
+        gameObject.SetActive(true);
+        _isOpen = true;
+        _currentIndex = 0;
+        _cards.Clear();  // 念の為初期化
+
+        foreach (var relic in relics) {
+            var card = Instantiate(_cardPrefab, _cardRoot);
+            card.SetRelic(relic);
+            card.SetIndex(_currentIndex);
+            _cards.Add(card);
+        }
+
+        RefreshSelection();
+    }
+
+    public void Close() {
         _isOpen = false;
         foreach (var card in _cards) Destroy(card.gameObject);
         _cards.Clear();
         gameObject.SetActive(false);
-        OnRewardClosed?.Invoke();
     }
 }

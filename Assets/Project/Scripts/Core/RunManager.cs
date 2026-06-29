@@ -33,7 +33,7 @@ public class RunManager : MonoBehaviour {
     private void Start() {
         _combatSystem.OnBattleVictory += HandleBattleVictory;
         _combatSystem.OnBattleDefeat += HandleBattleDefeat;
-        _rewardSelectionUI.OnRewardClosed += HandleRewardClosed;
+        _rewardSystem.OnRewardFinished += HandleRewardClosed;
 
         MapData mapData = _mapGenerator.Generate(_currentSection);
         StartRun(mapData);

@@ -82,7 +82,7 @@ public class Character : MonoBehaviour {
         }
 
         if (_relic != null) {
-            foreach (var effect in _relic.effects) _relicEffects.Add(effect);
+            foreach (var effect in _relic.GetEffects()) _relicEffects.Add(effect);
         }
     }
 
