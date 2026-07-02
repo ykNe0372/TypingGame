@@ -273,6 +273,10 @@
       "reading": "はし"
     },
     {
+      "display": "バネ",
+      "reading": "ばね"
+    },
+    {
       "display": "パパ",
       "reading": "ぱぱ"
     },
@@ -1069,8 +1073,16 @@
       "reading": "かいがん"
     },
     {
+      "display": "街灯",
+      "reading": "がいとう"
+    },
+    {
       "display": "額縁",
       "reading": "がくぶち"
+    },
+    {
+      "display": "加速度",
+      "reading": "かそくど"
     },
     {
       "display": "学校",
@@ -1161,6 +1173,10 @@
       "reading": "すこっぷ"
     },
     {
+      "display": "スチール",
+      "reading": "すちーる"
+    },
+    {
       "display": "整備士",
       "reading": "せいびし"
     },
@@ -1187,6 +1203,10 @@
     {
       "display": "七夕",
       "reading": "たなばた"
+    },
+    {
+      "display": "魂",
+      "reading": "たましい"
     },
     {
       "display": "千切り絵",
@@ -1545,6 +1565,10 @@
       "reading": "かんでんち"
     },
     {
+      "display": "管理人",
+      "reading": "かんりにん"
+    },
+    {
       "display": "喫茶店",
       "reading": "きっさてん"
     },
@@ -1725,6 +1749,10 @@
       "reading": "ぱんけーき"
     },
     {
+      "display": "バージョン",
+      "reading": "ばーじょん"
+    },
+    {
       "display": "ピクニック",
       "reading": "ぴくにっく"
     },
@@ -1769,12 +1797,12 @@
       "reading": "ましんがん"
     },
     {
-      "display": "魔導書",
-      "reading": "まどうしょ"
-    },
-    {
       "display": "マニュアル",
       "reading": "まにゅある"
+    },
+    {
+      "display": "魔法陣",
+      "reading": "まほうじん"
     },
     {
       "display": "メヌエット",
@@ -1789,8 +1817,20 @@
       "reading": "らしんばん"
     },
     {
+      "display": "朝飯前",
+      "reading": "あさめしまえ"
+    },
+    {
       "display": "アンチテーゼ",
       "reading": "あんちてーぜ"
+    },
+    {
+      "display": "一等星",
+      "reading": "いっとうせい"
+    },
+    {
+      "display": "インターバル",
+      "reading": "いんたーばる"
     },
     {
       "display": "右往左往",
@@ -1801,8 +1841,36 @@
       "reading": "うぞうむぞう"
     },
     {
+      "display": "有頂天",
+      "reading": "うちょうてん"
+    },
+    {
+      "display": "衛星都市",
+      "reading": "えいせいとし"
+    },
+    {
+      "display": "遠近法",
+      "reading": "えんきんほう"
+    },
+    {
+      "display": "黄金律",
+      "reading": "おうごんりつ"
+    },
+    {
+      "display": "温故知新",
+      "reading": "おんこちしん"
+    },
+    {
       "display": "オーケストラ",
       "reading": "おーけすとら"
+    },
+    {
+      "display": "海王星",
+      "reading": "かいおうせい"
+    },
+    {
+      "display": "海岸線",
+      "reading": "かいがんせん"
     },
     {
       "display": "花粉症",
@@ -1825,12 +1893,20 @@
       "reading": "かんぽうやく"
     },
     {
+      "display": "几帳面",
+      "reading": "きちょうめん"
+    },
+    {
       "display": "喜怒哀楽",
       "reading": "きどあいらく"
     },
     {
       "display": "キャスケット",
       "reading": "きゃすけっと"
+    },
+    {
+      "display": "吸血鬼",
+      "reading": "きゅうけつき"
     },
     {
       "display": "牛乳",
@@ -1841,8 +1917,20 @@
       "reading": "くらりねっと"
     },
     {
+      "display": "軽金属",
+      "reading": "けいきんぞく"
+    },
+    {
+      "display": "好敵手",
+      "reading": "こうてきしゅ"
+    },
+    {
       "display": "広葉樹",
       "reading": "こうようじゅ"
+    },
+    {
+      "display": "黒曜石",
+      "reading": "こくようせき"
     },
     {
       "display": "五臓六腑",
@@ -1857,8 +1945,32 @@
       "reading": "さくらなみき"
     },
     {
+      "display": "座右の銘",
+      "reading": "ざゆうのめい"
+    },
+    {
+      "display": "三拍子",
+      "reading": "さんびょうし"
+    },
+    {
+      "display": "持久走",
+      "reading": "じきゅうそう"
+    },
+    {
+      "display": "シャンデリア",
+      "reading": "しゃんでりあ"
+    },
+    {
+      "display": "周波数",
+      "reading": "しゅうはすう"
+    },
+    {
       "display": "潤滑油",
       "reading": "じゅんかつゆ"
+    },
+    {
+      "display": "処方箋",
+      "reading": "しょほうせん"
     },
     {
       "display": "針葉樹",
@@ -1869,16 +1981,48 @@
       "reading": "すいじょうき"
     },
     {
-      "display": "洗濯板",
-      "reading": "せんたくいた"
+      "display": "スケジュール",
+      "reading": "すけじゅーる"
+    },
+    {
+      "display": "筋金入り",
+      "reading": "すじがねいり"
+    },
+    {
+      "display": "積乱雲",
+      "reading": "せきらんうん"
+    },
+    {
+      "display": "説明書",
+      "reading": "せつめいしょ"
     },
     {
       "display": "雑木林",
       "reading": "ぞうきばやし"
     },
     {
+      "display": "育ち盛り",
+      "reading": "そだちざかり"
+    },
+    {
+      "display": "第六感",
+      "reading": "だいろっかん"
+    },
+    {
+      "display": "誕生日",
+      "reading": "たんじょうび"
+    },
+    {
       "display": "チェック柄",
       "reading": "ちぇっくがら"
+    },
+    {
+      "display": "力仕事",
+      "reading": "ちからしごと"
+    },
+    {
+      "display": "超音波",
+      "reading": "ちょうおんぱ"
     },
     {
       "display": "蝶番",
@@ -1889,32 +2033,140 @@
       "reading": "ちーずけーき"
     },
     {
+      "display": "通信網",
+      "reading": "つうしんもう"
+    },
+    {
+      "display": "鍔迫り合い",
+      "reading": "つばぜりあい"
+    },
+    {
       "display": "ティータイム",
       "reading": "てぃーたいむ"
+    },
+    {
+      "display": "鉄工所",
+      "reading": "てっこうじょ"
+    },
+    {
+      "display": "天衣無縫",
+      "reading": "てんいむほう"
+    },
+    {
+      "display": "都市伝説",
+      "reading": "としでんせつ"
+    },
+    {
+      "display": "ドレスアップ",
+      "reading": "どれすあっぷ"
+    },
+    {
+      "display": "生クリーム",
+      "reading": "なまくりーむ"
+    },
+    {
+      "display": "二世を契る",
+      "reading": "にせをちぎる"
+    },
+    {
+      "display": "二番煎じ",
+      "reading": "にばんせんじ"
+    },
+    {
+      "display": "猫に小判",
+      "reading": "ねこにこばん"
+    },
+    {
+      "display": "熱力学",
+      "reading": "ねつりきがく"
+    },
+    {
+      "display": "寝耳に水",
+      "reading": "ねみみにみず"
+    },
+    {
+      "display": "ノコギリザメ",
+      "reading": "のこぎりざめ"
     },
     {
       "display": "ノスタルジア",
       "reading": "のすたるじあ"
     },
     {
+      "display": "ノックバック",
+      "reading": "のっくばっく"
+    },
+    {
+      "display": "排気量",
+      "reading": "はいきりょう"
+    },
+    {
+      "display": "配電盤",
+      "reading": "はいでんばん"
+    },
+    {
       "display": "白昼夢",
       "reading": "はくちゅうむ"
     },
     {
-      "display": "博物館",
-      "reading": "はくぶつかん"
+      "display": "バックパック",
+      "reading": "ばっくぱっく"
+    },
+    {
+      "display": "絆創膏",
+      "reading": "ばんそうこう"
     },
     {
       "display": "美術館",
       "reading": "びじゅつかん"
     },
     {
+      "display": "必需品",
+      "reading": "ひつじゅひん"
+    },
+    {
+      "display": "秤量",
+      "reading": "ひょうりょう"
+    },
+    {
+      "display": "風速計",
+      "reading": "ふうそくけい"
+    },
+    {
       "display": "ブランケット",
       "reading": "ぶらんけっと"
     },
     {
+      "display": "フロンティア",
+      "reading": "ふろんてぃあ"
+    },
+    {
+      "display": "ヘリコプター",
+      "reading": "へりこぷたー"
+    },
+    {
+      "display": "変光星",
+      "reading": "へんこうせい"
+    },
+    {
+      "display": "貿易風",
+      "reading": "ぼうえきふう"
+    },
+    {
+      "display": "放射熱",
+      "reading": "ほうしゃねつ"
+    },
+    {
+      "display": "穂に穂が咲く",
+      "reading": "ほにほがさく"
+    },
+    {
       "display": "ポニーテール",
       "reading": "ぽにーてーる"
+    },
+    {
+      "display": "冥王星",
+      "reading": "めいおうせい"
     },
     {
       "display": "モニタリング",
@@ -1937,8 +2189,16 @@
       "reading": "おーばーひーと"
     },
     {
+      "display": "緩衝材",
+      "reading": "かんしょうざい"
+    },
+    {
       "display": "北半球",
       "reading": "きたはんきゅう"
+    },
+    {
+      "display": "重金属",
+      "reading": "じゅうきんぞく"
     },
     {
       "display": "手榴弾",
@@ -1949,12 +2209,12 @@
       "reading": "しょうどくえき"
     },
     {
-      "display": "スマートフォン",
-      "reading": "すまーとふぉん"
-    },
-    {
       "display": "線香花火",
       "reading": "せんこうはなび"
+    },
+    {
+      "display": "桃源郷",
+      "reading": "とうげんきょう"
     },
     {
       "display": "二酸化炭素",
@@ -1993,6 +2253,10 @@
       "reading": "ひゃくぶんりつ"
     },
     {
+      "display": "豚に真珠",
+      "reading": "ぶたにしんじゅ"
+    },
+    {
       "display": "フライドポテト",
       "reading": "ふらいどぽてと"
     },
@@ -2029,8 +2293,8 @@
       "reading": "ろめんでんしゃ"
     },
     {
-      "display": "アプリケーション",
-      "reading": "あぷりけーしょん"
+      "display": "アルコールランプ",
+      "reading": "あるこーるらんぷ"
     },
     {
       "display": "宇宙飛行士",
