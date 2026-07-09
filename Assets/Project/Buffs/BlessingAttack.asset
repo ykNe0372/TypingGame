@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _buffName: Debug_PowerType
   _buffDescription: "\u7269\u7406\u653B\u6483\u529B20%UP\n\u9B54\u6CD5\u653B\u6483\u529B20%UP"
-  _durationBattleCount: 3
+  _duration: {fileID: 11400000, guid: 6d0ad74acaaba495e9ea4f8e7d11b0da, type: 2}
   _modifiers:
   - StatusType: 3
     Value: 0.2

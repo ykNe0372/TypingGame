@@ -20,7 +20,7 @@ MonoBehaviour:
   - statusType: 2
     value: 0.5
   - statusType: 3
-    value: 5
+    value: 1
   - statusType: 4
     value: 5
   - statusType: 5

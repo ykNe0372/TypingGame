@@ -35,6 +35,8 @@ public class CombatSystem : MonoBehaviour {
         if (_battleType == BattleType.Normal) {
             foreach (var modifier in _activeModifiers) modifier.OnUpdate(_battleContext, Time.deltaTime);
         }
+
+        _player.TickBuffs(Time.deltaTime);
         CheckBattleResult();
 
         if (_state == CombatState.GameOver) {

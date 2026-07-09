@@ -15,11 +15,11 @@ public class Character : MonoBehaviour {
     private StatusManager _statusManager;
     private readonly ItemInventory _itemInventory = new();
     private readonly SubItemInventory _subInventory = new();
-    private readonly List<RelicEffect> _relicEffects = new();        // レリック効果
-    private readonly List<Effect> _passiveEffects = new();           // ステータス変更系
-    private readonly List<BuffInstance> _activeBuffs = new();        // バフ・デバフ
-    private readonly List<OnAttackEffect> _attackEffects = new();    // 攻撃変更（連撃）系
-    private readonly List<OnDamageEffect> _damageEffects = new();    // ダメージ計算
+    private readonly List<RelicEffect> _relicEffects = new();       // レリック効果
+    private readonly List<Effect> _growthItemEffects = new();       // 強化アイテムによるステータス上昇
+    private readonly List<BuffInstance> _tempBuffs = new();         // 一時的なバフデバフ
+    private readonly List<OnAttackEffect> _attackEffects = new();   // 攻撃時に発動する効果（ヒット時に〇〇する系）
+    private readonly List<OnDamageEffect> _damagedEffects = new();  // 被弾時に発動する効果（被弾時に〇〇する系）
     private float _currentHP;
     private float _currentMP;
     private bool _isDead;
@@ -69,15 +69,15 @@ public class Character : MonoBehaviour {
     private void BuildEffectList() {
         if (_itemInventory == null) return;
         
-        _passiveEffects.Clear();
+        _growthItemEffects.Clear();
         _attackEffects.Clear();
         _relicEffects.Clear();
 
         foreach (var item in _itemInventory.Items) {
             foreach (var effect in item.GetEffects()) {
                 if (effect is OnAttackEffect attackEffect) _attackEffects.Add(attackEffect);
-                else if (effect is OnDamageEffect damageEffect) _damageEffects.Add(damageEffect);
-                else _passiveEffects.Add(effect);
+                else if (effect is OnDamageEffect damageEffect) _damagedEffects.Add(damageEffect);
+                else _growthItemEffects.Add(effect);
             }
         }
 
@@ -155,26 +155,45 @@ public class Character : MonoBehaviour {
     }
 
     public void AddBuff(BuffData data) {
-        _activeBuffs.Add(new BuffInstance(data));
+        _tempBuffs.Add(new BuffInstance(data));
 
         // Debug.Log($"[DEBUG] PhysicalAttack: {GetFinalStatus(StatusType.PhysicalAttack)}");
         // Debug.Log($"[DEBUG] MagicAttack: {GetFinalStatus(StatusType.MagicAttack)}");
     }
 
-    public void OnBattleEnd() {
-        for (int i=_activeBuffs.Count-1; i>=0; --i) {
-            --_activeBuffs[i].RemainingBattleCount;
-            if (_activeBuffs[i].RemainingBattleCount <= 0) {
-                Debug.Log($"Buff Expired: {_activeBuffs[i].Data.BuffName}");
-                _activeBuffs.RemoveAt(i);
-            }
+    private void RemoveExpiredBuffs() {
+        for (int i=_tempBuffs.Count-1; i>=0; --i) {
+            if (!_tempBuffs[i].Duration.IsExpired) continue;
+
+            Debug.Log($"Buff Expired: {_tempBuffs[i].Data.BuffName}");
+            _tempBuffs.RemoveAt(i);
         }
+    }
+
+    public void OnBattleEnd() {
+        foreach (var buff in _tempBuffs) buff.Duration.OnBattleEnd();  // BuffDuration に通知
+        RemoveExpiredBuffs();
+    }
+
+    public void TickBuffs(float deltaTime) {
+        foreach (var buff in _tempBuffs) buff.Duration.Tick(deltaTime);
+        RemoveExpiredBuffs();
+    }
+
+    public void NotifyAttack() {
+        foreach (var buff in _tempBuffs) buff.Duration.OnAttack();
+        RemoveExpiredBuffs();
+    }
+
+    public void NotifyDamaged() {
+        foreach (var buff in _tempBuffs) buff.Duration.OnDamaged();
+        RemoveExpiredBuffs();
     }
 
     public float GetBuffTotal(StatusType statusType) {
         float totalMultiplier = 1f;
 
-        foreach (var buff in _activeBuffs) {
+        foreach (var buff in _tempBuffs) {
             foreach (var modifier in buff.Data.Modifiers) {
                 if (modifier.StatusType == statusType) totalMultiplier += modifier.Value;
             }
@@ -187,7 +206,7 @@ public class Character : MonoBehaviour {
         float baseValue = _baseStatus.GetStatus(type);
         float bonus = 0f;
         
-        foreach (var effect in _passiveEffects) bonus += effect.GetStatusBonus(type);
+        foreach (var effect in _growthItemEffects) bonus += effect.GetStatusBonus(type);
         foreach (var effect in _relicEffects) bonus += effect.GetStatusBonus(type);
         
         float value =  baseValue + bonus;
@@ -263,7 +282,7 @@ public class Character : MonoBehaviour {
     // ダメージ適応（仮）
     public void TakeDamage(DamageContext ctx) {
         if (!ctx.IsEnvironmentDamage)
-            foreach (var effect in _damageEffects) effect.OnDamage(ctx);
+            foreach (var effect in _damagedEffects) effect.OnDamage(ctx);
 
         for (int i=_statusManager.Effects.Count-1; i>=0; --i) {  // 要素を削除しても大丈夫なように逆順にする 
             var status = _statusManager.Effects[i];
