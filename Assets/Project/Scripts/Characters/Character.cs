@@ -19,7 +19,7 @@ public class Character : MonoBehaviour {
     private readonly List<Effect> _growthItemEffects = new();       // 強化アイテムによるステータス上昇
     private readonly List<BuffInstance> _tempBuffs = new();         // 一時的なバフデバフ
     private readonly List<OnAttackEffect> _attackEffects = new();   // 攻撃時に発動する効果（ヒット時に〇〇する系）
-    private readonly List<OnDamageEffect> _damagedEffects = new();  // 被弾時に発動する効果（被弾時に〇〇する系）
+    private readonly List<OnDamagedEffect> _damagedEffects = new();  // 被弾時に発動する効果（被弾時に〇〇する系）
     private float _currentHP;
     private float _currentMP;
     private bool _isDead;
@@ -33,6 +33,7 @@ public class Character : MonoBehaviour {
     public ElementType CurrentElement => _currentElement;
     public ItemInventory Inventory => _itemInventory;
     public SubItemInventory SubInventory => _subInventory;
+    public IReadOnlyList<OnAttackEffect> AttackEffects => _attackEffects;
 
     public event Action<Character> OnDead;
 
@@ -76,7 +77,7 @@ public class Character : MonoBehaviour {
         foreach (var item in _itemInventory.Items) {
             foreach (var effect in item.GetEffects()) {
                 if (effect is OnAttackEffect attackEffect) _attackEffects.Add(attackEffect);
-                else if (effect is OnDamageEffect damageEffect) _damagedEffects.Add(damageEffect);
+                else if (effect is OnDamagedEffect damageEffect) _damagedEffects.Add(damageEffect);
                 else _growthItemEffects.Add(effect);
             }
         }
@@ -235,48 +236,7 @@ public class Character : MonoBehaviour {
     public void TriggerAttack(AttackContext ctx) {
         if (_isDead) return;
 
-        foreach (var effect in _attackEffects) effect.OnAttack(ctx);
-        foreach (var attack in ctx.AttackInstances) ExecuteAttack(ctx, attack);
-    }
-
-    private void ExecuteAttack(AttackContext ctx, AttackInstance attack) {
-        foreach (var target in ctx.Targets) {
-            var dmgCtx = DamageContextFactory.CreateAttack(this, target);
-
-            dmgCtx.BaseDamage *= attack.PowerMultiplier;
-            dmgCtx.FinalDamage = dmgCtx.BaseDamage * CurrentSkill.powerMultiplier;
-            CriticalCalculator.Apply(dmgCtx);
-            
-            target.TakeDamage(dmgCtx);   // 被弾処理
-            if (ctx.StatusEffect != null) {
-                target.TryApplyStatus(ctx.Attacker, ctx.StatusEffect);  // 状態異常付与
-            }
-        }
-    }
-
-    public void TriggerBonusAttack(List<Character> targets, BonusAttackData bonus) {
-        ExecuteBonusAttack(targets, bonus);
-    }
-
-    private void ExecuteBonusAttack(List<Character> targets, BonusAttackData bonus) {
-        foreach (var target in targets) {
-            var dmgCtx = DamageContextFactory.CreateAttack(this, target);
-            dmgCtx.FinalDamage = dmgCtx.BaseDamage * bonus.multiplier;
-            CriticalCalculator.Apply(dmgCtx);
-            Debug.Log("Bonus Atatck Executed.");
-
-            target.TakeDamage(dmgCtx);
-        }
-    }
-
-    public void TriggerSpecialAttack(List<Character> targets, SpecialAttackData special) {
-        foreach (var target in targets) {
-            var dmgCtx = DamageContextFactory.CreateAttack(this, target);
-            dmgCtx.FinalDamage = dmgCtx.BaseDamage * special.multiplier;
-            Debug.Log("Special Attack Executed.");
-
-            target.TakeDamage(dmgCtx);
-        }
+        AttackExecutor.Execute(ctx);
     }
 
     // ダメージ適応（仮）
@@ -353,7 +313,7 @@ public class Character : MonoBehaviour {
         }
     }
 
-    private bool TryApplyStatus(Character attacker, StatusEffectData data) {
+    public bool TryApplyStatus(Character attacker, StatusEffectData data) {
         return _statusManager.TryApply(attacker, data);
     }
 

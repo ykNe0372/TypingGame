@@ -109,18 +109,11 @@ public class CombatSystem : MonoBehaviour {
     }
 
     private AttackContext CreateContext(Character attacker) {
-        var ctx = new AttackContext {
-            Attacker = attacker,
-            Targets = GetTargets(attacker, attacker.CurrentSkill.targetType),
-            Element = attacker.CurrentElement,
-            Skill = attacker.CurrentSkill,
-            StatusEffect = _resolver.Get(attacker.CurrentElement)
-        };
-        ctx.AttackInstances.Add(new AttackInstance {
-            PowerMultiplier = 1f
-        });
-
-        return ctx;
+        return AttackContextFactory.CreateNormalAttack(
+            attacker,
+            GetTargets(attacker, attacker.CurrentSkill.targetType),
+            _resolver.Get(attacker.CurrentElement)
+        );
     }
 
     private void RequestPlayerAttack() {
@@ -136,19 +129,21 @@ public class CombatSystem : MonoBehaviour {
     }
 
     public void RequestBonusAttack(int chain) {
-        var bonus = _player.GetBonusAttack(chain);
-        var targets = GetTargets(_player, bonus.targetType);
+        BonusAttackData bonus = _player.GetBonusAttack(chain);
+        List<Character> targets = GetTargets(_player, bonus.targetType);
         if (bonus == null || targets.Count == 0) return;
 
-        _player.TriggerBonusAttack(targets, bonus);
+        var ctx = AttackContextFactory.CreateBonusAttack(_player, targets, bonus);
+        _player.TriggerAttack(ctx);
     }
 
     public void RequestSpecialAttack(int level) {
-        var special = _player.GetSpecialAttack(level);
-        var targets = GetTargets(_player, special.targetType);
+        SpecialAttackData special = _player.GetSpecialAttack(level);
+        List<Character> targets = GetTargets(_player, special.targetType);
         if (special == null || targets.Count == 0) return;
 
-        _player.TriggerSpecialAttack(targets, special);
+        var ctx = AttackContextFactory.CreateSpecialAttack(_player, targets, special);
+        _player.TriggerAttack(ctx);
     }
 
     public void RequestEnemyAttack(Character enemy) {
