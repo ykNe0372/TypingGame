@@ -10,7 +10,6 @@ public class Character : MonoBehaviour {
     [SerializeField] private List<SpecialAttackData> _specialAttacks;
     [SerializeField] private ElementType _currentElement = ElementType.None;
     [SerializeField] private CombatSystem _combatSystems;
-    
 
     private StatusManager _statusManager;
     private readonly ItemInventory _itemInventory = new();
@@ -36,6 +35,7 @@ public class Character : MonoBehaviour {
     public IReadOnlyList<OnAttackEffect> AttackEffects => _attackEffects;
 
     public event Action<Character> OnDead;
+    public event Action<float, float> OnHPChanged;
 
     private void Awake() {
         _statusManager = new StatusManager(this);
@@ -256,7 +256,8 @@ public class Character : MonoBehaviour {
         _currentHP = Mathf.Max(0, _currentHP);
 
         if (_currentHP <= 0) Die();
-    
+
+        OnHPChanged?.Invoke(_currentHP, MaxHP);    
         Debug.Log($"{name} HP: {_currentHP}/{MaxHP}");
     }
 
@@ -367,6 +368,8 @@ public class Character : MonoBehaviour {
 
         _currentHP += amount;
         _currentHP = Mathf.Min(_currentHP, MaxHP);
+
+        OnHPChanged?.Invoke(_currentHP, MaxHP);
     }
 
     public void RecoverMP(int amount) {
