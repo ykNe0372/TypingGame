@@ -8,10 +8,14 @@ public static class AttackExecutor {
 
     private static void ExecuteAttack(AttackContext ctx, AttackInstance attack) {
         foreach (var target in ctx.Targets) {
-            var dmgCtx = DamageContextFactory.CreateAttack(ctx.Attacker, target);
+            DamageContext dmgCtx;
+            if (attack.IsUseFixedDamage) dmgCtx = DamageContextFactory.CreateFixed(ctx.Attacker, target, attack.FixedDamage, true);
+            else {
+                dmgCtx = DamageContextFactory.CreateAttack(ctx.Attacker, target);
+                dmgCtx.FinalDamage = dmgCtx.BaseDamage * attack.PowerMultiplier;
+            }
 
-            dmgCtx.FinalDamage = dmgCtx.BaseDamage * attack.PowerMultiplier;
-            CriticalCalculator.Apply(dmgCtx);
+            if (attack.CanCrit) CriticalCalculator.Apply(dmgCtx);
             
             target.TakeDamage(dmgCtx);   // 被弾処理
             if (ctx.StatusEffect != null) {

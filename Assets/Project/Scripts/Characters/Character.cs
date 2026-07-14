@@ -72,6 +72,7 @@ public class Character : MonoBehaviour {
         
         _growthItemEffects.Clear();
         _attackEffects.Clear();
+        _damagedEffects.Clear();
         _relicEffects.Clear();
 
         foreach (var item in _itemInventory.Items) {
@@ -241,8 +242,9 @@ public class Character : MonoBehaviour {
 
     // ダメージ適応（仮）
     public void TakeDamage(DamageContext ctx) {
-        if (!ctx.IsEnvironmentDamage)
+        if (!ctx.IsEnvironmentDamage) {   
             foreach (var effect in _damagedEffects) effect.OnDamage(ctx);
+        }
 
         for (int i=_statusManager.Effects.Count-1; i>=0; --i) {  // 要素を削除しても大丈夫なように逆順にする 
             var status = _statusManager.Effects[i];

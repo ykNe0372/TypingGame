@@ -8,7 +8,7 @@ public class ExtraAttackEffect : OnAttackEffect {
 
     // 攻撃回数を増やす
     protected override void Apply(AttackContext ctx) {
-        if (UnityEngine.Random.value > _extraAttackRate/100f) return;
+        if (Random.value > _extraAttackRate/100f) return;
 
         for (int i=0; i<_extraCount; ++i) {
             ctx.AttackInstances.Add(new AttackInstance {

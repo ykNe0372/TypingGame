@@ -38,7 +38,7 @@ public static class AttackContextFactory {
     public static AttackContext CreateSpecialAttack(Character attacker, List<Character> targets, SpecialAttackData data) {
         var ctx = new AttackContext {
             Attacker = attacker,
-            Targets = targets,
+            Targets = targets
         };
 
         ctx.AttackInstances.Add(new AttackInstance {
@@ -47,6 +47,21 @@ public static class AttackContextFactory {
         });
 
         Debug.Log("[SPECIAL] Special Attack Executed");
+        return ctx;
+    }
+
+    public static AttackContext CreateCounterAttack(Character attacker, Character targets, float damage) {
+        var ctx = new AttackContext {
+            Attacker = attacker,
+            Targets = new List<Character> { targets }
+        };
+
+        ctx.AttackInstances.Add(new AttackInstance {
+            IsUseFixedDamage = true,
+            FixedDamage = damage,
+            CanCrit = false
+        });
+
         return ctx;
     }
 }

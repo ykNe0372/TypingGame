@@ -1,5 +1,4 @@
-
-public abstract class OnDamageEffect : Effect {
+public abstract class OnDamagedEffect : Effect {
     public sealed override void OnDamage(DamageContext ctx) {
         Apply(ctx);
     }
