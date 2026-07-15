@@ -15,11 +15,11 @@ public class PlayerStatusUI : MonoBehaviour {
     private void UpdateHP(float currentHP, float maxHP) {
         float rate = Mathf.Clamp01(currentHP / maxHP);
         
-        Vector2 size = _hpMask.sizeDelta;
-        size.x = _hpBarMaxWidth * rate;
-        _hpMask.sizeDelta = size;
+        Vector2 maskSize = _hpMask.sizeDelta;
+        maskSize.x = _hpBarMaxWidth * rate;
+        _hpMask.sizeDelta = maskSize;
 
-        _hpLiquidHead.anchoredPosition = new Vector2(size.x, _hpLiquidHead.anchoredPosition.y); // まだ改良の余地あり（HP残量が多い時に HPLiquidHead の位置が少しズレる）
+        _hpLiquidHead.anchoredPosition = new Vector2(maskSize.x + _hpLiquidHead.rect.width / 2, _hpLiquidHead.anchoredPosition.y);
         _hpRightCap.SetActive(rate >= 1.0f);
     }
 }
