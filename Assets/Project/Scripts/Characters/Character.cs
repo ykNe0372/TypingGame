@@ -36,6 +36,7 @@ public class Character : MonoBehaviour {
 
     public event Action<Character> OnDead;
     public event Action<float, float> OnHPChanged;
+    public event Action<float, float> OnMPChanged;
 
     private void Awake() {
         _statusManager = new StatusManager(this);
@@ -267,6 +268,7 @@ public class Character : MonoBehaviour {
 
         var dmgCtx = DamageContextFactory.CreateFixed(null, this, damage, true);
         TakeDamage(dmgCtx);
+        OnHPChanged?.Invoke(_currentHP, MaxHP);
     }
 
     public void ConsumePercentMP(float percent) {
@@ -274,6 +276,7 @@ public class Character : MonoBehaviour {
         if (_currentMP < consume) return;
 
         TryConsumeMP(Mathf.FloorToInt(consume));
+        OnMPChanged?.Invoke(_currentMP, MaxMP);
     }
 
     private void Die() {
@@ -361,6 +364,8 @@ public class Character : MonoBehaviour {
             RecoverMP(1);
             _regenTimer -= interval;
         }
+
+        OnMPChanged?.Invoke(_currentMP, MaxMP);
     }
 
     public void RecoverHP(int amount) {
@@ -377,12 +382,16 @@ public class Character : MonoBehaviour {
 
         _currentMP += amount;
         _currentMP = Mathf.Min(_currentMP, MaxMP);
+
+        OnMPChanged?.Invoke(_currentMP, MaxMP);
     }
 
     public bool TryConsumeMP(int amount) {
         if (_currentMP < amount) return false;
         _currentMP -= amount;
         Debug.Log($"{name} HP: {_currentMP}/{MaxMP}");
+
+        OnMPChanged?.Invoke(_currentMP, MaxMP);
         return true;
     }
 
