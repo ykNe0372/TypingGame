@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: f923f5f5dbb1043ef82882c782c56e8f, type: 2}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -852,13 +852,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 1093212728}
   _hpMask: {fileID: 846783498}
-  _hpLiquidHead: {fileID: 78252682}
+  _hpLiquidHead: {fileID: 78252683}
   _hpRightCap: {fileID: 2087367506}
   _hpBarMaxWidth: 227
+  _hpLiquidMaterial: {fileID: 2100000, guid: f923f5f5dbb1043ef82882c782c56e8f, type: 2}
   _mpMask: {fileID: 1772969187}
-  _mpLiquidHead: {fileID: 476701502}
+  _mpLiquidHead: {fileID: 476701503}
   _mpRightCap: {fileID: 1468488665}
   _mpBarMaxWidth: 227
+  _mpLiquidMaterial: {fileID: 2100000, guid: 9dbfd4afd6da348f8956e789d90d4853, type: 2}
 --- !u!4 &206131352
 Transform:
   m_ObjectHideFlags: 0
@@ -2002,7 +2004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 9dbfd4afd6da348f8956e789d90d4853, type: 2}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
