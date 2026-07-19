@@ -181,6 +181,10 @@
       "reading": "ちず"
     },
     {
+      "display": "月",
+      "reading": "つき"
+    },
+    {
       "display": "筒",
       "reading": "つつ"
     },
@@ -669,6 +673,10 @@
       "reading": "すいか"
     },
     {
+      "display": "スパナ",
+      "reading": "すぱな"
+    },
+    {
       "display": "スモモ",
       "reading": "すもも"
     },
@@ -1113,6 +1121,10 @@
       "reading": "きりさめ"
     },
     {
+      "display": "偶然",
+      "reading": "ぐうぜん"
+    },
+    {
       "display": "クエスト",
       "reading": "くえすと"
     },
@@ -1149,6 +1161,10 @@
       "reading": "さいのめ"
     },
     {
+      "display": "裁判",
+      "reading": "さいばん"
+    },
+    {
       "display": "さざ波",
       "reading": "さざなみ"
     },
@@ -1169,6 +1185,10 @@
       "reading": "すいそく"
     },
     {
+      "display": "水筒",
+      "reading": "すいとう"
+    },
+    {
       "display": "スコップ",
       "reading": "すこっぷ"
     },
@@ -1179,6 +1199,10 @@
     {
       "display": "整備士",
       "reading": "せいびし"
+    },
+    {
+      "display": "精錬",
+      "reading": "せいれん"
     },
     {
       "display": "石炭",
@@ -1275,6 +1299,10 @@
     {
       "display": "寝返り",
       "reading": "ねがえり"
+    },
+    {
+      "display": "猫舌",
+      "reading": "ねこじた"
     },
     {
       "display": "年齢",
@@ -1577,8 +1605,8 @@
       "reading": "きゅうどう"
     },
     {
-      "display": "キーボード",
-      "reading": "きーぼーど"
+      "display": "行列",
+      "reading": "ぎょうれつ"
     },
     {
       "display": "屈強",
@@ -1625,6 +1653,10 @@
       "reading": "しつどけい"
     },
     {
+      "display": "収束",
+      "reading": "しゅうそく"
+    },
+    {
       "display": "授業",
       "reading": "じゅぎょう"
     },
@@ -1653,10 +1685,6 @@
       "reading": "すぴーかー"
     },
     {
-      "display": "星座盤",
-      "reading": "せいざばん"
-    },
-    {
       "display": "世界樹",
       "reading": "せかいじゅ"
     },
@@ -1673,8 +1701,8 @@
       "reading": "たからばこ"
     },
     {
-      "display": "タブレット",
-      "reading": "たぶれっと"
+      "display": "多数決",
+      "reading": "たすうけつ"
     },
     {
       "display": "タンバリン",
@@ -1693,16 +1721,16 @@
       "reading": "ちょーかー"
     },
     {
-      "display": "通称",
-      "reading": "つうしょう"
-    },
-    {
       "display": "包み紙",
       "reading": "つつみがみ"
     },
     {
       "display": "つまみ食い",
       "reading": "つまみぐい"
+    },
+    {
+      "display": "つむじ風",
+      "reading": "つむじかぜ"
     },
     {
       "display": "ティラミス",
@@ -1729,12 +1757,44 @@
       "reading": "どらいやー"
     },
     {
+      "display": "仲直り",
+      "reading": "なかなおり"
+    },
+    {
+      "display": "流れ星",
+      "reading": "ながれぼし"
+    },
+    {
+      "display": "夏休み",
+      "reading": "なつやすみ"
+    },
+    {
+      "display": "仁王立ち",
+      "reading": "におうだち"
+    },
+    {
+      "display": "二枚舌",
+      "reading": "にまいじた"
+    },
+    {
+      "display": "ぬいぐるみ",
+      "reading": "ぬいぐるみ"
+    },
+    {
+      "display": "ネックレス",
+      "reading": "ねっくれす"
+    },
+    {
       "display": "熱帯夜",
       "reading": "ねったいや"
     },
     {
       "display": "農業",
       "reading": "のうぎょう"
+    },
+    {
+      "display": "覗き窓",
+      "reading": "のぞきまど"
     },
     {
       "display": "バッテリー",
@@ -1755,6 +1815,10 @@
     {
       "display": "ピクニック",
       "reading": "ぴくにっく"
+    },
+    {
+      "display": "飛行船",
+      "reading": "ひこうせん"
     },
     {
       "display": "秘密基地",
@@ -1781,16 +1845,40 @@
       "reading": "ぷろろーぐ"
     },
     {
-      "display": "偏頭痛",
-      "reading": "へんずつう"
+      "display": "閉回路",
+      "reading": "へいかいろ"
+    },
+    {
+      "display": "ヘルメット",
+      "reading": "へるめっと"
+    },
+    {
+      "display": "箒星",
+      "reading": "ほうきぼし"
     },
     {
       "display": "棒グラフ",
       "reading": "ぼうぐらふ"
     },
     {
+      "display": "暴風雨",
+      "reading": "ぼうふうう"
+    },
+    {
       "display": "牧場",
       "reading": "ぼくじょう"
+    },
+    {
+      "display": "保護色",
+      "reading": "ほごしょく"
+    },
+    {
+      "display": "ポタージュ",
+      "reading": "ぽたーじゅ"
+    },
+    {
+      "display": "本拠地",
+      "reading": "ほんきょち"
     },
     {
       "display": "マシンガン",
@@ -1913,12 +2001,44 @@
       "reading": "ぎゅうにゅう"
     },
     {
+      "display": "区画整備",
+      "reading": "くかくせいび"
+    },
+    {
+      "display": "口約束",
+      "reading": "くちやくそく"
+    },
+    {
       "display": "クラリネット",
       "reading": "くらりねっと"
     },
     {
+      "display": "クロワッサン",
+      "reading": "くろわっさん"
+    },
+    {
       "display": "軽金属",
       "reading": "けいきんぞく"
+    },
+    {
+      "display": "経験則",
+      "reading": "けいけんそく"
+    },
+    {
+      "display": "経口薬",
+      "reading": "けいこうやく"
+    },
+    {
+      "display": "下剋上",
+      "reading": "げこくじょう"
+    },
+    {
+      "display": "化粧台",
+      "reading": "けしょうだい"
+    },
+    {
+      "display": "見聞録",
+      "reading": "けんぶんろく"
     },
     {
       "display": "好敵手",
@@ -1937,20 +2057,32 @@
       "reading": "ごぞうろっぷ"
     },
     {
+      "display": "コレクション",
+      "reading": "これくしょん"
+    },
+    {
       "display": "コンデンサー",
       "reading": "こんでんさー"
+    },
+    {
+      "display": "作業服",
+      "reading": "さぎょうふく"
     },
     {
       "display": "桜並木",
       "reading": "さくらなみき"
     },
     {
+      "display": "サスペンダー",
+      "reading": "さすぺんだー"
+    },
+    {
       "display": "座右の銘",
       "reading": "ざゆうのめい"
     },
     {
-      "display": "三拍子",
-      "reading": "さんびょうし"
+      "display": "三三五五",
+      "reading": "さんさんごご"
     },
     {
       "display": "持久走",
@@ -2105,6 +2237,10 @@
       "reading": "はいでんばん"
     },
     {
+      "display": "ハイビスカス",
+      "reading": "はいびすかす"
+    },
+    {
       "display": "白昼夢",
       "reading": "はくちゅうむ"
     },
@@ -2141,12 +2277,20 @@
       "reading": "ふろんてぃあ"
     },
     {
-      "display": "ヘリコプター",
-      "reading": "へりこぷたー"
+      "display": "平均台",
+      "reading": "へいきんだい"
+    },
+    {
+      "display": "ペディキュア",
+      "reading": "ぺでぃきゅあ"
     },
     {
       "display": "変光星",
       "reading": "へんこうせい"
+    },
+    {
+      "display": "弁当箱",
+      "reading": "べんとうばこ"
     },
     {
       "display": "貿易風",
@@ -2163,6 +2307,10 @@
     {
       "display": "ポニーテール",
       "reading": "ぽにーてーる"
+    },
+    {
+      "display": "マリオネット",
+      "reading": "まりおねっと"
     },
     {
       "display": "冥王星",
@@ -2213,6 +2361,18 @@
       "reading": "せんこうはなび"
     },
     {
+      "display": "占星術",
+      "reading": "せんせいじゅつ"
+    },
+    {
+      "display": "双眼鏡",
+      "reading": "そうがんきょう"
+    },
+    {
+      "display": "タロットカード",
+      "reading": "たろっとかーど"
+    },
+    {
       "display": "桃源郷",
       "reading": "とうげんきょう"
     },
@@ -2235,10 +2395,6 @@
     {
       "display": "熱帯雨林",
       "reading": "ねったいうりん"
-    },
-    {
-      "display": "ノートパソコン",
-      "reading": "のーとぱそこん"
     },
     {
       "display": "梅雨前線",
@@ -2265,16 +2421,16 @@
       "reading": "ぷろぐらみんぐ"
     },
     {
+      "display": "望遠鏡",
+      "reading": "ぼうえんきょう"
+    },
+    {
       "display": "北極星",
       "reading": "ほっきょくせい"
     },
     {
       "display": "ホワイトボード",
       "reading": "ほわいとぼーど"
-    },
-    {
-      "display": "魔法少女",
-      "reading": "まほうしょうじょ"
     },
     {
       "display": "麦わら帽子",
@@ -2317,6 +2473,10 @@
       "reading": "きしょうてんけつ"
     },
     {
+      "display": "鍾乳洞",
+      "reading": "しょうにゅうどう"
+    },
+    {
       "display": "ショルダーバッグ",
       "reading": "しょるだーばっぐ"
     },
@@ -2357,6 +2517,10 @@
       "reading": "なんきょくたいりく"
     },
     {
+      "display": "白色矮星",
+      "reading": "はくしょくわいせい"
+    },
+    {
       "display": "南十字星",
       "reading": "みなみじゅうじせい"
     },
@@ -2369,6 +2533,10 @@
       "reading": "わらしべちょうじゃ"
     },
     {
+      "display": "ゲシュタルト崩壊",
+      "reading": "げしゅたるとほうかい"
+    },
+    {
       "display": "コピーアンドペースト",
       "reading": "こぴーあんどぺーすと"
     },
@@ -2379,6 +2547,10 @@
     {
       "display": "鬼の居ぬ間に洗濯",
       "reading": "おにのいぬまにせんたく"
+    },
+    {
+      "display": "黄道十二星座",
+      "reading": "こうどうじゅうにせいざ"
     },
     {
       "display": "覆水盆に返らず",
