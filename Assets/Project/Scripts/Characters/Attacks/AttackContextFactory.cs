@@ -2,17 +2,17 @@ using UnityEngine;
 using System.Collections.Generic;
 
 public static class AttackContextFactory {
-    public static AttackContext CreateNormalAttack(Character attacker, List<Character> targets, StatusEffectData status) {
+    public static AttackContext CreateNormalAttack(Character attacker, List<Character> targets, SkillData skill, ElementType element, StatusEffectData status) {
         var ctx = new AttackContext {
             Attacker = attacker,
             Targets = targets,
-            Skill = attacker.CurrentSkill,
-            Element = attacker.CurrentElement,
+            Skill = skill,
+            Element = element,
             StatusEffect = status
         };
 
         ctx.AttackInstances.Add(new AttackInstance {
-            PowerMultiplier = attacker.CurrentSkill.powerMultiplier,
+            PowerMultiplier = skill.powerMultiplier,
             CanCrit = true
         });
 

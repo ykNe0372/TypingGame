@@ -108,16 +108,20 @@ public class CombatSystem : MonoBehaviour {
         return actor.CanAct();
     }
 
-    private AttackContext CreateContext(Character attacker) {
+    private AttackContext CreateContext(Character attacker, SkillData skill) {
+        ElementType element = attacker.CurrentElement;
+
         return AttackContextFactory.CreateNormalAttack(
             attacker,
-            GetTargets(attacker, attacker.CurrentSkill.targetType),
-            _resolver.Get(attacker.CurrentElement)
+            GetTargets(attacker, skill.targetType),
+            skill,
+            element,
+            _resolver.Get(element)
         );
     }
 
     private void RequestPlayerAttack() {
-        var ctx = CreateContext(_player);
+        var ctx = CreateContext(_player, _player.CurrentSkill);
 
         if (ctx.Element != ElementType.None) {
             if (!_player.TryConsumeMP(ctx.Skill.MPCost)) {
@@ -146,10 +150,22 @@ public class CombatSystem : MonoBehaviour {
         _player.TriggerAttack(ctx);
     }
 
-    public void RequestEnemyAttack(Character enemy) {
+    private AttackContext CreateEnemyContext(Character attacker, SkillData skill, EnemyData data) {
+        ElementType element = EnemyElementResolver.Resolve(data);
+
+        return AttackContextFactory.CreateNormalAttack(
+            attacker,
+            GetTargets(attacker, skill.targetType),
+            skill,
+            element,
+            _resolver.Get(element)
+        );
+    }
+
+    public void RequestEnemyAttack(Character enemy, SkillData skill, EnemyData data) {
         if (!CanAttack(enemy)) return;
 
-        var ctx = CreateContext(enemy);
+        var ctx = CreateEnemyContext(enemy, skill, data);
         enemy.TriggerAttack(ctx);
     }
 

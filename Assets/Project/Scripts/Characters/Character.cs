@@ -28,6 +28,7 @@ public class Character : MonoBehaviour {
     public float MaxHP => GetFinalStatus(StatusType.MaxHP);
     public float MaxMP => GetFinalStatus(StatusType.MaxMP);
     public bool IsDead => _isDead;
+    public IReadOnlyList<SkillData> Skills => _skills;
     public SkillData CurrentSkill => _skills[_currentSkillIndex];
     public ElementType CurrentElement => _currentElement;
     public ItemInventory Inventory => _itemInventory;

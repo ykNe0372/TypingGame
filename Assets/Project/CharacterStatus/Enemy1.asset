@@ -36,4 +36,4 @@ MonoBehaviour:
   - statusType: 10
     value: 50
   - statusType: 11
-    value: 5
+    value: 30

@@ -103,12 +103,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _baseStatus: {fileID: 11400000, guid: 17d7f43cf693a49e7b42c584b101684f, type: 2}
   _relic: {fileID: 0}
-  _items: []
   _skills:
   - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
   _bonusAttacks: []
+  _specialAttacks: []
   _currentElement: 0
   _combatSystems: {fileID: 0}
+  _startItems: []
 --- !u!114 &7439459648681171697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,3 +123,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _character: {fileID: 6336224040686788610}
+  _data: {fileID: 11400000, guid: c22dd22633cfe466e83399366a3678b0, type: 2}
