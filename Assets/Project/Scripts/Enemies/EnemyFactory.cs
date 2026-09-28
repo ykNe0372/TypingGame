@@ -12,6 +12,7 @@ public class EnemyFactory : MonoBehaviour {
         GameObject obj = Instantiate(enemyData.Prefab, spawnPoint.position, Quaternion.identity, _enemyRoot);
         Character enemy = obj.GetComponent<Character>();
         if (obj.TryGetComponent<EnemyController>(out var controller)) controller.Initialize(_combatSystem);
+        // _presentation.Register(enemy);
         enemy.Initialize();
 
         return enemy;

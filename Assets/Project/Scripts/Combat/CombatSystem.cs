@@ -7,6 +7,7 @@ public class CombatSystem : MonoBehaviour {
     [SerializeField] private float _freezeDelay = 2f;
     [SerializeField] private CombatState _state = CombatState.Playing;
     [SerializeField] private StatusEffectResolver _resolver;
+    [SerializeField] private BattlePresentation _battlePresentation;
 
     private Character _player;
     private List<Character> _enemies;
@@ -50,6 +51,16 @@ public class CombatSystem : MonoBehaviour {
         _activeModifiers.AddRange(modifiers);
     }
 
+    private void RegisterCombatCharacters() {
+        // プレイヤーを表示イベントの監視対象に登録
+        _battlePresentation.Register(_player);
+
+        // 敵を表示イベントの監視対象に登録
+        foreach (var enemy in _enemies) {
+            _battlePresentation.Register(enemy);
+        }
+    }
+
     public void BeginBattle(Character player, List<Character> enemies, BattleType battleType) {
 
         // 前戦闘の OnDead イベント購読を解除
@@ -65,6 +76,7 @@ public class CombatSystem : MonoBehaviour {
         _state = CombatState.Playing;
 
         RefreshBattleContext();
+        RegisterCombatCharacters();
 
         // 新規敵が OnDead イベントを購読し直す
         foreach (var enemy in _enemies) {

@@ -38,6 +38,7 @@ public class Character : MonoBehaviour {
     public event Action<Character> OnDead;
     public event Action<float, float> OnHPChanged;
     public event Action<float, float> OnMPChanged;
+    public event Action<DamageContext> OnDamaged;
 
     private void Awake() {
         _statusManager = new StatusManager(this);
@@ -259,7 +260,8 @@ public class Character : MonoBehaviour {
 
         if (_currentHP <= 0) Die();
 
-        OnHPChanged?.Invoke(_currentHP, MaxHP);    
+        OnHPChanged?.Invoke(_currentHP, MaxHP);
+        OnDamaged?.Invoke(ctx);
         Debug.Log($"{name} HP: {_currentHP}/{MaxHP}");
     }
 
