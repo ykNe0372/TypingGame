@@ -18,6 +18,8 @@ public class RunManager : MonoBehaviour {
     [SerializeField] private RewardSelectionUI _rewardSelectionUI;
     [Header("マップ生成機")]
     [SerializeField] private MapGenerator _mapGenerator;
+    [Header("マップ選択UI")]
+    [SerializeField] private DestinationSelectionUI _destinationSelectionUI;
 
     private int _currentSection = 1;    // 何区画目か（スタート〜ボスで1区画）
     private MapData _nextMap;  // 次の区画
@@ -203,6 +205,11 @@ public class RunManager : MonoBehaviour {
     }
 
     public void SelectNode(int index) {
+        var selectable = GetCurrentSelectableNodes();
+        if (index < 0 || index >= selectable.Count) return;
+
+        _destinationSelectionUI.Hide();
+
         switch (_selectionMode) {
             case MapSelectionMode.Normal:
                 SelectNormalNode(index);
@@ -244,6 +251,7 @@ public class RunManager : MonoBehaviour {
 
     private void HandleRewardClosed() {
         GameStateManager.Instance.ChangeState(GameState.MapSelect);
+        _destinationSelectionUI.Show(GetCurrentSelectableNodes());
     }
 
     // ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭  DEBUG MODE  ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭
