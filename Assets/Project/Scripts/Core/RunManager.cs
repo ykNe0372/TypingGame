@@ -46,6 +46,14 @@ public class RunManager : MonoBehaviour {
         else Destroy(gameObject);
     }
 
+    private void OnEnable() {
+        if (GameStateManager.Instance != null) GameStateManager.Instance.OnStateChanged += HandleGameStateChanged;      
+    }
+
+    private void OnDisable() {
+        if (GameStateManager.Instance != null) GameStateManager.Instance.OnStateChanged -= HandleGameStateChanged;
+    }
+
     public void StartRun(MapData mapData) {
         MapData = mapData;
         Navigator = new MapNavigator(mapData);
@@ -251,6 +259,10 @@ public class RunManager : MonoBehaviour {
 
     private void HandleRewardClosed() {
         GameStateManager.Instance.ChangeState(GameState.MapSelect);
+    }
+
+    private void HandleGameStateChanged(GameState state) {
+        if (state != GameState.MapSelect) return;
         _destinationSelectionUI.Show(GetCurrentSelectableNodes());
     }
 
