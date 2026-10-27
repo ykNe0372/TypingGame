@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acfa1c3f216d7495ebdb8f0619900937, type: 3}
-  m_Name: Sword
+  m_Name: Sword_status
   m_EditorClassIdentifier: 
   _status:
   - statusType: 0
@@ -40,4 +40,6 @@ MonoBehaviour:
   - statusType: 12
     value: 5
   - statusType: 13
+    value: 50
+  - statusType: 14
     value: 5

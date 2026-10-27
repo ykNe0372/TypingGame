@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseStatus: {fileID: 11400000, guid: 833923a6d0591480dbb363c0f464e9f1, type: 2}
+  _evasionSettings: {fileID: 11400000, guid: 084dcee2a3e63482094e7a7d2dd2f187, type: 2}
   _relic: {fileID: 0}
   _skills:
   - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}

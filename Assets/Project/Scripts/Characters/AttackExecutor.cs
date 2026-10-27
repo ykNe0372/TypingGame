@@ -14,10 +14,14 @@ public static class AttackExecutor {
                 dmgCtx = DamageContextFactory.CreateAttack(ctx.Attacker, target);
                 dmgCtx.FinalDamage = dmgCtx.BaseDamage * attack.PowerMultiplier;
             }
-
             if (attack.CanCrit) CriticalCalculator.Apply(dmgCtx, attack);
-            
+
+            if (!attack.IsUseFixedDamage && EvasionCalculator.Roll(target)) {  // 固定ダメージは回避不可
+                target.TriggerDodge(dmgCtx);
+                continue;
+            }
             target.TakeDamage(dmgCtx);   // 被弾処理
+
             foreach (var effect in ctx.Attacker.DamageEffects) effect.OnDamage(dmgCtx);  // 与ダメ時に発動する効果の処理
             if (ctx.StatusEffect != null) target.TryApplyStatus(ctx.Attacker, ctx.StatusEffect);  // 状態異常付与           
         }

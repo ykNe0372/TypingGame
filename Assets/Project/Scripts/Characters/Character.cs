@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour {
     [SerializeField] private CharacterBaseStatus _baseStatus;   // 基礎ステータス
+    [SerializeField] private EvasionSettings _evasionSettings;  // 回避関連の値の設定
     [SerializeField] private RelicData _relic;                  // レリック
     [SerializeField] private List<SkillData> _skills;
     [SerializeField] private List<BonusAttackData> _bonusAttacks;
@@ -20,6 +21,7 @@ public class Character : MonoBehaviour {
     private readonly List<OnAttackEffect> _attackEffects = new();    // 攻撃命令を受けた際に発動する効果
     private readonly List<OnDamageEffect> _damageEffects = new();    // ダメージを与えた際に発動する効果
     private readonly List<OnDamagedEffect> _damagedEffects = new();  // ダメージを受けた際に発動する効果
+    private readonly List<OnDodgeEffect> _dodgeEffects = new();      // 回避が発動した際に発動する効果
     private float _currentHP;
     private float _currentMP;
     private bool _isDead;
@@ -29,6 +31,7 @@ public class Character : MonoBehaviour {
     public float MaxHP => GetFinalStatus(StatusType.MaxHP);
     public float MaxMP => GetFinalStatus(StatusType.MaxMP);
     public bool IsDead => _isDead;
+    public EvasionSettings EvasionSettings => _evasionSettings;
     public IReadOnlyList<SkillData> Skills => _skills;
     public SkillData CurrentSkill => _skills[_currentSkillIndex];
     public ElementType CurrentElement => _currentElement;
@@ -86,6 +89,7 @@ public class Character : MonoBehaviour {
                 if (effect is OnAttackEffect attackEffect) _attackEffects.Add(attackEffect);
                 else if (effect is OnDamagedEffect damagedEffect) _damagedEffects.Add(damagedEffect);
                 else if (effect is OnDamageEffect damageEffect) _damageEffects.Add(damageEffect);
+                else if (effect is OnDodgeEffect dodgeEffect) _dodgeEffects.Add(dodgeEffect);
                 else _growthItemEffects.Add(effect);
             }
         }
@@ -268,6 +272,11 @@ public class Character : MonoBehaviour {
         OnHPChanged?.Invoke(_currentHP, MaxHP);
         OnDamaged?.Invoke(ctx);
         Debug.Log($"{name} HP: {_currentHP}/{MaxHP}");
+    }
+
+    public void TriggerDodge(DamageContext ctx) {
+        if (_isDead) return;
+        foreach (var effect in _dodgeEffects) effect.OnDodge(ctx);
     }
 
     public void TakePercentDamage(float percent) {

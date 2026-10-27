@@ -9,4 +9,5 @@ public abstract class Effect : ScriptableObject {
     public virtual void OnAttack(AttackContext ctx) {}
     public virtual void OnDamage(DamageContext ctx) {}
     public virtual void OnDamaged(DamageContext ctx) {}
+    public virtual void OnDodge(DamageContext ctx) {}
 }

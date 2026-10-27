@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 [CreateAssetMenu(menuName = "Data/Character/BaseStatus")]
 public class CharacterBaseStatus : ScriptableObject {
     [Serializable]

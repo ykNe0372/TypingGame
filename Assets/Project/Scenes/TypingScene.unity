@@ -4734,6 +4734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseStatus: {fileID: 11400000, guid: 974a0fe223b8c4e039e3afc00f2fb283, type: 2}
+  _evasionSettings: {fileID: 11400000, guid: c4cd00e911d33403c992b5b5bb26dc1c, type: 2}
   _relic: {fileID: 0}
   _skills:
   - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}

@@ -11,6 +11,7 @@ public enum StatusType {
     StatusInflictionRate,  // 状態異常付与に失敗した際の上昇率
     CritRate,
     CritDamage,
-    Speed,
+    Speed,          // 攻撃速度
+    EvasionRate,    // 回避率
     Luck
 }
