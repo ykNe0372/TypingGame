@@ -8,4 +8,5 @@ public abstract class Effect : ScriptableObject {
     // 中間層でこの処理を override して設計する
     public virtual void OnAttack(AttackContext ctx) {}
     public virtual void OnDamage(DamageContext ctx) {}
+    public virtual void OnDamaged(DamageContext ctx) {}
 }

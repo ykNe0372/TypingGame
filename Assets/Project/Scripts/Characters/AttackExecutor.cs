@@ -15,12 +15,11 @@ public static class AttackExecutor {
                 dmgCtx.FinalDamage = dmgCtx.BaseDamage * attack.PowerMultiplier;
             }
 
-            if (attack.CanCrit) CriticalCalculator.Apply(dmgCtx);
+            if (attack.CanCrit) CriticalCalculator.Apply(dmgCtx, attack);
             
             target.TakeDamage(dmgCtx);   // 被弾処理
-            if (ctx.StatusEffect != null) {
-                target.TryApplyStatus(ctx.Attacker, ctx.StatusEffect);  // 状態異常付与
-            }
+            foreach (var effect in ctx.Attacker.DamageEffects) effect.OnDamage(dmgCtx);  // 与ダメ時に発動する効果の処理
+            if (ctx.StatusEffect != null) target.TryApplyStatus(ctx.Attacker, ctx.StatusEffect);  // 状態異常付与           
         }
     }
 }

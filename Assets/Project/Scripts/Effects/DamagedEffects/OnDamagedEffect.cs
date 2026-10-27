@@ -1,5 +1,5 @@
 public abstract class OnDamagedEffect : Effect {
-    public sealed override void OnDamage(DamageContext ctx) {
+    public sealed override void OnDamaged(DamageContext ctx) {
         Apply(ctx);
     }
 

@@ -1,9 +1,10 @@
 using UnityEngine;
 
 public static class CriticalCalculator {
-    public static void Apply(DamageContext ctx) {
+    public static void Apply(DamageContext ctx, AttackInstance attack) {
         float critRate = ctx.Attacker.GetFinalStatus(StatusType.CritRate) / 100f;
-        if (Random.value > critRate) return;
+        float effectiveCritRate = Mathf.Min(100f, critRate * attack.CritRateMultiplier);
+        if (Random.value > effectiveCritRate) return;
         ctx.IsCritical = true;
 
         float critDamage = ctx.Attacker.GetFinalStatus(StatusType.CritDamage);

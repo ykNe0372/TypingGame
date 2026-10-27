@@ -3,6 +3,7 @@ public class DamageContext {
     public Character Target;
     public float BaseDamage;    // 計算前ダメージ
     public float FinalDamage;   // 計算後ダメージ
+    public int ActualDamage;    // 実際に与えたダメージ
     public bool IsCritical;
     public float CritMultiplier;
     public bool IsEnvironmentDamage;  // 環境ダメージか

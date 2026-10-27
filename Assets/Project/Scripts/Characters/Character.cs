@@ -14,11 +14,12 @@ public class Character : MonoBehaviour {
     private StatusManager _statusManager;
     private readonly ItemInventory _itemInventory = new();
     private readonly SubItemInventory _subInventory = new();
-    private readonly List<RelicEffect> _relicEffects = new();       // レリック効果
-    private readonly List<Effect> _growthItemEffects = new();       // 強化アイテムによるステータス上昇
-    private readonly List<BuffInstance> _tempBuffs = new();         // 一時的なバフデバフ
-    private readonly List<OnAttackEffect> _attackEffects = new();   // 攻撃時に発動する効果（ヒット時に〇〇する系）
-    private readonly List<OnDamagedEffect> _damagedEffects = new();  // 被弾時に発動する効果（被弾時に〇〇する系）
+    private readonly List<RelicEffect> _relicEffects = new();        // レリック効果
+    private readonly List<Effect> _growthItemEffects = new();        // 強化アイテムによるステータス上昇
+    private readonly List<BuffInstance> _tempBuffs = new();          // 一時的なバフデバフ
+    private readonly List<OnAttackEffect> _attackEffects = new();    // 攻撃命令を受けた際に発動する効果
+    private readonly List<OnDamageEffect> _damageEffects = new();    // ダメージを与えた際に発動する効果
+    private readonly List<OnDamagedEffect> _damagedEffects = new();  // ダメージを受けた際に発動する効果
     private float _currentHP;
     private float _currentMP;
     private bool _isDead;
@@ -34,6 +35,7 @@ public class Character : MonoBehaviour {
     public ItemInventory Inventory => _itemInventory;
     public SubItemInventory SubInventory => _subInventory;
     public IReadOnlyList<OnAttackEffect> AttackEffects => _attackEffects;
+    public IReadOnlyList<OnDamageEffect> DamageEffects => _damageEffects;
 
     public event Action<Character> OnDead;
     public event Action<float, float> OnHPChanged;
@@ -75,13 +77,15 @@ public class Character : MonoBehaviour {
         
         _growthItemEffects.Clear();
         _attackEffects.Clear();
+        _damageEffects.Clear();
         _damagedEffects.Clear();
         _relicEffects.Clear();
 
         foreach (var item in _itemInventory.Items) {
             foreach (var effect in item.GetEffects()) {
                 if (effect is OnAttackEffect attackEffect) _attackEffects.Add(attackEffect);
-                else if (effect is OnDamagedEffect damageEffect) _damagedEffects.Add(damageEffect);
+                else if (effect is OnDamagedEffect damagedEffect) _damagedEffects.Add(damagedEffect);
+                else if (effect is OnDamageEffect damageEffect) _damageEffects.Add(damageEffect);
                 else _growthItemEffects.Add(effect);
             }
         }
@@ -246,7 +250,7 @@ public class Character : MonoBehaviour {
     // ダメージ適応（仮）
     public void TakeDamage(DamageContext ctx) {
         if (!ctx.IsEnvironmentDamage) {   
-            foreach (var effect in _damagedEffects) effect.OnDamage(ctx);
+            foreach (var effect in _damagedEffects) effect.OnDamaged(ctx);
         }
 
         for (int i=_statusManager.Effects.Count-1; i>=0; --i) {  // 要素を削除しても大丈夫なように逆順にする 
@@ -255,7 +259,8 @@ public class Character : MonoBehaviour {
         }
 
         int damage = Mathf.FloorToInt(Mathf.Max(0f, ctx.FinalDamage));
-        _currentHP -= damage;
+        ctx.ActualDamage = Mathf.Min(damage, Mathf.FloorToInt(_currentHP));
+        _currentHP -= ctx.ActualDamage;
         _currentHP = Mathf.Max(0, _currentHP);
 
         if (_currentHP <= 0) Die();
