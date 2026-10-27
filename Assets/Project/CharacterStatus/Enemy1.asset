@@ -24,16 +24,18 @@ MonoBehaviour:
   - statusType: 4
     value: 5
   - statusType: 5
-    value: 5
+    value: 10
   - statusType: 6
-    value: 5
+    value: 0
   - statusType: 7
-    value: 1
+    value: 3
   - statusType: 8
-    value: 10
+    value: 5
   - statusType: 9
-    value: 10
+    value: 2
   - statusType: 10
-    value: 50
+    value: 5
   - statusType: 11
     value: 30
+  - statusType: 12
+    value: 5
