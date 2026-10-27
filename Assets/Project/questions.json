@@ -1,2564 +1,2740 @@
 {
-  "questions": [
-    {
-      "display": "秋",
-      "reading": "あき"
-    },
-    {
-      "display": "朝",
-      "reading": "あさ"
-    },
-    {
-      "display": "雨",
-      "reading": "あめ"
-    },
-    {
-      "display": "池",
-      "reading": "いけ"
-    },
-    {
-      "display": "井戸",
-      "reading": "いど"
-    },
-    {
-      "display": "イヌ",
-      "reading": "いぬ"
-    },
-    {
-      "display": "岩",
-      "reading": "いわ"
-    },
-    {
-      "display": "ウシ",
-      "reading": "うし"
-    },
-    {
-      "display": "ウニ",
-      "reading": "うに"
-    },
-    {
-      "display": "ウマ",
-      "reading": "うま"
-    },
-    {
-      "display": "ウリ",
-      "reading": "うり"
-    },
-    {
-      "display": "駅",
-      "reading": "えき"
-    },
-    {
-      "display": "絵馬",
-      "reading": "えま"
-    },
-    {
-      "display": "エビ",
-      "reading": "えび"
-    },
-    {
-      "display": "エラ",
-      "reading": "えら"
-    },
-    {
-      "display": "顔",
-      "reading": "かお"
-    },
-    {
-      "display": "画家",
-      "reading": "がか"
-    },
-    {
-      "display": "歌詞",
-      "reading": "かし"
-    },
-    {
-      "display": "カニ",
-      "reading": "かに"
-    },
-    {
-      "display": "キク",
-      "reading": "きく"
-    },
-    {
-      "display": "機微",
-      "reading": "きび"
-    },
-    {
-      "display": "釘",
-      "reading": "くぎ"
-    },
-    {
-      "display": "九九",
-      "reading": "くく"
-    },
-    {
-      "display": "グミ",
-      "reading": "ぐみ"
-    },
-    {
-      "display": "ケガ",
-      "reading": "けが"
-    },
-    {
-      "display": "剣",
-      "reading": "けん"
-    },
-    {
-      "display": "午後",
-      "reading": "ごご"
-    },
-    {
-      "display": "腰",
-      "reading": "こし"
-    },
-    {
-      "display": "粉",
-      "reading": "こな"
-    },
-    {
-      "display": "サメ",
-      "reading": "さめ"
-    },
-    {
-      "display": "ザル",
-      "reading": "ざる"
-    },
-    {
-      "display": "指示",
-      "reading": "しじ"
-    },
-    {
-      "display": "シダ",
-      "reading": "しだ"
-    },
-    {
-      "display": "芝",
-      "reading": "しば"
-    },
-    {
-      "display": "寿司",
-      "reading": "すし"
-    },
-    {
-      "display": "砂",
-      "reading": "すな"
-    },
-    {
-      "display": "セミ",
-      "reading": "せみ"
-    },
-    {
-      "display": "線",
-      "reading": "せん"
-    },
-    {
-      "display": "そば",
-      "reading": "そば"
-    },
-    {
-      "display": "空",
-      "reading": "そら"
-    },
-    {
-      "display": "タカ",
-      "reading": "たか"
-    },
-    {
-      "display": "出汁",
-      "reading": "だし"
-    },
-    {
-      "display": "タラ",
-      "reading": "たら"
-    },
-    {
-      "display": "地下",
-      "reading": "ちか"
-    },
-    {
-      "display": "地図",
-      "reading": "ちず"
-    },
-    {
-      "display": "月",
-      "reading": "つき"
-    },
-    {
-      "display": "筒",
-      "reading": "つつ"
-    },
-    {
-      "display": "爪",
-      "reading": "つめ"
-    },
-    {
-      "display": "釣り",
-      "reading": "つり"
-    },
-    {
-      "display": "てこ",
-      "reading": "てこ"
-    },
-    {
-      "display": "鉄",
-      "reading": "てつ"
-    },
-    {
-      "display": "毒",
-      "reading": "どく"
-    },
-    {
-      "display": "都市",
-      "reading": "とし"
-    },
-    {
-      "display": "トラ",
-      "reading": "とら"
-    },
-    {
-      "display": "ナス",
-      "reading": "なす"
-    },
-    {
-      "display": "夏",
-      "reading": "なつ"
-    },
-    {
-      "display": "波",
-      "reading": "なみ"
-    },
-    {
-      "display": "縄",
-      "reading": "なわ"
-    },
-    {
-      "display": "肉",
-      "reading": "にく"
-    },
-    {
-      "display": "西",
-      "reading": "にし"
-    },
-    {
-      "display": "虹",
-      "reading": "にじ"
-    },
-    {
-      "display": "ニラ",
-      "reading": "にら"
-    },
-    {
-      "display": "沼",
-      "reading": "ぬま"
-    },
-    {
-      "display": "ネギ",
-      "reading": "ねぎ"
-    },
-    {
-      "display": "ネコ",
-      "reading": "ねこ"
-    },
-    {
-      "display": "ネジ",
-      "reading": "ねじ"
-    },
-    {
-      "display": "野良",
-      "reading": "のら"
-    },
-    {
-      "display": "海苔",
-      "reading": "のり"
-    },
-    {
-      "display": "橋",
-      "reading": "はし"
-    },
-    {
-      "display": "バネ",
-      "reading": "ばね"
-    },
-    {
-      "display": "パパ",
-      "reading": "ぱぱ"
-    },
-    {
-      "display": "ハム",
-      "reading": "はむ"
-    },
-    {
-      "display": "バラ",
-      "reading": "ばら"
-    },
-    {
-      "display": "パリ",
-      "reading": "ぱり"
-    },
-    {
-      "display": "春",
-      "reading": "はる"
-    },
-    {
-      "display": "パン",
-      "reading": "ぱん"
-    },
-    {
-      "display": "ヒジ",
-      "reading": "ひじ"
-    },
-    {
-      "display": "ヒト",
-      "reading": "ひと"
-    },
-    {
-      "display": "琵琶",
-      "reading": "びわ"
-    },
-    {
-      "display": "フグ",
-      "reading": "ふぐ"
-    },
-    {
-      "display": "ブタ",
-      "reading": "ぶた"
-    },
-    {
-      "display": "船",
-      "reading": "ふね"
-    },
-    {
-      "display": "冬",
-      "reading": "ふゆ"
-    },
-    {
-      "display": "ベガ",
-      "reading": "べが"
-    },
-    {
-      "display": "ヘラ",
-      "reading": "へら"
-    },
-    {
-      "display": "ベル",
-      "reading": "べる"
-    },
-    {
-      "display": "ペン",
-      "reading": "ぺん"
-    },
-    {
-      "display": "棒",
-      "reading": "ぼう"
-    },
-    {
-      "display": "星",
-      "reading": "ほし"
-    },
-    {
-      "display": "本",
-      "reading": "ほん"
-    },
-    {
-      "display": "街",
-      "reading": "まち"
-    },
-    {
-      "display": "マツ",
-      "reading": "まつ"
-    },
-    {
-      "display": "丸",
-      "reading": "まる"
-    },
-    {
-      "display": "右",
-      "reading": "みぎ"
-    },
-    {
-      "display": "道",
-      "reading": "みち"
-    },
-    {
-      "display": "耳",
-      "reading": "みみ"
-    },
-    {
-      "display": "虫",
-      "reading": "むし"
-    },
-    {
-      "display": "無地",
-      "reading": "むじ"
-    },
-    {
-      "display": "村",
-      "reading": "むら"
-    },
-    {
-      "display": "メガ",
-      "reading": "めが"
-    },
-    {
-      "display": "メサ",
-      "reading": "めさ"
-    },
-    {
-      "display": "猛者",
-      "reading": "もさ"
-    },
-    {
-      "display": "餅",
-      "reading": "もち"
-    },
-    {
-      "display": "モモ",
-      "reading": "もも"
-    },
-    {
-      "display": "森",
-      "reading": "もり"
-    },
-    {
-      "display": "ヤギ",
-      "reading": "やぎ"
-    },
-    {
-      "display": "闇",
-      "reading": "やみ"
-    },
-    {
-      "display": "槍",
-      "reading": "やり"
-    },
-    {
-      "display": "床",
-      "reading": "ゆか"
-    },
-    {
-      "display": "湯気",
-      "reading": "ゆげ"
-    },
-    {
-      "display": "油脂",
-      "reading": "ゆし"
-    },
-    {
-      "display": "夢",
-      "reading": "ゆめ"
-    },
-    {
-      "display": "余暇",
-      "reading": "よか"
-    },
-    {
-      "display": "横",
-      "reading": "よこ"
-    },
-    {
-      "display": "夜",
-      "reading": "よる"
-    },
-    {
-      "display": "ラバ",
-      "reading": "らば"
-    },
-    {
-      "display": "ラボ",
-      "reading": "らぼ"
-    },
-    {
-      "display": "利子",
-      "reading": "りし"
-    },
-    {
-      "display": "リス",
-      "reading": "りす"
-    },
-    {
-      "display": "留守",
-      "reading": "るす"
-    },
-    {
-      "display": "瑠璃",
-      "reading": "るり"
-    },
-    {
-      "display": "ロゴ",
-      "reading": "ろご"
-    },
-    {
-      "display": "ロバ",
-      "reading": "ろば"
-    },
-    {
-      "display": "ワシ",
-      "reading": "わし"
-    },
-    {
-      "display": "悪魔",
-      "reading": "あくま"
-    },
-    {
-      "display": "明日",
-      "reading": "あした"
-    },
-    {
-      "display": "網戸",
-      "reading": "あみど"
-    },
-    {
-      "display": "あられ",
-      "reading": "あられ"
-    },
-    {
-      "display": "イカダ",
-      "reading": "いかだ"
-    },
-    {
-      "display": "命",
-      "reading": "いのち"
-    },
-    {
-      "display": "依頼",
-      "reading": "いらい"
-    },
-    {
-      "display": "うがい",
-      "reading": "うがい"
-    },
-    {
-      "display": "ウサギ",
-      "reading": "うさぎ"
-    },
-    {
-      "display": "映画",
-      "reading": "えいが"
-    },
-    {
-      "display": "英語",
-      "reading": "えいご"
-    },
-    {
-      "display": "絵文字",
-      "reading": "えもじ"
-    },
-    {
-      "display": "オクラ",
-      "reading": "おくら"
-    },
-    {
-      "display": "大人",
-      "reading": "おとな"
-    },
-    {
-      "display": "回路",
-      "reading": "かいろ"
-    },
-    {
-      "display": "楽譜",
-      "reading": "がくふ"
-    },
-    {
-      "display": "カッパ",
-      "reading": "かっぱ"
-    },
-    {
-      "display": "花瓶",
-      "reading": "かびん"
-    },
-    {
-      "display": "カラス",
-      "reading": "からす"
-    },
-    {
-      "display": "記憶",
-      "reading": "きおく"
-    },
-    {
-      "display": "機械",
-      "reading": "きかい"
-    },
-    {
-      "display": "気体",
-      "reading": "きたい"
-    },
-    {
-      "display": "ギター",
-      "reading": "ぎたー"
-    },
-    {
-      "display": "キツネ",
-      "reading": "きつね"
-    },
-    {
-      "display": "詭弁",
-      "reading": "きべん"
-    },
-    {
-      "display": "キリン",
-      "reading": "きりん"
-    },
-    {
-      "display": "クナイ",
-      "reading": "くない"
-    },
-    {
-      "display": "クラブ",
-      "reading": "くらぶ"
-    },
-    {
-      "display": "車",
-      "reading": "くるま"
-    },
-    {
-      "display": "煙",
-      "reading": "けむり"
-    },
-    {
-      "display": "家来",
-      "reading": "けらい"
-    },
-    {
-      "display": "言語",
-      "reading": "げんご"
-    },
-    {
-      "display": "固体",
-      "reading": "こたい"
-    },
-    {
-      "display": "コップ",
-      "reading": "こっぷ"
-    },
-    {
-      "display": "言葉",
-      "reading": "ことば"
-    },
-    {
-      "display": "古墳",
-      "reading": "こふん"
-    },
-    {
-      "display": "ゴルフ",
-      "reading": "ごるふ"
-    },
-    {
-      "display": "サイン",
-      "reading": "さいん"
-    },
-    {
-      "display": "桜",
-      "reading": "さくら"
-    },
-    {
-      "display": "酸素",
-      "reading": "さんそ"
-    },
-    {
-      "display": "時間",
-      "reading": "じかん"
-    },
-    {
-      "display": "自由",
-      "reading": "じゆう"
-    },
-    {
-      "display": "シール",
-      "reading": "しーる"
-    },
-    {
-      "display": "スイカ",
-      "reading": "すいか"
-    },
-    {
-      "display": "スパナ",
-      "reading": "すぱな"
-    },
-    {
-      "display": "スモモ",
-      "reading": "すもも"
-    },
-    {
-      "display": "星座",
-      "reading": "せいざ"
-    },
-    {
-      "display": "世界",
-      "reading": "せかい"
-    },
-    {
-      "display": "ゼリー",
-      "reading": "ぜりー"
-    },
-    {
-      "display": "セーブ",
-      "reading": "せーぶ"
-    },
-    {
-      "display": "操作",
-      "reading": "そうさ"
-    },
-    {
-      "display": "狙撃",
-      "reading": "そげき"
-    },
-    {
-      "display": "台座",
-      "reading": "だいざ"
-    },
-    {
-      "display": "タヌキ",
-      "reading": "たぬき"
-    },
-    {
-      "display": "タライ",
-      "reading": "たらい"
-    },
-    {
-      "display": "ダンス",
-      "reading": "だんす"
-    },
-    {
-      "display": "暖炉",
-      "reading": "だんろ"
-    },
-    {
-      "display": "チェロ",
-      "reading": "ちぇろ"
-    },
-    {
-      "display": "稚魚",
-      "reading": "ちぎょ"
-    },
-    {
-      "display": "窒素",
-      "reading": "ちっそ"
-    },
-    {
-      "display": "茅の輪",
-      "reading": "ちのわ"
-    },
-    {
-      "display": "茶屋",
-      "reading": "ちゃや"
-    },
-    {
-      "display": "机",
-      "reading": "つくえ"
-    },
-    {
-      "display": "ツバメ",
-      "reading": "つばめ"
-    },
-    {
-      "display": "つらら",
-      "reading": "つらら"
-    },
-    {
-      "display": "手紙",
-      "reading": "てがみ"
-    },
-    {
-      "display": "天使",
-      "reading": "てんし"
-    },
-    {
-      "display": "電波",
-      "reading": "でんぱ"
-    },
-    {
-      "display": "動画",
-      "reading": "どうが"
-    },
-    {
-      "display": "扉",
-      "reading": "とびら"
-    },
-    {
-      "display": "トマト",
-      "reading": "とまと"
-    },
-    {
-      "display": "ネズミ",
-      "reading": "ねずみ"
-    },
-    {
-      "display": "粘土",
-      "reading": "ねんど"
-    },
-    {
-      "display": "ノイズ",
-      "reading": "のいず"
-    },
-    {
-      "display": "ノート",
-      "reading": "のーと"
-    },
-    {
-      "display": "俳句",
-      "reading": "はいく"
-    },
-    {
-      "display": "はかり",
-      "reading": "はかり"
-    },
-    {
-      "display": "パズル",
-      "reading": "ぱずる"
-    },
-    {
-      "display": "バッグ",
-      "reading": "ばっぐ"
-    },
-    {
-      "display": "パンダ",
-      "reading": "ぱんだ"
-    },
-    {
-      "display": "ピアノ",
-      "reading": "ぴあの"
-    },
-    {
-      "display": "ヒツジ",
-      "reading": "ひつじ"
-    },
-    {
-      "display": "ヒョウ",
-      "reading": "ひょう"
-    },
-    {
-      "display": "夫婦",
-      "reading": "ふうふ"
-    },
-    {
-      "display": "布団",
-      "reading": "ふとん"
-    },
-    {
-      "display": "プール",
-      "reading": "ぷーる"
-    },
-    {
-      "display": "ベッド",
-      "reading": "べっど"
-    },
-    {
-      "display": "ベース",
-      "reading": "べーす"
-    },
-    {
-      "display": "ホタテ",
-      "reading": "ほたて"
-    },
-    {
-      "display": "ボタン",
-      "reading": "ぼたん"
-    },
-    {
-      "display": "ホラー",
-      "reading": "ほらー"
-    },
-    {
-      "display": "ボール",
-      "reading": "ぼーる"
-    },
-    {
-      "display": "枕",
-      "reading": "まくら"
-    },
-    {
-      "display": "マット",
-      "reading": "まっと"
-    },
-    {
-      "display": "祭り",
-      "reading": "まつり"
-    },
-    {
-      "display": "魔法",
-      "reading": "まほう"
-    },
-    {
-      "display": "ミカン",
-      "reading": "みかん"
-    },
-    {
-      "display": "未来",
-      "reading": "みらい"
-    },
-    {
-      "display": "ミント",
-      "reading": "みんと"
-    },
-    {
-      "display": "ムカデ",
-      "reading": "むかで"
-    },
-    {
-      "display": "無限",
-      "reading": "むげん"
-    },
-    {
-      "display": "眼鏡",
-      "reading": "めがね"
-    },
-    {
-      "display": "メッキ",
-      "reading": "めっき"
-    },
-    {
-      "display": "メロン",
-      "reading": "めろん"
-    },
-    {
-      "display": "メール",
-      "reading": "めーる"
-    },
-    {
-      "display": "モアイ",
-      "reading": "もあい"
-    },
-    {
-      "display": "モグラ",
-      "reading": "もぐら"
-    },
-    {
-      "display": "モラル",
-      "reading": "もらる"
-    },
-    {
-      "display": "ヤカン",
-      "reading": "やかん"
-    },
-    {
-      "display": "野菜",
-      "reading": "やさい"
-    },
-    {
-      "display": "屋台",
-      "reading": "やたい"
-    },
-    {
-      "display": "ヤモリ",
-      "reading": "やもり"
-    },
-    {
-      "display": "浴衣",
-      "reading": "ゆかた"
-    },
-    {
-      "display": "用途",
-      "reading": "ようと"
-    },
-    {
-      "display": "夜空",
-      "reading": "よぞら"
-    },
-    {
-      "display": "ライト",
-      "reading": "らいと"
-    },
-    {
-      "display": "ラッパ",
-      "reading": "らっぱ"
-    },
-    {
-      "display": "ランプ",
-      "reading": "らんぷ"
-    },
-    {
-      "display": "理解",
-      "reading": "りかい"
-    },
-    {
-      "display": "リンゴ",
-      "reading": "りんご"
-    },
-    {
-      "display": "リード",
-      "reading": "りーど"
-    },
-    {
-      "display": "ルール",
-      "reading": "るーる"
-    },
-    {
-      "display": "レジン",
-      "reading": "れじん"
-    },
-    {
-      "display": "練度",
-      "reading": "れんど"
-    },
-    {
-      "display": "レース",
-      "reading": "れーす"
-    },
-    {
-      "display": "ロック",
-      "reading": "ろっく"
-    },
-    {
-      "display": "ロープ",
-      "reading": "ろーぷ"
-    },
-    {
-      "display": "ワイプ",
-      "reading": "わいぷ"
-    },
-    {
-      "display": "輪切り",
-      "reading": "わぎり"
-    },
-    {
-      "display": "わらび",
-      "reading": "わらび"
-    },
-    {
-      "display": "アイコン",
-      "reading": "あいこん"
-    },
-    {
-      "display": "アザラシ",
-      "reading": "あざらし"
-    },
-    {
-      "display": "軋轢",
-      "reading": "あつれき"
-    },
-    {
-      "display": "アルパカ",
-      "reading": "あるぱか"
-    },
-    {
-      "display": "イノシシ",
-      "reading": "いのしし"
-    },
-    {
-      "display": "イヤホン",
-      "reading": "いやほん"
-    },
-    {
-      "display": "医療",
-      "reading": "いりょう"
-    },
-    {
-      "display": "梅干し",
-      "reading": "うめぼし"
-    },
-    {
-      "display": "運動",
-      "reading": "うんどう"
-    },
-    {
-      "display": "エアコン",
-      "reading": "えあこん"
-    },
-    {
-      "display": "遠足",
-      "reading": "えんそく"
-    },
-    {
-      "display": "エンジン",
-      "reading": "えんじん"
-    },
-    {
-      "display": "王冠",
-      "reading": "おうかん"
-    },
-    {
-      "display": "オオカミ",
-      "reading": "おおかみ"
-    },
-    {
-      "display": "お花見",
-      "reading": "おはなみ"
-    },
-    {
-      "display": "海岸",
-      "reading": "かいがん"
-    },
-    {
-      "display": "街灯",
-      "reading": "がいとう"
-    },
-    {
-      "display": "額縁",
-      "reading": "がくぶち"
-    },
-    {
-      "display": "加速度",
-      "reading": "かそくど"
-    },
-    {
-      "display": "学校",
-      "reading": "がっこう"
-    },
-    {
-      "display": "搦め手",
-      "reading": "からめて"
-    },
-    {
-      "display": "贋作",
-      "reading": "がんさく"
-    },
-    {
-      "display": "カーテン",
-      "reading": "かーてん"
-    },
-    {
-      "display": "気球",
-      "reading": "ききゅう"
-    },
-    {
-      "display": "キッチン",
-      "reading": "きっちん"
-    },
-    {
-      "display": "霧雨",
-      "reading": "きりさめ"
-    },
-    {
-      "display": "偶然",
-      "reading": "ぐうぜん"
-    },
-    {
-      "display": "クエスト",
-      "reading": "くえすと"
-    },
-    {
-      "display": "黒猫",
-      "reading": "くろねこ"
-    },
-    {
-      "display": "グローブ",
-      "reading": "ぐろーぶ"
-    },
-    {
-      "display": "消しゴム",
-      "reading": "けしごむ"
-    },
-    {
-      "display": "呼吸",
-      "reading": "こきゅう"
-    },
-    {
-      "display": "黒板",
-      "reading": "こくばん"
-    },
-    {
-      "display": "木漏れ日",
-      "reading": "こもれび"
-    },
-    {
-      "display": "採血",
-      "reading": "さいけつ"
-    },
-    {
-      "display": "賽の目",
-      "reading": "さいのめ"
-    },
-    {
-      "display": "裁判",
-      "reading": "さいばん"
-    },
-    {
-      "display": "さざ波",
-      "reading": "さざなみ"
-    },
-    {
-      "display": "残像",
-      "reading": "ざんぞう"
-    },
-    {
-      "display": "実験",
-      "reading": "じっけん"
-    },
-    {
-      "display": "シャベル",
-      "reading": "しゃべる"
-    },
-    {
-      "display": "推測",
-      "reading": "すいそく"
-    },
-    {
-      "display": "水筒",
-      "reading": "すいとう"
-    },
-    {
-      "display": "スコップ",
-      "reading": "すこっぷ"
-    },
-    {
-      "display": "スチール",
-      "reading": "すちーる"
-    },
-    {
-      "display": "整備士",
-      "reading": "せいびし"
-    },
-    {
-      "display": "精錬",
-      "reading": "せいれん"
-    },
-    {
-      "display": "石炭",
-      "reading": "せきたん"
-    },
-    {
-      "display": "セーター",
-      "reading": "せーたー"
-    },
-    {
-      "display": "掃除機",
-      "reading": "そうじき"
-    },
-    {
-      "display": "タイマー",
-      "reading": "たいまー"
-    },
-    {
-      "display": "太陽",
-      "reading": "たいよう"
-    },
-    {
-      "display": "七夕",
-      "reading": "たなばた"
-    },
-    {
-      "display": "魂",
-      "reading": "たましい"
-    },
-    {
-      "display": "千切り絵",
-      "reading": "ちぎりえ"
-    },
-    {
-      "display": "秩序",
-      "reading": "ちつじょ"
-    },
-    {
-      "display": "追随",
-      "reading": "ついずい"
-    },
-    {
-      "display": "束の間",
-      "reading": "つかのま"
-    },
-    {
-      "display": "筒抜け",
-      "reading": "つつぬけ"
-    },
-    {
-      "display": "丁字路",
-      "reading": "ていじろ"
-    },
-    {
-      "display": "手錠",
-      "reading": "てじょう"
-    },
-    {
-      "display": "哲学",
-      "reading": "てつがく"
-    },
-    {
-      "display": "電車",
-      "reading": "でんしゃ"
-    },
-    {
-      "display": "トランプ",
-      "reading": "とらんぷ"
-    },
-    {
-      "display": "ドーナツ",
-      "reading": "どーなつ"
-    },
-    {
-      "display": "内緒",
-      "reading": "ないしょ"
-    },
-    {
-      "display": "南国",
-      "reading": "なんごく"
-    },
-    {
-      "display": "荷車",
-      "reading": "にぐるま"
-    },
-    {
-      "display": "日光",
-      "reading": "にっこう"
-    },
-    {
-      "display": "忍耐",
-      "reading": "にんたい"
-    },
-    {
-      "display": "寝返り",
-      "reading": "ねがえり"
-    },
-    {
-      "display": "猫舌",
-      "reading": "ねこじた"
-    },
-    {
-      "display": "年齢",
-      "reading": "ねんれい"
-    },
-    {
-      "display": "農作",
-      "reading": "のうさく"
-    },
-    {
-      "display": "残り香",
-      "reading": "のこりが"
-    },
-    {
-      "display": "野良猫",
-      "reading": "のらねこ"
-    },
-    {
-      "display": "配線",
-      "reading": "はいせん"
-    },
-    {
-      "display": "排熱",
-      "reading": "はいねつ"
-    },
-    {
-      "display": "歯車",
-      "reading": "はぐるま"
-    },
-    {
-      "display": "花束",
-      "reading": "はなたば"
-    },
-    {
-      "display": "便箋",
-      "reading": "びんせん"
-    },
-    {
-      "display": "ヒーター",
-      "reading": "ひーたー"
-    },
-    {
-      "display": "フィルム",
-      "reading": "ふぃるむ"
-    },
-    {
-      "display": "踏切",
-      "reading": "ふみきり"
-    },
-    {
-      "display": "フルート",
-      "reading": "ふるーと"
-    },
-    {
-      "display": "雰囲気",
-      "reading": "ふんいき"
-    },
-    {
-      "display": "ベクトル",
-      "reading": "べくとる"
-    },
-    {
-      "display": "ペンギン",
-      "reading": "ぺんぎん"
-    },
-    {
-      "display": "放課後",
-      "reading": "ほうかご"
-    },
-    {
-      "display": "冒険",
-      "reading": "ぼうけん"
-    },
-    {
-      "display": "暴走",
-      "reading": "ぼうそう"
-    },
-    {
-      "display": "法螺貝",
-      "reading": "ほらがい"
-    },
-    {
-      "display": "マカロン",
-      "reading": "まかろん"
-    },
-    {
-      "display": "抹茶",
-      "reading": "まっちゃ"
-    },
-    {
-      "display": "まな板",
-      "reading": "まないた"
-    },
-    {
-      "display": "マフラー",
-      "reading": "まふらー"
-    },
-    {
-      "display": "マラカス",
-      "reading": "まらかす"
-    },
-    {
-      "display": "魔力",
-      "reading": "まりょく"
-    },
-    {
-      "display": "三日月",
-      "reading": "みかづき"
-    },
-    {
-      "display": "魅力",
-      "reading": "みりょく"
-    },
-    {
-      "display": "無機物",
-      "reading": "むきぶつ"
-    },
-    {
-      "display": "虫食い",
-      "reading": "むしくい"
-    },
-    {
-      "display": "名所",
-      "reading": "めいしょ"
-    },
-    {
-      "display": "メガホン",
-      "reading": "めがほん"
-    },
-    {
-      "display": "メレンゲ",
-      "reading": "めれんげ"
-    },
-    {
-      "display": "メーター",
-      "reading": "めーたー"
-    },
-    {
-      "display": "モノクル",
-      "reading": "ものくる"
-    },
-    {
-      "display": "モモンガ",
-      "reading": "ももんが"
-    },
-    {
-      "display": "モーター",
-      "reading": "もーたー"
-    },
-    {
-      "display": "ヤシの木",
-      "reading": "やしのき"
-    },
-    {
-      "display": "夕焼け",
-      "reading": "ゆうやけ"
-    },
-    {
-      "display": "幽霊",
-      "reading": "ゆうれい"
-    },
-    {
-      "display": "宵闇",
-      "reading": "よいやみ"
-    },
-    {
-      "display": "溶接",
-      "reading": "ようせつ"
-    },
-    {
-      "display": "ヨーヨー",
-      "reading": "よーよー"
-    },
-    {
-      "display": "ライオン",
-      "reading": "らいおん"
-    },
-    {
-      "display": "ランタン",
-      "reading": "らんたん"
-    },
-    {
-      "display": "理科室",
-      "reading": "りかしつ"
-    },
-    {
-      "display": "リソース",
-      "reading": "りそーす"
-    },
-    {
-      "display": "漁師",
-      "reading": "りょうし"
-    },
-    {
-      "display": "留守番",
-      "reading": "るすばん"
-    },
-    {
-      "display": "冷凍",
-      "reading": "れいとう"
-    },
-    {
-      "display": "列車",
-      "reading": "れっしゃ"
-    },
-    {
-      "display": "レンコン",
-      "reading": "れんこん"
-    },
-    {
-      "display": "ロウソク",
-      "reading": "ろうそく"
-    },
-    {
-      "display": "ロボット",
-      "reading": "ろぼっと"
-    },
-    {
-      "display": "脇道",
-      "reading": "わきみち"
-    },
-    {
-      "display": "惑星",
-      "reading": "わくせい"
-    },
-    {
-      "display": "愛嬌",
-      "reading": "あいきょう"
-    },
-    {
-      "display": "アプローチ",
-      "reading": "あぷろーち"
-    },
-    {
-      "display": "アーモンド",
-      "reading": "あーもんど"
-    },
-    {
-      "display": "印象",
-      "reading": "いんしょう"
-    },
-    {
-      "display": "植木鉢",
-      "reading": "うえきばち"
-    },
-    {
-      "display": "腕時計",
-      "reading": "うでどけい"
-    },
-    {
-      "display": "枝分かれ",
-      "reading": "えだわかれ"
-    },
-    {
-      "display": "エメラルド",
-      "reading": "えめらるど"
-    },
-    {
-      "display": "演算子",
-      "reading": "えんざんし"
-    },
-    {
-      "display": "オルゴール",
-      "reading": "おるごーる"
-    },
-    {
-      "display": "温度計",
-      "reading": "おんどけい"
-    },
-    {
-      "display": "影法師",
-      "reading": "かげぼうし"
-    },
-    {
-      "display": "カスタード",
-      "reading": "かすたーど"
-    },
-    {
-      "display": "カプチーノ",
-      "reading": "かぷちーの"
-    },
-    {
-      "display": "紙袋",
-      "reading": "かみぶくろ"
-    },
-    {
-      "display": "乾電池",
-      "reading": "かんでんち"
-    },
-    {
-      "display": "管理人",
-      "reading": "かんりにん"
-    },
-    {
-      "display": "喫茶店",
-      "reading": "きっさてん"
-    },
-    {
-      "display": "弓道",
-      "reading": "きゅうどう"
-    },
-    {
-      "display": "行列",
-      "reading": "ぎょうれつ"
-    },
-    {
-      "display": "屈強",
-      "reading": "くっきょう"
-    },
-    {
-      "display": "群衆",
-      "reading": "ぐんしゅう"
-    },
-    {
-      "display": "計算機",
-      "reading": "けいさんき"
-    },
-    {
-      "display": "劇場",
-      "reading": "げきじょう"
-    },
-    {
-      "display": "桁外れ",
-      "reading": "けたはずれ"
-    },
-    {
-      "display": "工業",
-      "reading": "こうぎょう"
-    },
-    {
-      "display": "強情",
-      "reading": "ごうじょう"
-    },
-    {
-      "display": "国境",
-      "reading": "こっきょう"
-    },
-    {
-      "display": "桜餅",
-      "reading": "さくらもち"
-    },
-    {
-      "display": "サルベージ",
-      "reading": "さるべーじ"
-    },
-    {
-      "display": "湿度計",
-      "reading": "しつどけい"
-    },
-    {
-      "display": "収束",
-      "reading": "しゅうそく"
-    },
-    {
-      "display": "授業",
-      "reading": "じゅぎょう"
-    },
-    {
-      "display": "勝算",
-      "reading": "しょうさん"
-    },
-    {
-      "display": "商人",
-      "reading": "しょうにん"
-    },
-    {
-      "display": "水晶",
-      "reading": "すいしょう"
-    },
-    {
-      "display": "ストライプ",
-      "reading": "すとらいぷ"
-    },
-    {
-      "display": "スナイパー",
-      "reading": "すないぱー"
-    },
-    {
-      "display": "スピーカー",
-      "reading": "すぴーかー"
-    },
-    {
-      "display": "世界樹",
-      "reading": "せかいじゅ"
-    },
-    {
-      "display": "測量",
-      "reading": "そくりょう"
-    },
-    {
-      "display": "ソーセージ",
-      "reading": "そーせーじ"
-    },
-    {
-      "display": "宝箱",
-      "reading": "たからばこ"
-    },
-    {
-      "display": "多数決",
-      "reading": "たすうけつ"
-    },
-    {
-      "display": "タンバリン",
-      "reading": "たんばりん"
-    },
-    {
-      "display": "地平線",
-      "reading": "ちへいせん"
-    },
-    {
-      "display": "チャンバラ",
-      "reading": "ちゃんばら"
-    },
-    {
-      "display": "チョーカー",
-      "reading": "ちょーかー"
-    },
-    {
-      "display": "包み紙",
-      "reading": "つつみがみ"
-    },
-    {
-      "display": "つまみ食い",
-      "reading": "つまみぐい"
-    },
-    {
-      "display": "つむじ風",
-      "reading": "つむじかぜ"
-    },
-    {
-      "display": "ティラミス",
-      "reading": "てぃらみす"
-    },
-    {
-      "display": "鉄格子",
-      "reading": "てつごうし"
-    },
-    {
-      "display": "電話線",
-      "reading": "でんわせん"
-    },
-    {
-      "display": "唐辛子",
-      "reading": "とうがらし"
-    },
-    {
-      "display": "鬨の声",
-      "reading": "ときのこえ"
-    },
-    {
-      "display": "ドライヤー",
-      "reading": "どらいやー"
-    },
-    {
-      "display": "仲直り",
-      "reading": "なかなおり"
-    },
-    {
-      "display": "流れ星",
-      "reading": "ながれぼし"
-    },
-    {
-      "display": "夏休み",
-      "reading": "なつやすみ"
-    },
-    {
-      "display": "仁王立ち",
-      "reading": "におうだち"
-    },
-    {
-      "display": "二枚舌",
-      "reading": "にまいじた"
-    },
-    {
-      "display": "ぬいぐるみ",
-      "reading": "ぬいぐるみ"
-    },
-    {
-      "display": "ネックレス",
-      "reading": "ねっくれす"
-    },
-    {
-      "display": "熱帯夜",
-      "reading": "ねったいや"
-    },
-    {
-      "display": "農業",
-      "reading": "のうぎょう"
-    },
-    {
-      "display": "覗き窓",
-      "reading": "のぞきまど"
-    },
-    {
-      "display": "バッテリー",
-      "reading": "ばってりー"
-    },
-    {
-      "display": "花曇り",
-      "reading": "はなぐもり"
-    },
-    {
-      "display": "パンケーキ",
-      "reading": "ぱんけーき"
-    },
-    {
-      "display": "バージョン",
-      "reading": "ばーじょん"
-    },
-    {
-      "display": "ピクニック",
-      "reading": "ぴくにっく"
-    },
-    {
-      "display": "飛行船",
-      "reading": "ひこうせん"
-    },
-    {
-      "display": "秘密基地",
-      "reading": "ひみつきち"
-    },
-    {
-      "display": "昼休み",
-      "reading": "ひるやすみ"
-    },
-    {
-      "display": "二日酔い",
-      "reading": "ふつかよい"
-    },
-    {
-      "display": "フライパン",
-      "reading": "ふらいぱん"
-    },
-    {
-      "display": "フラフープ",
-      "reading": "ふらふーぷ"
-    },
-    {
-      "display": "プロローグ",
-      "reading": "ぷろろーぐ"
-    },
-    {
-      "display": "閉回路",
-      "reading": "へいかいろ"
-    },
-    {
-      "display": "ヘルメット",
-      "reading": "へるめっと"
-    },
-    {
-      "display": "箒星",
-      "reading": "ほうきぼし"
-    },
-    {
-      "display": "棒グラフ",
-      "reading": "ぼうぐらふ"
-    },
-    {
-      "display": "暴風雨",
-      "reading": "ぼうふうう"
-    },
-    {
-      "display": "牧場",
-      "reading": "ぼくじょう"
-    },
-    {
-      "display": "保護色",
-      "reading": "ほごしょく"
-    },
-    {
-      "display": "ポタージュ",
-      "reading": "ぽたーじゅ"
-    },
-    {
-      "display": "本拠地",
-      "reading": "ほんきょち"
-    },
-    {
-      "display": "マシンガン",
-      "reading": "ましんがん"
-    },
-    {
-      "display": "マニュアル",
-      "reading": "まにゅある"
-    },
-    {
-      "display": "魔法陣",
-      "reading": "まほうじん"
-    },
-    {
-      "display": "メヌエット",
-      "reading": "めぬえっと"
-    },
-    {
-      "display": "モノローグ",
-      "reading": "ものろーぐ"
-    },
-    {
-      "display": "羅針盤",
-      "reading": "らしんばん"
-    },
-    {
-      "display": "朝飯前",
-      "reading": "あさめしまえ"
-    },
-    {
-      "display": "アンチテーゼ",
-      "reading": "あんちてーぜ"
-    },
-    {
-      "display": "一等星",
-      "reading": "いっとうせい"
-    },
-    {
-      "display": "インターバル",
-      "reading": "いんたーばる"
-    },
-    {
-      "display": "右往左往",
-      "reading": "うおうさおう"
-    },
-    {
-      "display": "有象無象",
-      "reading": "うぞうむぞう"
-    },
-    {
-      "display": "有頂天",
-      "reading": "うちょうてん"
-    },
-    {
-      "display": "衛星都市",
-      "reading": "えいせいとし"
-    },
-    {
-      "display": "遠近法",
-      "reading": "えんきんほう"
-    },
-    {
-      "display": "黄金律",
-      "reading": "おうごんりつ"
-    },
-    {
-      "display": "温故知新",
-      "reading": "おんこちしん"
-    },
-    {
-      "display": "オーケストラ",
-      "reading": "おーけすとら"
-    },
-    {
-      "display": "海王星",
-      "reading": "かいおうせい"
-    },
-    {
-      "display": "海岸線",
-      "reading": "かいがんせん"
-    },
-    {
-      "display": "花粉症",
-      "reading": "かふんしょう"
-    },
-    {
-      "display": "カレーライス",
-      "reading": "かれーらいす"
-    },
-    {
-      "display": "ガスバーナー",
-      "reading": "がすばーなー"
-    },
-    {
-      "display": "紙飛行機",
-      "reading": "かみひこうき"
-    },
-    {
-      "display": "漢方薬",
-      "reading": "かんぽうやく"
-    },
-    {
-      "display": "几帳面",
-      "reading": "きちょうめん"
-    },
-    {
-      "display": "喜怒哀楽",
-      "reading": "きどあいらく"
-    },
-    {
-      "display": "キャスケット",
-      "reading": "きゃすけっと"
-    },
-    {
-      "display": "吸血鬼",
-      "reading": "きゅうけつき"
-    },
-    {
-      "display": "牛乳",
-      "reading": "ぎゅうにゅう"
-    },
-    {
-      "display": "区画整備",
-      "reading": "くかくせいび"
-    },
-    {
-      "display": "口約束",
-      "reading": "くちやくそく"
-    },
-    {
-      "display": "クラリネット",
-      "reading": "くらりねっと"
-    },
-    {
-      "display": "クロワッサン",
-      "reading": "くろわっさん"
-    },
-    {
-      "display": "軽金属",
-      "reading": "けいきんぞく"
-    },
-    {
-      "display": "経験則",
-      "reading": "けいけんそく"
-    },
-    {
-      "display": "経口薬",
-      "reading": "けいこうやく"
-    },
-    {
-      "display": "下剋上",
-      "reading": "げこくじょう"
-    },
-    {
-      "display": "化粧台",
-      "reading": "けしょうだい"
-    },
-    {
-      "display": "見聞録",
-      "reading": "けんぶんろく"
-    },
-    {
-      "display": "好敵手",
-      "reading": "こうてきしゅ"
-    },
-    {
-      "display": "広葉樹",
-      "reading": "こうようじゅ"
-    },
-    {
-      "display": "黒曜石",
-      "reading": "こくようせき"
-    },
-    {
-      "display": "五臓六腑",
-      "reading": "ごぞうろっぷ"
-    },
-    {
-      "display": "コレクション",
-      "reading": "これくしょん"
-    },
-    {
-      "display": "コンデンサー",
-      "reading": "こんでんさー"
-    },
-    {
-      "display": "作業服",
-      "reading": "さぎょうふく"
-    },
-    {
-      "display": "桜並木",
-      "reading": "さくらなみき"
-    },
-    {
-      "display": "サスペンダー",
-      "reading": "さすぺんだー"
-    },
-    {
-      "display": "座右の銘",
-      "reading": "ざゆうのめい"
-    },
-    {
-      "display": "三三五五",
-      "reading": "さんさんごご"
-    },
-    {
-      "display": "持久走",
-      "reading": "じきゅうそう"
-    },
-    {
-      "display": "シャンデリア",
-      "reading": "しゃんでりあ"
-    },
-    {
-      "display": "周波数",
-      "reading": "しゅうはすう"
-    },
-    {
-      "display": "潤滑油",
-      "reading": "じゅんかつゆ"
-    },
-    {
-      "display": "処方箋",
-      "reading": "しょほうせん"
-    },
-    {
-      "display": "針葉樹",
-      "reading": "しんようじゅ"
-    },
-    {
-      "display": "水蒸気",
-      "reading": "すいじょうき"
-    },
-    {
-      "display": "スケジュール",
-      "reading": "すけじゅーる"
-    },
-    {
-      "display": "筋金入り",
-      "reading": "すじがねいり"
-    },
-    {
-      "display": "積乱雲",
-      "reading": "せきらんうん"
-    },
-    {
-      "display": "説明書",
-      "reading": "せつめいしょ"
-    },
-    {
-      "display": "雑木林",
-      "reading": "ぞうきばやし"
-    },
-    {
-      "display": "育ち盛り",
-      "reading": "そだちざかり"
-    },
-    {
-      "display": "第六感",
-      "reading": "だいろっかん"
-    },
-    {
-      "display": "誕生日",
-      "reading": "たんじょうび"
-    },
-    {
-      "display": "チェック柄",
-      "reading": "ちぇっくがら"
-    },
-    {
-      "display": "力仕事",
-      "reading": "ちからしごと"
-    },
-    {
-      "display": "超音波",
-      "reading": "ちょうおんぱ"
-    },
-    {
-      "display": "蝶番",
-      "reading": "ちょうつがい"
-    },
-    {
-      "display": "チーズケーキ",
-      "reading": "ちーずけーき"
-    },
-    {
-      "display": "通信網",
-      "reading": "つうしんもう"
-    },
-    {
-      "display": "鍔迫り合い",
-      "reading": "つばぜりあい"
-    },
-    {
-      "display": "ティータイム",
-      "reading": "てぃーたいむ"
-    },
-    {
-      "display": "鉄工所",
-      "reading": "てっこうじょ"
-    },
-    {
-      "display": "天衣無縫",
-      "reading": "てんいむほう"
-    },
-    {
-      "display": "都市伝説",
-      "reading": "としでんせつ"
-    },
-    {
-      "display": "ドレスアップ",
-      "reading": "どれすあっぷ"
-    },
-    {
-      "display": "生クリーム",
-      "reading": "なまくりーむ"
-    },
-    {
-      "display": "二世を契る",
-      "reading": "にせをちぎる"
-    },
-    {
-      "display": "二番煎じ",
-      "reading": "にばんせんじ"
-    },
-    {
-      "display": "猫に小判",
-      "reading": "ねこにこばん"
-    },
-    {
-      "display": "熱力学",
-      "reading": "ねつりきがく"
-    },
-    {
-      "display": "寝耳に水",
-      "reading": "ねみみにみず"
-    },
-    {
-      "display": "ノコギリザメ",
-      "reading": "のこぎりざめ"
-    },
-    {
-      "display": "ノスタルジア",
-      "reading": "のすたるじあ"
-    },
-    {
-      "display": "ノックバック",
-      "reading": "のっくばっく"
-    },
-    {
-      "display": "排気量",
-      "reading": "はいきりょう"
-    },
-    {
-      "display": "配電盤",
-      "reading": "はいでんばん"
-    },
-    {
-      "display": "ハイビスカス",
-      "reading": "はいびすかす"
-    },
-    {
-      "display": "白昼夢",
-      "reading": "はくちゅうむ"
-    },
-    {
-      "display": "バックパック",
-      "reading": "ばっくぱっく"
-    },
-    {
-      "display": "絆創膏",
-      "reading": "ばんそうこう"
-    },
-    {
-      "display": "美術館",
-      "reading": "びじゅつかん"
-    },
-    {
-      "display": "必需品",
-      "reading": "ひつじゅひん"
-    },
-    {
-      "display": "秤量",
-      "reading": "ひょうりょう"
-    },
-    {
-      "display": "風速計",
-      "reading": "ふうそくけい"
-    },
-    {
-      "display": "ブランケット",
-      "reading": "ぶらんけっと"
-    },
-    {
-      "display": "フロンティア",
-      "reading": "ふろんてぃあ"
-    },
-    {
-      "display": "平均台",
-      "reading": "へいきんだい"
-    },
-    {
-      "display": "ペディキュア",
-      "reading": "ぺでぃきゅあ"
-    },
-    {
-      "display": "変光星",
-      "reading": "へんこうせい"
-    },
-    {
-      "display": "弁当箱",
-      "reading": "べんとうばこ"
-    },
-    {
-      "display": "貿易風",
-      "reading": "ぼうえきふう"
-    },
-    {
-      "display": "放射熱",
-      "reading": "ほうしゃねつ"
-    },
-    {
-      "display": "穂に穂が咲く",
-      "reading": "ほにほがさく"
-    },
-    {
-      "display": "ポニーテール",
-      "reading": "ぽにーてーる"
-    },
-    {
-      "display": "マリオネット",
-      "reading": "まりおねっと"
-    },
-    {
-      "display": "冥王星",
-      "reading": "めいおうせい"
-    },
-    {
-      "display": "モニタリング",
-      "reading": "もにたりんぐ"
-    },
-    {
-      "display": "ラピスラズリ",
-      "reading": "らぴすらずり"
-    },
-    {
-      "display": "六芒星",
-      "reading": "ろくぼうせい"
-    },
-    {
-      "display": "アンビバレンス",
-      "reading": "あんびばれんす"
-    },
-    {
-      "display": "オーバーヒート",
-      "reading": "おーばーひーと"
-    },
-    {
-      "display": "緩衝材",
-      "reading": "かんしょうざい"
-    },
-    {
-      "display": "北半球",
-      "reading": "きたはんきゅう"
-    },
-    {
-      "display": "重金属",
-      "reading": "じゅうきんぞく"
-    },
-    {
-      "display": "手榴弾",
-      "reading": "しゅりゅうだん"
-    },
-    {
-      "display": "消毒液",
-      "reading": "しょうどくえき"
-    },
-    {
-      "display": "線香花火",
-      "reading": "せんこうはなび"
-    },
-    {
-      "display": "占星術",
-      "reading": "せんせいじゅつ"
-    },
-    {
-      "display": "双眼鏡",
-      "reading": "そうがんきょう"
-    },
-    {
-      "display": "タロットカード",
-      "reading": "たろっとかーど"
-    },
-    {
-      "display": "桃源郷",
-      "reading": "とうげんきょう"
-    },
-    {
-      "display": "二酸化炭素",
-      "reading": "にさんかたんそ"
-    },
-    {
-      "display": "入道雲",
-      "reading": "にゅうどうぐも"
-    },
-    {
-      "display": "二律背反",
-      "reading": "にりつはいはん"
-    },
-    {
-      "display": "猫は液体",
-      "reading": "ねこはえきたい"
-    },
-    {
-      "display": "熱帯雨林",
-      "reading": "ねったいうりん"
-    },
-    {
-      "display": "梅雨前線",
-      "reading": "ばいうぜんせん"
-    },
-    {
-      "display": "微分積分",
-      "reading": "びぶんせきぶん"
-    },
-    {
-      "display": "百分率",
-      "reading": "ひゃくぶんりつ"
-    },
-    {
-      "display": "豚に真珠",
-      "reading": "ぶたにしんじゅ"
-    },
-    {
-      "display": "フライドポテト",
-      "reading": "ふらいどぽてと"
-    },
-    {
-      "display": "プログラミング",
-      "reading": "ぷろぐらみんぐ"
-    },
-    {
-      "display": "望遠鏡",
-      "reading": "ぼうえんきょう"
-    },
-    {
-      "display": "北極星",
-      "reading": "ほっきょくせい"
-    },
-    {
-      "display": "ホワイトボード",
-      "reading": "ほわいとぼーど"
-    },
-    {
-      "display": "麦わら帽子",
-      "reading": "むぎわらぼうし"
-    },
-    {
-      "display": "螺旋階段",
-      "reading": "らせんかいだん"
-    },
-    {
-      "display": "輪廻転生",
-      "reading": "りんねてんせい"
-    },
-    {
-      "display": "路面電車",
-      "reading": "ろめんでんしゃ"
-    },
-    {
-      "display": "アルコールランプ",
-      "reading": "あるこーるらんぷ"
-    },
-    {
-      "display": "宇宙飛行士",
-      "reading": "うちゅうひこうし"
-    },
-    {
-      "display": "ウーパールーパー",
-      "reading": "うーぱーるーぱー"
-    },
-    {
-      "display": "遠赤外線",
-      "reading": "えんせきがいせん"
-    },
-    {
-      "display": "懐中時計",
-      "reading": "かいちゅうどけい"
-    },
-    {
-      "display": "起承転結",
-      "reading": "きしょうてんけつ"
-    },
-    {
-      "display": "鍾乳洞",
-      "reading": "しょうにゅうどう"
-    },
-    {
-      "display": "ショルダーバッグ",
-      "reading": "しょるだーばっぐ"
-    },
-    {
-      "display": "相乗効果",
-      "reading": "そうじょうこうか"
-    },
-    {
-      "display": "天体観測",
-      "reading": "てんたいかんそく"
-    },
-    {
-      "display": "拍手喝采",
-      "reading": "はくしゅかっさい"
-    },
-    {
-      "display": "バンジージャンプ",
-      "reading": "ばんじーじゃんぷ"
-    },
-    {
-      "display": "ホイップクリーム",
-      "reading": "ほいっぷくりーむ"
-    },
-    {
-      "display": "南半球",
-      "reading": "みなみはんきゅう"
-    },
-    {
-      "display": "算数と数学",
-      "reading": "さんすうとすうがく"
-    },
-    {
-      "display": "蒸気機関車",
-      "reading": "じょうききかんしゃ"
-    },
-    {
-      "display": "南極大陸",
-      "reading": "なんきょくたいりく"
-    },
-    {
-      "display": "白色矮星",
-      "reading": "はくしょくわいせい"
-    },
-    {
-      "display": "南十字星",
-      "reading": "みなみじゅうじせい"
-    },
-    {
-      "display": "四つ葉のクローバー",
-      "reading": "よつばのくろーばー"
-    },
-    {
-      "display": "わらしべ長者",
-      "reading": "わらしべちょうじゃ"
-    },
-    {
-      "display": "ゲシュタルト崩壊",
-      "reading": "げしゅたるとほうかい"
-    },
-    {
-      "display": "コピーアンドペースト",
-      "reading": "こぴーあんどぺーすと"
-    },
-    {
-      "display": "ユニバーサルデザイン",
-      "reading": "ゆにばーさるでざいん"
-    },
-    {
-      "display": "鬼の居ぬ間に洗濯",
-      "reading": "おにのいぬまにせんたく"
-    },
-    {
-      "display": "黄道十二星座",
-      "reading": "こうどうじゅうにせいざ"
-    },
-    {
-      "display": "覆水盆に返らず",
-      "reading": "ふくすいぼんにかえらず"
-    },
-    {
-      "display": "東京特許許可局",
-      "reading": "とうきょうとっきょきょかきょく"
-    }
-  ]
+    "questions": [
+        {
+            "display": "秋",
+            "reading": "あき"
+        },
+        {
+            "display": "朝",
+            "reading": "あさ"
+        },
+        {
+            "display": "雨",
+            "reading": "あめ"
+        },
+        {
+            "display": "池",
+            "reading": "いけ"
+        },
+        {
+            "display": "井戸",
+            "reading": "いど"
+        },
+        {
+            "display": "イヌ",
+            "reading": "いぬ"
+        },
+        {
+            "display": "岩",
+            "reading": "いわ"
+        },
+        {
+            "display": "ウシ",
+            "reading": "うし"
+        },
+        {
+            "display": "ウニ",
+            "reading": "うに"
+        },
+        {
+            "display": "ウマ",
+            "reading": "うま"
+        },
+        {
+            "display": "ウリ",
+            "reading": "うり"
+        },
+        {
+            "display": "駅",
+            "reading": "えき"
+        },
+        {
+            "display": "絵馬",
+            "reading": "えま"
+        },
+        {
+            "display": "エビ",
+            "reading": "えび"
+        },
+        {
+            "display": "エラ",
+            "reading": "えら"
+        },
+        {
+            "display": "顔",
+            "reading": "かお"
+        },
+        {
+            "display": "画家",
+            "reading": "がか"
+        },
+        {
+            "display": "歌詞",
+            "reading": "かし"
+        },
+        {
+            "display": "カニ",
+            "reading": "かに"
+        },
+        {
+            "display": "キク",
+            "reading": "きく"
+        },
+        {
+            "display": "機微",
+            "reading": "きび"
+        },
+        {
+            "display": "釘",
+            "reading": "くぎ"
+        },
+        {
+            "display": "九九",
+            "reading": "くく"
+        },
+        {
+            "display": "グミ",
+            "reading": "ぐみ"
+        },
+        {
+            "display": "ケガ",
+            "reading": "けが"
+        },
+        {
+            "display": "下駄",
+            "reading": "げた"
+        },
+        {
+            "display": "剣",
+            "reading": "けん"
+        },
+        {
+            "display": "午後",
+            "reading": "ごご"
+        },
+        {
+            "display": "腰",
+            "reading": "こし"
+        },
+        {
+            "display": "粉",
+            "reading": "こな"
+        },
+        {
+            "display": "サメ",
+            "reading": "さめ"
+        },
+        {
+            "display": "ザル",
+            "reading": "ざる"
+        },
+        {
+            "display": "指示",
+            "reading": "しじ"
+        },
+        {
+            "display": "シダ",
+            "reading": "しだ"
+        },
+        {
+            "display": "芝",
+            "reading": "しば"
+        },
+        {
+            "display": "寿司",
+            "reading": "すし"
+        },
+        {
+            "display": "砂",
+            "reading": "すな"
+        },
+        {
+            "display": "セミ",
+            "reading": "せみ"
+        },
+        {
+            "display": "線",
+            "reading": "せん"
+        },
+        {
+            "display": "そば",
+            "reading": "そば"
+        },
+        {
+            "display": "空",
+            "reading": "そら"
+        },
+        {
+            "display": "タカ",
+            "reading": "たか"
+        },
+        {
+            "display": "出汁",
+            "reading": "だし"
+        },
+        {
+            "display": "タラ",
+            "reading": "たら"
+        },
+        {
+            "display": "地下",
+            "reading": "ちか"
+        },
+        {
+            "display": "地図",
+            "reading": "ちず"
+        },
+        {
+            "display": "月",
+            "reading": "つき"
+        },
+        {
+            "display": "筒",
+            "reading": "つつ"
+        },
+        {
+            "display": "爪",
+            "reading": "つめ"
+        },
+        {
+            "display": "釣り",
+            "reading": "つり"
+        },
+        {
+            "display": "てこ",
+            "reading": "てこ"
+        },
+        {
+            "display": "鉄",
+            "reading": "てつ"
+        },
+        {
+            "display": "毒",
+            "reading": "どく"
+        },
+        {
+            "display": "都市",
+            "reading": "とし"
+        },
+        {
+            "display": "トラ",
+            "reading": "とら"
+        },
+        {
+            "display": "ナス",
+            "reading": "なす"
+        },
+        {
+            "display": "夏",
+            "reading": "なつ"
+        },
+        {
+            "display": "波",
+            "reading": "なみ"
+        },
+        {
+            "display": "縄",
+            "reading": "なわ"
+        },
+        {
+            "display": "肉",
+            "reading": "にく"
+        },
+        {
+            "display": "西",
+            "reading": "にし"
+        },
+        {
+            "display": "虹",
+            "reading": "にじ"
+        },
+        {
+            "display": "ニラ",
+            "reading": "にら"
+        },
+        {
+            "display": "沼",
+            "reading": "ぬま"
+        },
+        {
+            "display": "ネギ",
+            "reading": "ねぎ"
+        },
+        {
+            "display": "ネコ",
+            "reading": "ねこ"
+        },
+        {
+            "display": "ネジ",
+            "reading": "ねじ"
+        },
+        {
+            "display": "野良",
+            "reading": "のら"
+        },
+        {
+            "display": "海苔",
+            "reading": "のり"
+        },
+        {
+            "display": "橋",
+            "reading": "はし"
+        },
+        {
+            "display": "バネ",
+            "reading": "ばね"
+        },
+        {
+            "display": "パパ",
+            "reading": "ぱぱ"
+        },
+        {
+            "display": "ハム",
+            "reading": "はむ"
+        },
+        {
+            "display": "バラ",
+            "reading": "ばら"
+        },
+        {
+            "display": "パリ",
+            "reading": "ぱり"
+        },
+        {
+            "display": "春",
+            "reading": "はる"
+        },
+        {
+            "display": "パン",
+            "reading": "ぱん"
+        },
+        {
+            "display": "ヒジ",
+            "reading": "ひじ"
+        },
+        {
+            "display": "ヒト",
+            "reading": "ひと"
+        },
+        {
+            "display": "琵琶",
+            "reading": "びわ"
+        },
+        {
+            "display": "フグ",
+            "reading": "ふぐ"
+        },
+        {
+            "display": "ブタ",
+            "reading": "ぶた"
+        },
+        {
+            "display": "船",
+            "reading": "ふね"
+        },
+        {
+            "display": "冬",
+            "reading": "ふゆ"
+        },
+        {
+            "display": "ベガ",
+            "reading": "べが"
+        },
+        {
+            "display": "ヘラ",
+            "reading": "へら"
+        },
+        {
+            "display": "ベル",
+            "reading": "べる"
+        },
+        {
+            "display": "ペン",
+            "reading": "ぺん"
+        },
+        {
+            "display": "棒",
+            "reading": "ぼう"
+        },
+        {
+            "display": "星",
+            "reading": "ほし"
+        },
+        {
+            "display": "本",
+            "reading": "ほん"
+        },
+        {
+            "display": "街",
+            "reading": "まち"
+        },
+        {
+            "display": "マツ",
+            "reading": "まつ"
+        },
+        {
+            "display": "丸",
+            "reading": "まる"
+        },
+        {
+            "display": "右",
+            "reading": "みぎ"
+        },
+        {
+            "display": "道",
+            "reading": "みち"
+        },
+        {
+            "display": "耳",
+            "reading": "みみ"
+        },
+        {
+            "display": "虫",
+            "reading": "むし"
+        },
+        {
+            "display": "無地",
+            "reading": "むじ"
+        },
+        {
+            "display": "村",
+            "reading": "むら"
+        },
+        {
+            "display": "メガ",
+            "reading": "めが"
+        },
+        {
+            "display": "メサ",
+            "reading": "めさ"
+        },
+        {
+            "display": "猛者",
+            "reading": "もさ"
+        },
+        {
+            "display": "餅",
+            "reading": "もち"
+        },
+        {
+            "display": "モモ",
+            "reading": "もも"
+        },
+        {
+            "display": "森",
+            "reading": "もり"
+        },
+        {
+            "display": "ヤギ",
+            "reading": "やぎ"
+        },
+        {
+            "display": "闇",
+            "reading": "やみ"
+        },
+        {
+            "display": "槍",
+            "reading": "やり"
+        },
+        {
+            "display": "床",
+            "reading": "ゆか"
+        },
+        {
+            "display": "湯気",
+            "reading": "ゆげ"
+        },
+        {
+            "display": "油脂",
+            "reading": "ゆし"
+        },
+        {
+            "display": "夢",
+            "reading": "ゆめ"
+        },
+        {
+            "display": "余暇",
+            "reading": "よか"
+        },
+        {
+            "display": "横",
+            "reading": "よこ"
+        },
+        {
+            "display": "夜",
+            "reading": "よる"
+        },
+        {
+            "display": "ラバ",
+            "reading": "らば"
+        },
+        {
+            "display": "ラボ",
+            "reading": "らぼ"
+        },
+        {
+            "display": "利子",
+            "reading": "りし"
+        },
+        {
+            "display": "リス",
+            "reading": "りす"
+        },
+        {
+            "display": "留守",
+            "reading": "るす"
+        },
+        {
+            "display": "瑠璃",
+            "reading": "るり"
+        },
+        {
+            "display": "ロゴ",
+            "reading": "ろご"
+        },
+        {
+            "display": "ロバ",
+            "reading": "ろば"
+        },
+        {
+            "display": "ワシ",
+            "reading": "わし"
+        },
+        {
+            "display": "悪魔",
+            "reading": "あくま"
+        },
+        {
+            "display": "明日",
+            "reading": "あした"
+        },
+        {
+            "display": "網戸",
+            "reading": "あみど"
+        },
+        {
+            "display": "あられ",
+            "reading": "あられ"
+        },
+        {
+            "display": "イカダ",
+            "reading": "いかだ"
+        },
+        {
+            "display": "命",
+            "reading": "いのち"
+        },
+        {
+            "display": "依頼",
+            "reading": "いらい"
+        },
+        {
+            "display": "うがい",
+            "reading": "うがい"
+        },
+        {
+            "display": "ウサギ",
+            "reading": "うさぎ"
+        },
+        {
+            "display": "映画",
+            "reading": "えいが"
+        },
+        {
+            "display": "英語",
+            "reading": "えいご"
+        },
+        {
+            "display": "絵文字",
+            "reading": "えもじ"
+        },
+        {
+            "display": "オクラ",
+            "reading": "おくら"
+        },
+        {
+            "display": "大人",
+            "reading": "おとな"
+        },
+        {
+            "display": "回路",
+            "reading": "かいろ"
+        },
+        {
+            "display": "楽譜",
+            "reading": "がくふ"
+        },
+        {
+            "display": "カッパ",
+            "reading": "かっぱ"
+        },
+        {
+            "display": "花瓶",
+            "reading": "かびん"
+        },
+        {
+            "display": "カラス",
+            "reading": "からす"
+        },
+        {
+            "display": "記憶",
+            "reading": "きおく"
+        },
+        {
+            "display": "機械",
+            "reading": "きかい"
+        },
+        {
+            "display": "気体",
+            "reading": "きたい"
+        },
+        {
+            "display": "ギター",
+            "reading": "ぎたー"
+        },
+        {
+            "display": "キツネ",
+            "reading": "きつね"
+        },
+        {
+            "display": "詭弁",
+            "reading": "きべん"
+        },
+        {
+            "display": "キリン",
+            "reading": "きりん"
+        },
+        {
+            "display": "クナイ",
+            "reading": "くない"
+        },
+        {
+            "display": "クラブ",
+            "reading": "くらぶ"
+        },
+        {
+            "display": "車",
+            "reading": "くるま"
+        },
+        {
+            "display": "煙",
+            "reading": "けむり"
+        },
+        {
+            "display": "家来",
+            "reading": "けらい"
+        },
+        {
+            "display": "言語",
+            "reading": "げんご"
+        },
+        {
+            "display": "研磨",
+            "reading": "けんま"
+        },
+        {
+            "display": "固体",
+            "reading": "こたい"
+        },
+        {
+            "display": "コップ",
+            "reading": "こっぷ"
+        },
+        {
+            "display": "言葉",
+            "reading": "ことば"
+        },
+        {
+            "display": "古墳",
+            "reading": "こふん"
+        },
+        {
+            "display": "ゴルフ",
+            "reading": "ごるふ"
+        },
+        {
+            "display": "サイン",
+            "reading": "さいん"
+        },
+        {
+            "display": "桜",
+            "reading": "さくら"
+        },
+        {
+            "display": "酸素",
+            "reading": "さんそ"
+        },
+        {
+            "display": "時間",
+            "reading": "じかん"
+        },
+        {
+            "display": "自転",
+            "reading": "じてん"
+        },
+        {
+            "display": "自由",
+            "reading": "じゆう"
+        },
+        {
+            "display": "シール",
+            "reading": "しーる"
+        },
+        {
+            "display": "スイカ",
+            "reading": "すいか"
+        },
+        {
+            "display": "スパナ",
+            "reading": "すぱな"
+        },
+        {
+            "display": "スモモ",
+            "reading": "すもも"
+        },
+        {
+            "display": "星座",
+            "reading": "せいざ"
+        },
+        {
+            "display": "世界",
+            "reading": "せかい"
+        },
+        {
+            "display": "ゼリー",
+            "reading": "ぜりー"
+        },
+        {
+            "display": "セーブ",
+            "reading": "せーぶ"
+        },
+        {
+            "display": "操作",
+            "reading": "そうさ"
+        },
+        {
+            "display": "狙撃",
+            "reading": "そげき"
+        },
+        {
+            "display": "台座",
+            "reading": "だいざ"
+        },
+        {
+            "display": "タヌキ",
+            "reading": "たぬき"
+        },
+        {
+            "display": "タライ",
+            "reading": "たらい"
+        },
+        {
+            "display": "ダンス",
+            "reading": "だんす"
+        },
+        {
+            "display": "暖炉",
+            "reading": "だんろ"
+        },
+        {
+            "display": "チェロ",
+            "reading": "ちぇろ"
+        },
+        {
+            "display": "稚魚",
+            "reading": "ちぎょ"
+        },
+        {
+            "display": "窒素",
+            "reading": "ちっそ"
+        },
+        {
+            "display": "茅の輪",
+            "reading": "ちのわ"
+        },
+        {
+            "display": "茶屋",
+            "reading": "ちゃや"
+        },
+        {
+            "display": "机",
+            "reading": "つくえ"
+        },
+        {
+            "display": "ツバメ",
+            "reading": "つばめ"
+        },
+        {
+            "display": "つらら",
+            "reading": "つらら"
+        },
+        {
+            "display": "手紙",
+            "reading": "てがみ"
+        },
+        {
+            "display": "天使",
+            "reading": "てんし"
+        },
+        {
+            "display": "電波",
+            "reading": "でんぱ"
+        },
+        {
+            "display": "テープ",
+            "reading": "てーぷ"
+        },
+        {
+            "display": "動画",
+            "reading": "どうが"
+        },
+        {
+            "display": "扉",
+            "reading": "とびら"
+        },
+        {
+            "display": "トマト",
+            "reading": "とまと"
+        },
+        {
+            "display": "ネズミ",
+            "reading": "ねずみ"
+        },
+        {
+            "display": "粘土",
+            "reading": "ねんど"
+        },
+        {
+            "display": "ノイズ",
+            "reading": "のいず"
+        },
+        {
+            "display": "ノート",
+            "reading": "のーと"
+        },
+        {
+            "display": "俳句",
+            "reading": "はいく"
+        },
+        {
+            "display": "はかり",
+            "reading": "はかり"
+        },
+        {
+            "display": "パズル",
+            "reading": "ぱずる"
+        },
+        {
+            "display": "バッグ",
+            "reading": "ばっぐ"
+        },
+        {
+            "display": "パンダ",
+            "reading": "ぱんだ"
+        },
+        {
+            "display": "ピアノ",
+            "reading": "ぴあの"
+        },
+        {
+            "display": "ヒツジ",
+            "reading": "ひつじ"
+        },
+        {
+            "display": "ヒョウ",
+            "reading": "ひょう"
+        },
+        {
+            "display": "夫婦",
+            "reading": "ふうふ"
+        },
+        {
+            "display": "布団",
+            "reading": "ふとん"
+        },
+        {
+            "display": "プール",
+            "reading": "ぷーる"
+        },
+        {
+            "display": "ベッド",
+            "reading": "べっど"
+        },
+        {
+            "display": "ベース",
+            "reading": "べーす"
+        },
+        {
+            "display": "ホタテ",
+            "reading": "ほたて"
+        },
+        {
+            "display": "ボタン",
+            "reading": "ぼたん"
+        },
+        {
+            "display": "ホラー",
+            "reading": "ほらー"
+        },
+        {
+            "display": "ボール",
+            "reading": "ぼーる"
+        },
+        {
+            "display": "枕",
+            "reading": "まくら"
+        },
+        {
+            "display": "マット",
+            "reading": "まっと"
+        },
+        {
+            "display": "祭り",
+            "reading": "まつり"
+        },
+        {
+            "display": "魔法",
+            "reading": "まほう"
+        },
+        {
+            "display": "ミカン",
+            "reading": "みかん"
+        },
+        {
+            "display": "未来",
+            "reading": "みらい"
+        },
+        {
+            "display": "ミント",
+            "reading": "みんと"
+        },
+        {
+            "display": "ムカデ",
+            "reading": "むかで"
+        },
+        {
+            "display": "無限",
+            "reading": "むげん"
+        },
+        {
+            "display": "眼鏡",
+            "reading": "めがね"
+        },
+        {
+            "display": "メッキ",
+            "reading": "めっき"
+        },
+        {
+            "display": "メロン",
+            "reading": "めろん"
+        },
+        {
+            "display": "メール",
+            "reading": "めーる"
+        },
+        {
+            "display": "モアイ",
+            "reading": "もあい"
+        },
+        {
+            "display": "モグラ",
+            "reading": "もぐら"
+        },
+        {
+            "display": "モラル",
+            "reading": "もらる"
+        },
+        {
+            "display": "ヤカン",
+            "reading": "やかん"
+        },
+        {
+            "display": "野菜",
+            "reading": "やさい"
+        },
+        {
+            "display": "屋台",
+            "reading": "やたい"
+        },
+        {
+            "display": "ヤモリ",
+            "reading": "やもり"
+        },
+        {
+            "display": "油圧",
+            "reading": "ゆあつ"
+        },
+        {
+            "display": "夕日",
+            "reading": "ゆうひ"
+        },
+        {
+            "display": "浴衣",
+            "reading": "ゆかた"
+        },
+        {
+            "display": "指輪",
+            "reading": "ゆびわ"
+        },
+        {
+            "display": "用途",
+            "reading": "ようと"
+        },
+        {
+            "display": "夜空",
+            "reading": "よぞら"
+        },
+        {
+            "display": "ヨット",
+            "reading": "よっと"
+        },
+        {
+            "display": "ライト",
+            "reading": "らいと"
+        },
+        {
+            "display": "ラジオ",
+            "reading": "らじお"
+        },
+        {
+            "display": "ラッパ",
+            "reading": "らっぱ"
+        },
+        {
+            "display": "ランプ",
+            "reading": "らんぷ"
+        },
+        {
+            "display": "理解",
+            "reading": "りかい"
+        },
+        {
+            "display": "リンゴ",
+            "reading": "りんご"
+        },
+        {
+            "display": "リード",
+            "reading": "りーど"
+        },
+        {
+            "display": "ルール",
+            "reading": "るーる"
+        },
+        {
+            "display": "レジン",
+            "reading": "れじん"
+        },
+        {
+            "display": "練度",
+            "reading": "れんど"
+        },
+        {
+            "display": "レース",
+            "reading": "れーす"
+        },
+        {
+            "display": "ロック",
+            "reading": "ろっく"
+        },
+        {
+            "display": "ロンド",
+            "reading": "ろんど"
+        },
+        {
+            "display": "ロープ",
+            "reading": "ろーぷ"
+        },
+        {
+            "display": "ワイプ",
+            "reading": "わいぷ"
+        },
+        {
+            "display": "輪切り",
+            "reading": "わぎり"
+        },
+        {
+            "display": "わらび",
+            "reading": "わらび"
+        },
+        {
+            "display": "ワルツ",
+            "reading": "わるつ"
+        },
+        {
+            "display": "アイコン",
+            "reading": "あいこん"
+        },
+        {
+            "display": "アザラシ",
+            "reading": "あざらし"
+        },
+        {
+            "display": "紫陽花",
+            "reading": "あじさい"
+        },
+        {
+            "display": "軋轢",
+            "reading": "あつれき"
+        },
+        {
+            "display": "アルパカ",
+            "reading": "あるぱか"
+        },
+        {
+            "display": "イノシシ",
+            "reading": "いのしし"
+        },
+        {
+            "display": "イヤホン",
+            "reading": "いやほん"
+        },
+        {
+            "display": "医療",
+            "reading": "いりょう"
+        },
+        {
+            "display": "印刷",
+            "reading": "いんさつ"
+        },
+        {
+            "display": "梅干し",
+            "reading": "うめぼし"
+        },
+        {
+            "display": "運動",
+            "reading": "うんどう"
+        },
+        {
+            "display": "エアコン",
+            "reading": "えあこん"
+        },
+        {
+            "display": "英雄",
+            "reading": "えいゆう"
+        },
+        {
+            "display": "エンジン",
+            "reading": "えんじん"
+        },
+        {
+            "display": "遠足",
+            "reading": "えんそく"
+        },
+        {
+            "display": "王冠",
+            "reading": "おうかん"
+        },
+        {
+            "display": "オオカミ",
+            "reading": "おおかみ"
+        },
+        {
+            "display": "オボルス",
+            "reading": "おぼるす"
+        },
+        {
+            "display": "海岸",
+            "reading": "かいがん"
+        },
+        {
+            "display": "街灯",
+            "reading": "がいとう"
+        },
+        {
+            "display": "額縁",
+            "reading": "がくぶち"
+        },
+        {
+            "display": "加速度",
+            "reading": "かそくど"
+        },
+        {
+            "display": "学校",
+            "reading": "がっこう"
+        },
+        {
+            "display": "金型",
+            "reading": "かながた"
+        },
+        {
+            "display": "搦め手",
+            "reading": "からめて"
+        },
+        {
+            "display": "贋作",
+            "reading": "がんさく"
+        },
+        {
+            "display": "カーテン",
+            "reading": "かーてん"
+        },
+        {
+            "display": "気球",
+            "reading": "ききゅう"
+        },
+        {
+            "display": "キッチン",
+            "reading": "きっちん"
+        },
+        {
+            "display": "霧雨",
+            "reading": "きりさめ"
+        },
+        {
+            "display": "偶然",
+            "reading": "ぐうぜん"
+        },
+        {
+            "display": "クエスト",
+            "reading": "くえすと"
+        },
+        {
+            "display": "黒猫",
+            "reading": "くろねこ"
+        },
+        {
+            "display": "グローブ",
+            "reading": "ぐろーぶ"
+        },
+        {
+            "display": "消しゴム",
+            "reading": "けしごむ"
+        },
+        {
+            "display": "幻覚",
+            "reading": "げんかく"
+        },
+        {
+            "display": "公転",
+            "reading": "こうてん"
+        },
+        {
+            "display": "呼吸",
+            "reading": "こきゅう"
+        },
+        {
+            "display": "黒板",
+            "reading": "こくばん"
+        },
+        {
+            "display": "木漏れ日",
+            "reading": "こもれび"
+        },
+        {
+            "display": "ゴンドラ",
+            "reading": "ごんどら"
+        },
+        {
+            "display": "採血",
+            "reading": "さいけつ"
+        },
+        {
+            "display": "賽の目",
+            "reading": "さいのめ"
+        },
+        {
+            "display": "裁判",
+            "reading": "さいばん"
+        },
+        {
+            "display": "さざ波",
+            "reading": "さざなみ"
+        },
+        {
+            "display": "残像",
+            "reading": "ざんぞう"
+        },
+        {
+            "display": "実験",
+            "reading": "じっけん"
+        },
+        {
+            "display": "シャベル",
+            "reading": "しゃべる"
+        },
+        {
+            "display": "深海",
+            "reading": "しんかい"
+        },
+        {
+            "display": "推測",
+            "reading": "すいそく"
+        },
+        {
+            "display": "水筒",
+            "reading": "すいとう"
+        },
+        {
+            "display": "スコップ",
+            "reading": "すこっぷ"
+        },
+        {
+            "display": "スチール",
+            "reading": "すちーる"
+        },
+        {
+            "display": "寸劇",
+            "reading": "すんげき"
+        },
+        {
+            "display": "整備士",
+            "reading": "せいびし"
+        },
+        {
+            "display": "精錬",
+            "reading": "せいれん"
+        },
+        {
+            "display": "石炭",
+            "reading": "せきたん"
+        },
+        {
+            "display": "セーター",
+            "reading": "せーたー"
+        },
+        {
+            "display": "掃除機",
+            "reading": "そうじき"
+        },
+        {
+            "display": "速達",
+            "reading": "そくたつ"
+        },
+        {
+            "display": "タイマー",
+            "reading": "たいまー"
+        },
+        {
+            "display": "太陽",
+            "reading": "たいよう"
+        },
+        {
+            "display": "七夕",
+            "reading": "たなばた"
+        },
+        {
+            "display": "魂",
+            "reading": "たましい"
+        },
+        {
+            "display": "千切り絵",
+            "reading": "ちぎりえ"
+        },
+        {
+            "display": "秩序",
+            "reading": "ちつじょ"
+        },
+        {
+            "display": "追随",
+            "reading": "ついずい"
+        },
+        {
+            "display": "束の間",
+            "reading": "つかのま"
+        },
+        {
+            "display": "筒抜け",
+            "reading": "つつぬけ"
+        },
+        {
+            "display": "丁字路",
+            "reading": "ていじろ"
+        },
+        {
+            "display": "手錠",
+            "reading": "てじょう"
+        },
+        {
+            "display": "哲学",
+            "reading": "てつがく"
+        },
+        {
+            "display": "電車",
+            "reading": "でんしゃ"
+        },
+        {
+            "display": "トランプ",
+            "reading": "とらんぷ"
+        },
+        {
+            "display": "ドーナツ",
+            "reading": "どーなつ"
+        },
+        {
+            "display": "内緒",
+            "reading": "ないしょ"
+        },
+        {
+            "display": "南国",
+            "reading": "なんごく"
+        },
+        {
+            "display": "荷車",
+            "reading": "にぐるま"
+        },
+        {
+            "display": "日光",
+            "reading": "にっこう"
+        },
+        {
+            "display": "忍耐",
+            "reading": "にんたい"
+        },
+        {
+            "display": "寝返り",
+            "reading": "ねがえり"
+        },
+        {
+            "display": "猫舌",
+            "reading": "ねこじた"
+        },
+        {
+            "display": "年齢",
+            "reading": "ねんれい"
+        },
+        {
+            "display": "農作",
+            "reading": "のうさく"
+        },
+        {
+            "display": "残り香",
+            "reading": "のこりが"
+        },
+        {
+            "display": "野良猫",
+            "reading": "のらねこ"
+        },
+        {
+            "display": "配線",
+            "reading": "はいせん"
+        },
+        {
+            "display": "排熱",
+            "reading": "はいねつ"
+        },
+        {
+            "display": "博識",
+            "reading": "はくしき"
+        },
+        {
+            "display": "爆発",
+            "reading": "ばくはつ"
+        },
+        {
+            "display": "歯車",
+            "reading": "はぐるま"
+        },
+        {
+            "display": "花束",
+            "reading": "はなたば"
+        },
+        {
+            "display": "雛形",
+            "reading": "ひながた"
+        },
+        {
+            "display": "ヒマワリ",
+            "reading": "ひまわり"
+        },
+        {
+            "display": "便箋",
+            "reading": "びんせん"
+        },
+        {
+            "display": "ヒーター",
+            "reading": "ひーたー"
+        },
+        {
+            "display": "フィルム",
+            "reading": "ふぃるむ"
+        },
+        {
+            "display": "踏切",
+            "reading": "ふみきり"
+        },
+        {
+            "display": "フルート",
+            "reading": "ふるーと"
+        },
+        {
+            "display": "フレーム",
+            "reading": "ふれーむ"
+        },
+        {
+            "display": "雰囲気",
+            "reading": "ふんいき"
+        },
+        {
+            "display": "ベクトル",
+            "reading": "べくとる"
+        },
+        {
+            "display": "ペンギン",
+            "reading": "ぺんぎん"
+        },
+        {
+            "display": "ボイラー",
+            "reading": "ぼいらー"
+        },
+        {
+            "display": "放課後",
+            "reading": "ほうかご"
+        },
+        {
+            "display": "冒険",
+            "reading": "ぼうけん"
+        },
+        {
+            "display": "暴走",
+            "reading": "ぼうそう"
+        },
+        {
+            "display": "法螺貝",
+            "reading": "ほらがい"
+        },
+        {
+            "display": "マカロン",
+            "reading": "まかろん"
+        },
+        {
+            "display": "抹茶",
+            "reading": "まっちゃ"
+        },
+        {
+            "display": "まな板",
+            "reading": "まないた"
+        },
+        {
+            "display": "マフラー",
+            "reading": "まふらー"
+        },
+        {
+            "display": "マラカス",
+            "reading": "まらかす"
+        },
+        {
+            "display": "魔力",
+            "reading": "まりょく"
+        },
+        {
+            "display": "三日月",
+            "reading": "みかづき"
+        },
+        {
+            "display": "魅力",
+            "reading": "みりょく"
+        },
+        {
+            "display": "無機物",
+            "reading": "むきぶつ"
+        },
+        {
+            "display": "無償",
+            "reading": "むしょう"
+        },
+        {
+            "display": "名所",
+            "reading": "めいしょ"
+        },
+        {
+            "display": "メガホン",
+            "reading": "めがほん"
+        },
+        {
+            "display": "メレンゲ",
+            "reading": "めれんげ"
+        },
+        {
+            "display": "メーター",
+            "reading": "めーたー"
+        },
+        {
+            "display": "モノクル",
+            "reading": "ものくる"
+        },
+        {
+            "display": "モモンガ",
+            "reading": "ももんが"
+        },
+        {
+            "display": "モーター",
+            "reading": "もーたー"
+        },
+        {
+            "display": "ヤシの木",
+            "reading": "やしのき"
+        },
+        {
+            "display": "夕焼け",
+            "reading": "ゆうやけ"
+        },
+        {
+            "display": "幽霊",
+            "reading": "ゆうれい"
+        },
+        {
+            "display": "宵闇",
+            "reading": "よいやみ"
+        },
+        {
+            "display": "溶接",
+            "reading": "ようせつ"
+        },
+        {
+            "display": "ヨーヨー",
+            "reading": "よーよー"
+        },
+        {
+            "display": "ライオン",
+            "reading": "らいおん"
+        },
+        {
+            "display": "ランタン",
+            "reading": "らんたん"
+        },
+        {
+            "display": "理科室",
+            "reading": "りかしつ"
+        },
+        {
+            "display": "リソース",
+            "reading": "りそーす"
+        },
+        {
+            "display": "漁師",
+            "reading": "りょうし"
+        },
+        {
+            "display": "留守番",
+            "reading": "るすばん"
+        },
+        {
+            "display": "冷凍",
+            "reading": "れいとう"
+        },
+        {
+            "display": "列車",
+            "reading": "れっしゃ"
+        },
+        {
+            "display": "レンコン",
+            "reading": "れんこん"
+        },
+        {
+            "display": "連星",
+            "reading": "れんせい"
+        },
+        {
+            "display": "ロウソク",
+            "reading": "ろうそく"
+        },
+        {
+            "display": "ロボット",
+            "reading": "ろぼっと"
+        },
+        {
+            "display": "脇道",
+            "reading": "わきみち"
+        },
+        {
+            "display": "惑星",
+            "reading": "わくせい"
+        },
+        {
+            "display": "愛嬌",
+            "reading": "あいきょう"
+        },
+        {
+            "display": "アプローチ",
+            "reading": "あぷろーち"
+        },
+        {
+            "display": "アーモンド",
+            "reading": "あーもんど"
+        },
+        {
+            "display": "印象",
+            "reading": "いんしょう"
+        },
+        {
+            "display": "植木鉢",
+            "reading": "うえきばち"
+        },
+        {
+            "display": "腕時計",
+            "reading": "うでどけい"
+        },
+        {
+            "display": "枝分かれ",
+            "reading": "えだわかれ"
+        },
+        {
+            "display": "エメラルド",
+            "reading": "えめらるど"
+        },
+        {
+            "display": "演算子",
+            "reading": "えんざんし"
+        },
+        {
+            "display": "オルゴール",
+            "reading": "おるごーる"
+        },
+        {
+            "display": "温度計",
+            "reading": "おんどけい"
+        },
+        {
+            "display": "影法師",
+            "reading": "かげぼうし"
+        },
+        {
+            "display": "カスタード",
+            "reading": "かすたーど"
+        },
+        {
+            "display": "カトラリー",
+            "reading": "かとらりー"
+        },
+        {
+            "display": "カプチーノ",
+            "reading": "かぷちーの"
+        },
+        {
+            "display": "紙袋",
+            "reading": "かみぶくろ"
+        },
+        {
+            "display": "換気扇",
+            "reading": "かんきせん"
+        },
+        {
+            "display": "管理人",
+            "reading": "かんりにん"
+        },
+        {
+            "display": "喫茶店",
+            "reading": "きっさてん"
+        },
+        {
+            "display": "弓道",
+            "reading": "きゅうどう"
+        },
+        {
+            "display": "行列",
+            "reading": "ぎょうれつ"
+        },
+        {
+            "display": "屈強",
+            "reading": "くっきょう"
+        },
+        {
+            "display": "群衆",
+            "reading": "ぐんしゅう"
+        },
+        {
+            "display": "計算機",
+            "reading": "けいさんき"
+        },
+        {
+            "display": "劇場",
+            "reading": "げきじょう"
+        },
+        {
+            "display": "桁外れ",
+            "reading": "けたはずれ"
+        },
+        {
+            "display": "工業",
+            "reading": "こうぎょう"
+        },
+        {
+            "display": "強情",
+            "reading": "ごうじょう"
+        },
+        {
+            "display": "国境",
+            "reading": "こっきょう"
+        },
+        {
+            "display": "桜餅",
+            "reading": "さくらもち"
+        },
+        {
+            "display": "サルベージ",
+            "reading": "さるべーじ"
+        },
+        {
+            "display": "湿度計",
+            "reading": "しつどけい"
+        },
+        {
+            "display": "収束",
+            "reading": "しゅうそく"
+        },
+        {
+            "display": "授業",
+            "reading": "じゅぎょう"
+        },
+        {
+            "display": "勝算",
+            "reading": "しょうさん"
+        },
+        {
+            "display": "商人",
+            "reading": "しょうにん"
+        },
+        {
+            "display": "水晶",
+            "reading": "すいしょう"
+        },
+        {
+            "display": "ストライプ",
+            "reading": "すとらいぷ"
+        },
+        {
+            "display": "スナイパー",
+            "reading": "すないぱー"
+        },
+        {
+            "display": "スピーカー",
+            "reading": "すぴーかー"
+        },
+        {
+            "display": "世界樹",
+            "reading": "せかいじゅ"
+        },
+        {
+            "display": "測量",
+            "reading": "そくりょう"
+        },
+        {
+            "display": "ソーセージ",
+            "reading": "そーせーじ"
+        },
+        {
+            "display": "宝箱",
+            "reading": "たからばこ"
+        },
+        {
+            "display": "多数決",
+            "reading": "たすうけつ"
+        },
+        {
+            "display": "タンバリン",
+            "reading": "たんばりん"
+        },
+        {
+            "display": "地球儀",
+            "reading": "ちきゅうぎ"
+        },
+        {
+            "display": "地平線",
+            "reading": "ちへいせん"
+        },
+        {
+            "display": "チャンバラ",
+            "reading": "ちゃんばら"
+        },
+        {
+            "display": "チョーカー",
+            "reading": "ちょーかー"
+        },
+        {
+            "display": "月明かり",
+            "reading": "つきあかり"
+        },
+        {
+            "display": "包み紙",
+            "reading": "つつみがみ"
+        },
+        {
+            "display": "つまみ食い",
+            "reading": "つまみぐい"
+        },
+        {
+            "display": "つむじ風",
+            "reading": "つむじかぜ"
+        },
+        {
+            "display": "ティラミス",
+            "reading": "てぃらみす"
+        },
+        {
+            "display": "的中",
+            "reading": "てきちゅう"
+        },
+        {
+            "display": "鉄格子",
+            "reading": "てつごうし"
+        },
+        {
+            "display": "電話線",
+            "reading": "でんわせん"
+        },
+        {
+            "display": "唐辛子",
+            "reading": "とうがらし"
+        },
+        {
+            "display": "鬨の声",
+            "reading": "ときのこえ"
+        },
+        {
+            "display": "ドライヤー",
+            "reading": "どらいやー"
+        },
+        {
+            "display": "仲直り",
+            "reading": "なかなおり"
+        },
+        {
+            "display": "流れ星",
+            "reading": "ながれぼし"
+        },
+        {
+            "display": "夏休み",
+            "reading": "なつやすみ"
+        },
+        {
+            "display": "仁王立ち",
+            "reading": "におうだち"
+        },
+        {
+            "display": "二枚舌",
+            "reading": "にまいじた"
+        },
+        {
+            "display": "ぬいぐるみ",
+            "reading": "ぬいぐるみ"
+        },
+        {
+            "display": "ネックレス",
+            "reading": "ねっくれす"
+        },
+        {
+            "display": "熱帯夜",
+            "reading": "ねったいや"
+        },
+        {
+            "display": "農業",
+            "reading": "のうぎょう"
+        },
+        {
+            "display": "覗き窓",
+            "reading": "のぞきまど"
+        },
+        {
+            "display": "バッテリー",
+            "reading": "ばってりー"
+        },
+        {
+            "display": "花曇り",
+            "reading": "はなぐもり"
+        },
+        {
+            "display": "パンケーキ",
+            "reading": "ぱんけーき"
+        },
+        {
+            "display": "バージョン",
+            "reading": "ばーじょん"
+        },
+        {
+            "display": "ピクニック",
+            "reading": "ぴくにっく"
+        },
+        {
+            "display": "飛行船",
+            "reading": "ひこうせん"
+        },
+        {
+            "display": "秘密基地",
+            "reading": "ひみつきち"
+        },
+        {
+            "display": "氷塊",
+            "reading": "ひょうかい"
+        },
+        {
+            "display": "昼休み",
+            "reading": "ひるやすみ"
+        },
+        {
+            "display": "二日酔い",
+            "reading": "ふつかよい"
+        },
+        {
+            "display": "フライパン",
+            "reading": "ふらいぱん"
+        },
+        {
+            "display": "フラフープ",
+            "reading": "ふらふーぷ"
+        },
+        {
+            "display": "プロローグ",
+            "reading": "ぷろろーぐ"
+        },
+        {
+            "display": "閉回路",
+            "reading": "へいかいろ"
+        },
+        {
+            "display": "ヘルメット",
+            "reading": "へるめっと"
+        },
+        {
+            "display": "箒星",
+            "reading": "ほうきぼし"
+        },
+        {
+            "display": "棒グラフ",
+            "reading": "ぼうぐらふ"
+        },
+        {
+            "display": "暴風雨",
+            "reading": "ぼうふうう"
+        },
+        {
+            "display": "牧場",
+            "reading": "ぼくじょう"
+        },
+        {
+            "display": "保護色",
+            "reading": "ほごしょく"
+        },
+        {
+            "display": "ポタージュ",
+            "reading": "ぽたーじゅ"
+        },
+        {
+            "display": "本拠地",
+            "reading": "ほんきょち"
+        },
+        {
+            "display": "マシンガン",
+            "reading": "ましんがん"
+        },
+        {
+            "display": "マニュアル",
+            "reading": "まにゅある"
+        },
+        {
+            "display": "魔法陣",
+            "reading": "まほうじん"
+        },
+        {
+            "display": "メヌエット",
+            "reading": "めぬえっと"
+        },
+        {
+            "display": "モノローグ",
+            "reading": "ものろーぐ"
+        },
+        {
+            "display": "役職",
+            "reading": "やくしょく"
+        },
+        {
+            "display": "雪だるま",
+            "reading": "ゆきだるま"
+        },
+        {
+            "display": "ヨーグルト",
+            "reading": "よーぐると"
+        },
+        {
+            "display": "羅針盤",
+            "reading": "らしんばん"
+        },
+        {
+            "display": "朝飯前",
+            "reading": "あさめしまえ"
+        },
+        {
+            "display": "アンチテーゼ",
+            "reading": "あんちてーぜ"
+        },
+        {
+            "display": "一等星",
+            "reading": "いっとうせい"
+        },
+        {
+            "display": "インターバル",
+            "reading": "いんたーばる"
+        },
+        {
+            "display": "右往左往",
+            "reading": "うおうさおう"
+        },
+        {
+            "display": "有象無象",
+            "reading": "うぞうむぞう"
+        },
+        {
+            "display": "有頂天",
+            "reading": "うちょうてん"
+        },
+        {
+            "display": "衛星都市",
+            "reading": "えいせいとし"
+        },
+        {
+            "display": "遠近法",
+            "reading": "えんきんほう"
+        },
+        {
+            "display": "黄金律",
+            "reading": "おうごんりつ"
+        },
+        {
+            "display": "温故知新",
+            "reading": "おんこちしん"
+        },
+        {
+            "display": "オーケストラ",
+            "reading": "おーけすとら"
+        },
+        {
+            "display": "海王星",
+            "reading": "かいおうせい"
+        },
+        {
+            "display": "海岸線",
+            "reading": "かいがんせん"
+        },
+        {
+            "display": "花粉症",
+            "reading": "かふんしょう"
+        },
+        {
+            "display": "カレーライス",
+            "reading": "かれーらいす"
+        },
+        {
+            "display": "ガスバーナー",
+            "reading": "がすばーなー"
+        },
+        {
+            "display": "紙飛行機",
+            "reading": "かみひこうき"
+        },
+        {
+            "display": "漢方薬",
+            "reading": "かんぽうやく"
+        },
+        {
+            "display": "几帳面",
+            "reading": "きちょうめん"
+        },
+        {
+            "display": "喜怒哀楽",
+            "reading": "きどあいらく"
+        },
+        {
+            "display": "キャスケット",
+            "reading": "きゃすけっと"
+        },
+        {
+            "display": "吸血鬼",
+            "reading": "きゅうけつき"
+        },
+        {
+            "display": "牛乳",
+            "reading": "ぎゅうにゅう"
+        },
+        {
+            "display": "郷愁",
+            "reading": "きょうしゅう"
+        },
+        {
+            "display": "区画整備",
+            "reading": "くかくせいび"
+        },
+        {
+            "display": "口約束",
+            "reading": "くちやくそく"
+        },
+        {
+            "display": "クラリネット",
+            "reading": "くらりねっと"
+        },
+        {
+            "display": "クロワッサン",
+            "reading": "くろわっさん"
+        },
+        {
+            "display": "軽金属",
+            "reading": "けいきんぞく"
+        },
+        {
+            "display": "経験則",
+            "reading": "けいけんそく"
+        },
+        {
+            "display": "経口薬",
+            "reading": "けいこうやく"
+        },
+        {
+            "display": "下剋上",
+            "reading": "げこくじょう"
+        },
+        {
+            "display": "化粧台",
+            "reading": "けしょうだい"
+        },
+        {
+            "display": "見聞録",
+            "reading": "けんぶんろく"
+        },
+        {
+            "display": "好敵手",
+            "reading": "こうてきしゅ"
+        },
+        {
+            "display": "広葉樹",
+            "reading": "こうようじゅ"
+        },
+        {
+            "display": "黒曜石",
+            "reading": "こくようせき"
+        },
+        {
+            "display": "五臓六腑",
+            "reading": "ごぞうろっぷ"
+        },
+        {
+            "display": "コレクション",
+            "reading": "これくしょん"
+        },
+        {
+            "display": "コンデンサー",
+            "reading": "こんでんさー"
+        },
+        {
+            "display": "作業服",
+            "reading": "さぎょうふく"
+        },
+        {
+            "display": "桜並木",
+            "reading": "さくらなみき"
+        },
+        {
+            "display": "サスペンダー",
+            "reading": "さすぺんだー"
+        },
+        {
+            "display": "座右の銘",
+            "reading": "ざゆうのめい"
+        },
+        {
+            "display": "三三五五",
+            "reading": "さんさんごご"
+        },
+        {
+            "display": "持久走",
+            "reading": "じきゅうそう"
+        },
+        {
+            "display": "シャンデリア",
+            "reading": "しゃんでりあ"
+        },
+        {
+            "display": "周波数",
+            "reading": "しゅうはすう"
+        },
+        {
+            "display": "昇降機",
+            "reading": "しょうこうき"
+        },
+        {
+            "display": "処方箋",
+            "reading": "しょほうせん"
+        },
+        {
+            "display": "針葉樹",
+            "reading": "しんようじゅ"
+        },
+        {
+            "display": "水蒸気",
+            "reading": "すいじょうき"
+        },
+        {
+            "display": "スケジュール",
+            "reading": "すけじゅーる"
+        },
+        {
+            "display": "筋金入り",
+            "reading": "すじがねいり"
+        },
+        {
+            "display": "積乱雲",
+            "reading": "せきらんうん"
+        },
+        {
+            "display": "説明書",
+            "reading": "せつめいしょ"
+        },
+        {
+            "display": "雑木林",
+            "reading": "ぞうきばやし"
+        },
+        {
+            "display": "育ち盛り",
+            "reading": "そだちざかり"
+        },
+        {
+            "display": "第六感",
+            "reading": "だいろっかん"
+        },
+        {
+            "display": "誕生日",
+            "reading": "たんじょうび"
+        },
+        {
+            "display": "力仕事",
+            "reading": "ちからしごと"
+        },
+        {
+            "display": "超音波",
+            "reading": "ちょうおんぱ"
+        },
+        {
+            "display": "蝶番",
+            "reading": "ちょうつがい"
+        },
+        {
+            "display": "チーズケーキ",
+            "reading": "ちーずけーき"
+        },
+        {
+            "display": "通信網",
+            "reading": "つうしんもう"
+        },
+        {
+            "display": "鍔迫り合い",
+            "reading": "つばぜりあい"
+        },
+        {
+            "display": "ティータイム",
+            "reading": "てぃーたいむ"
+        },
+        {
+            "display": "鉄工所",
+            "reading": "てっこうじょ"
+        },
+        {
+            "display": "天衣無縫",
+            "reading": "てんいむほう"
+        },
+        {
+            "display": "天球儀",
+            "reading": "てんきゅうぎ"
+        },
+        {
+            "display": "都市伝説",
+            "reading": "としでんせつ"
+        },
+        {
+            "display": "ドレスアップ",
+            "reading": "どれすあっぷ"
+        },
+        {
+            "display": "生クリーム",
+            "reading": "なまくりーむ"
+        },
+        {
+            "display": "二世を契る",
+            "reading": "にせをちぎる"
+        },
+        {
+            "display": "二番煎じ",
+            "reading": "にばんせんじ"
+        },
+        {
+            "display": "猫に小判",
+            "reading": "ねこにこばん"
+        },
+        {
+            "display": "熱力学",
+            "reading": "ねつりきがく"
+        },
+        {
+            "display": "寝耳に水",
+            "reading": "ねみみにみず"
+        },
+        {
+            "display": "ノコギリザメ",
+            "reading": "のこぎりざめ"
+        },
+        {
+            "display": "ノスタルジー",
+            "reading": "のすたるじー"
+        },
+        {
+            "display": "ノックバック",
+            "reading": "のっくばっく"
+        },
+        {
+            "display": "排気量",
+            "reading": "はいきりょう"
+        },
+        {
+            "display": "配電盤",
+            "reading": "はいでんばん"
+        },
+        {
+            "display": "ハイビスカス",
+            "reading": "はいびすかす"
+        },
+        {
+            "display": "パイプライン",
+            "reading": "ぱいぷらいん"
+        },
+        {
+            "display": "白昼夢",
+            "reading": "はくちゅうむ"
+        },
+        {
+            "display": "バックパック",
+            "reading": "ばっくぱっく"
+        },
+        {
+            "display": "絆創膏",
+            "reading": "ばんそうこう"
+        },
+        {
+            "display": "美術館",
+            "reading": "びじゅつかん"
+        },
+        {
+            "display": "必需品",
+            "reading": "ひつじゅひん"
+        },
+        {
+            "display": "秤量",
+            "reading": "ひょうりょう"
+        },
+        {
+            "display": "風速計",
+            "reading": "ふうそくけい"
+        },
+        {
+            "display": "ブランケット",
+            "reading": "ぶらんけっと"
+        },
+        {
+            "display": "フロンティア",
+            "reading": "ふろんてぃあ"
+        },
+        {
+            "display": "平均台",
+            "reading": "へいきんだい"
+        },
+        {
+            "display": "ペディキュア",
+            "reading": "ぺでぃきゅあ"
+        },
+        {
+            "display": "変光星",
+            "reading": "へんこうせい"
+        },
+        {
+            "display": "弁当箱",
+            "reading": "べんとうばこ"
+        },
+        {
+            "display": "貿易風",
+            "reading": "ぼうえきふう"
+        },
+        {
+            "display": "放射熱",
+            "reading": "ほうしゃねつ"
+        },
+        {
+            "display": "方程式",
+            "reading": "ほうていしき"
+        },
+        {
+            "display": "穂に穂が咲く",
+            "reading": "ほにほがさく"
+        },
+        {
+            "display": "ポニーテール",
+            "reading": "ぽにーてーる"
+        },
+        {
+            "display": "マリオネット",
+            "reading": "まりおねっと"
+        },
+        {
+            "display": "冥王星",
+            "reading": "めいおうせい"
+        },
+        {
+            "display": "モニタリング",
+            "reading": "もにたりんぐ"
+        },
+        {
+            "display": "ラピスラズリ",
+            "reading": "らぴすらずり"
+        },
+        {
+            "display": "六芒星",
+            "reading": "ろくぼうせい"
+        },
+        {
+            "display": "アンビバレンス",
+            "reading": "あんびばれんす"
+        },
+        {
+            "display": "オーバーヒート",
+            "reading": "おーばーひーと"
+        },
+        {
+            "display": "緩衝材",
+            "reading": "かんしょうざい"
+        },
+        {
+            "display": "北半球",
+            "reading": "きたはんきゅう"
+        },
+        {
+            "display": "銀の弾丸",
+            "reading": "ぎんのだんがん"
+        },
+        {
+            "display": "研究者",
+            "reading": "けんきゅうしゃ"
+        },
+        {
+            "display": "重金属",
+            "reading": "じゅうきんぞく"
+        },
+        {
+            "display": "消毒液",
+            "reading": "しょうどくえき"
+        },
+        {
+            "display": "小惑星",
+            "reading": "しょうわくせい"
+        },
+        {
+            "display": "線香花火",
+            "reading": "せんこうはなび"
+        },
+        {
+            "display": "占星術",
+            "reading": "せんせいじゅつ"
+        },
+        {
+            "display": "双眼鏡",
+            "reading": "そうがんきょう"
+        },
+        {
+            "display": "タロットカード",
+            "reading": "たろっとかーど"
+        },
+        {
+            "display": "桃源郷",
+            "reading": "とうげんきょう"
+        },
+        {
+            "display": "二酸化炭素",
+            "reading": "にさんかたんそ"
+        },
+        {
+            "display": "入道雲",
+            "reading": "にゅうどうぐも"
+        },
+        {
+            "display": "二律背反",
+            "reading": "にりつはいはん"
+        },
+        {
+            "display": "猫は液体",
+            "reading": "ねこはえきたい"
+        },
+        {
+            "display": "熱帯雨林",
+            "reading": "ねったいうりん"
+        },
+        {
+            "display": "梅雨前線",
+            "reading": "ばいうぜんせん"
+        },
+        {
+            "display": "微分積分",
+            "reading": "びぶんせきぶん"
+        },
+        {
+            "display": "百分率",
+            "reading": "ひゃくぶんりつ"
+        },
+        {
+            "display": "フライドポテト",
+            "reading": "ふらいどぽてと"
+        },
+        {
+            "display": "望遠鏡",
+            "reading": "ぼうえんきょう"
+        },
+        {
+            "display": "北極星",
+            "reading": "ほっきょくせい"
+        },
+        {
+            "display": "ホワイトボード",
+            "reading": "ほわいとぼーど"
+        },
+        {
+            "display": "麦わら帽子",
+            "reading": "むぎわらぼうし"
+        },
+        {
+            "display": "螺旋階段",
+            "reading": "らせんかいだん"
+        },
+        {
+            "display": "輪廻転生",
+            "reading": "りんねてんせい"
+        },
+        {
+            "display": "路面電車",
+            "reading": "ろめんでんしゃ"
+        },
+        {
+            "display": "アルコールランプ",
+            "reading": "あるこーるらんぷ"
+        },
+        {
+            "display": "宇宙飛行士",
+            "reading": "うちゅうひこうし"
+        },
+        {
+            "display": "ウーパールーパー",
+            "reading": "うーぱーるーぱー"
+        },
+        {
+            "display": "遠赤外線",
+            "reading": "えんせきがいせん"
+        },
+        {
+            "display": "懐中時計",
+            "reading": "かいちゅうどけい"
+        },
+        {
+            "display": "起承転結",
+            "reading": "きしょうてんけつ"
+        },
+        {
+            "display": "コールドスリープ",
+            "reading": "こーるどすりーぷ"
+        },
+        {
+            "display": "鍾乳洞",
+            "reading": "しょうにゅうどう"
+        },
+        {
+            "display": "ショルダーバッグ",
+            "reading": "しょるだーばっぐ"
+        },
+        {
+            "display": "シンギュラリティ",
+            "reading": "しんぎゅらりてぃ"
+        },
+        {
+            "display": "相乗効果",
+            "reading": "そうじょうこうか"
+        },
+        {
+            "display": "天体観測",
+            "reading": "てんたいかんそく"
+        },
+        {
+            "display": "拍手喝采",
+            "reading": "はくしゅかっさい"
+        },
+        {
+            "display": "バンジージャンプ",
+            "reading": "ばんじーじゃんぷ"
+        },
+        {
+            "display": "ホイップクリーム",
+            "reading": "ほいっぷくりーむ"
+        },
+        {
+            "display": "南半球",
+            "reading": "みなみはんきゅう"
+        },
+        {
+            "display": "ロッシュ限界",
+            "reading": "ろっしゅげんかい"
+        },
+        {
+            "display": "算数と数学",
+            "reading": "さんすうとすうがく"
+        },
+        {
+            "display": "蒸気機関車",
+            "reading": "じょうききかんしゃ"
+        },
+        {
+            "display": "南極大陸",
+            "reading": "なんきょくたいりく"
+        },
+        {
+            "display": "白色矮星",
+            "reading": "はくしょくわいせい"
+        },
+        {
+            "display": "南十字星",
+            "reading": "みなみじゅうじせい"
+        },
+        {
+            "display": "四つ葉のクローバー",
+            "reading": "よつばのくろーばー"
+        },
+        {
+            "display": "わらしべ長者",
+            "reading": "わらしべちょうじゃ"
+        },
+        {
+            "display": "ゲシュタルト崩壊",
+            "reading": "げしゅたるとほうかい"
+        },
+        {
+            "display": "重力加速度",
+            "reading": "じゅうりょくかそくど"
+        },
+        {
+            "display": "ユニバーサルデザイン",
+            "reading": "ゆにばーさるでざいん"
+        },
+        {
+            "display": "鬼の居ぬ間に洗濯",
+            "reading": "おにのいぬまにせんたく"
+        },
+        {
+            "display": "黄道十二星座",
+            "reading": "こうどうじゅうにせいざ"
+        },
+        {
+            "display": "第一宇宙速度",
+            "reading": "だいいちうちゅうそくど"
+        },
+        {
+            "display": "百発百中",
+            "reading": "ひゃっぱつひゃくちゅう"
+        },
+        {
+            "display": "覆水盆に返らず",
+            "reading": "ふくすいぼんにかえらず"
+        },
+        {
+            "display": "月に叢雲花に風",
+            "reading": "つきにむらくもはなにかぜ"
+        }
+    ]
 }
