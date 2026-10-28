@@ -22,6 +22,7 @@ public class Character : MonoBehaviour {
     private readonly List<OnDamageEffect> _damageEffects = new();    // ダメージを与えた際に発動する効果
     private readonly List<OnDamagedEffect> _damagedEffects = new();  // ダメージを受けた際に発動する効果
     private readonly List<OnDodgeEffect> _dodgeEffects = new();      // 回避が発動した際に発動する効果
+    private readonly List<TemporaryStatusBonus> _temporaryStatusBonuses = new();
     private float _currentHP;
     private float _currentMP;
     private bool _isDead;
@@ -74,6 +75,33 @@ public class Character : MonoBehaviour {
         _currentMP = Mathf.FloorToInt(MaxMP);
     }
 
+    // ステータスごとに補正値を合計する
+    public void AddTemporaryStatusBonus(object source, StatusType statusType, float amount) {
+        var bonus = _temporaryStatusBonuses.Find(
+            x => ReferenceEquals(x.Source, source) && x.StatusType == statusType
+        );
+
+        if (bonus != null) bonus.Add(amount);
+        else _temporaryStatusBonuses.Add(
+            new TemporaryStatusBonus(source, statusType, amount)
+        );
+    }
+
+    public float GetTemporaryStatusBonus(StatusType statusType) {
+        float total = 0f;
+        foreach (var bonus in _temporaryStatusBonuses) {
+            if (bonus.StatusType == statusType) total += bonus.Value;
+        }
+
+        return total;
+    }
+
+    // 発生元ごとに補正を切れるように
+    public void ResetTemporaryStatusBonuses(object source) {
+        _temporaryStatusBonuses.RemoveAll(x => ReferenceEquals(x.Source, source));
+        Debug.Log("Reset TemporaryStatusBonus.");
+    }
+
     // 強化アイテム一覧、レリック効果
     private void BuildEffectList() {
         if (_itemInventory == null) return;
@@ -82,6 +110,7 @@ public class Character : MonoBehaviour {
         _attackEffects.Clear();
         _damageEffects.Clear();
         _damagedEffects.Clear();
+        _dodgeEffects.Clear();
         _relicEffects.Clear();
 
         foreach (var item in _itemInventory.Items) {
@@ -431,5 +460,18 @@ public class Character : MonoBehaviour {
     public void Debug_PrintItems() {
         Debug.Log("xxx--- ITEM LIST ---xxx");
         foreach (var item in _itemInventory.Items) Debug.Log($"{item.ItemName} [{item.Rarity}]");
+    }
+
+    public void Debug_PrintStatus() {
+        var statusLines = new List<string>();
+        foreach (StatusType statusType in Enum.GetValues(typeof(StatusType))) {
+            statusLines.Add($"{statusType}: {GetFinalStatus(statusType)}");
+        }
+
+        Debug.Log(
+            $"xxx--- STATUS ---xxx\n" +
+            $"HP: {_currentHP}/{MaxHP}\n" +
+            $"MP: {_currentMP}/{MaxMP}\n" +
+            string.Join("\n", statusLines));
     }
 }

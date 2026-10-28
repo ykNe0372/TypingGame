@@ -4700,7 +4700,6 @@ GameObject:
   - component: {fileID: 1093212729}
   - component: {fileID: 1093212730}
   - component: {fileID: 1093212728}
-  - component: {fileID: 1093212727}
   m_Layer: 3
   m_Name: Character
   m_TagString: Untagged
@@ -4708,19 +4707,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1093212727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1093212726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9febd9299fba4a87954aaf254bcac63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _character: {fileID: 1093212728}
 --- !u!114 &1093212728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5255,7 +5241,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1815338204}
         m_TargetAssemblyTypeName: DebugController, Assembly-CSharp
-        m_MethodName: Debug_StatusCheck
+        m_MethodName: Debug_PrintStatus
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7441,7 +7427,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isDebugMode: 1
   _debugPanel: {fileID: 803467467}
-  _testStatus: {fileID: 1093212727}
   _player: {fileID: 1093212728}
   _typingManager: {fileID: 984307236}
   _runManager: {fileID: 357868478}

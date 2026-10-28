@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cc135a34f2eb49b89d592468a30c95e, type: 3}
   m_Name: Sword_evasion
   m_EditorClassIdentifier: 
-  maxEvasionRate: 45
+  maxEvasionRate: 50
   curveK: 2

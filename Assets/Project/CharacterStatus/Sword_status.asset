@@ -40,6 +40,6 @@ MonoBehaviour:
   - statusType: 12
     value: 5
   - statusType: 13
-    value: 50
+    value: 10
   - statusType: 14
     value: 5
