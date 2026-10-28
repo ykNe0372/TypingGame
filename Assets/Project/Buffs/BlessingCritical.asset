@@ -17,8 +17,8 @@ MonoBehaviour:
   _duration: {fileID: 11400000, guid: 6d0ad74acaaba495e9ea4f8e7d11b0da, type: 2}
   _modifiers:
   - StatusType: 10
-    BuffType: 1
-    Value: 1.1
+    BuffType: 0
+    Value: 0.1
   - StatusType: 11
-    BuffType: 1
-    Value: 1.3
+    BuffType: 0
+    Value: 0.3
