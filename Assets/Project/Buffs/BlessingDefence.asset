@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: BlessingDefence
   m_EditorClassIdentifier: 
   _buffName: Debug_DefenceType
-  _buffDescription: "\u9632\u5FA1\u529B20%UP\n\u7D20\u65E9\u305510%UP"
+  _buffDescription: "\u9632\u5FA1\u529B20%UP\n\u56DE\u907F\u738710%UP"
   _duration: {fileID: 11400000, guid: 6d0ad74acaaba495e9ea4f8e7d11b0da, type: 2}
   _modifiers:
   - StatusType: 5
-    Value: 0.2
-  - StatusType: 11
-    Value: 0.1
+    BuffType: 1
+    Value: 1.2
+  - StatusType: 13
+    BuffType: 1
+    Value: 1.1

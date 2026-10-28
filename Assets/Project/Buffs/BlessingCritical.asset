@@ -16,7 +16,9 @@ MonoBehaviour:
   _buffDescription: "\u4F1A\u5FC3\u738710%UP\n\u4F1A\u5FC3\u30C0\u30E1\u30FC\u30B830%UP"
   _duration: {fileID: 11400000, guid: 6d0ad74acaaba495e9ea4f8e7d11b0da, type: 2}
   _modifiers:
-  - StatusType: 9
-    Value: 0.1
   - StatusType: 10
-    Value: 0.3
+    BuffType: 1
+    Value: 1.1
+  - StatusType: 11
+    BuffType: 1
+    Value: 1.3

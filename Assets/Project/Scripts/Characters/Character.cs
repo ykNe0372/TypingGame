@@ -203,12 +203,24 @@ public class Character : MonoBehaviour {
         RemoveExpiredBuffs();
     }
 
-    public float GetBuffTotal(StatusType statusType) {
+    public float GetAddBuffTotal(StatusType statusType) {
+        float totalAdd = 0f;
+        
+        foreach (var buff in _tempBuffs) {
+            foreach (var modifier in buff.Data.Modifiers) {
+                if (modifier.StatusType == statusType && modifier.BuffType == BuffType.Adding) totalAdd += modifier.Value;
+            }
+        }
+
+        return totalAdd;
+    }
+
+    public float GetMultiBuffTotal(StatusType statusType) {
         float totalMultiplier = 1f;
 
         foreach (var buff in _tempBuffs) {
             foreach (var modifier in buff.Data.Modifiers) {
-                if (modifier.StatusType == statusType) totalMultiplier += modifier.Value;
+                if (modifier.StatusType == statusType && modifier.BuffType == BuffType.Multiplier) totalMultiplier *= modifier.Value;
             }
         }
 
@@ -222,8 +234,8 @@ public class Character : MonoBehaviour {
         foreach (var effect in _growthItemEffects) bonus += effect.GetStatusBonus(type);
         foreach (var effect in _relicEffects) bonus += effect.GetStatusBonus(type);
         
-        float value =  baseValue + bonus;
-        value *= GetBuffTotal(type);
+        float value =  baseValue + bonus + GetAddBuffTotal(type);
+        value *= GetMultiBuffTotal(type);
 
         foreach (var s in _statusManager.Effects) {
             value = s.Data.behaviour.ModifyStat(type, value, s);
