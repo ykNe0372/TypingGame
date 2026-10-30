@@ -13,19 +13,46 @@ public class StatusManager {
         _owner = owner;
     }
 
+    private Dictionary<StatusEffectParameter, float> CreateParameters(Character source, StatusEffectData data) {
+        var parameters = new Dictionary<StatusEffectParameter, float>();
+
+        void Add(StatusEffectParameter parameter, float baseValue) {
+            parameters[parameter] = source.GetFinalStEParameter(data.type, parameter, baseValue);
+        }
+
+        Add(StatusEffectParameter.BaseChance, data.baseChance);
+        Add(StatusEffectParameter.Duration, data.duration);
+        Add(StatusEffectParameter.AccumulationPerFail, data.accumulationPerFail);
+        Add(StatusEffectParameter.MaxBonus, data.maxBonus);
+        Add(StatusEffectParameter.FreezeBreakBaseChance, data.freezeBreakBaseChance);
+        Add(StatusEffectParameter.FreezeBreakAccumulation, data.freezeBreakAccumulation);
+        Add(StatusEffectParameter.FreezeBreakMaxBonus, data.freezeBreakMaxBonus);
+        Add(StatusEffectParameter.ShockSpeedMultiplier, data.shockSpeedMultiplier);
+        Add(StatusEffectParameter.ShockFailChance, data.shockFailChance);
+        Add(StatusEffectParameter.OverShockBaseMultiplier, data.overShockBaseMultiplier);
+        Add(StatusEffectParameter.OverShockChainDecay, data.overShockChainDecay);
+
+        return parameters;
+    }
+
     // 状態異常付与の試行
     public bool TryApply(Character attacker, StatusEffectData data) {
+        float baseChance = attacker.GetFinalStEParameter(data.type, StatusEffectParameter.BaseChance, data.baseChance);
         float bonus = _inflictionBonus.GetValueOrDefault(data.type, 0f);
-        float chance = StatusCalculator.CalculateChance(attacker, _owner, data, bonus);
+        float chance = StatusCalculator.CalculateChance(attacker, _owner, data, bonus, baseChance);
 
-        if (UnityEngine.Random.value < chance) {
+        if (Random.value < chance) {
             Apply(data, attacker);
             _inflictionBonus[data.type] = 0f;
             return true;
         } else {
+            // 付与試行のタイミングで取得
+            float accumulation = attacker.GetFinalStEParameter(data.type, StatusEffectParameter.AccumulationPerFail, data.accumulationPerFail);
+            float maxBonus = attacker.GetFinalStEParameter(data.type, StatusEffectParameter.MaxBonus, data.maxBonus);
+
             float rate = attacker.GetFinalStatus(StatusType.StatusInflictionRate) / 100f;  // 付与上昇率を (StatusInflictionRate) % アップ
-            bonus += data.accumulationPerFail * (1f + rate);
-            bonus = Mathf.Min(bonus, data.maxBonus);    // 上昇率が 100% を超えないように
+            bonus += accumulation * (1f + rate);
+            bonus = Mathf.Min(bonus, maxBonus);    // 上昇率が 100% を超えないように
 
             _inflictionBonus[data.type] = bonus;
             return false;
@@ -39,7 +66,8 @@ public class StatusManager {
             if (existing.Data.behaviour.OnReapply(_owner, source, data)) return;   // true が返れば新規付与しない
         }
 
-        var instance = new StatusEffectInstance(data, source);
+        var parameters = CreateParameters(source, data);
+        var instance = new StatusEffectInstance(data, source, parameters);
         _effects.Add(instance);
         data.behaviour.OnApply(_owner, instance);
     }

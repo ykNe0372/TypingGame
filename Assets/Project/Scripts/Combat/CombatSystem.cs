@@ -23,6 +23,10 @@ public class CombatSystem : MonoBehaviour {
     public event Action<BattleType> OnBattleVictory;
     public event Action OnBattleDefeat;
 
+    private void Awake() {
+        _player.SetCombatSystem(this);
+    }
+
     private void Start() {
         if (_battleType == BattleType.Normal) {
             foreach (var modifier in _activeModifiers) modifier.OnBattleStart(_battleContext);

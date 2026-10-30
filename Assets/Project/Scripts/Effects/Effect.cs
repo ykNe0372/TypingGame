@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Effect : ScriptableObject {
@@ -10,4 +11,5 @@ public abstract class Effect : ScriptableObject {
     public virtual void OnDamage(DamageContext ctx) {}
     public virtual void OnDamaged(DamageContext ctx) {}
     public virtual void OnDodge(DamageContext ctx) {}
+    public virtual void GetStatusEffectModifiers(List<StatusEffectModifier> results) {}
 }

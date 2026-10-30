@@ -10,7 +10,6 @@ public class Character : MonoBehaviour {
     [SerializeField] private List<BonusAttackData> _bonusAttacks;
     [SerializeField] private List<SpecialAttackData> _specialAttacks;
     [SerializeField] private ElementType _currentElement = ElementType.None;
-    [SerializeField] private CombatSystem _combatSystems;
 
     private StatusManager _statusManager;
     private readonly ItemInventory _itemInventory = new();
@@ -23,6 +22,7 @@ public class Character : MonoBehaviour {
     private readonly List<OnDamagedEffect> _damagedEffects = new();  // ダメージを受けた際に発動する効果
     private readonly List<OnDodgeEffect> _dodgeEffects = new();      // 回避が発動した際に発動する効果
     private readonly List<TemporaryStatusBonus> _temporaryStatusBonuses = new();
+    private CombatSystem _combatSystems;
     private float _currentHP;
     private float _currentMP;
     private bool _isDead;
@@ -73,6 +73,10 @@ public class Character : MonoBehaviour {
 
     private void InitializeMP() {
         _currentMP = Mathf.FloorToInt(MaxMP);
+    }
+
+    public void SetCombatSystem(CombatSystem combatSystem) {
+        _combatSystems = combatSystem;
     }
 
     // ステータスごとに補正値を合計する
@@ -272,6 +276,37 @@ public class Character : MonoBehaviour {
 
         return value;
     }
+
+    public float GetFinalStEParameter(StatusEffectType type, StatusEffectParameter parameter, float baseValue) {
+    float adding = 0f;
+    float multiplier = 1f;
+    var modifiers = new List<StatusEffectModifier>();
+
+    foreach (var effect in _growthItemEffects) {
+        effect.GetStatusEffectModifiers(modifiers);
+    }
+
+    // foreach (var effect in _relicEffects) {
+    //     effect.GetStatusEffectModifiers(modifiers);
+    // }
+
+    foreach (var modifier in modifiers) {
+        if (modifier.StatusEffectType != type) continue;
+        if (modifier.Parameter != parameter) continue;
+
+        switch (modifier.BuffType) {
+            case BuffType.Adding:
+                adding += modifier.Value;
+                break;
+
+            case BuffType.Multiplier:
+                multiplier *= modifier.Value;
+                break;
+        }
+    }
+
+    return (baseValue + adding) * multiplier;
+}
 
     public BonusAttackData GetBonusAttack(int chain) {
         if (_bonusAttacks.Count == 0) return null;

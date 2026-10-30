@@ -4735,7 +4735,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 48629808f99a146fe999f16ae0f56f75, type: 2}
   - {fileID: 11400000, guid: 85f0c2622e29d45d8bf16bb72b9478c8, type: 2}
   _currentElement: 0
-  _combatSystems: {fileID: 614157279}
   _startItems: []
 --- !u!4 &1093212729
 Transform:
