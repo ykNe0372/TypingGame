@@ -341,6 +341,10 @@
             "reading": "べが"
         },
         {
+            "display": "ヘビ",
+            "reading": "へび"
+        },
+        {
             "display": "ヘラ",
             "reading": "へら"
         },
@@ -1157,6 +1161,10 @@
             "reading": "かながた"
         },
         {
+            "display": "かまくら",
+            "reading": "かまくら"
+        },
+        {
             "display": "搦め手",
             "reading": "からめて"
         },
@@ -1175,6 +1183,10 @@
         {
             "display": "キッチン",
             "reading": "きっちん"
+        },
+        {
+            "display": "教師",
+            "reading": "きょうし"
         },
         {
             "display": "霧雨",
@@ -1253,8 +1265,16 @@
             "reading": "しゃべる"
         },
         {
+            "display": "食器",
+            "reading": "しょっき"
+        },
+        {
             "display": "深海",
             "reading": "しんかい"
+        },
+        {
+            "display": "審判",
+            "reading": "しんぱん"
         },
         {
             "display": "推測",
@@ -1399,10 +1419,6 @@
         {
             "display": "残り香",
             "reading": "のこりが"
-        },
-        {
-            "display": "野良猫",
-            "reading": "のらねこ"
         },
         {
             "display": "配線",
@@ -1921,6 +1937,10 @@
             "reading": "のうぎょう"
         },
         {
+            "display": "ノクターン",
+            "reading": "のくたーん"
+        },
+        {
             "display": "覗き窓",
             "reading": "のぞきまど"
         },
@@ -1929,8 +1949,8 @@
             "reading": "ばってりー"
         },
         {
-            "display": "花曇り",
-            "reading": "はなぐもり"
+            "display": "花畑",
+            "reading": "はなばたけ"
         },
         {
             "display": "パンケーキ",
@@ -2187,6 +2207,10 @@
         {
             "display": "見聞録",
             "reading": "けんぶんろく"
+        },
+        {
+            "display": "紅一点",
+            "reading": "こういってん"
         },
         {
             "display": "好敵手",
@@ -2577,6 +2601,10 @@
             "reading": "ふらいどぽてと"
         },
         {
+            "display": "プラネタリウム",
+            "reading": "ぷらねたりうむ"
+        },
+        {
             "display": "望遠鏡",
             "reading": "ぼうえんきょう"
         },
@@ -2605,16 +2633,16 @@
             "reading": "ろめんでんしゃ"
         },
         {
-            "display": "アルコールランプ",
-            "reading": "あるこーるらんぷ"
-        },
-        {
             "display": "宇宙飛行士",
             "reading": "うちゅうひこうし"
         },
         {
             "display": "ウーパールーパー",
             "reading": "うーぱーるーぱー"
+        },
+        {
+            "display": "永久機関",
+            "reading": "えいきゅうきかん"
         },
         {
             "display": "遠赤外線",
