@@ -18,6 +18,8 @@ public class RunManager : MonoBehaviour {
     [SerializeField] private RewardSelectionUI _rewardSelectionUI;
     [Header("マップ生成機")]
     [SerializeField] private MapGenerator _mapGenerator;
+    [Header("マップ選択UI")]
+    [SerializeField] private DestinationSelectionUI _destinationSelectionUI;
 
     private int _currentSection = 1;    // 何区画目か（スタート〜ボスで1区画）
     private MapData _nextMap;  // 次の区画
@@ -42,6 +44,14 @@ public class RunManager : MonoBehaviour {
     private void Awake() {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
+
+    private void OnEnable() {
+        if (GameStateManager.Instance != null) GameStateManager.Instance.OnStateChanged += HandleGameStateChanged;      
+    }
+
+    private void OnDisable() {
+        if (GameStateManager.Instance != null) GameStateManager.Instance.OnStateChanged -= HandleGameStateChanged;
     }
 
     public void StartRun(MapData mapData) {
@@ -95,19 +105,19 @@ public class RunManager : MonoBehaviour {
     private void OpenShop() {
         Debug.Log("Open Shop");
         GameStateManager.Instance.ChangeState(GameState.ItemShop);
-        _itemShopSystem.EnterShop(_player);
+        _itemShopSystem.EnterShop(_player, _rewardSelectionUI);
     }
 
     private void OpenRelicShop() {
         Debug.Log("Open RelicShop");
         GameStateManager.Instance.ChangeState(GameState.RelicShop);
-        _relicShopSystem.EnterRelicShop(_player);
+        _relicShopSystem.EnterRelicShop(_player, _rewardSelectionUI);
     }
 
     private void OpenRest() {
         Debug.Log("Open Rest");
         GameStateManager.Instance.ChangeState(GameState.Rest);
-        _restSystem.EnterRest(_player);
+        _restSystem.EnterRest(_player, _rewardSelectionUI);
     }
 
     private void StartBossBattle(MapNode node) {
@@ -203,6 +213,11 @@ public class RunManager : MonoBehaviour {
     }
 
     public void SelectNode(int index) {
+        var selectable = GetCurrentSelectableNodes();
+        if (index < 0 || index >= selectable.Count) return;
+
+        _destinationSelectionUI.Hide();
+
         switch (_selectionMode) {
             case MapSelectionMode.Normal:
                 SelectNormalNode(index);
@@ -244,6 +259,11 @@ public class RunManager : MonoBehaviour {
 
     private void HandleRewardClosed() {
         GameStateManager.Instance.ChangeState(GameState.MapSelect);
+    }
+
+    private void HandleGameStateChanged(GameState state) {
+        if (state != GameState.MapSelect) return;
+        _destinationSelectionUI.Show(GetCurrentSelectableNodes());
     }
 
     // ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭  DEBUG MODE  ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭

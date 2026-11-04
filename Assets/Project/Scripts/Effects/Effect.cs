@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Effect : ScriptableObject {
@@ -8,4 +9,7 @@ public abstract class Effect : ScriptableObject {
     // 中間層でこの処理を override して設計する
     public virtual void OnAttack(AttackContext ctx) {}
     public virtual void OnDamage(DamageContext ctx) {}
+    public virtual void OnDamaged(DamageContext ctx) {}
+    public virtual void OnDodge(DamageContext ctx) {}
+    public virtual void GetStatusEffectModifiers(List<StatusEffectModifier> results) {}
 }

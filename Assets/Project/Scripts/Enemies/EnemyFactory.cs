@@ -12,6 +12,7 @@ public class EnemyFactory : MonoBehaviour {
         GameObject obj = Instantiate(enemyData.Prefab, spawnPoint.position, Quaternion.identity, _enemyRoot);
         Character enemy = obj.GetComponent<Character>();
         if (obj.TryGetComponent<EnemyController>(out var controller)) controller.Initialize(_combatSystem);
+        enemy.SetCombatSystem(_combatSystem);  // アタッチできないのでここで参照を渡す
         enemy.Initialize();
 
         return enemy;

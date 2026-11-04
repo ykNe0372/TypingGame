@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class Character : MonoBehaviour {
     [SerializeField] private CharacterBaseStatus _baseStatus;   // 基礎ステータス
+    [SerializeField] private EvasionSettings _evasionSettings;  // 回避関連の値の設定
     [SerializeField] private RelicData _relic;                  // レリック
     [SerializeField] private List<SkillData> _skills;
     [SerializeField] private List<BonusAttackData> _bonusAttacks;
     [SerializeField] private List<SpecialAttackData> _specialAttacks;
     [SerializeField] private ElementType _currentElement = ElementType.None;
-    [SerializeField] private CombatSystem _combatSystems;
-    
 
     private StatusManager _statusManager;
     private readonly ItemInventory _itemInventory = new();
     private readonly SubItemInventory _subInventory = new();
     private readonly List<RelicEffect> _relicEffects = new();        // レリック効果
-    private readonly List<Effect> _passiveEffects = new();           // ステータス変更系
-    private readonly List<BuffInstance> _activeBuffs = new();        // バフ・デバフ
-    private readonly List<OnAttackEffect> _attackEffects = new();    // 攻撃変更（連撃）系
-    private readonly List<OnDamageEffect> _damageEffects = new();    // ダメージ計算
+    private readonly List<Effect> _growthItemEffects = new();        // 強化アイテムによるステータス上昇
+    private readonly List<BuffInstance> _tempBuffs = new();          // 一時的なバフデバフ
+    private readonly List<OnAttackEffect> _attackEffects = new();    // 攻撃命令を受けた際に発動する効果
+    private readonly List<OnDamageEffect> _damageEffects = new();    // ダメージを与えた際に発動する効果
+    private readonly List<OnDamagedEffect> _damagedEffects = new();  // ダメージを受けた際に発動する効果
+    private readonly List<OnDodgeEffect> _dodgeEffects = new();      // 回避が発動した際に発動する効果
+    private readonly List<TemporaryStatusBonus> _temporaryStatusBonuses = new();
+    private CombatSystem _combatSystems;
     private float _currentHP;
     private float _currentMP;
     private bool _isDead;
@@ -29,12 +32,19 @@ public class Character : MonoBehaviour {
     public float MaxHP => GetFinalStatus(StatusType.MaxHP);
     public float MaxMP => GetFinalStatus(StatusType.MaxMP);
     public bool IsDead => _isDead;
+    public EvasionSettings EvasionSettings => _evasionSettings;
+    public IReadOnlyList<SkillData> Skills => _skills;
     public SkillData CurrentSkill => _skills[_currentSkillIndex];
     public ElementType CurrentElement => _currentElement;
     public ItemInventory Inventory => _itemInventory;
     public SubItemInventory SubInventory => _subInventory;
+    public IReadOnlyList<OnAttackEffect> AttackEffects => _attackEffects;
+    public IReadOnlyList<OnDamageEffect> DamageEffects => _damageEffects;
 
     public event Action<Character> OnDead;
+    public event Action<float, float> OnHPChanged;
+    public event Action<float, float> OnMPChanged;
+    public event Action<DamageContext> OnDamaged;
 
     private void Awake() {
         _statusManager = new StatusManager(this);
@@ -65,19 +75,55 @@ public class Character : MonoBehaviour {
         _currentMP = Mathf.FloorToInt(MaxMP);
     }
 
+    public void SetCombatSystem(CombatSystem combatSystem) {
+        _combatSystems = combatSystem;
+    }
+
+    // ステータスごとに補正値を合計する
+    public void AddTemporaryStatusBonus(object source, StatusType statusType, float amount) {
+        var bonus = _temporaryStatusBonuses.Find(
+            x => ReferenceEquals(x.Source, source) && x.StatusType == statusType
+        );
+
+        if (bonus != null) bonus.Add(amount);
+        else _temporaryStatusBonuses.Add(
+            new TemporaryStatusBonus(source, statusType, amount)
+        );
+    }
+
+    public float GetTemporaryStatusBonus(StatusType statusType) {
+        float total = 0f;
+        foreach (var bonus in _temporaryStatusBonuses) {
+            if (bonus.StatusType == statusType) total += bonus.Value;
+        }
+
+        return total;
+    }
+
+    // 発生元ごとに補正を切れるように
+    public void ResetTemporaryStatusBonuses(object source) {
+        _temporaryStatusBonuses.RemoveAll(x => ReferenceEquals(x.Source, source));
+        Debug.Log("Reset TemporaryStatusBonus.");
+    }
+
     // 強化アイテム一覧、レリック効果
     private void BuildEffectList() {
         if (_itemInventory == null) return;
         
-        _passiveEffects.Clear();
+        _growthItemEffects.Clear();
         _attackEffects.Clear();
+        _damageEffects.Clear();
+        _damagedEffects.Clear();
+        _dodgeEffects.Clear();
         _relicEffects.Clear();
 
         foreach (var item in _itemInventory.Items) {
             foreach (var effect in item.GetEffects()) {
                 if (effect is OnAttackEffect attackEffect) _attackEffects.Add(attackEffect);
+                else if (effect is OnDamagedEffect damagedEffect) _damagedEffects.Add(damagedEffect);
                 else if (effect is OnDamageEffect damageEffect) _damageEffects.Add(damageEffect);
-                else _passiveEffects.Add(effect);
+                else if (effect is OnDodgeEffect dodgeEffect) _dodgeEffects.Add(dodgeEffect);
+                else _growthItemEffects.Add(effect);
             }
         }
 
@@ -155,28 +201,59 @@ public class Character : MonoBehaviour {
     }
 
     public void AddBuff(BuffData data) {
-        _activeBuffs.Add(new BuffInstance(data));
+        _tempBuffs.Add(new BuffInstance(data));
 
         // Debug.Log($"[DEBUG] PhysicalAttack: {GetFinalStatus(StatusType.PhysicalAttack)}");
         // Debug.Log($"[DEBUG] MagicAttack: {GetFinalStatus(StatusType.MagicAttack)}");
     }
 
-    public void OnBattleEnd() {
-        for (int i=_activeBuffs.Count-1; i>=0; --i) {
-            --_activeBuffs[i].RemainingBattleCount;
-            if (_activeBuffs[i].RemainingBattleCount <= 0) {
-                Debug.Log($"Buff Expired: {_activeBuffs[i].Data.BuffName}");
-                _activeBuffs.RemoveAt(i);
-            }
+    private void RemoveExpiredBuffs() {
+        for (int i=_tempBuffs.Count-1; i>=0; --i) {
+            if (!_tempBuffs[i].Duration.IsExpired) continue;
+
+            Debug.Log($"Buff Expired: {_tempBuffs[i].Data.BuffName}");
+            _tempBuffs.RemoveAt(i);
         }
     }
 
-    public float GetBuffTotal(StatusType statusType) {
+    public void OnBattleEnd() {
+        foreach (var buff in _tempBuffs) buff.Duration.OnBattleEnd();  // BuffDuration に通知
+        RemoveExpiredBuffs();
+    }
+
+    public void TickBuffs(float deltaTime) {
+        foreach (var buff in _tempBuffs) buff.Duration.Tick(deltaTime);
+        RemoveExpiredBuffs();
+    }
+
+    public void NotifyAttack() {
+        foreach (var buff in _tempBuffs) buff.Duration.OnAttack();
+        RemoveExpiredBuffs();
+    }
+
+    public void NotifyDamaged() {
+        foreach (var buff in _tempBuffs) buff.Duration.OnDamaged();
+        RemoveExpiredBuffs();
+    }
+
+    public float GetAddBuffTotal(StatusType statusType) {
+        float totalAdd = 0f;
+        
+        foreach (var buff in _tempBuffs) {
+            foreach (var modifier in buff.Data.Modifiers) {
+                if (modifier.StatusType == statusType && modifier.BuffType == BuffType.Adding) totalAdd += modifier.Value;
+            }
+        }
+
+        return totalAdd;
+    }
+
+    public float GetMultiBuffTotal(StatusType statusType) {
         float totalMultiplier = 1f;
 
-        foreach (var buff in _activeBuffs) {
+        foreach (var buff in _tempBuffs) {
             foreach (var modifier in buff.Data.Modifiers) {
-                if (modifier.StatusType == statusType) totalMultiplier += modifier.Value;
+                if (modifier.StatusType == statusType && modifier.BuffType == BuffType.Multiplier) totalMultiplier *= modifier.Value;
             }
         }
 
@@ -187,11 +264,11 @@ public class Character : MonoBehaviour {
         float baseValue = _baseStatus.GetStatus(type);
         float bonus = 0f;
         
-        foreach (var effect in _passiveEffects) bonus += effect.GetStatusBonus(type);
+        foreach (var effect in _growthItemEffects) bonus += effect.GetStatusBonus(type);
         foreach (var effect in _relicEffects) bonus += effect.GetStatusBonus(type);
         
-        float value =  baseValue + bonus;
-        value *= GetBuffTotal(type);
+        float value =  baseValue + bonus + GetAddBuffTotal(type);
+        value *= GetMultiBuffTotal(type);
 
         foreach (var s in _statusManager.Effects) {
             value = s.Data.behaviour.ModifyStat(type, value, s);
@@ -199,6 +276,37 @@ public class Character : MonoBehaviour {
 
         return value;
     }
+
+    public float GetFinalStEParameter(StatusEffectType type, StatusEffectParameter parameter, float baseValue) {
+    float adding = 0f;
+    float multiplier = 1f;
+    var modifiers = new List<StatusEffectModifier>();
+
+    foreach (var effect in _growthItemEffects) {
+        effect.GetStatusEffectModifiers(modifiers);
+    }
+
+    // foreach (var effect in _relicEffects) {
+    //     effect.GetStatusEffectModifiers(modifiers);
+    // }
+
+    foreach (var modifier in modifiers) {
+        if (modifier.StatusEffectType != type) continue;
+        if (modifier.Parameter != parameter) continue;
+
+        switch (modifier.BuffType) {
+            case BuffType.Adding:
+                adding += modifier.Value;
+                break;
+
+            case BuffType.Multiplier:
+                multiplier *= modifier.Value;
+                break;
+        }
+    }
+
+    return (baseValue + adding) * multiplier;
+}
 
     public BonusAttackData GetBonusAttack(int chain) {
         if (_bonusAttacks.Count == 0) return null;
@@ -216,54 +324,14 @@ public class Character : MonoBehaviour {
     public void TriggerAttack(AttackContext ctx) {
         if (_isDead) return;
 
-        foreach (var effect in _attackEffects) effect.OnAttack(ctx);
-        foreach (var attack in ctx.AttackInstances) ExecuteAttack(ctx, attack);
-    }
-
-    private void ExecuteAttack(AttackContext ctx, AttackInstance attack) {
-        foreach (var target in ctx.Targets) {
-            var dmgCtx = DamageContextFactory.CreateAttack(this, target);
-
-            dmgCtx.BaseDamage *= attack.PowerMultiplier;
-            dmgCtx.FinalDamage = dmgCtx.BaseDamage * CurrentSkill.powerMultiplier;
-            CriticalCalculator.Apply(dmgCtx);
-            
-            target.TakeDamage(dmgCtx);   // 被弾処理
-            if (ctx.StatusEffect != null) {
-                target.TryApplyStatus(ctx.Attacker, ctx.StatusEffect);  // 状態異常付与
-            }
-        }
-    }
-
-    public void TriggerBonusAttack(List<Character> targets, BonusAttackData bonus) {
-        ExecuteBonusAttack(targets, bonus);
-    }
-
-    private void ExecuteBonusAttack(List<Character> targets, BonusAttackData bonus) {
-        foreach (var target in targets) {
-            var dmgCtx = DamageContextFactory.CreateAttack(this, target);
-            dmgCtx.FinalDamage = dmgCtx.BaseDamage * bonus.multiplier;
-            CriticalCalculator.Apply(dmgCtx);
-            Debug.Log("Bonus Atatck Executed.");
-
-            target.TakeDamage(dmgCtx);
-        }
-    }
-
-    public void TriggerSpecialAttack(List<Character> targets, SpecialAttackData special) {
-        foreach (var target in targets) {
-            var dmgCtx = DamageContextFactory.CreateAttack(this, target);
-            dmgCtx.FinalDamage = dmgCtx.BaseDamage * special.multiplier;
-            Debug.Log("Special Attack Executed.");
-
-            target.TakeDamage(dmgCtx);
-        }
+        AttackExecutor.Execute(ctx);
     }
 
     // ダメージ適応（仮）
     public void TakeDamage(DamageContext ctx) {
-        if (!ctx.IsEnvironmentDamage)
-            foreach (var effect in _damageEffects) effect.OnDamage(ctx);
+        if (!ctx.IsEnvironmentDamage) {   
+            foreach (var effect in _damagedEffects) effect.OnDamaged(ctx);
+        }
 
         for (int i=_statusManager.Effects.Count-1; i>=0; --i) {  // 要素を削除しても大丈夫なように逆順にする 
             var status = _statusManager.Effects[i];
@@ -271,12 +339,20 @@ public class Character : MonoBehaviour {
         }
 
         int damage = Mathf.FloorToInt(Mathf.Max(0f, ctx.FinalDamage));
-        _currentHP -= damage;
+        ctx.ActualDamage = Mathf.Min(damage, Mathf.FloorToInt(_currentHP));
+        _currentHP -= ctx.ActualDamage;
         _currentHP = Mathf.Max(0, _currentHP);
 
         if (_currentHP <= 0) Die();
-    
+
+        OnHPChanged?.Invoke(_currentHP, MaxHP);
+        OnDamaged?.Invoke(ctx);
         Debug.Log($"{name} HP: {_currentHP}/{MaxHP}");
+    }
+
+    public void TriggerDodge(DamageContext ctx) {
+        if (_isDead) return;
+        foreach (var effect in _dodgeEffects) effect.OnDodge(ctx);
     }
 
     public void TakePercentDamage(float percent) {
@@ -285,6 +361,7 @@ public class Character : MonoBehaviour {
 
         var dmgCtx = DamageContextFactory.CreateFixed(null, this, damage, true);
         TakeDamage(dmgCtx);
+        OnHPChanged?.Invoke(_currentHP, MaxHP);
     }
 
     public void ConsumePercentMP(float percent) {
@@ -292,6 +369,7 @@ public class Character : MonoBehaviour {
         if (_currentMP < consume) return;
 
         TryConsumeMP(Mathf.FloorToInt(consume));
+        OnMPChanged?.Invoke(_currentMP, MaxMP);
     }
 
     private void Die() {
@@ -334,7 +412,7 @@ public class Character : MonoBehaviour {
         }
     }
 
-    private bool TryApplyStatus(Character attacker, StatusEffectData data) {
+    public bool TryApplyStatus(Character attacker, StatusEffectData data) {
         return _statusManager.TryApply(attacker, data);
     }
 
@@ -379,6 +457,8 @@ public class Character : MonoBehaviour {
             RecoverMP(1);
             _regenTimer -= interval;
         }
+
+        OnMPChanged?.Invoke(_currentMP, MaxMP);
     }
 
     public void RecoverHP(int amount) {
@@ -386,6 +466,8 @@ public class Character : MonoBehaviour {
 
         _currentHP += amount;
         _currentHP = Mathf.Min(_currentHP, MaxHP);
+
+        OnHPChanged?.Invoke(_currentHP, MaxHP);
     }
 
     public void RecoverMP(int amount) {
@@ -393,12 +475,16 @@ public class Character : MonoBehaviour {
 
         _currentMP += amount;
         _currentMP = Mathf.Min(_currentMP, MaxMP);
+
+        OnMPChanged?.Invoke(_currentMP, MaxMP);
     }
 
     public bool TryConsumeMP(int amount) {
         if (_currentMP < amount) return false;
         _currentMP -= amount;
         Debug.Log($"{name} HP: {_currentMP}/{MaxMP}");
+
+        OnMPChanged?.Invoke(_currentMP, MaxMP);
         return true;
     }
 
@@ -409,5 +495,18 @@ public class Character : MonoBehaviour {
     public void Debug_PrintItems() {
         Debug.Log("xxx--- ITEM LIST ---xxx");
         foreach (var item in _itemInventory.Items) Debug.Log($"{item.ItemName} [{item.Rarity}]");
+    }
+
+    public void Debug_PrintStatus() {
+        var statusLines = new List<string>();
+        foreach (StatusType statusType in Enum.GetValues(typeof(StatusType))) {
+            statusLines.Add($"{statusType}: {GetFinalStatus(statusType)}");
+        }
+
+        Debug.Log(
+            $"xxx--- STATUS ---xxx\n" +
+            $"HP: {_currentHP}/{MaxHP}\n" +
+            $"MP: {_currentMP}/{MaxMP}\n" +
+            string.Join("\n", statusLines));
     }
 }

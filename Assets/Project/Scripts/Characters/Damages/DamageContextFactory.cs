@@ -9,6 +9,7 @@ public static class DamageContextFactory {
     }
 
     // 固定ダメージ用（状態異常など）
+    // isEnvironmentDamage → true:  環境ダメージ 被弾時処理が発動しない | false: 非環境ダメージ 被弾時処理が発動する
     public static DamageContext CreateFixed(Character attacker, Character target, float damage, bool isEnvironmentDamage) {
         return new DamageContext {
             Attacker = attacker,

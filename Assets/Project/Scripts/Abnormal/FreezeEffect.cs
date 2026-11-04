@@ -24,16 +24,16 @@ public class FreezeEffect : StatusEffectBehaviour {
 
     public override void OnDamage(Character target, StatusEffectInstance instance, DamageContext ctx) {
         float bonus = _breakBonus.GetValueOrDefault(instance, 0f);
-        float baseChance = instance.Data.freezeBreakBaseChance;
+        float baseChance = instance.GetPerameter(StatusEffectParameter.FreezeBreakBaseChance);
 
         float rate = ctx.Attacker.GetFinalStatus(StatusType.StatusInflictionRate) / 100f;
         float chance = (bonus + baseChance) * (1f + rate);
 
         if (UnityEngine.Random.value < chance) ForceRemove(target, instance);
         else {
-            float gain = instance.Data.freezeBreakAccumulation * (1f + rate);
+            float gain = instance.GetPerameter(StatusEffectParameter.FreezeBreakAccumulation) * (1f + rate);
             bonus += gain;
-            bonus = Mathf.Min(bonus, instance.Data.freezeBreakMaxBonus);
+            bonus = Mathf.Min(bonus, instance.GetPerameter(StatusEffectParameter.FreezeBreakMaxBonus));
             _breakBonus[instance] = bonus;
         }
     }

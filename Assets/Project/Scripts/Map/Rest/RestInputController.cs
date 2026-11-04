@@ -20,17 +20,6 @@ public class RestInputController : MonoBehaviour {
 
         if (!GameStateManager.Instance.IsState(GameState.Rest)) return;
 
-        if (_restSystem.State == RestState.BlessingSelect) {
-            if (Keyboard.current.digit1Key.wasPressedThisFrame) _restSystem.SelectBlessing(0);
-            if (Keyboard.current.digit2Key.wasPressedThisFrame) _restSystem.SelectBlessing(1);
-            if (Keyboard.current.digit3Key.wasPressedThisFrame) _restSystem.SelectBlessing(2);
-            return;
-        }
-
-        if (Keyboard.current.digit1Key.wasPressedThisFrame) _restSystem.RecoverHP();
-        if (Keyboard.current.digit2Key.wasPressedThisFrame) _restSystem.RecoverMP();
-        if (Keyboard.current.digit3Key.wasPressedThisFrame) _restSystem.OpenBlessingMenu();
-
         if (Keyboard.current.escapeKey.wasPressedThisFrame && _restSystem.State == RestState.MainMenu) _restSystem.ExitRest();
     }
 }

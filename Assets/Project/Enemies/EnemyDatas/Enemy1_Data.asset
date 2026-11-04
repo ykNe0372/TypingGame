@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f3d3db812b8d4a3c9be992f48e60ec6, type: 3}
   m_Name: Enemy1_Data
   m_EditorClassIdentifier: 
-  BaseStatus: {fileID: 11400000, guid: 17d7f43cf693a49e7b42c584b101684f, type: 2}
-  Skills:
-  - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
   Prefab: {fileID: 776073343331131492, guid: 20b46a88fafd64ef8b158b25b0e5b376, type: 3}
+  ElementSettings:
+    Mode: 2
+    AttackChance: 10
+    Elements:
+    - Element: 3
+      Weight: 0

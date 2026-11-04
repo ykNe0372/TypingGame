@@ -9,18 +9,18 @@ public class ShockEffect : StatusEffectBehaviour {
     public override float ModifyStat(StatusType type, float value, StatusEffectInstance instance) {
         // 感電による攻撃速度低下
         if (type == StatusType.Speed) {
-            return value * instance.Data.shockSpeedMultiplier;
+            return value * instance.GetPerameter(StatusEffectParameter.ShockSpeedMultiplier);
         }
 
         return value;
     }
 
     public override bool ShouldBlockAction(Character target, StatusEffectInstance instance) {
-        float baseChance = instance.Data.shockFailChance;
+        float baseChance = instance.GetPerameter(StatusEffectParameter.ShockFailChance);
         float rate = target.GetFinalStatus(StatusType.StatusInflictionRate) / 100f;
         float chance = baseChance * (1f + rate);
 
-        if (UnityEngine.Random.value > chance) {
+        if (Random.value > chance) {
             Debug.Log("Shock: Action Failed");
             return true;
         }
@@ -35,12 +35,14 @@ public class ShockEffect : StatusEffectBehaviour {
     private void TriggerOverShock(Character target, Character source, StatusEffectData data) {
         var targets = target.GetCombatTargets(source);
         float magic = source.GetFinalStatus(StatusType.MagicAttack);
+        float baseMultiplier = source.GetFinalStEParameter(StatusEffectType.Shock, StatusEffectParameter.OverShockBaseMultiplier, data.overShockBaseMultiplier);
+        float chainDecay = source.GetFinalStEParameter(StatusEffectType.Shock, StatusEffectParameter.OverShockChainDecay, data.overShockChainDecay);
 
         foreach (var t in targets) {
             var shock = t.GetStatus(StatusEffectType.Shock);
             if (shock == null) continue;
 
-            float multiplier = (t == target) ? data.overShockBaseMultiplier : data.overShockChainDecay;
+            float multiplier = (t == target) ? baseMultiplier : chainDecay;
             int damage = Mathf.FloorToInt(magic * multiplier);
 
             var ctx = DamageContextFactory.CreateFixed(source, t, damage, true);

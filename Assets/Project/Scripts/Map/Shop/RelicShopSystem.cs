@@ -11,6 +11,7 @@ public class RelicShopSystem : MonoBehaviour, IShop {
     [SerializeField] private float _costPercent;
 
     private Character _player;
+    private RewardSelectionUI _selectionUI;
     private RelicShopState _state;
     private readonly List<RelicShopOffer> _offers = new();
     private bool _rerolled;
@@ -19,16 +20,19 @@ public class RelicShopSystem : MonoBehaviour, IShop {
     public IReadOnlyList<RelicShopOffer> RelicOffers => _offers;
     public GameState ShopState => GameState.RelicShop;
 
-    public void EnterRelicShop(Character player) {
+    public void EnterRelicShop(Character player, RewardSelectionUI selectionUI) {
         _player = player;
+        _selectionUI = selectionUI;
         _rerolled = false;
+        _state = RelicShopState.SelectingRelic;
         GenerateOffers(3);
-
-        Debug.Log("xxx--- RELIC SHOP ---xxx");
-        foreach (var offer in _offers) Debug.Log($"{offer.Relic.RelicName}");
+        ShowRelicOffers();
     }
 
     public void ExitShop() {
+        _selectionUI.OnSelected -= HandleSelection;
+        _selectionUI.Close();
+
         Debug.Log("Relic Shop Exit");
         GameStateManager.Instance.ChangeState(GameState.MapSelect);
     }
@@ -39,7 +43,17 @@ public class RelicShopSystem : MonoBehaviour, IShop {
         foreach (var relic in relics) _offers.Add(new RelicShopOffer(relic));
     }
 
-    public void OnDigitPressed(int index) {
+    private void ShowRelicOffers() {
+        _selectionUI.OnSelected -= HandleSelection;
+        _selectionUI.Close();
+
+        List<RelicData> relics = new();
+        foreach (var offer in _offers) relics.Add(offer.Relic);
+        _selectionUI.OpenRelics(relics);
+        _selectionUI.OnSelected += HandleSelection;
+    }
+
+    private void HandleSelection(int index) {
         switch (_state) {
             case RelicShopState.SelectingRelic:
                 SelectRelic(index);
@@ -55,8 +69,12 @@ public class RelicShopSystem : MonoBehaviour, IShop {
 
         _selectedOfferIndex = index;
         _state = RelicShopState.SelectingCost;
-
-        Debug.Log("支払い方法を選択 | 1: HP / 2: MP");
+        _selectionUI.OpenOptions(
+            new[] { "HPで支払う", "MPで支払う" },
+            new[] {
+                $"最大HPの{_costPercent}%を消費（HPは1以上残ります）。",
+                $"最大MPの{_costPercent}%を消費します。"
+            });
     }
 
     private void SelectCost(int index) {
@@ -73,24 +91,22 @@ public class RelicShopSystem : MonoBehaviour, IShop {
     }
 
     private bool Purchase(int offerIndex, RelicCostType type) {
-        if (!CanPurchase(offerIndex)) return false;
+        if (!CanPurchase(offerIndex, type)) return false;
 
         ExecutePurchase(offerIndex, type);
         return true;
     }
 
-    private bool CanPurchase(int offerIndex) {
+    private bool CanPurchase(int offerIndex, RelicCostType type) {
         if (offerIndex < 0 || offerIndex >= _offers.Count) return false;
 
-        float consumeHPPercent = _player.GetCurrentHPRatio();
-        float consumeMPPercent = _player.GetCurrentMPRatio();
-
-        // HP は購入で 0 になると変、MP は購入で 0 になっても変じゃない
-        return consumeHPPercent > (_costPercent / 100f) || consumeMPPercent >= (_costPercent / 100f);
+        return type switch {
+            RelicCostType.HP => _player.GetCurrentHPRatio() > (_costPercent / 100f),
+            RelicCostType.MP => _player.GetCurrentMPRatio() >= (_costPercent / 100f),
+            _ => false
+        };
     }
 
-    // UI 実装前の仮実装（自動選択、本実装では選択式にする）
-    // 多分 ExecutePurchase(Character player, ShopOffer offer, List<GrowthItem> materials) とかになる
     private void ExecutePurchase(int offerIndex, RelicCostType type) {
         RelicShopOffer offer = _offers[offerIndex];
         
@@ -108,6 +124,7 @@ public class RelicShopSystem : MonoBehaviour, IShop {
     }
 
     public bool Reroll() {
+        if (_state != RelicShopState.SelectingRelic) return false;
         if (_rerolled) {
             Debug.Log("Already Rerolled");
             return false;
@@ -115,8 +132,8 @@ public class RelicShopSystem : MonoBehaviour, IShop {
 
         _rerolled = true;
         GenerateOffers(3);
+        ShowRelicOffers();
         Debug.Log("Shop Rerolled");
-        foreach (var offer in _offers) Debug.Log($"{offer.Relic.RelicName}");
         
         return true;
     }

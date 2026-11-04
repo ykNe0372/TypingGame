@@ -7,6 +7,7 @@ public class CombatSystem : MonoBehaviour {
     [SerializeField] private float _freezeDelay = 2f;
     [SerializeField] private CombatState _state = CombatState.Playing;
     [SerializeField] private StatusEffectResolver _resolver;
+    [SerializeField] private BattlePresentation _battlePresentation;
 
     private Character _player;
     private List<Character> _enemies;
@@ -35,6 +36,8 @@ public class CombatSystem : MonoBehaviour {
         if (_battleType == BattleType.Normal) {
             foreach (var modifier in _activeModifiers) modifier.OnUpdate(_battleContext, Time.deltaTime);
         }
+
+        _player.TickBuffs(Time.deltaTime);
         CheckBattleResult();
 
         if (_state == CombatState.GameOver) {
@@ -46,6 +49,16 @@ public class CombatSystem : MonoBehaviour {
     public void SetBattleModifiers(List<BattleModifierBase> modifiers) {
         _activeModifiers.Clear();
         _activeModifiers.AddRange(modifiers);
+    }
+
+    private void RegisterCombatCharacters() {
+        // プレイヤーを表示イベントの監視対象に登録
+        _battlePresentation.Register(_player);
+
+        // 敵を表示イベントの監視対象に登録
+        foreach (var enemy in _enemies) {
+            _battlePresentation.Register(enemy);
+        }
     }
 
     public void BeginBattle(Character player, List<Character> enemies, BattleType battleType) {
@@ -62,7 +75,9 @@ public class CombatSystem : MonoBehaviour {
         _battleType = battleType;
         _state = CombatState.Playing;
 
+        _player.SetCombatSystem(this);
         RefreshBattleContext();
+        RegisterCombatCharacters();
 
         // 新規敵が OnDead イベントを購読し直す
         foreach (var enemy in _enemies) {
@@ -106,23 +121,20 @@ public class CombatSystem : MonoBehaviour {
         return actor.CanAct();
     }
 
-    private AttackContext CreateContext(Character attacker) {
-        var ctx = new AttackContext {
-            Attacker = attacker,
-            Targets = GetTargets(attacker, attacker.CurrentSkill.targetType),
-            Element = attacker.CurrentElement,
-            Skill = attacker.CurrentSkill,
-            StatusEffect = _resolver.Get(attacker.CurrentElement)
-        };
-        ctx.AttackInstances.Add(new AttackInstance {
-            PowerMultiplier = 1f
-        });
+    private AttackContext CreateContext(Character attacker, SkillData skill) {
+        ElementType element = attacker.CurrentElement;
 
-        return ctx;
+        return AttackContextFactory.CreateNormalAttack(
+            attacker,
+            GetTargets(attacker, skill.targetType),
+            skill,
+            element,
+            _resolver.Get(element)
+        );
     }
 
     private void RequestPlayerAttack() {
-        var ctx = CreateContext(_player);
+        var ctx = CreateContext(_player, _player.CurrentSkill);
 
         if (ctx.Element != ElementType.None) {
             if (!_player.TryConsumeMP(ctx.Skill.MPCost)) {
@@ -134,25 +146,39 @@ public class CombatSystem : MonoBehaviour {
     }
 
     public void RequestBonusAttack(int chain) {
-        var bonus = _player.GetBonusAttack(chain);
-        var targets = GetTargets(_player, bonus.targetType);
+        BonusAttackData bonus = _player.GetBonusAttack(chain);
+        List<Character> targets = GetTargets(_player, bonus.targetType);
         if (bonus == null || targets.Count == 0) return;
 
-        _player.TriggerBonusAttack(targets, bonus);
+        var ctx = AttackContextFactory.CreateBonusAttack(_player, targets, bonus);
+        _player.TriggerAttack(ctx);
     }
 
     public void RequestSpecialAttack(int level) {
-        var special = _player.GetSpecialAttack(level);
-        var targets = GetTargets(_player, special.targetType);
+        SpecialAttackData special = _player.GetSpecialAttack(level);
+        List<Character> targets = GetTargets(_player, special.targetType);
         if (special == null || targets.Count == 0) return;
 
-        _player.TriggerSpecialAttack(targets, special);
+        var ctx = AttackContextFactory.CreateSpecialAttack(_player, targets, special);
+        _player.TriggerAttack(ctx);
     }
 
-    public void RequestEnemyAttack(Character enemy) {
+    private AttackContext CreateEnemyContext(Character attacker, SkillData skill, EnemyData data) {
+        ElementType element = EnemyElementResolver.Resolve(data);
+
+        return AttackContextFactory.CreateNormalAttack(
+            attacker,
+            GetTargets(attacker, skill.targetType),
+            skill,
+            element,
+            _resolver.Get(element)
+        );
+    }
+
+    public void RequestEnemyAttack(Character enemy, SkillData skill, EnemyData data) {
         if (!CanAttack(enemy)) return;
 
-        var ctx = CreateContext(enemy);
+        var ctx = CreateEnemyContext(enemy, skill, data);
         enemy.TriggerAttack(ctx);
     }
 

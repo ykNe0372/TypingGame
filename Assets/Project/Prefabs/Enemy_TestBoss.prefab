@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3075663949684856032}
   - component: {fileID: 6336224040686788610}
   - component: {fileID: 7439459648681171697}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy_TestBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,10 +102,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseStatus: {fileID: 11400000, guid: 833923a6d0591480dbb363c0f464e9f1, type: 2}
+  _evasionSettings: {fileID: 11400000, guid: 084dcee2a3e63482094e7a7d2dd2f187, type: 2}
   _relic: {fileID: 0}
   _skills:
   - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
   _bonusAttacks: []
+  _specialAttacks: []
   _currentElement: 0
   _combatSystems: {fileID: 0}
   _startItems: []
@@ -122,3 +124,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _character: {fileID: 6336224040686788610}
+  _data: {fileID: 0}
