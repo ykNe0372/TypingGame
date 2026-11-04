@@ -105,19 +105,19 @@ public class RunManager : MonoBehaviour {
     private void OpenShop() {
         Debug.Log("Open Shop");
         GameStateManager.Instance.ChangeState(GameState.ItemShop);
-        _itemShopSystem.EnterShop(_player);
+        _itemShopSystem.EnterShop(_player, _rewardSelectionUI);
     }
 
     private void OpenRelicShop() {
         Debug.Log("Open RelicShop");
         GameStateManager.Instance.ChangeState(GameState.RelicShop);
-        _relicShopSystem.EnterRelicShop(_player);
+        _relicShopSystem.EnterRelicShop(_player, _rewardSelectionUI);
     }
 
     private void OpenRest() {
         Debug.Log("Open Rest");
         GameStateManager.Instance.ChangeState(GameState.Rest);
-        _restSystem.EnterRest(_player);
+        _restSystem.EnterRest(_player, _rewardSelectionUI);
     }
 
     private void StartBossBattle(MapNode node) {

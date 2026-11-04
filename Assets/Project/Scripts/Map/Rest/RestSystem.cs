@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class RestSystem : MonoBehaviour {
@@ -8,6 +7,7 @@ public class RestSystem : MonoBehaviour {
     [SerializeField] private BlessingDataBase _dataBase;
 
     private Character _player;
+    private RewardSelectionUI _selectionUI;
     private RestState _state;
     private bool _isFreeAvailable;  // 初回かどうか
     private bool _hasTakenBlessing; // 恩恵を受けたかどうか
@@ -15,16 +15,58 @@ public class RestSystem : MonoBehaviour {
 
     public RestState State => _state;
 
-    public void EnterRest(Character player) {
+    public void EnterRest(Character player, RewardSelectionUI selectionUI) {
         _player = player;
+        _selectionUI = selectionUI;
         _state = RestState.MainMenu;
         _isFreeAvailable = true;
         _hasTakenBlessing = false;
+        ShowMainMenu();
     }
 
     public void ExitRest() {
+        _selectionUI.OnSelected -= HandleMainMenuSelected;
+        _selectionUI.OnSelected -= HandleBlessingSelected;
+        _selectionUI.Close();
+
         Debug.Log("Rest Exit");
         GameStateManager.Instance.ChangeState(GameState.MapSelect);
+    }
+
+    private void ShowMainMenu() {
+        _selectionUI.OnSelected -= HandleMainMenuSelected;
+        _selectionUI.OnSelected -= HandleBlessingSelected;
+        _selectionUI.Close();
+
+        string paymentDescription = _isFreeAvailable
+            ? "初回は無料、以降はアイテム1個を消費します。"
+            : _player.SelectPaymentItem() == null
+                ? "支払いに使えるアイテムがありません。"
+                : "アイテム1個を消費します。";
+        _selectionUI.OpenOptions(
+            new[] { "HPを回復", "MPを回復", "恩恵を受ける" },
+            new[] {
+                $"最大HPの{_hpRecoverPercent}%を回復します。{paymentDescription}",
+                $"最大MPの{_mpRecoverPercent}%を回復します。{paymentDescription}",
+                _hasTakenBlessing ? "この休憩所では既に恩恵を受けています。" : $"恩恵を1つ選びます。{paymentDescription}"
+            });
+        _selectionUI.OnSelected += HandleMainMenuSelected;
+    }
+
+    private void HandleMainMenuSelected(int index) {
+        switch (index) {
+            case 0:
+                RecoverHP();
+                ShowMainMenu();
+                break;
+            case 1:
+                RecoverMP();
+                ShowMainMenu();
+                break;
+            case 2:
+                if (!OpenBlessingMenu()) ShowMainMenu();
+                break;
+        }
     }
 
     private bool TryConsumeItem() {
@@ -62,11 +104,18 @@ public class RestSystem : MonoBehaviour {
 
     public bool OpenBlessingMenu() {
         if (_hasTakenBlessing) return false;
+        if (_dataBase.Items.Count == 0) {
+            Debug.LogError("Cannot open blessing selection because the blessing database is empty.");
+            return false;
+        }
         if (!TryConsumeItem()) return false;
 
         GenerateBlessings(3);
         _state = RestState.BlessingSelect;
-        PrintBlessings();
+        _selectionUI.OnSelected -= HandleMainMenuSelected;
+        _selectionUI.Close();
+        _selectionUI.OpenBuffs(_currentBlessings);
+        _selectionUI.OnSelected += HandleBlessingSelected;
         return true;
     }
 
@@ -74,18 +123,15 @@ public class RestSystem : MonoBehaviour {
         _currentBlessings.Clear();
         List<BuffData> pool = new(_dataBase.Items);
 
-        for (int i=0; i<count; ++i) {
+        for (int i = 0; i < count && pool.Count > 0; ++i) {
             int index = Random.Range(0, pool.Count);
             _currentBlessings.Add(pool[index]);
             pool.RemoveAt(index);
         }
     }
 
-    private void PrintBlessings() {
-        Debug.Log("xxx--- Blessings ---xxx");
-        for (int i=0; i<_currentBlessings.Count; ++i) {
-            Debug.Log($"{i+1}: {_currentBlessings[i].BuffName}");
-        }
+    private void HandleBlessingSelected(int index) {
+        SelectBlessing(index);
     }
 
     public bool SelectBlessing(int index) {
@@ -97,6 +143,7 @@ public class RestSystem : MonoBehaviour {
         _hasTakenBlessing = true;    // 恩恵は1回まで
         _currentBlessings.Clear();
         _state = RestState.MainMenu;
+        ShowMainMenu();
 
         Debug.Log($"Receive Blessing: {blessing.BuffName}");
         return true;

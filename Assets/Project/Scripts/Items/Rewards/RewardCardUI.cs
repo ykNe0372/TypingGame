@@ -18,20 +18,29 @@ public class RewardCardUI : MonoBehaviour {
     public RelicData Relic => _relic;
     public int Index => _index;
 
-    public void SetItem(GrowthItem item) {
+    public void SetItem(GrowthItem item, string description = null) {
         _item = item;
-
-        _icon.sprite = item.Icon;
-        _nameText.text = item.ItemName;
-        _descriptionText.text = item.Description;
+        SetContent(item.Icon, item.ItemName, description ?? item.Description);
     }
 
     public void SetRelic(RelicData relic) {
         _relic = relic;
+        SetContent(relic.Icon, relic.RelicName, relic.Description);
+    }
 
-        _icon.sprite = relic.Icon;
-        _nameText.text = relic.RelicName;
-        _descriptionText.text = relic.Description;
+    public void SetBuff(BuffData buff) {
+        SetContent(null, buff.BuffName, buff.BuffDescription);
+    }
+
+    public void SetOption(string title, string description) {
+        SetContent(null, title, description);
+    }
+
+    private void SetContent(Sprite icon, string title, string description) {
+        _icon.sprite = icon;
+        _icon.enabled = icon != null;
+        _nameText.text = title;
+        _descriptionText.text = description;
     }
 
     public void SetIndex(int index) {

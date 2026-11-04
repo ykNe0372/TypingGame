@@ -7,6 +7,7 @@ public class ItemShopSystem : MonoBehaviour, IShop {
     [SerializeField] private int _rareRate;
 
     private Character _player;
+    private RewardSelectionUI _selectionUI;
     private readonly List<ItemShopOffer> _offers = new();
     private bool _rerolled;
     private bool _hasPurchased;
@@ -14,17 +15,19 @@ public class ItemShopSystem : MonoBehaviour, IShop {
     public IReadOnlyList<ItemShopOffer> ItemOffers => _offers;
     public GameState ShopState => GameState.ItemShop;
 
-    public void EnterShop(Character player) {
+    public void EnterShop(Character player, RewardSelectionUI selectionUI) {
         _player = player;
+        _selectionUI = selectionUI;
         _rerolled = false;
         _hasPurchased = false;
-        GenerateOffers(5);
-
-        Debug.Log("xxx--- ITEM SHOP ---xxx");
-        foreach (var offer in _offers) Debug.Log($"{offer.Item.ItemName} [{offer.Item.Rarity}]");
+        GenerateOffers(3);
+        ShowOffers();
     }
 
     public void ExitShop() {
+        _selectionUI.OnSelected -= HandleOfferSelected;
+        _selectionUI.Close();
+
         if (!_hasPurchased) {
             GrowthItem item = GetServiceItem();  // 所持上限に達していた時用に抽選と取得は分ける
             if (item != null) _player.AddItem(item);
@@ -40,8 +43,33 @@ public class ItemShopSystem : MonoBehaviour, IShop {
         foreach (var item in items) _offers.Add(new ItemShopOffer(item));
     }
 
-    public void OnDigitPressed(int index) {
-        Purchase(index);
+    private void ShowOffers() {
+        _selectionUI.OnSelected -= HandleOfferSelected;
+        _selectionUI.Close();
+
+        List<GrowthItem> items = new();
+        List<string> descriptions = new();
+        foreach (var offer in _offers) {
+            items.Add(offer.Item);
+            descriptions.Add(GetOfferDescription(offer));
+        }
+        _selectionUI.OpenItems(items, descriptions);
+        _selectionUI.OnSelected += HandleOfferSelected;
+    }
+
+    private string GetOfferDescription(ItemShopOffer offer) {
+        if (offer.IsSoldOut) return $"{offer.Item.Description}\n\n売り切れ";
+
+        List<GrowthItem> materials = AutoSelectMaterials(offer.Item);
+        if (materials.Count == 0) return $"{offer.Item.Description}\n\n購入に必要なアイテムがありません";
+
+        List<string> materialNames = new();
+        foreach (var material in materials) materialNames.Add(material.ItemName);
+        return $"{offer.Item.Description}\n\n支払い: {string.Join(" + ", materialNames)}";
+    }
+
+    private void HandleOfferSelected(int index) {
+        if (Purchase(index)) ShowOffers();
     }
 
     private bool Purchase(int offerIndex) {
@@ -52,10 +80,11 @@ public class ItemShopSystem : MonoBehaviour, IShop {
     }
 
     private bool CanPurchase(int offerIndex) {
+        if (offerIndex < 0 || offerIndex >= _offers.Count) return false;
+
         ItemShopOffer offer = _offers[offerIndex];
         List<GrowthItem> materials = AutoSelectMaterials(offer.Item);
     
-        if (offerIndex < 0 || offerIndex >= _offers.Count) return false;
         if (offer.IsSoldOut) return false;
         if (!HasMaterials(offer.Item)) return false;
         if (materials.Count == 0) return false;
@@ -63,8 +92,6 @@ public class ItemShopSystem : MonoBehaviour, IShop {
         return true;
     }
 
-    // UI 実装前の仮実装（自動選択、本実装では選択式にする）
-    // 多分 ExecutePurchase(Character player, ShopOffer offer, List<GrowthItem> materials) とかになる？
     private void ExecutePurchase(int offerIndex) {
         ItemShopOffer offer = _offers[offerIndex];
         List<GrowthItem> materials = AutoSelectMaterials(offer.Item);
@@ -83,10 +110,6 @@ public class ItemShopSystem : MonoBehaviour, IShop {
         bool same = _player.CountItemsByRarity(rarity) >= 1;
         bool higher = higherRarity.HasValue && _player.CountItemsByRarity(higherRarity.Value) >= 1;
         bool lower = lowerRarity.HasValue && _player.CountItemsByRarity(lowerRarity.Value) >= 2;
-
-        Debug.Log($"same: {_player.CountItemsByRarity(rarity)}, " +
-            $"higher: {(higherRarity.HasValue ? _player.CountItemsByRarity(higherRarity.Value) : 0)}, " +
-            $"lower: {(lowerRarity.HasValue ? _player.CountItemsByRarity(lowerRarity.Value) : 0)}");
 
         return same || higher || lower;
     }
@@ -126,9 +149,9 @@ public class ItemShopSystem : MonoBehaviour, IShop {
         }
 
         _rerolled = true;
-        GenerateOffers(5);
+        GenerateOffers(3);
+        ShowOffers();
         Debug.Log("Shop Rerolled");
-        foreach (var offer in _offers) Debug.Log($"{offer.Item.ItemName} [{offer.Item.Rarity}]");
         
         return true;
     }
