@@ -86,6 +86,7 @@ public partial class TypingManager : MonoBehaviour {
             case 2: // タイプ完了時
                 InitializeQuestion();
                 _combatSystem.RequestAttack();
+                _combatSystem.NotifyWordCompleted();
                 ++_correctStreak;
 
                 if (_correctStreak >= 5) {
@@ -96,10 +97,17 @@ public partial class TypingManager : MonoBehaviour {
                 }
                 break;
             case 0:
+                aud.PlayOneShot(wrong);
+                TypoContext typo = _combatSystem.NotifyTypo();
+                if (typo.IsNegated) {  // レリックでタイプミスを無効化
+                    Debug.Log("[Typo] Negated");
+                    break;
+                }
+
                 _correctStreak = 0;
                 _bonusChain = 0;
                 Debug.Log("リセット");
-                aud.PlayOneShot(wrong);
+                if (typo.SkipQuestion) InitializeQuestion();  // 攻撃失敗として次の文章へ
                 break;
         }
     }
@@ -147,6 +155,8 @@ public partial class TypingManager : MonoBehaviour {
 
         // 次になる問題文を決定（1つ前の問題文とは重複しない）
         int questionCount = _filteredQuestions.Count;
+        if (questionCount == 0) return;  // 条件に合う問題がない（FilterQuestions で警告済み）
+        if (_nextQuestionIndex >= questionCount) _nextQuestionIndex = -1;
         int newIndex = (_nextQuestionIndex == -1)
             ? UnityEngine.Random.Range(0, questionCount) // 最初だけランダム
             : _nextQuestionIndex;                        // 二回目以降は next から
@@ -176,7 +186,7 @@ public partial class TypingManager : MonoBehaviour {
         _nextQuestionIndex = nextIndex;
 
         // nextText に次の問題文を格納
-        textNext.text = _currentQuestions[_nextQuestionIndex].display;
+        textNext.text = _filteredQuestions[_nextQuestionIndex].display;  // インデックスは絞り込み後のリストのもの
     }
 
     private void ApplyText() {

@@ -36,6 +36,7 @@ public class RunManager : MonoBehaviour {
         _combatSystem.OnBattleVictory += HandleBattleVictory;
         _combatSystem.OnBattleDefeat += HandleBattleDefeat;
         _rewardSystem.OnRewardFinished += HandleRewardClosed;
+        SubscribeGameState();
 
         MapData mapData = _mapGenerator.Generate(_currentSection);
         StartRun(mapData);
@@ -46,12 +47,23 @@ public class RunManager : MonoBehaviour {
         else Destroy(gameObject);
     }
 
+    private bool _isSubscribedState;
+
+    // GameStateManager.Awake より先に OnEnable が呼ばれると購読できないため、Start でも再試行する
     private void OnEnable() {
-        if (GameStateManager.Instance != null) GameStateManager.Instance.OnStateChanged += HandleGameStateChanged;      
+        SubscribeGameState();
     }
 
     private void OnDisable() {
+        if (!_isSubscribedState) return;
         if (GameStateManager.Instance != null) GameStateManager.Instance.OnStateChanged -= HandleGameStateChanged;
+        _isSubscribedState = false;
+    }
+
+    private void SubscribeGameState() {
+        if (_isSubscribedState || GameStateManager.Instance == null) return;
+        GameStateManager.Instance.OnStateChanged += HandleGameStateChanged;
+        _isSubscribedState = true;
     }
 
     public void StartRun(MapData mapData) {
@@ -142,6 +154,7 @@ public class RunManager : MonoBehaviour {
         // ボス戦
         if (node.Type == MapType.Boss) {
             EnemyData bossData = GetRandomEnemy(floorSet.BossEnemy);
+            if (bossData == null) return enemies;
             Character boss = _enemyFactory.CreateEnemy(bossData, 1);
             enemies.Add(boss);
             return enemies;
@@ -151,6 +164,7 @@ public class RunManager : MonoBehaviour {
         int enemyCount = Random.Range(2, 4);
         for (int i=0; i<enemyCount; ++i) {
             EnemyData enemyData = GetRandomEnemy(floorSet.NormalEnemies);
+            if (enemyData == null) continue;
             Character enemy = _enemyFactory.CreateEnemy(enemyData, i);
             enemies.Add(enemy);
         }
@@ -158,6 +172,11 @@ public class RunManager : MonoBehaviour {
     }
 
     private EnemyData GetRandomEnemy(List<EnemySpawnEntry> entries) {
+        if (entries == null || entries.Count == 0) {
+            Debug.LogError("EnemySpawnEntry Missing");
+            return null;
+        }
+
         int totalWeight = 0;
         foreach (var entry in entries) totalWeight += entry.SpawnWeight;
 
@@ -244,6 +263,25 @@ public class RunManager : MonoBehaviour {
         Navigator = new MapNavigator(_nextMap);
         _selectionMode = MapSelectionMode.Normal;
         EnterNode(node);
+    }
+
+    // レリック効果: 行き先候補を再抽選する（ボスは対象外）
+    public bool TryRerollDestinations() {
+        if (!GameStateManager.Instance.IsState(GameState.MapSelect)) return false;
+
+        var selectable = GetCurrentSelectableNodes();
+        bool hasRerollable = false;
+        foreach (var node in selectable) {
+            if (node.Type != MapType.Boss) hasRerollable = true;
+        }
+        if (!hasRerollable) return false;
+        if (!_player.Hooks.TryConsumeAreaReroll()) return false;
+
+        foreach (var node in selectable) _mapGenerator.RerollNode(node, _currentSection);
+        _destinationSelectionUI.Show(selectable);
+
+        Debug.Log($"[Map] Reroll Destinations (remaining: {_player.Hooks.GetRemainingAreaRerolls()})");
+        return true;
     }
 
     public IReadOnlyList<MapNode> GetStartNodes() {

@@ -12,7 +12,8 @@ public class FreezeEffect : StatusEffectBehaviour {
         _breakBonus[instance] = 0f;
 
         float magic = instance.Source.GetFinalStatus(StatusType.MagicAttack);
-        int damage = Mathf.FloorToInt(magic);    // 仮で MagicAttack = ATK
+        float damageMultiplier = instance.GetPerameter(StatusEffectParameter.FreezeDamageMultiplier);
+        int damage = Mathf.FloorToInt(magic * damageMultiplier);    // 仮で MagicAttack = ATK
         
         var ctx = DamageContextFactory.CreateFixed(instance.Source, target, damage, true);
         target.TakeDamage(ctx);
@@ -55,7 +56,8 @@ public class FreezeEffect : StatusEffectBehaviour {
         float magic = source.GetFinalStatus(StatusType.MagicAttack);
         float ratio = existing.RemainingTime / existing.InitialDuration;     // 残り時間割合
         float multipiler = Mathf.Lerp(minMultiplier, maxMultiplier, ratio);  // 倍率補間
-        int damage = Mathf.FloorToInt(magic * multipiler);
+        float damageMultiplier = source.GetFinalStEParameter(StatusEffectType.Freeze, StatusEffectParameter.FreezeDamageMultiplier, 1f);
+        int damage = Mathf.FloorToInt(magic * multipiler * damageMultiplier);
 
         var ctx = DamageContextFactory.CreateFixed(source, target, damage, true);
         target.TakeDamage(ctx);

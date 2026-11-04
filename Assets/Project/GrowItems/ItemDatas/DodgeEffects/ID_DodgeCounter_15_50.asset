@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1e30fa6e91248c9ac4293fa6eb15be, type: 3}
+  m_Name: ID_DodgeCounter_15_50
+  m_EditorClassIdentifier: 
+  _itemName: "\u53D7\u3051\u6D41\u3057"
+  _description: "\u56DE\u907F\u6210\u7ACB\u6642\u306B\u300115%\u306E\u78BA\u7387\u3067\u30AB\u30A6\u30F3\u30BF\u30FC\u3092\u884C\u3046\n\u4E0E\u3048\u308B\u30C0\u30E1\u30FC\u30B8\u306F\u81EA\u8EAB\u306E\u7269\u7406\u653B\u6483\u529B\u306E50%"
+  _icon: {fileID: 0}
+  _rarity: 0
+  _effects:
+  - {fileID: 11400000, guid: c9d3152fdc3c24795b02356ea026e01e, type: 2}
+  _nextRarityItem: {fileID: 0}

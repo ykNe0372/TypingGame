@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1e30fa6e91248c9ac4293fa6eb15be, type: 3}
+  m_Name: ID_TargetHPScaling_L_10
+  m_EditorClassIdentifier: 
+  _itemName: "\u7D42\u6483"
+  _description: "\u6575\u306E\u6B8B\u308AHP\u304C\u5C11\u306A\u3044\u307B\u3069\u653B\u6483\u529B\u304C\u4E0A\u6607\u3059\u308B\uFF08\u6700\u592710%\uFF09"
+  _icon: {fileID: 0}
+  _rarity: 0
+  _effects:
+  - {fileID: 11400000, guid: d9575c97ed9bc4849b25024d214a8ed0, type: 2}
+  _nextRarityItem: {fileID: 0}

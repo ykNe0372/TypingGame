@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ffeab195bd0c44ff90fa6fde7cb90f7, type: 3}
+  m_Name: RD_LastStand
+  m_EditorClassIdentifier: 
+  _relicName: "\u6700\u671F\u306E\u706F\u706B"
+  _description: "HP\u304C0\u306B\u306A\u3063\u3066\u3082\u300115\u79D2\u9593\u3060\u3051\u751F\u5B58\u3059\u308B\n\u751F\u5B58\u4E2D\u306B\u6575\u3092\u5012\u3057\u5207\u308C\u3070\u300130%\u5206\u306EHP\u3067\u8607\u751F\u3059\u308B"
+  _icon: {fileID: 0}
+  _effects:
+  - {fileID: 11400000, guid: feb968922e5944d92bd2f0673f87ff9d, type: 2}

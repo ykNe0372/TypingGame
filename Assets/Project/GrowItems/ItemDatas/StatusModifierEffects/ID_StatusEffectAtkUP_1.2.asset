@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1e30fa6e91248c9ac4293fa6eb15be, type: 3}
+  m_Name: ID_StatusEffectAtkUP_1.2
+  m_EditorClassIdentifier: 
+  _itemName: "\u5999\u6280"
+  _description: "\u72B6\u614B\u7570\u5E38\u3067\u4E0E\u3048\u3089\u308C\u308B\u30C0\u30E1\u30FC\u30B8\u304C20%\u30A2\u30C3\u30D7\u3059\u308B"
+  _icon: {fileID: 0}
+  _rarity: 0
+  _effects:
+  - {fileID: 11400000, guid: 4bd3eee9513ee4a57bcfaeca41be0148, type: 2}
+  _nextRarityItem: {fileID: 0}

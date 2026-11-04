@@ -10,6 +10,7 @@ public class CounterEffect : OnDamagedEffect {
 
         float damage = ctx.FinalDamage * _powerMultiplier;
         var counter = AttackContextFactory.CreateCounterAttack(ctx.Target, ctx.Attacker, damage);
+        counter.TriggerOnAttackEffects = false;  // 反撃で自傷・連撃などの攻撃時効果を発動させない
         AttackExecutor.Execute(counter);
     }
 }

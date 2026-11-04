@@ -23,7 +23,8 @@ public static class AttackContextFactory {
         var ctx = new AttackContext {
             Attacker = attacker,
             Targets = targets,
-            Skill = attacker.CurrentSkill
+            Skill = attacker.CurrentSkill,
+            Kind = AttackKind.Bonus
         };
 
         ctx.AttackInstances.Add(new AttackInstance {
@@ -38,7 +39,8 @@ public static class AttackContextFactory {
     public static AttackContext CreateSpecialAttack(Character attacker, List<Character> targets, SpecialAttackData data) {
         var ctx = new AttackContext {
             Attacker = attacker,
-            Targets = targets
+            Targets = targets,
+            Kind = AttackKind.Special
         };
 
         ctx.AttackInstances.Add(new AttackInstance {
@@ -53,7 +55,8 @@ public static class AttackContextFactory {
     public static AttackContext CreateCounterAttack(Character attacker, Character targets, float damage) {
         var ctx = new AttackContext {
             Attacker = attacker,
-            Targets = new List<Character> { targets }
+            Targets = new List<Character> { targets },
+            Kind = AttackKind.Counter
         };
 
         ctx.AttackInstances.Add(new AttackInstance {

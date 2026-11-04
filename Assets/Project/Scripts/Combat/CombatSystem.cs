@@ -23,21 +23,15 @@ public class CombatSystem : MonoBehaviour {
     public event Action<BattleType> OnBattleVictory;
     public event Action OnBattleDefeat;
 
-    private void Start() {
-        if (_battleType == BattleType.Normal) {
-            foreach (var modifier in _activeModifiers) modifier.OnBattleStart(_battleContext);
-        }
-
-        _player.OnDead += HandlePlayerDead;
-        foreach (var enemy in _enemies) enemy.OnDead += HandleEnemyDead;
-    }
-
     private void Update() {
-        if (_battleType == BattleType.Normal) {
+        if (_player == null) return;  // 戦闘開始前
+
+        if (_battleType == BattleType.Normal && _state == CombatState.Playing) {  // 戦闘終了後はハプニングを止める
             foreach (var modifier in _activeModifiers) modifier.OnUpdate(_battleContext, Time.deltaTime);
         }
 
         _player.TickBuffs(Time.deltaTime);
+        if (_state == CombatState.Playing) _player.Hooks.BattleUpdate(Time.deltaTime);  // 戦闘中の継続効果
         CheckBattleResult();
 
         if (_state == CombatState.GameOver) {
@@ -69,13 +63,16 @@ public class CombatSystem : MonoBehaviour {
                 if (enemy != null) enemy.OnDead -= HandleEnemyDead;
             }
         }
+        if (_player != null) _player.OnDead -= HandlePlayerDead;
 
         _player = player;
         _enemies = new List<Character>(enemies);
         _battleType = battleType;
         _state = CombatState.Playing;
 
+        _currentTargetIndex = 0;
         _player.SetCombatSystem(this);
+        _player.OnDead += HandlePlayerDead;
         RefreshBattleContext();
         RegisterCombatCharacters();
 
@@ -84,6 +81,13 @@ public class CombatSystem : MonoBehaviour {
             enemy.Initialize();
             enemy.OnDead += HandleEnemyDead;
         }
+
+        // ハプニング効果の開始処理（以前は Start() で最初の1回しか呼ばれていなかった）
+        if (_battleType == BattleType.Normal) {
+            foreach (var modifier in _activeModifiers) modifier.OnBattleStart(_battleContext);
+        }
+
+        _player.Hooks.BattleStart(_battleContext);  // 戦闘開始時の効果
     }
 
     private void RefreshBattleContext() {
@@ -104,11 +108,17 @@ public class CombatSystem : MonoBehaviour {
     }
 
     // 撃破時にターゲットを自動に切り替える
+    // _currentTargetIndex は「生存している敵」の中での番号
     private void ValidateTarget() {
-        _enemies.Where(x => x != null && !x.IsDead);
-        if (_enemies.Count == 0) return;
+        if (_player == null) return;
 
-        _currentTargetIndex %= _enemies.Count;
+        int aliveCount = GetEnemies(_player).Count;
+        if (aliveCount == 0) {
+            _currentTargetIndex = 0;
+            return;
+        }
+
+        _currentTargetIndex %= aliveCount;
     }
 
     public void RequestAttack() {
@@ -140,6 +150,9 @@ public class CombatSystem : MonoBehaviour {
             if (!_player.TryConsumeMP(ctx.Skill.MPCost)) {
                 Debug.Log("Change to None Element due to lacking MP");
                 ctx.Element = ElementType.None;
+                ctx.StatusEffect = null;  // 無属性になったので状態異常も付与しない
+            } else {
+                ctx.IsMagical = true;  // MP を消費した攻撃は魔法攻撃力を参照
             }
         }
         _player.TriggerAttack(ctx);
@@ -147,17 +160,32 @@ public class CombatSystem : MonoBehaviour {
 
     public void RequestBonusAttack(int chain) {
         BonusAttackData bonus = _player.GetBonusAttack(chain);
+        if (bonus == null) return;
         List<Character> targets = GetTargets(_player, bonus.targetType);
-        if (bonus == null || targets.Count == 0) return;
+        if (targets.Count == 0) return;
 
         var ctx = AttackContextFactory.CreateBonusAttack(_player, targets, bonus);
         _player.TriggerAttack(ctx);
+        _player.Hooks.BonusAttack();  // ノーミスボーナス発動時の効果
+    }
+
+    // タイプミスを効果側に通知し、無効化・文章切り替えなどの結果を返す
+    public TypoContext NotifyTypo() {
+        if (_player == null || _state != CombatState.Playing) return new TypoContext();
+        return _player.Hooks.Typo();
+    }
+
+    // 1文打ち切ったことを効果側に通知
+    public void NotifyWordCompleted() {
+        if (_player == null || _state != CombatState.Playing) return;
+        _player.Hooks.WordCompleted();
     }
 
     public void RequestSpecialAttack(int level) {
         SpecialAttackData special = _player.GetSpecialAttack(level);
+        if (special == null) return;
         List<Character> targets = GetTargets(_player, special.targetType);
-        if (special == null || targets.Count == 0) return;
+        if (targets.Count == 0) return;
 
         var ctx = AttackContextFactory.CreateSpecialAttack(_player, targets, special);
         _player.TriggerAttack(ctx);
@@ -192,28 +220,32 @@ public class CombatSystem : MonoBehaviour {
     }
 
     public void MoveTargetLeft() {
-        if (_enemies.Count == 0) return;
+        if (_player == null) return;
+        var alive = GetEnemies(_player);
+        if (alive.Count == 0) return;
 
-        _currentTargetIndex = (_currentTargetIndex - 1 + _enemies.Count) % _enemies.Count;
-        Debug.Log($"Target: {_enemies[_currentTargetIndex].name}");
+        _currentTargetIndex = (_currentTargetIndex - 1 + alive.Count) % alive.Count;
+        Debug.Log($"Target: {alive[_currentTargetIndex].name}");
     }
 
     public void MoveTargetRight() {
-        if (_enemies.Count == 0) return;
+        if (_player == null) return;
+        var alive = GetEnemies(_player);
+        if (alive.Count == 0) return;
 
-        _currentTargetIndex = (_currentTargetIndex + 1) % _enemies.Count;
-        Debug.Log($"Target: {_enemies[_currentTargetIndex].name}");
+        _currentTargetIndex = (_currentTargetIndex + 1) % alive.Count;
+        Debug.Log($"Target: {alive[_currentTargetIndex].name}");
     }
 
     private List<Character> GetTargets(Character attacker, SkillTargetType targetType) {
         var enemies = GetEnemies(attacker);
+        if (enemies.Count == 0 || targetType != SkillTargetType.Single) return enemies;
+
+        // 選択中ターゲットはプレイヤー用。敵の単体攻撃は先頭（現状はプレイヤーのみ）を狙う
+        if (attacker != _player) return new List<Character> { enemies[0] };
 
         ValidateTarget();
-        return targetType switch {
-            SkillTargetType.Single => new List<Character> { enemies[_currentTargetIndex] },
-            SkillTargetType.All => enemies,
-            _ => enemies,
-        };
+        return new List<Character> { enemies[_currentTargetIndex] };
     }
 
     // 勝敗判定
@@ -241,6 +273,8 @@ public class CombatSystem : MonoBehaviour {
 
         _state = CombatState.Victory;
         _player.OnBattleEnd();
+        _player.Hooks.BattleEnd(new BattleEndContext(_battleType, true));
+        NotifyModifiersBattleEnd();
 
         OnBattleVictory?.Invoke(_battleType);
     }
@@ -249,7 +283,15 @@ public class CombatSystem : MonoBehaviour {
         if (_state != CombatState.Playing) return;
 
         _state = CombatState.GameOver;
+        _player.Hooks.BattleEnd(new BattleEndContext(_battleType, false));
+        NotifyModifiersBattleEnd();
 
         OnBattleDefeat?.Invoke();
+    }
+
+    // ハプニング効果の終了処理（OnBattleEnd が呼ばれていなかった）
+    private void NotifyModifiersBattleEnd() {
+        if (_battleType != BattleType.Normal) return;
+        foreach (var modifier in _activeModifiers) modifier.OnBattleEnd(_battleContext);
     }
 }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/Relic")]
+[CreateAssetMenu(menuName = "Data/Relic Data")]
 public class RelicData : ScriptableObject {
     [Header("UI")]
     [SerializeField] private string _relicName;

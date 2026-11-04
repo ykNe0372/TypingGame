@@ -7,4 +7,7 @@ public class AttackContext {
     public ElementType Element;      // 属性
     public SkillData Skill;
     public StatusEffectData StatusEffect;
+    public AttackKind Kind = AttackKind.Normal;
+    public bool IsMagical;                      // MP を消費した攻撃か（true なら魔法攻撃力を参照）
+    public bool TriggerOnAttackEffects = true;  // false: 攻撃時効果（自傷・連撃など）を発動しない
 }

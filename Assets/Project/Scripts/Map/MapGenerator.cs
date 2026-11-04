@@ -101,6 +101,15 @@ public class MapGenerator : MonoBehaviour {
         return MapType.Rest;
     }
 
+    // ノードの種類を再抽選する（ボスノードはそのまま）
+    public void RerollNode(MapNode node, int sectionNumber) {
+        if (node == null || node.Type == MapType.Boss) return;
+
+        node.Type = GetRandomNodeType(node.FloorIndex, sectionNumber);
+        node.BattleModifiers = null;
+        AssignHappening(node);
+    }
+
     private void Shuffle<T>(List<T> list) {
         for (int i=0; i<list.Count; ++i) {
             int randomIndex = Random.Range(i, list.Count);
@@ -110,6 +119,7 @@ public class MapGenerator : MonoBehaviour {
 
     private void AssignHappening(MapNode node) {
         if (node.Type != MapType.Battle) return;
+        if (_allBattleModifiers.Count == 0) return;  // ハプニング未設定時のエラー防止
         if (Random.value > (_happeningRate / 100f)) return;
 
         int index = Random.Range(0, _allBattleModifiers.Count);

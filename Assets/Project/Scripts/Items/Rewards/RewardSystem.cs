@@ -20,6 +20,12 @@ public class RewardSystem : MonoBehaviour {
             player.AddItem(rewards[index]);
             _selectionUI.Close();
 
+            if (player.Hooks.ShouldRepeatReward()) {  // レリック効果: もう一度報酬を受け取る
+                Debug.Log("[Reward] Repeat");
+                ShowReward(player);
+                return;
+            }
+
             OnRewardFinished?.Invoke();  // 通常戦闘時の報酬は強化アイテムだけ
         }
     }
@@ -33,6 +39,12 @@ public class RewardSystem : MonoBehaviour {
             _selectionUI.OnSelected -= OnItemSelected;
             player.AddItem(itemRewards[index]);
             _selectionUI.Close();
+
+            if (player.Hooks.ShouldRepeatReward()) {  // レリック効果: 強化アイテム報酬をもう一度（レリックは1枠なので対象外）
+                Debug.Log("[Reward] Repeat");
+                ShowBossReward(player);
+                return;
+            }
 
             ShowRelicReward(player);  // 強化アイテム報酬→レリック報酬
         }

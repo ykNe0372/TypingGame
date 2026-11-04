@@ -28,9 +28,16 @@ public class Character : MonoBehaviour {
     private bool _isDead;
     private float _regenTimer = 0f;
     private int _currentSkillIndex = 0;
+    private EffectHooks _hooks;                                      // 強化アイテム / レリックのフック
+    private readonly EffectStateStore _effectStates = new();          // 効果ごとの実行時状態
+    private readonly HashSet<StatusType> _statusHookGuard = new();    // ステータス補正フックの再帰防止
 
     public float MaxHP => GetFinalStatus(StatusType.MaxHP);
     public float MaxMP => GetFinalStatus(StatusType.MaxMP);
+    public float CurrentHP => _currentHP;
+    public float CurrentMP => _currentMP;
+    public EffectHooks Hooks => _hooks ??= new EffectHooks(this);
+    public EffectStateStore EffectStates => _effectStates;
     public bool IsDead => _isDead;
     public EvasionSettings EvasionSettings => _evasionSettings;
     public IReadOnlyList<SkillData> Skills => _skills;
@@ -130,11 +137,31 @@ public class Character : MonoBehaviour {
         if (_relic != null) {
             foreach (var effect in _relic.GetEffects()) _relicEffects.Add(effect);
         }
+
+        // フック対象を再構築（レリック → 強化アイテムの順に呼ばれる）
+        var hookSources = new List<object>(_relicEffects);
+        foreach (var item in _itemInventory.Items) hookSources.AddRange(item.GetEffects());
+        Hooks.Rebuild(hookSources);
     }
 
     // レリック装備用
     public void EquipRelic(RelicData relic) {
+        // 付け替え時は旧レリックの効果を外す
+        if (_relic != null) {
+            foreach (var effect in _relic.GetEffects()) {
+                if (effect == null) continue;
+                effect.OnUnequip(this);
+                _effectStates.Remove(effect);
+            }
+        }
+
         _relic = relic;
+        BuildEffectList();  // レリック効果をステータス・フックに反映
+
+        if (_relic == null) return;
+        foreach (var effect in _relic.GetEffects()) {
+            if (effect != null) effect.OnEquip(this);
+        }
         Debug.Log($"[Relic] Get Relic: {_relic.RelicName}");
     }
 
@@ -267,11 +294,22 @@ public class Character : MonoBehaviour {
         foreach (var effect in _growthItemEffects) bonus += effect.GetStatusBonus(type);
         foreach (var effect in _relicEffects) bonus += effect.GetStatusBonus(type);
         
-        float value =  baseValue + bonus + GetAddBuffTotal(type);
-        value *= GetMultiBuffTotal(type);
+        // 強化アイテム / レリックによる動的な補正（HP 割合・スタック数などに応じて変わるもの）
+        float hookAdd = 0f;
+        float hookMultiplier = 1f;
+        if (_statusHookGuard.Add(type)) {  // 同じステータスの再帰計算では補正をかけない
+            try { Hooks.ModifyStatus(type, ref hookAdd, ref hookMultiplier); }
+            finally { _statusHookGuard.Remove(type); }
+        }
+
+        float value =  baseValue + bonus + GetAddBuffTotal(type) + hookAdd;
+        value *= GetMultiBuffTotal(type) * hookMultiplier;
 
         foreach (var s in _statusManager.Effects) {
             value = s.Data.behaviour.ModifyStat(type, value, s);
+
+            // 状態異常の付与者が持つ「状態異常の相手を弱体化する」効果
+            if (s.Source != null && s.Source != this) value = s.Source.Hooks.ModifyAfflictedTargetStatus(this, s, type, value);
         }
 
         return value;
@@ -329,6 +367,9 @@ public class Character : MonoBehaviour {
 
     // ダメージ適応（仮）
     public void TakeDamage(DamageContext ctx) {
+        bool wasDead = _isDead;
+        if (!wasDead) Hooks.ModifyIncomingDamage(ctx);  // 被ダメージ補正（無敵・軽減・食いしばりなど）
+
         if (!ctx.IsEnvironmentDamage) {   
             foreach (var effect in _damagedEffects) effect.OnDamaged(ctx);
         }
@@ -348,11 +389,20 @@ public class Character : MonoBehaviour {
         OnHPChanged?.Invoke(_currentHP, MaxHP);
         OnDamaged?.Invoke(ctx);
         Debug.Log($"{name} HP: {_currentHP}/{MaxHP}");
+
+        if (wasDead) return;
+        bool killed = _isDead;
+        Hooks.AfterDamaged(ctx);
+        if (ctx.Attacker != null && ctx.Attacker != this) {
+            if (killed) ctx.Attacker.Hooks.Kill(ctx);
+            else ctx.Attacker.Hooks.DealtDamage(ctx);
+        }
     }
 
     public void TriggerDodge(DamageContext ctx) {
         if (_isDead) return;
         foreach (var effect in _dodgeEffects) effect.OnDodge(ctx);
+        Hooks.Dodge(ctx);
     }
 
     public void TakePercentDamage(float percent) {
@@ -485,6 +535,7 @@ public class Character : MonoBehaviour {
         Debug.Log($"{name} HP: {_currentMP}/{MaxMP}");
 
         OnMPChanged?.Invoke(_currentMP, MaxMP);
+        if (amount > 0) Hooks.MPConsumed(amount);
         return true;
     }
 

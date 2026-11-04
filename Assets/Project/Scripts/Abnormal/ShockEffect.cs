@@ -17,10 +17,10 @@ public class ShockEffect : StatusEffectBehaviour {
 
     public override bool ShouldBlockAction(Character target, StatusEffectInstance instance) {
         float baseChance = instance.GetPerameter(StatusEffectParameter.ShockFailChance);
-        float rate = target.GetFinalStatus(StatusType.StatusInflictionRate) / 100f;
+        float rate = instance.Source != null ? instance.Source.GetFinalStatus(StatusType.StatusInflictionRate) / 100f : 0f;  // 付与者の値を参照
         float chance = baseChance * (1f + rate);
 
-        if (Random.value > chance) {
+        if (Random.value < chance) {  // chance の確率で行動失敗
             Debug.Log("Shock: Action Failed");
             return true;
         }

@@ -16,6 +16,8 @@ public class MapSelectInput : MonoBehaviour {
         _navigator = RunManager.Instance.Navigator;
         if (_navigator == null) return;
 
+        if (Keyboard.current.rKey.wasPressedThisFrame) RunManager.Instance.TryRerollDestinations();  // レリック効果: 再抽選
+
         var selectable = RunManager.Instance.GetCurrentSelectableNodes();
         CheckSelect(0, Keyboard.current.digit1Key, selectable);
         CheckSelect(1, Keyboard.current.digit2Key, selectable);

@@ -17,7 +17,8 @@ public class BurnEffect: StatusEffectBehaviour {
             _timers[instance] -= _damageInterval;
 
             float magic = instance.Source.GetFinalStatus(StatusType.MagicAttack);
-            int damage = Mathf.FloorToInt(magic);    // 仮で MagicAttack = ATK とする
+            float multiplier = instance.GetPerameter(StatusEffectParameter.BurnDamageMultiplier);
+            int damage = Mathf.FloorToInt(magic * multiplier);    // 仮で MagicAttack = ATK とする
             
             var ctx = DamageContextFactory.CreateFixed(instance.Source, target, damage, true);
             target.TakeDamage(ctx);
