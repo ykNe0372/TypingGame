@@ -7,4 +7,8 @@ public static class GameConstants {
         public const float MinRate = 0f;
         public const float MaxRate = 100f;
     }
+
+    public static class Player {
+        public const int MaxRelicCount = 3;
+    }
 }

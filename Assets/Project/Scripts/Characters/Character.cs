@@ -5,7 +5,7 @@ using UnityEngine;
 public class Character : MonoBehaviour {
     [SerializeField] private CharacterBaseStatus _baseStatus;   // 基礎ステータス
     [SerializeField] private EvasionSettings _evasionSettings;  // 回避関連の値の設定
-    [SerializeField] private RelicData _relic;                  // レリック
+    [SerializeField] private List<RelicData> _relics;           // レリック
     [SerializeField] private List<SkillData> _skills;
     [SerializeField] private List<BonusAttackData> _bonusAttacks;
     [SerializeField] private List<SpecialAttackData> _specialAttacks;
@@ -41,6 +41,7 @@ public class Character : MonoBehaviour {
     public bool IsDead => _isDead;
     public EvasionSettings EvasionSettings => _evasionSettings;
     public IReadOnlyList<SkillData> Skills => _skills;
+    public IReadOnlyList<RelicData> Relics => _relics;
     public SkillData CurrentSkill => _skills[_currentSkillIndex];
     public int CurrentSkillIndex => _currentSkillIndex;
     public ElementType CurrentElement => _currentElement;
@@ -139,8 +140,11 @@ public class Character : MonoBehaviour {
             }
         }
 
-        if (_relic != null) {
-            foreach (var effect in _relic.GetEffects()) _relicEffects.Add(effect);
+        foreach (var relic in _relics) {
+            if (relic == null) continue;
+            foreach (var effect in relic.GetEffects()) {
+                if (effect != null) _relicEffects.Add(effect);
+            }
         }
 
         // フック対象を再構築（レリック → 強化アイテムの順に呼ばれる）
@@ -150,28 +154,21 @@ public class Character : MonoBehaviour {
     }
 
     // レリック装備用
-    public void EquipRelic(RelicData relic) {
+    public bool EquipRelic(RelicData relic) {
         // 付け替え時は旧レリックの効果を外す
-        if (_relic != null) {
-            foreach (var effect in _relic.GetEffects()) {
-                if (effect == null) continue;
-                effect.OnUnequip(this);
-                _effectStates.Remove(effect);
-            }
-        }
+        if (relic == null || _relics.Count >= GameConstants.Player.MaxRelicCount) return false;
+        _relics.Add(relic);
 
-        _relic = relic;
-        BuildEffectList();  // レリック効果をステータス・フックに反映
-
-        if (_relic == null) return;
-        foreach (var effect in _relic.GetEffects()) {
+        foreach (var effect in relic.GetEffects()) {
             if (effect != null) effect.OnEquip(this);
         }
-        Debug.Log($"[Relic] Get Relic: {_relic.RelicName}");
+        BuildEffectList();  // レリック効果をステータス・フックに反映
+        Debug.Log($"[Relic] Get Relic: {relic.RelicName}");
+        return true;
     }
 
     public bool HasRelic() {
-        return _relic != null;
+        return _relics != null;
     }
 
     public void AddItem(GrowthItem item) {
