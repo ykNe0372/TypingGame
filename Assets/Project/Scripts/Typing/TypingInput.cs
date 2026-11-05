@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class TypingInput {
+    private List<string> _allCandidates;
     private List<string> _candidates;
     private string _currentInput = "";
 
@@ -9,7 +10,12 @@ public class TypingInput {
     public string GetCurrentCandidate() => _candidates.OrderBy(x => x.Length).First();
 
     public void SetCandidates(List<string> candidates) {
-        _candidates = candidates;
+        _allCandidates = new List<string>(candidates);
+        Reset();
+    }
+
+    public void Reset() {
+        _candidates = new List<string>(_allCandidates);
         _currentInput = "";
     }
 

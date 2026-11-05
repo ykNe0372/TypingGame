@@ -61,11 +61,29 @@ public partial class TypingManager : MonoBehaviour {
     private void OnEnable() {
         _inputManager.OnCharInput += OnTextInput;
         _inputManager.OnSpecialInput += OnSpecialInput;
+        _combatSystem.OnBattleVictory += HandleBattleVictory;
+        _combatSystem.OnBattleDefeat += HandleBattleDefeat;
     }
 
     private void OnDisable() {
         _inputManager.OnCharInput -= OnTextInput;
         _inputManager.OnSpecialInput -= OnSpecialInput;
+        _combatSystem.OnBattleVictory -= HandleBattleVictory;
+        _combatSystem.OnBattleDefeat -= HandleBattleDefeat;
+    }
+
+    private void HandleBattleVictory(BattleType _) {
+        ResetTypingProgress();
+    }
+
+    private void HandleBattleDefeat() {
+        ResetTypingProgress();
+    }
+
+    private void ResetTypingProgress() {
+        _typingInput.Reset();
+        _romanIndex = 0;
+        textRoman.text = GenerateTextRoman();
     }
 
     private void OnTextInput(char c) {
