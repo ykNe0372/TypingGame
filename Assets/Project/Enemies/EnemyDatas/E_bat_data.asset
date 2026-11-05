@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f3d3db812b8d4a3c9be992f48e60ec6, type: 3}
-  m_Name: Enemy2_Data
+  m_Name: E_bat_data
   m_EditorClassIdentifier: 
-  BaseStatus: {fileID: 11400000, guid: 17d7f43cf693a49e7b42c584b101684f, type: 2}
-  Skills:
-  - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
-  Prefab: {fileID: 776073343331131492, guid: e136a3f4f59554234b91383c5a7562d4, type: 3}
+  Prefab: {fileID: 776073343331131492, guid: 8a83390c868c54a30b9303d069127afd, type: 3}
+  ElementSettings:
+    Mode: 0
+    AttackChance: 0
+    Elements: []
