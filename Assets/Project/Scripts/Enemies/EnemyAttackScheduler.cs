@@ -16,7 +16,8 @@ public class EnemyAttackScheduler {
 
         foreach(var skill in owner.Skills) {
             _skills.Add(new EnemySkillRuntime {
-                Skill = skill
+                Skill = skill,
+                Timer = skill.speedMultiplier,
             });
         }
     }
@@ -34,7 +35,8 @@ public class EnemyAttackScheduler {
 
     private float GetInterval(SkillData skill) {
         float speed = _owner.GetFinalStatus(StatusType.Speed);
+        float normalizedSpeed = Mathf.InverseLerp(1f, 100f, speed);
 
-        return 50f / (1f + speed * 0.1f) * skill.speedMultiplier;
+        return Mathf.Lerp(20f, 5f, normalizedSpeed) / skill.speedMultiplier;  // skill.speedMultiplier 分だけ早くなる
     }
 }
