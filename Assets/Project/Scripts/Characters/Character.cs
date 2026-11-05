@@ -64,7 +64,9 @@ public class Character : MonoBehaviour {
     }
 
     private void Update() {
-        UpdateMPRegeneration();
+        if (_combatSystems != null && _combatSystems.State == CombatState.Playing) UpdateMPRegeneration();
+        else _regenTimer = 0f;
+
         UpdateStatusEffects();
     }
 
