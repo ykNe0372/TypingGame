@@ -123,4 +123,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _character: {fileID: 6336224040686788610}
-  _data: {fileID: 11400000, guid: c22dd22633cfe466e83399366a3678b0, type: 2}
+  _data: {fileID: 11400000, guid: d46669f4b20714110b9788575bf75bd2, type: 2}
