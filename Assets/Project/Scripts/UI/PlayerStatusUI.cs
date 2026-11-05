@@ -15,10 +15,23 @@ public class PlayerStatusUI : MonoBehaviour {
     [SerializeField] private GameObject _mpRightCap;
     [SerializeField] private float _mpBarMaxWidth;
     [SerializeField] private Material _mpLiquidMaterial;
+    [Header("属性")]
+    [SerializeField] private Image _elementIcon;
+    [SerializeField] private Sprite _fireIcon;
+    [SerializeField] private Sprite _iceIcon;
+    [SerializeField] private Sprite _lightningIcon;
 
     private void Awake() {
         _player.OnHPChanged += UpdateHP;
         _player.OnMPChanged += UpdateMP;
+        _player.OnElementChanged += UpdateElement;
+        UpdateElement(_player.CurrentElement);
+    }
+
+    private void Oestroy() {
+        _player.OnHPChanged -= UpdateHP;
+        _player.OnMPChanged -= UpdateMP;
+        _player.OnElementChanged -= UpdateElement;      
     }
 
     private void UpdateHP(float currentHP, float maxHP) {
@@ -49,5 +62,16 @@ public class PlayerStatusUI : MonoBehaviour {
         _mpLiquidHead.material = newMPLiquidMaterial;
 
         _mpRightCap.SetActive(rate >= 1.0f);
+    }
+
+    private void UpdateElement(ElementType element) {
+        _elementIcon.sprite = element switch {
+            ElementType.Fire => _fireIcon,
+            ElementType.Ice => _iceIcon,
+            ElementType.Lightning => _lightningIcon,
+            _ => null
+        };
+
+        _elementIcon.enabled = _elementIcon.sprite != null;
     }
 }

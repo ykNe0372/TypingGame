@@ -42,6 +42,7 @@ public class Character : MonoBehaviour {
     public EvasionSettings EvasionSettings => _evasionSettings;
     public IReadOnlyList<SkillData> Skills => _skills;
     public SkillData CurrentSkill => _skills[_currentSkillIndex];
+    public int CurrentSkillIndex => _currentSkillIndex;
     public ElementType CurrentElement => _currentElement;
     public ItemInventory Inventory => _itemInventory;
     public SubItemInventory SubInventory => _subInventory;
@@ -52,6 +53,8 @@ public class Character : MonoBehaviour {
     public event Action<float, float> OnHPChanged;
     public event Action<float, float> OnMPChanged;
     public event Action<DamageContext> OnDamaged;
+    public event Action<ElementType> OnElementChanged;
+    public event Action<int> OnSkillChanged;
 
     private void Awake() {
         _statusManager = new StatusManager(this);
@@ -439,6 +442,7 @@ public class Character : MonoBehaviour {
         if (index < 0 || index >= _skills.Count) return;
         _currentSkillIndex = index;
 
+        OnSkillChanged.Invoke(index);
         Debug.Log($"Skill Changed: {CurrentSkill.skillName}");
     }
 
@@ -447,6 +451,7 @@ public class Character : MonoBehaviour {
         int next = ((int)_currentElement + 1) % Enum.GetValues(typeof(ElementType)).Length;
         _currentElement = (ElementType)next;
 
+        OnElementChanged.Invoke(_currentElement);
         Debug.Log($"Element Changed: {_currentElement}");
     }
 

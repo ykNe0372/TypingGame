@@ -192,7 +192,7 @@ public class RunManager : MonoBehaviour {
 
     // 仮実装
     private int GetFloorGroup(int floor) {
-        return floor / 5;
+        return floor / 10;
     }
 
     private void HandleBattleVictory(BattleType battleType) {
