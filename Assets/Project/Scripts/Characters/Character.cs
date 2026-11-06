@@ -58,6 +58,7 @@ public class Character : MonoBehaviour {
     public event Action<float, float> OnHPChanged;
     public event Action<float, float> OnMPChanged;
     public event Action<DamageContext> OnDamaged;
+    public event Action<DamageContext> OnDodged;
     public event Action<ElementType> OnElementChanged;
     public event Action<int> OnSkillChanged;
     public event Action<int> OnSpecialLevelCharged;
@@ -427,6 +428,7 @@ public class Character : MonoBehaviour {
         if (_isDead) return;
         foreach (var effect in _dodgeEffects) effect.OnDodge(ctx);
         Hooks.Dodge(ctx);
+        OnDodged?.Invoke(ctx);
     }
 
     public void TakePercentDamage(float percent) {

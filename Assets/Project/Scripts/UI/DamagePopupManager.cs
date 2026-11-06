@@ -21,14 +21,21 @@ public class DamagePopupManager : MonoBehaviour {
 
     public void Show(DamageContext ctx) {
         int damage = Mathf.FloorToInt(Mathf.Max(0f, ctx.FinalDamage));
+        Show(ctx.Target, damage.ToString());
+    }
 
+    public void ShowDodge(DamageContext ctx) {
+        Show(ctx.Target, "回避");
+    }
+
+    private void Show(Character target, string text) {
         DamagePopup popup = Instantiate(_popupPrefab, _canvas.transform);
-        popup.Initialize(damage);
+        popup.Initialize(text);
 
-        int offsetIndex = ++_nextOffsetIndex % _popupOffsets.Length;
+        int offsetIndex = _nextOffsetIndex++ % _popupOffsets.Length;
         Vector2 jitter = Random.insideUnitCircle * _positionJitter;
         
-        Vector3 worldPosition = ctx.Target.transform.position + _worldOffset;    // 敵右上に表示するよう調整
+        Vector3 worldPosition = target.transform.position + _worldOffset;        // 対象の近くに表示
         Vector3 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);  // 敵座標をスクリーン座標に変更
         RectTransform canvasRect = _canvas.transform as RectTransform;           // スクリーン座標をローカル座標に変換
         RectTransform popupRect = popup.transform as RectTransform;
@@ -39,6 +46,6 @@ public class DamagePopupManager : MonoBehaviour {
             out Vector2 localPosition
         );
 
-        popupRect.anchoredPosition = localPosition + _popupOffsets[offsetIndex] + jitter;      // Canvas 上の座標として設定
+        popupRect.anchoredPosition = localPosition + _popupOffsets[offsetIndex] + jitter; // Canvas 上の座標として設定
     }
 }
