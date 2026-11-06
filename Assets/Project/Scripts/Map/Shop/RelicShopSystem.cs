@@ -39,7 +39,7 @@ public class RelicShopSystem : MonoBehaviour, IShop {
 
     public void GenerateOffers(int count) {
         _offers.Clear();
-        var relics = ShopUtility.PickRandomOffers(_dataBase.Relics, count);
+        var relics = ShopUtility.PickRandomOffers(_dataBase.Relics, count, _player.Relics);
         foreach (var relic in relics) _offers.Add(new RelicShopOffer(relic));
     }
 

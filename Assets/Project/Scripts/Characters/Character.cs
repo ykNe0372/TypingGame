@@ -167,9 +167,9 @@ public class Character : MonoBehaviour {
         return true;
     }
 
-    public bool HasRelic() {
-        return _relics != null;
-    }
+    // public bool HasRelic() {
+    //     return _relics != null;
+    // }
 
     public void AddItem(GrowthItem item) {
         if (_itemInventory.HasSpace()) {

@@ -1591,10 +1591,10 @@ MonoBehaviour:
   _floorCount: 10
   _minNodesPerFloor: 2
   _maxNodesPerFloor: 4
-  _battleRate: 70
-  _itemShopRate: 10
-  _relicShopRate: 10
-  _happeningRate: 10
+  _battleRate: 0
+  _itemShopRate: 0
+  _relicShopRate: 100
+  _happeningRate: 0
   _allBattleModifiers:
   - {fileID: 11400000, guid: 85b20d0d28adf4b43b620366e8aa46a0, type: 2}
   - {fileID: 11400000, guid: 0cd522713730a4d839e6dab4a41b792a, type: 2}
@@ -3720,7 +3720,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _popupPrefab: {fileID: 1215079929555245427, guid: 502b93c5af7c14cb2a3f56d0f715ba6b, type: 3}
   _canvas: {fileID: 1840306830}
+  _positionJitter: 5
   _worldOffset: {x: 0.75, y: 0.5, z: 0}
+  _popupOffsets:
+  - {x: -36, y: 0}
+  - {x: 0, y: 24}
+  - {x: 36, y: 0}
+  - {x: 0, y: -24}
+  - {x: -24, y: 24}
+  - {x: 24, y: 24}
+  - {x: -24, y: -24}
+  - {x: 24, y: -24}
 --- !u!4 &756698136
 Transform:
   m_ObjectHideFlags: 0
@@ -4872,7 +4882,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _baseStatus: {fileID: 11400000, guid: 974a0fe223b8c4e039e3afc00f2fb283, type: 2}
   _evasionSettings: {fileID: 11400000, guid: c4cd00e911d33403c992b5b5bb26dc1c, type: 2}
-  _relic: {fileID: 0}
+  _relics: []
   _skills:
   - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
   - {fileID: 11400000, guid: 43419116042304197ac093a26c0dfa7b, type: 2}
@@ -7731,9 +7741,9 @@ RectTransform:
   - {fileID: 98464934}
   - {fileID: 694409688}
   - {fileID: 720934383}
-  - {fileID: 803467468}
   - {fileID: 957821962}
   - {fileID: 856494601}
+  - {fileID: 803467468}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

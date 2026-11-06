@@ -51,7 +51,7 @@ public class RewardSystem : MonoBehaviour {
     }
 
     private void ShowRelicReward(Character player) {
-        var relicRewards = GetRandomRelics(3);
+        var relicRewards = GetRandomRelics(player, 3);
         _selectionUI.OpenRelics(relicRewards);
         _selectionUI.OnSelected += OnRelicSelected;
 
@@ -79,10 +79,15 @@ public class RewardSystem : MonoBehaviour {
         return result;
     }
 
-    private List<RelicData> GetRandomRelics(int count) {
-        var pool = new List<RelicData>(_relicPool);
-        var result = new List<RelicData>();
+    private List<RelicData> GetRandomRelics(Character player, int count) {
+        var ownedRelics = new HashSet<RelicData>(player.Relics);
+        var pool = new List<RelicData>();
+        foreach (var relic in _relicPool) {
+            if (relic == null || ownedRelics.Contains(relic) || pool.Contains(relic)) continue;
+            pool.Add(relic);
+        }
 
+        var result = new List<RelicData>();
         for (int i=0; i<count; ++i) {
             if (pool.Count <= 0) break;
 
