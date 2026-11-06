@@ -38,7 +38,6 @@ public partial class TypingManager : MonoBehaviour {
     private Question _currentQuestion;
     private readonly List<char> _roman = new();
     private int _romanIndex;
-    private int _specialPoint;
     private int _correctStreak;  // 連続正解数
     private int _bonusChain;     // ボーナス段階
     private int _nextQuestionIndex = -1;
@@ -89,15 +88,12 @@ public partial class TypingManager : MonoBehaviour {
     private void OnTextInput(char c) {
         if (_combatSystem.State != CombatState.Playing) return;
 
-        if (_specialPoint == 300) Debug.Log("Special Lv.3 Activate");
-        if (_specialPoint == 200) Debug.Log("Special Lv.2 Activate");
-        if (_specialPoint == 100) Debug.Log("Special Lv.1 Activate");
-    
         int result = _typingInput.Input(c);
+        if (result > 0) _combatSystem.AddSpecialCharge(1);
+
         switch (result) {
             case 1: // 正解タイプ時
                 ++_romanIndex;
-                ++_specialPoint;
                 textRoman.text = GenerateTextRoman();
                 aud.PlayOneShot(correct);
                 break;
@@ -228,17 +224,8 @@ public partial class TypingManager : MonoBehaviour {
         return text;
     }
 
-    // 必殺技レベル
-    public int GetSpecialLevel() {
-        return _specialPoint / 100;
-    }
-
     private void OnSpecialInput() {
-        int level = GetSpecialLevel();
-        if (level <= 0) return;
-
-        _combatSystem.RequestSpecialAttack(level);
-        _specialPoint = 0;
+        _combatSystem.RequestChargedSpecialAttack();
     }
 
     // ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭  DEBUG MODE  ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭

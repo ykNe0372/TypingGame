@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Character : MonoBehaviour {
+    private const int SpecialChargePerLevel = 100;
+
     [SerializeField] private CharacterBaseStatus _baseStatus;   // 基礎ステータス
     [SerializeField] private EvasionSettings _evasionSettings;  // 回避関連の値の設定
     [SerializeField] private List<RelicData> _relics;           // レリック
@@ -28,6 +30,7 @@ public class Character : MonoBehaviour {
     private bool _isDead;
     private float _regenTimer = 0f;
     private int _currentSkillIndex = 0;
+    private int _specialChargePoints;
     private EffectHooks _hooks;                                      // 強化アイテム / レリックのフック
     private readonly EffectStateStore _effectStates = new();          // 効果ごとの実行時状態
     private readonly HashSet<StatusType> _statusHookGuard = new();    // ステータス補正フックの再帰防止
@@ -44,6 +47,7 @@ public class Character : MonoBehaviour {
     public IReadOnlyList<RelicData> Relics => _relics;
     public SkillData CurrentSkill => _skills[_currentSkillIndex];
     public int CurrentSkillIndex => _currentSkillIndex;
+    public int SpecialLevel => _specialChargePoints / SpecialChargePerLevel;
     public ElementType CurrentElement => _currentElement;
     public ItemInventory Inventory => _itemInventory;
     public SubItemInventory SubInventory => _subInventory;
@@ -56,6 +60,7 @@ public class Character : MonoBehaviour {
     public event Action<DamageContext> OnDamaged;
     public event Action<ElementType> OnElementChanged;
     public event Action<int> OnSkillChanged;
+    public event Action<int> OnSpecialLevelCharged;
 
     private void Awake() {
         _statusManager = new StatusManager(this);
@@ -356,9 +361,26 @@ public class Character : MonoBehaviour {
     }
 
     public SpecialAttackData GetSpecialAttack(int level) {
-        if (_specialAttacks.Count == 0) return null;
+        if (_specialAttacks == null || level < 1 || level > _specialAttacks.Count) return null;
 
         return _specialAttacks[level - 1];
+    }
+
+    public void AddSpecialCharge(int amount) {
+        if (amount <= 0 || _specialAttacks == null || _specialAttacks.Count == 0) return;
+
+        int previousLevel = SpecialLevel;
+        int maxCharge = _specialAttacks.Count * SpecialChargePerLevel;
+        _specialChargePoints = Mathf.Min(_specialChargePoints + amount, maxCharge);
+        int currentLevel = SpecialLevel;
+
+        for (int level = previousLevel + 1; level <= currentLevel; ++level) {
+            OnSpecialLevelCharged?.Invoke(level);
+        }
+    }
+
+    public void ClearSpecialCharge() {
+        _specialChargePoints = 0;
     }
 
     public void TriggerAttack(AttackContext ctx) {

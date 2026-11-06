@@ -181,7 +181,24 @@ public class CombatSystem : MonoBehaviour {
         _player.Hooks.WordCompleted();
     }
 
+    public void AddSpecialCharge(int amount) {
+        if (_player == null || _state != CombatState.Playing) return;
+        _player.AddSpecialCharge(amount);
+    }
+
+    public void RequestChargedSpecialAttack() {
+        if (_player == null || _state != CombatState.Playing) return;
+
+        int level = _player.SpecialLevel;
+        if (level <= 0) return;
+
+        RequestSpecialAttack(level);
+        _player.ClearSpecialCharge();
+    }
+
     public void RequestSpecialAttack(int level) {
+        if (_player == null || _state != CombatState.Playing) return;
+
         SpecialAttackData special = _player.GetSpecialAttack(level);
         if (special == null) return;
         List<Character> targets = GetTargets(_player, special.targetType);
