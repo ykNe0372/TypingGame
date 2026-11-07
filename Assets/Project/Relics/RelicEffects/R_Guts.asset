@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa880756877c0478085ee22380bda10c, type: 3}
   m_Name: R_Guts
   m_EditorClassIdentifier: 
-  _invincibleSeconds: 3
+  _invincibleSeconds: 5
   _resetTiming: 1
