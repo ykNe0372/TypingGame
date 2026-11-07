@@ -2,17 +2,31 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.UI;
 
 public class TitleManager : MonoBehaviour {
     [SerializeField] private TMP_Text _startPrompt;
+    [SerializeField] private Image _instructionImage;
+    [SerializeField] private Sprite[] _instructionPages;
 
     private bool _isLoading = false;
+    private int _instructionPageIndex = -1;
     private int _typedCharacters;
     private Keyboard _keyboard;
 
     private void Awake() {
         if (_startPrompt == null) {
             Debug.LogError("Start prompt text is not assigned.", this);
+            enabled = false;
+            return;
+        }
+
+        if (_instructionImage != null) {
+            _instructionImage.enabled = false;
+        }
+
+        if (_instructionImage == null || _instructionPages == null || _instructionPages.Length == 0) {
+            Debug.LogError("Instruction image and at least one instruction page must be assigned.", this);
             enabled = false;
             return;
         }
@@ -42,22 +56,47 @@ public class TitleManager : MonoBehaviour {
         char normalized = TypingInputNormalizer.Normalize(input);
         if (!char.IsLetter(normalized)) return;
 
-        const string startWord = "start";
-        if (normalized == startWord[_typedCharacters]) {
+        string targetWord = _instructionPageIndex >= 0 ? "ok" : "start";
+        if (normalized == targetWord[_typedCharacters]) {
             ++_typedCharacters;
         } else {
-            _typedCharacters = normalized == startWord[0] ? 1 : 0;
+            _typedCharacters = normalized == targetWord[0] ? 1 : 0;
         }
 
         UpdateStartPrompt();
-        if (_typedCharacters == startWord.Length) StartGame();
+        if (_typedCharacters != targetWord.Length) return;
+
+        if (_instructionPageIndex < 0) {
+            ShowInstructions();
+        } else if (_instructionPageIndex < _instructionPages.Length - 1) {
+            ShowNextInstructionPage();
+        } else {
+            StartGame();
+        }
     }
 
     private void UpdateStartPrompt() {
-        const string startWord = "START";
-        string typed = startWord[.._typedCharacters];
-        string remaining = startWord[_typedCharacters..];
+        string targetWord = _instructionPageIndex >= 0 ? "OK" : "START";
+        string typed = targetWord[.._typedCharacters];
+        string remaining = targetWord[_typedCharacters..];
         _startPrompt.text = $"[ <color=#FFD166>{typed}</color>{remaining} ]";
+    }
+
+    private void ShowInstructions() {
+        _instructionPageIndex = 0;
+        ShowCurrentInstructionPage();
+    }
+
+    private void ShowNextInstructionPage() {
+        ++_instructionPageIndex;
+        ShowCurrentInstructionPage();
+    }
+
+    private void ShowCurrentInstructionPage() {
+        _typedCharacters = 0;
+        _instructionImage.sprite = _instructionPages[_instructionPageIndex];
+        _instructionImage.enabled = true;
+        UpdateStartPrompt();
     }
 
     private void StartGame() {
