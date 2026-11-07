@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7cc135a34f2eb49b89d592468a30c95e, type: 3}
-  m_Name: Boss1_evasion
+  m_Name: E_bat_evasion
   m_EditorClassIdentifier: 
-  maxEvasionRate: 15
+  maxEvasionRate: 25
   curveK: 2

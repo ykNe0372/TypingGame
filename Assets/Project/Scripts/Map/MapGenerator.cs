@@ -1,12 +1,16 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System.Collections.Generic;
 
 public class MapGenerator : MonoBehaviour {
-    [Header("階層数")]
-    [SerializeField] private int _floorCount;
+    [Header("1階層あたりの区画数")]
+    [FormerlySerializedAs("_floorCount")]
+    [SerializeField] private int _areaCount;
     [Header("候補数")]
-    [SerializeField] private int _minNodesPerFloor;
-    [SerializeField] private int _maxNodesPerFloor;
+    [FormerlySerializedAs("_minNodesPerFloor")]
+    [SerializeField] private int _minNodesPerArea;
+    [FormerlySerializedAs("_maxNodesPerFloor")]
+    [SerializeField] private int _maxNodesPerArea;
     [Header("出現確率")]
     [SerializeField] private float _battleRate;
     [SerializeField] private float _itemShopRate;
@@ -17,64 +21,64 @@ public class MapGenerator : MonoBehaviour {
 
     private int _nodeId;
 
-    public MapData Generate(int sectionNumber) {
+    public MapData Generate(int hierarchyNumber) {
         MapData mapData = new();
-        List<List<MapNode>> floors = new();
+        List<List<MapNode>> areas = new();
 
-        // 各階層生成
-        for (int x=0; x<_floorCount; ++x) {
+        // 階層内の各区画を生成
+        for (int x=0; x<_areaCount; ++x) {
             int nodeCount;
-            if (x == 0) nodeCount = sectionNumber == 1 ? 1 : Random.Range(_minNodesPerFloor, _maxNodesPerFloor + 1);  // 第1区画 or 第2区画以降 で分類
-            else if (x == _floorCount - 1) nodeCount = 1;   // 最後層はボス戦用に必ず1つ
-            else nodeCount = Random.Range(_minNodesPerFloor, _maxNodesPerFloor + 1);
+            if (x == 0) nodeCount = hierarchyNumber == 1 ? 1 : Random.Range(_minNodesPerArea, _maxNodesPerArea + 1);
+            else if (x == _areaCount - 1) nodeCount = 1;   // 最終区画はボス戦用に必ず1つ
+            else nodeCount = Random.Range(_minNodesPerArea, _maxNodesPerArea + 1);
 
-            List<MapNode> floor = new();
+            List<MapNode> area = new();
             for (int y=0; y<nodeCount; ++y) {
                 MapNode node = new() {
                     Id = ++_nodeId,
-                    FloorIndex = x,
+                    AreaIndex = x,
                     Position = new Vector2(x, y),
-                    Type = GetRandomNodeType(x, sectionNumber)
+                    Type = GetRandomNodeType(x, hierarchyNumber)
                 };
 
-                floor.Add(node);
+                area.Add(node);
                 mapData.Nodes.Add(node);
             }
 
-            floors.Add(floor);
+            areas.Add(area);
         }
 
         // ノード接続
-        for (int x=0; x<floors.Count-1; ++x) {
-            List<MapNode> currentFloor = floors[x];
-            List<MapNode> nextFloor = floors[x+1];
+        for (int x=0; x<areas.Count-1; ++x) {
+            List<MapNode> currentArea = areas[x];
+            List<MapNode> nextArea = areas[x+1];
 
-            foreach (var node in currentFloor) {
+            foreach (var node in currentArea) {
                 AssignHappening(node);
-                int connectionCount = Random.Range(1, Mathf.Min(2, nextFloor.Count) + 1);
-                List<MapNode> shuffled = new(nextFloor);
+                int connectionCount = Random.Range(1, Mathf.Min(2, nextArea.Count) + 1);
+                List<MapNode> shuffled = new(nextArea);
                 Shuffle(shuffled);
                 for (int i=0; i<connectionCount; ++i) node.ConnectedNodes.Add(shuffled[i]);
             }
         }
 
-        EnsureAllNodesConnected(floors);
+        EnsureAllNodesConnected(areas);
 
-        mapData.StartNodes = new(floors[0]);
+        mapData.StartNodes = new(areas[0]);
         mapData.CurrentNode = null;  // null で生成→選択時に上書き
         return mapData;
     }
 
     // 後方向保証
-    private void EnsureAllNodesConnected(List<List<MapNode>> floors) {
-        for (int x=1; x<floors.Count; ++x) {
-            List<MapNode> floor = floors[x];
+    private void EnsureAllNodesConnected(List<List<MapNode>> areas) {
+        for (int x=1; x<areas.Count; ++x) {
+            List<MapNode> area = areas[x];
 
-            foreach (var node in floor) {
+            foreach (var node in area) {
                 bool hasConnection = false;
-                List<MapNode> prevFloor = floors[x-1];
+                List<MapNode> previousArea = areas[x-1];
 
-                foreach (var prev in prevFloor) {
+                foreach (var prev in previousArea) {
                     if (prev.ConnectedNodes.Contains(node)) {
                         hasConnection = true;
                         break;
@@ -82,7 +86,7 @@ public class MapGenerator : MonoBehaviour {
                 }
 
                 if (!hasConnection) {
-                    MapNode randomPrev = prevFloor[Random.Range(0, prevFloor.Count)];
+                    MapNode randomPrev = previousArea[Random.Range(0, previousArea.Count)];
                     randomPrev.ConnectedNodes.Add(node);
                 }
             }
@@ -90,9 +94,9 @@ public class MapGenerator : MonoBehaviour {
     }
 
     // エリア生成
-    private MapType GetRandomNodeType(int floorIndex, int sectionNumber) {
-        if (floorIndex == 0 && sectionNumber == 1) return MapType.Battle;  // 第1区画 かつ 第1層 -> 戦闘固定
-        if (floorIndex == _floorCount - 1) return MapType.Boss;  // 最終層はボス固定
+    private MapType GetRandomNodeType(int areaIndex, int hierarchyNumber) {
+        if (areaIndex == 0 && hierarchyNumber == 1) return MapType.Battle;
+        if (areaIndex == _areaCount - 1) return MapType.Boss;
 
         float random = Random.value;
         if (random < (_battleRate / 100f)) return MapType.Battle;
@@ -102,10 +106,10 @@ public class MapGenerator : MonoBehaviour {
     }
 
     // ノードの種類を再抽選する（ボスノードはそのまま）
-    public void RerollNode(MapNode node, int sectionNumber) {
+    public void RerollNode(MapNode node, int hierarchyNumber) {
         if (node == null || node.Type == MapType.Boss) return;
 
-        node.Type = GetRandomNodeType(node.FloorIndex, sectionNumber);
+        node.Type = GetRandomNodeType(node.AreaIndex, hierarchyNumber);
         node.BattleModifiers = null;
         AssignHappening(node);
     }

@@ -101,11 +101,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5e655058a8c24fb6ad7b08ffc2d6a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseStatus: {fileID: 11400000, guid: 833923a6d0591480dbb363c0f464e9f1, type: 2}
-  _evasionSettings: {fileID: 11400000, guid: 084dcee2a3e63482094e7a7d2dd2f187, type: 2}
-  _relic: {fileID: 0}
+  _baseStatus: {fileID: 11400000, guid: 21ebf9947222f47aeb6df2c7c7a3c402, type: 2}
+  _evasionSettings: {fileID: 11400000, guid: 7406ae5e1fc8843f4a37fad488878977, type: 2}
+  _relics: []
   _skills:
-  - {fileID: 11400000, guid: 0fa2de9e38c234cbf88daa7b3bc95ca1, type: 2}
+  - {fileID: 11400000, guid: 147fa2ef3869348248456fa31122e1c3, type: 2}
+  - {fileID: 11400000, guid: fa07ca4d7dffc47ea9765518cb9a42cc, type: 2}
+  - {fileID: 11400000, guid: 6b9a75f3e639f402e94103bbeebe28f0, type: 2}
   _bonusAttacks: []
   _specialAttacks: []
   _currentElement: 0

@@ -10,35 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acfa1c3f216d7495ebdb8f0619900937, type: 3}
-  m_Name: Boss1_status
+  m_Name: B_witch_status
   m_EditorClassIdentifier: 
   _status:
   - statusType: 0
-    value: 150
+    value: 300
   - statusType: 1
-    value: 20
+    value: 50
   - statusType: 2
-    value: 0.5
+    value: 1
   - statusType: 3
-    value: 10
+    value: 15
   - statusType: 4
-    value: 10
+    value: 15
   - statusType: 5
-    value: 10
+    value: 30
   - statusType: 6
     value: 0
   - statusType: 7
-    value: 5
+    value: 10
   - statusType: 8
-    value: 5
+    value: 10
   - statusType: 9
-    value: 5
+    value: 10
   - statusType: 10
     value: 10
   - statusType: 11
     value: 50
   - statusType: 12
-    value: 10
+    value: 30
   - statusType: 13
     value: 10
   - statusType: 14
