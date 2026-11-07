@@ -2,10 +2,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 using System.Collections.Generic;
+using TMPro;
 
 public class RewardSelectionUI : MonoBehaviour {
     [SerializeField] private RewardCardUI _cardPrefab;
     [SerializeField] private Transform _cardRoot;
+    [SerializeField] private TMP_Text _escapeHint;
 
     private readonly List<RewardCardUI> _cards = new();
     private int _currentIndex;
@@ -13,6 +15,15 @@ public class RewardSelectionUI : MonoBehaviour {
     private bool _waitKeyRelease;
 
     public event Action<int> OnSelected;    // 何番目が選ばれているかだけ知る
+
+    public void SetEscapeHintVisible(bool visible) {
+        if (_escapeHint == null) {
+            if (visible) Debug.LogError("Escape hint text is not assigned.", this);
+            return;
+        }
+
+        _escapeHint.gameObject.SetActive(visible);
+    }
 
     private void Update() {
         if (!_isOpen) return;
@@ -131,6 +142,7 @@ public class RewardSelectionUI : MonoBehaviour {
 
     public void Close() {
         _isOpen = false;
+        SetEscapeHintVisible(false);
         ClearCards();
         gameObject.SetActive(false);
     }

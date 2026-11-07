@@ -54,6 +54,7 @@ public class ItemShopSystem : MonoBehaviour, IShop {
             descriptions.Add(GetOfferDescription(offer));
         }
         _selectionUI.OpenItems(items, descriptions);
+        _selectionUI.SetEscapeHintVisible(true);
         _selectionUI.OnSelected += HandleOfferSelected;
     }
 

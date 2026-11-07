@@ -50,6 +50,7 @@ public class RestSystem : MonoBehaviour {
                 $"最大MPの{_mpRecoverPercent}%を回復します。{paymentDescription}",
                 _hasTakenBlessing ? "この休憩所では既に恩恵を受けています。" : $"恩恵を1つ選びます。{paymentDescription}"
             });
+        _selectionUI.SetEscapeHintVisible(true);
         _selectionUI.OnSelected += HandleMainMenuSelected;
     }
 
@@ -115,6 +116,7 @@ public class RestSystem : MonoBehaviour {
         _selectionUI.OnSelected -= HandleMainMenuSelected;
         _selectionUI.Close();
         _selectionUI.OpenBuffs(_currentBlessings);
+        _selectionUI.SetEscapeHintVisible(false);
         _selectionUI.OnSelected += HandleBlessingSelected;
         return true;
     }
