@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6bf54c0114c714bebaa733747264881f, type: 3}
-  m_Name: BlessingAttack
+  m_Name: BlessingDefence
   m_EditorClassIdentifier: 
-  _buffName: Debug_PowerType
-  _buffDescription: "\u7269\u7406\u653B\u6483\u529B20%UP\n\u9B54\u6CD5\u653B\u6483\u529B20%UP"
+  _buffName: "\u5FCD\u8010\u306E\u52A0\u8B77"
+  _buffDescription: "\u9632\u5FA1\u529B20%UP\n\u56DE\u907F\u738710%UP"
   _duration: {fileID: 11400000, guid: 6d0ad74acaaba495e9ea4f8e7d11b0da, type: 2}
   _modifiers:
-  - StatusType: 3
+  - StatusType: 5
     BuffType: 1
     Value: 1.2
-  - StatusType: 4
+  - StatusType: 13
     BuffType: 1
-    Value: 1.2
+    Value: 1.1

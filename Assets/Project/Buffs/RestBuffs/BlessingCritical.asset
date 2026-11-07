@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf54c0114c714bebaa733747264881f, type: 3}
   m_Name: BlessingCritical
   m_EditorClassIdentifier: 
-  _buffName: Debug_CriticalType
+  _buffName: "\u72D9\u6483\u306E\u52A0\u8B77"
   _buffDescription: "\u4F1A\u5FC3\u738710%UP\n\u4F1A\u5FC3\u30C0\u30E1\u30FC\u30B830%UP"
   _duration: {fileID: 11400000, guid: 6d0ad74acaaba495e9ea4f8e7d11b0da, type: 2}
   _modifiers:
