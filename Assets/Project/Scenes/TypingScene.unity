@@ -340,7 +340,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Special
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c0826d2253dce4ddda8d53c2f95c1c1f, type: 2}
   m_sharedMaterial: {fileID: -5926449763151595196, guid: c0826d2253dce4ddda8d53c2f95c1c1f, type: 2}
@@ -1727,7 +1727,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _floorCount: 10
   _minNodesPerFloor: 2
-  _maxNodesPerFloor: 4
+  _maxNodesPerFloor: 3
   _battleRate: 70
   _itemShopRate: 10
   _relicShopRate: 10
