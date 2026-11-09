@@ -21,23 +21,24 @@ public class RunManager : MonoBehaviour {
     [Header("マップ選択UI")]
     [SerializeField] private DestinationSelectionUI _destinationSelectionUI;
 
-    private int _currentSection = 1;    // 何区画目か（スタート〜ボスで1区画）
-    private MapData _nextMap;  // 次の区画
+    private int _currentHierarchy = 1;    // ボス撃破までは「階層」とする
+    private MapData _nextHierarchyMap;
     private MapSelectionMode _selectionMode;
 
     public static RunManager Instance;
 
     public MapData MapData { get; private set; }
     public MapNavigator Navigator { get; private set; }
-    public int CurrentSection => _currentSection;
+    public int CurrentHierarchy => _currentHierarchy;
     public MapSelectionMode SelectionMode => _selectionMode;
 
     private void Start() {
         _combatSystem.OnBattleVictory += HandleBattleVictory;
         _combatSystem.OnBattleDefeat += HandleBattleDefeat;
         _rewardSystem.OnRewardFinished += HandleRewardClosed;
+        SubscribeGameState();
 
-        MapData mapData = _mapGenerator.Generate(_currentSection);
+        MapData mapData = _mapGenerator.Generate(_currentHierarchy);
         StartRun(mapData);
     }
 
@@ -46,12 +47,23 @@ public class RunManager : MonoBehaviour {
         else Destroy(gameObject);
     }
 
+    private bool _isSubscribedState;
+
+    // GameStateManager.Awake より先に OnEnable が呼ばれると購読できないため、Start でも再試行する
     private void OnEnable() {
-        if (GameStateManager.Instance != null) GameStateManager.Instance.OnStateChanged += HandleGameStateChanged;      
+        SubscribeGameState();
     }
 
     private void OnDisable() {
+        if (!_isSubscribedState) return;
         if (GameStateManager.Instance != null) GameStateManager.Instance.OnStateChanged -= HandleGameStateChanged;
+        _isSubscribedState = false;
+    }
+
+    private void SubscribeGameState() {
+        if (_isSubscribedState || GameStateManager.Instance == null) return;
+        GameStateManager.Instance.OnStateChanged += HandleGameStateChanged;
+        _isSubscribedState = true;
     }
 
     public void StartRun(MapData mapData) {
@@ -61,7 +73,7 @@ public class RunManager : MonoBehaviour {
         MapNode startNode = mapData.StartNodes[0];
         Navigator.SelectStartNode(startNode);
         EnterNode(startNode);
-        // if (_currentSection == 1) EnterNode(mapData.StartNodes[0]);
+        // if (_currentHierarchy == 1) EnterNode(mapData.StartNodes[0]);
         // else ShowStartNodeSelection(mapData.StartNodes);
     }
 
@@ -130,18 +142,17 @@ public class RunManager : MonoBehaviour {
 
     private List<Character> CreateEnemies(MapNode node) {
         List<Character> enemies = new();
-        int floorGroup = GetFloorGroup(node.FloorIndex);
-        Debug.Log($"FloorGroup: {floorGroup}");
-        EnemyDataBase.EnemyFloorTable floorSet = _enemyDataBase.GetFloorSet(floorGroup);
+        EnemyDataBase.EnemyHierarchyTable hierarchyTable = _enemyDataBase.GetHierarchyTable(_currentHierarchy);
 
-        if (floorSet == null) {
-            Debug.LogError("FloorEnemySet Missing");
+        if (hierarchyTable == null) {
+            Debug.LogError($"Enemy hierarchy table missing for hierarchy {_currentHierarchy}.");
             return enemies;
         }
 
         // ボス戦
         if (node.Type == MapType.Boss) {
-            EnemyData bossData = GetRandomEnemy(floorSet.BossEnemy);
+            EnemyData bossData = GetRandomEnemy(hierarchyTable.BossEnemies);
+            if (bossData == null) return enemies;
             Character boss = _enemyFactory.CreateEnemy(bossData, 1);
             enemies.Add(boss);
             return enemies;
@@ -150,7 +161,8 @@ public class RunManager : MonoBehaviour {
         // 通常戦
         int enemyCount = Random.Range(2, 4);
         for (int i=0; i<enemyCount; ++i) {
-            EnemyData enemyData = GetRandomEnemy(floorSet.NormalEnemies);
+            EnemyData enemyData = GetRandomEnemy(hierarchyTable.NormalEnemies);
+            if (enemyData == null) continue;
             Character enemy = _enemyFactory.CreateEnemy(enemyData, i);
             enemies.Add(enemy);
         }
@@ -158,6 +170,11 @@ public class RunManager : MonoBehaviour {
     }
 
     private EnemyData GetRandomEnemy(List<EnemySpawnEntry> entries) {
+        if (entries == null || entries.Count == 0) {
+            Debug.LogError("EnemySpawnEntry Missing");
+            return null;
+        }
+
         int totalWeight = 0;
         foreach (var entry in entries) totalWeight += entry.SpawnWeight;
 
@@ -169,11 +186,6 @@ public class RunManager : MonoBehaviour {
         }
 
         return entries[0].EnemyData;
-    }
-
-    // 仮実装
-    private int GetFloorGroup(int floor) {
-        return floor / 5;
     }
 
     private void HandleBattleVictory(BattleType battleType) {
@@ -196,17 +208,17 @@ public class RunManager : MonoBehaviour {
         // TODO: ゲームオーバーUI・BGM停止など
     }
 
-    public void GenerateNextSection() {
-        ++_currentSection;
-        _nextMap = _mapGenerator.Generate(_currentSection);
-        _selectionMode = MapSelectionMode.NextSection;
+    public void GenerateNextHierarchy() {
+        ++_currentHierarchy;
+        _nextHierarchyMap = _mapGenerator.Generate(_currentHierarchy);
+        _selectionMode = MapSelectionMode.NextHierarchy;
 
-        Debug.Log($"Section {_currentSection} Generated");
+        Debug.Log($"Hierarchy {_currentHierarchy} Generated");
     }
 
     public IReadOnlyList<MapNode> GetCurrentSelectableNodes() {
         return _selectionMode switch {
-            MapSelectionMode.NextSection => _nextMap.StartNodes,
+            MapSelectionMode.NextHierarchy => _nextHierarchyMap.StartNodes,
             _ => Navigator.GetSelectableNodes(),
         };
 
@@ -222,8 +234,8 @@ public class RunManager : MonoBehaviour {
             case MapSelectionMode.Normal:
                 SelectNormalNode(index);
                 break;
-            case MapSelectionMode.NextSection:
-                SelectNextSectionNode(index);
+            case MapSelectionMode.NextHierarchy:
+                SelectNextHierarchyNode(index);
                 break;
         }
     }
@@ -234,24 +246,43 @@ public class RunManager : MonoBehaviour {
         EnterNode(node);
     }
 
-    private void SelectNextSectionNode(int index) {
-        MapNode node = _nextMap.StartNodes[index];
+    private void SelectNextHierarchyNode(int index) {
+        MapNode node = _nextHierarchyMap.StartNodes[index];
 
-        _nextMap.CurrentNode = node;
+        _nextHierarchyMap.CurrentNode = node;
         node.IsVisited = true;
 
-        MapData = _nextMap;
-        Navigator = new MapNavigator(_nextMap);
+        MapData = _nextHierarchyMap;
+        Navigator = new MapNavigator(_nextHierarchyMap);
         _selectionMode = MapSelectionMode.Normal;
         EnterNode(node);
     }
 
-    public IReadOnlyList<MapNode> GetStartNodes() {
-        return _nextMap.StartNodes;
+    // レリック効果: 行き先候補を再抽選する（ボスは対象外）
+    public bool TryRerollDestinations() {
+        if (!GameStateManager.Instance.IsState(GameState.MapSelect)) return false;
+
+        var selectable = GetCurrentSelectableNodes();
+        bool hasRerollable = false;
+        foreach (var node in selectable) {
+            if (node.Type != MapType.Boss) hasRerollable = true;
+        }
+        if (!hasRerollable) return false;
+        if (!_player.Hooks.TryConsumeAreaReroll()) return false;
+
+        foreach (var node in selectable) _mapGenerator.RerollNode(node, _currentHierarchy);
+        _destinationSelectionUI.Show(selectable);
+
+        Debug.Log($"[Map] Reroll Destinations (remaining: {_player.Hooks.GetRemainingAreaRerolls()})");
+        return true;
     }
 
-    public void EnterNextFloor(MapNode node) {
-        _nextMap.CurrentNode = node;
+    public IReadOnlyList<MapNode> GetNextHierarchyStartNodes() {
+        return _nextHierarchyMap.StartNodes;
+    }
+
+    public void EnterNextHierarchyNode(MapNode node) {
+        _nextHierarchyMap.CurrentNode = node;
         node.IsVisited = true;
 
         EnterNode(node);

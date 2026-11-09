@@ -31,6 +31,8 @@ public class StatusManager {
         Add(StatusEffectParameter.ShockFailChance, data.shockFailChance);
         Add(StatusEffectParameter.OverShockBaseMultiplier, data.overShockBaseMultiplier);
         Add(StatusEffectParameter.OverShockChainDecay, data.overShockChainDecay);
+        Add(StatusEffectParameter.BurnDamageMultiplier, 1f);
+        Add(StatusEffectParameter.FreezeDamageMultiplier, 1f);
 
         return parameters;
     }

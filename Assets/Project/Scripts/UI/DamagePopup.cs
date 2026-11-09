@@ -6,7 +6,11 @@ public class DamagePopup : MonoBehaviour {
     [SerializeField, Header("表示時間")] private float _displayDuration = 1f;
 
     public void Initialize(float damage) {
-        _text.text = damage.ToString();
+        Initialize(damage.ToString());
+    }
+
+    public void Initialize(string text) {
+        _text.text = text;
         Destroy(gameObject, _displayDuration);
     }
 }

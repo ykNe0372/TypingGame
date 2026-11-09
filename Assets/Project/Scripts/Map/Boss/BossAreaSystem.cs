@@ -53,7 +53,7 @@ public class BossAreaSystem : MonoBehaviour {
         _state = BossAreaState.SelectNextFloor;
         Debug.Log("[BossArea] Enter: SelectNextFloor");
 
-        RunManager.Instance.GenerateNextSection();
+        RunManager.Instance.GenerateNextHierarchy();
     }
 
     private void Complete() {

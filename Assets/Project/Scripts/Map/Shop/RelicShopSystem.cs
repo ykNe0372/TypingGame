@@ -39,7 +39,7 @@ public class RelicShopSystem : MonoBehaviour, IShop {
 
     public void GenerateOffers(int count) {
         _offers.Clear();
-        var relics = ShopUtility.PickRandomOffers(_dataBase.Relics, count);
+        var relics = ShopUtility.PickRandomOffers(_dataBase.Relics, count, _player.Relics);
         foreach (var relic in relics) _offers.Add(new RelicShopOffer(relic));
     }
 
@@ -50,6 +50,7 @@ public class RelicShopSystem : MonoBehaviour, IShop {
         List<RelicData> relics = new();
         foreach (var offer in _offers) relics.Add(offer.Relic);
         _selectionUI.OpenRelics(relics);
+        _selectionUI.SetEscapeHintVisible(true);
         _selectionUI.OnSelected += HandleSelection;
     }
 
@@ -75,6 +76,7 @@ public class RelicShopSystem : MonoBehaviour, IShop {
                 $"最大HPの{_costPercent}%を消費（HPは1以上残ります）。",
                 $"最大MPの{_costPercent}%を消費します。"
             });
+        _selectionUI.SetEscapeHintVisible(true);
     }
 
     private void SelectCost(int index) {

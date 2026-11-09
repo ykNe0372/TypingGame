@@ -1,10 +1,15 @@
 public static class DamageContextFactory {
     // 通常攻撃用
     public static DamageContext CreateAttack(Character attacker, Character target) {
+        return CreateAttack(attacker, target, StatusType.PhysicalAttack);
+    }
+
+    // 参照する攻撃力を指定する版（MP 消費攻撃は MagicAttack）
+    public static DamageContext CreateAttack(Character attacker, Character target, StatusType attackStatus) {
         return new DamageContext {
             Attacker = attacker,
             Target = target,
-            BaseDamage = DamageCalculator.Calculate(attacker, target)
+            BaseDamage = DamageCalculator.Calculate(attacker, target, attackStatus)
         };
     }
 

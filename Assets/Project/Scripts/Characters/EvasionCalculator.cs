@@ -14,6 +14,7 @@ public static class EvasionCalculator {
 
     public static bool Roll(Character character) {
         if (character == null || character.EvasionSettings == null) return false;
+        if (!character.Hooks.CanEvade()) return false;  // 回避不可の効果
 
         float evasionRate = Calculate(character);
         float bonus = character.GetTemporaryStatusBonus(StatusType.EvasionRate);

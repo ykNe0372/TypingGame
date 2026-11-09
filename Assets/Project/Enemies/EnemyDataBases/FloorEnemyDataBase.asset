@@ -12,13 +12,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fd127e0b740d4fff84398fd159b20f8, type: 3}
   m_Name: FloorEnemyDataBase
   m_EditorClassIdentifier: 
-  _floorEnemySets:
-  - FloorGroup: 0
+  _hierarchyTables:
+  - HierarchyNumber: 1
     NormalEnemies:
     - EnemyData: {fileID: 11400000, guid: d46669f4b20714110b9788575bf75bd2, type: 2}
       SpawnWeight: 3
-    - EnemyData: {fileID: 11400000, guid: c22dd22633cfe466e83399366a3678b0, type: 2}
+    - EnemyData: {fileID: 11400000, guid: 9806be095cf1d4007b15ee121404499a, type: 2}
       SpawnWeight: 3
-    BossEnemy:
+    - EnemyData: {fileID: 11400000, guid: 2e1a34894118d4e0f9da8a2cf5d53167, type: 2}
+      SpawnWeight: 3
+    - EnemyData: {fileID: 11400000, guid: 3f63d31ecbd834930b98efbf1c7a909c, type: 2}
+      SpawnWeight: 3
+    BossEnemies:
     - EnemyData: {fileID: 11400000, guid: 41cbf5d6d6c6a491387f00a1d213a543, type: 2}
+      SpawnWeight: 1
+  - HierarchyNumber: 2
+    NormalEnemies:
+    - EnemyData: {fileID: 11400000, guid: 2e1a34894118d4e0f9da8a2cf5d53167, type: 2}
+      SpawnWeight: 2
+    - EnemyData: {fileID: 11400000, guid: 3f63d31ecbd834930b98efbf1c7a909c, type: 2}
+      SpawnWeight: 2
+    - EnemyData: {fileID: 11400000, guid: 5415f51e7cae94ed6bc8e3aa09003a9e, type: 2}
+      SpawnWeight: 2
+    - EnemyData: {fileID: 11400000, guid: 46a1bcece31ad4319b95958f894da381, type: 2}
+      SpawnWeight: 2
+    - EnemyData: {fileID: 11400000, guid: 2569b35af66494efc801e99404982f9e, type: 2}
+      SpawnWeight: 2
+    - EnemyData: {fileID: 11400000, guid: d46669f4b20714110b9788575bf75bd2, type: 2}
+      SpawnWeight: 1
+    - EnemyData: {fileID: 11400000, guid: 2569b35af66494efc801e99404982f9e, type: 2}
+      SpawnWeight: 3
+    BossEnemies:
+    - EnemyData: {fileID: 11400000, guid: 79937a65e59f84ddb91ffe05bfb67ab1, type: 2}
+      SpawnWeight: 1
+  - HierarchyNumber: 3
+    NormalEnemies:
+    - EnemyData: {fileID: 11400000, guid: 2e1a34894118d4e0f9da8a2cf5d53167, type: 2}
+      SpawnWeight: 3
+    - EnemyData: {fileID: 11400000, guid: 3f63d31ecbd834930b98efbf1c7a909c, type: 2}
+      SpawnWeight: 3
+    - EnemyData: {fileID: 11400000, guid: 5415f51e7cae94ed6bc8e3aa09003a9e, type: 2}
+      SpawnWeight: 3
+    - EnemyData: {fileID: 11400000, guid: 46a1bcece31ad4319b95958f894da381, type: 2}
+      SpawnWeight: 3
+    - EnemyData: {fileID: 11400000, guid: 2569b35af66494efc801e99404982f9e, type: 2}
+      SpawnWeight: 3
+    BossEnemies:
+    - EnemyData: {fileID: 11400000, guid: 13503205fc1d74e748388af9f6bd720e, type: 2}
       SpawnWeight: 1

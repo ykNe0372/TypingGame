@@ -54,6 +54,7 @@ public class ItemShopSystem : MonoBehaviour, IShop {
             descriptions.Add(GetOfferDescription(offer));
         }
         _selectionUI.OpenItems(items, descriptions);
+        _selectionUI.SetEscapeHintVisible(true);
         _selectionUI.OnSelected += HandleOfferSelected;
     }
 
@@ -65,7 +66,7 @@ public class ItemShopSystem : MonoBehaviour, IShop {
 
         List<string> materialNames = new();
         foreach (var material in materials) materialNames.Add(material.ItemName);
-        return $"{offer.Item.Description}\n\n支払い: {string.Join(" + ", materialNames)}";
+        return $"{offer.Item.Description}\n支払い: {string.Join(" + ", materialNames)}";
     }
 
     private void HandleOfferSelected(int index) {

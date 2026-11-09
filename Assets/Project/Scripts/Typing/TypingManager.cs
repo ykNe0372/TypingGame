@@ -38,7 +38,6 @@ public partial class TypingManager : MonoBehaviour {
     private Question _currentQuestion;
     private readonly List<char> _roman = new();
     private int _romanIndex;
-    private int _specialPoint;
     private int _correctStreak;  // 連続正解数
     private int _bonusChain;     // ボーナス段階
     private int _nextQuestionIndex = -1;
@@ -61,31 +60,47 @@ public partial class TypingManager : MonoBehaviour {
     private void OnEnable() {
         _inputManager.OnCharInput += OnTextInput;
         _inputManager.OnSpecialInput += OnSpecialInput;
+        _combatSystem.OnBattleVictory += HandleBattleVictory;
+        _combatSystem.OnBattleDefeat += HandleBattleDefeat;
     }
 
     private void OnDisable() {
         _inputManager.OnCharInput -= OnTextInput;
         _inputManager.OnSpecialInput -= OnSpecialInput;
+        _combatSystem.OnBattleVictory -= HandleBattleVictory;
+        _combatSystem.OnBattleDefeat -= HandleBattleDefeat;
+    }
+
+    private void HandleBattleVictory(BattleType _) {
+        ResetTypingProgress();
+    }
+
+    private void HandleBattleDefeat() {
+        ResetTypingProgress();
+    }
+
+    private void ResetTypingProgress() {
+        _typingInput.Reset();
+        _romanIndex = 0;
+        textRoman.text = GenerateTextRoman();
     }
 
     private void OnTextInput(char c) {
         if (_combatSystem.State != CombatState.Playing) return;
 
-        if (_specialPoint == 300) Debug.Log("Special Lv.3 Activate");
-        if (_specialPoint == 200) Debug.Log("Special Lv.2 Activate");
-        if (_specialPoint == 100) Debug.Log("Special Lv.1 Activate");
-    
         int result = _typingInput.Input(c);
+        if (result > 0) _combatSystem.AddSpecialCharge(1);
+
         switch (result) {
             case 1: // 正解タイプ時
                 ++_romanIndex;
-                ++_specialPoint;
                 textRoman.text = GenerateTextRoman();
                 aud.PlayOneShot(correct);
                 break;
             case 2: // タイプ完了時
                 InitializeQuestion();
                 _combatSystem.RequestAttack();
+                _combatSystem.NotifyWordCompleted();
                 ++_correctStreak;
 
                 if (_correctStreak >= 5) {
@@ -96,10 +111,17 @@ public partial class TypingManager : MonoBehaviour {
                 }
                 break;
             case 0:
+                aud.PlayOneShot(wrong);
+                TypoContext typo = _combatSystem.NotifyTypo();
+                if (typo.IsNegated) {  // レリックでタイプミスを無効化
+                    Debug.Log("[Typo] Negated");
+                    break;
+                }
+
                 _correctStreak = 0;
                 _bonusChain = 0;
                 Debug.Log("リセット");
-                aud.PlayOneShot(wrong);
+                if (typo.SkipQuestion) InitializeQuestion();  // 攻撃失敗として次の文章へ
                 break;
         }
     }
@@ -147,6 +169,8 @@ public partial class TypingManager : MonoBehaviour {
 
         // 次になる問題文を決定（1つ前の問題文とは重複しない）
         int questionCount = _filteredQuestions.Count;
+        if (questionCount == 0) return;  // 条件に合う問題がない（FilterQuestions で警告済み）
+        if (_nextQuestionIndex >= questionCount) _nextQuestionIndex = -1;
         int newIndex = (_nextQuestionIndex == -1)
             ? UnityEngine.Random.Range(0, questionCount) // 最初だけランダム
             : _nextQuestionIndex;                        // 二回目以降は next から
@@ -176,7 +200,7 @@ public partial class TypingManager : MonoBehaviour {
         _nextQuestionIndex = nextIndex;
 
         // nextText に次の問題文を格納
-        textNext.text = _currentQuestions[_nextQuestionIndex].display;
+        textNext.text = _filteredQuestions[_nextQuestionIndex].display;  // インデックスは絞り込み後のリストのもの
     }
 
     private void ApplyText() {
@@ -200,17 +224,8 @@ public partial class TypingManager : MonoBehaviour {
         return text;
     }
 
-    // 必殺技レベル
-    public int GetSpecialLevel() {
-        return _specialPoint / 100;
-    }
-
     private void OnSpecialInput() {
-        int level = GetSpecialLevel();
-        if (level <= 0) return;
-
-        _combatSystem.RequestSpecialAttack(level);
-        _specialPoint = 0;
+        _combatSystem.RequestChargedSpecialAttack();
     }
 
     // ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭  DEBUG MODE  ▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭

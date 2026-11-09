@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1e30fa6e91248c9ac4293fa6eb15be, type: 3}
+  m_Name: ID_KillRecoveryBoost_1.2
+  m_EditorClassIdentifier: 
+  _itemName: "\u92ED\u5229\u306A\u7259"
+  _description: "\u6575\u3092\u6483\u7834\u3057\u305F\u969B\u306B\u56DE\u5FA9\u3059\u308BHP\u3068MP\u306E\u91CF\u309220%\u5897\u52A0\u3055\u305B\u308B"
+  _icon: {fileID: 0}
+  _rarity: 0
+  _effects:
+  - {fileID: 11400000, guid: 5f5bbf177ca71428495adeb4ea41b56e, type: 2}
+  _nextRarityItem: {fileID: 0}

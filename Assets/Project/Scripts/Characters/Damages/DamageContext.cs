@@ -7,4 +7,6 @@ public class DamageContext {
     public bool IsCritical;
     public float CritMultiplier;
     public bool IsEnvironmentDamage;  // 環境ダメージか
+    public bool ForceCritical;        // true なら確定で会心
+    public float CritRateBonus;       // 会心率への加算（%）
 }
