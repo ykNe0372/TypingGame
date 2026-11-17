@@ -2,36 +2,33 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using TMPro;
-using UnityEngine.UI;
 
 public class TitleManager : MonoBehaviour {
-    [SerializeField] private TMP_Text _startPrompt;
-    [SerializeField] private Image _instructionImage;
-    [SerializeField] private Sprite[] _instructionPages;
+    private enum TitleCommand {
+        None,
+        Start,
+        Tutorial
+    }
 
-    private bool _isLoading = false;
-    private int _instructionPageIndex = -1;
+    private const string StartWord = "start";
+    private const string TutorialWord = "tutorial";
+
+    [SerializeField] private TMP_Text _startText;
+    [SerializeField] private TMP_Text _tutorialText;
+
+    private bool _isLoading;
+    private TitleCommand _activeCommand;
     private int _typedCharacters;
     private Keyboard _keyboard;
 
     private void Awake() {
-        if (_startPrompt == null) {
-            Debug.LogError("Start prompt text is not assigned.", this);
+        if (_startText == null || _tutorialText == null) {
+            Debug.LogError("Start and tutorial prompt texts must be assigned.", this);
             enabled = false;
             return;
         }
 
-        if (_instructionImage != null) {
-            _instructionImage.enabled = false;
-        }
-
-        if (_instructionImage == null || _instructionPages == null || _instructionPages.Length == 0) {
-            Debug.LogError("Instruction image and at least one instruction page must be assigned.", this);
-            enabled = false;
-            return;
-        }
-
-        UpdateStartPrompt();
+        UpdatePrompts();
     }
 
     private void OnEnable() {
@@ -56,54 +53,83 @@ public class TitleManager : MonoBehaviour {
         char normalized = TypingInputNormalizer.Normalize(input);
         if (!char.IsLetter(normalized)) return;
 
-        string targetWord = _instructionPageIndex >= 0 ? "ok" : "start";
-        if (normalized == targetWord[_typedCharacters]) {
+        ProcessCommandInput(normalized);
+        UpdatePrompts();
+
+        if (_activeCommand == TitleCommand.Start && _typedCharacters == StartWord.Length) LoadScene(SceneNames.Typing);
+        else if (_activeCommand == TitleCommand.Tutorial && _typedCharacters == TutorialWord.Length) LoadScene(SceneNames.Tutorial);
+    }
+
+    private void ProcessCommandInput(char input) {
+        if (_activeCommand == TitleCommand.None) {
+            StartCommand(input);
+            return;
+        }
+
+        string currentWord = GetWord(_activeCommand);
+        if (_typedCharacters < currentWord.Length && input == currentWord[_typedCharacters]) {
             ++_typedCharacters;
-        } else {
-            _typedCharacters = normalized == targetWord[0] ? 1 : 0;
+            return;
         }
 
-        UpdateStartPrompt();
-        if (_typedCharacters != targetWord.Length) return;
-
-        if (_instructionPageIndex < 0) {
-            ShowInstructions();
-        } else if (_instructionPageIndex < _instructionPages.Length - 1) {
-            ShowNextInstructionPage();
-        } else {
-            StartGame();
+        if (input == currentWord[0]) {
+            _typedCharacters = 1;
+            return;
         }
-    }
 
-    private void UpdateStartPrompt() {
-        string targetWord = _instructionPageIndex >= 0 ? "OK" : "START";
-        string typed = targetWord[.._typedCharacters];
-        string remaining = targetWord[_typedCharacters..];
-        _startPrompt.text = $"[ <color=#FFD166>{typed}</color>{remaining} ]";
-    }
+        TitleCommand otherCommand = _activeCommand == TitleCommand.Start
+            ? TitleCommand.Tutorial
+            : TitleCommand.Start;
+        if (input == GetWord(otherCommand)[0]) {
+            _activeCommand = otherCommand;
+            _typedCharacters = 1;
+            return;
+        }
 
-    private void ShowInstructions() {
-        _instructionPageIndex = 0;
-        ShowCurrentInstructionPage();
-    }
-
-    private void ShowNextInstructionPage() {
-        ++_instructionPageIndex;
-        ShowCurrentInstructionPage();
-    }
-
-    private void ShowCurrentInstructionPage() {
+        _activeCommand = TitleCommand.None;
         _typedCharacters = 0;
-        _instructionImage.sprite = _instructionPages[_instructionPageIndex];
-        _instructionImage.enabled = true;
-        UpdateStartPrompt();
     }
 
-    private void StartGame() {
-        if (_isLoading) return;
-        _isLoading = true;
+    private void StartCommand(char input) {
+        if (input == StartWord[0]) {
+            _activeCommand = TitleCommand.Start;
+            _typedCharacters = 1;
+        } else if (input == TutorialWord[0]) {
+            _activeCommand = TitleCommand.Tutorial;
+            _typedCharacters = 1;
+        }
+    }
 
-        SceneManager.LoadScene(SceneNames.Typing);
+    private void UpdatePrompts() {
+        int startProgress = _activeCommand == TitleCommand.Start ? _typedCharacters : 0;
+        int tutorialProgress = _activeCommand == TitleCommand.Tutorial ? _typedCharacters : 0;
+        _startText.text = FormatPrompt(StartWord, startProgress);
+        _tutorialText.text = FormatPrompt(TutorialWord, tutorialProgress);
+    }
+
+    private static string FormatPrompt(string word, int typedCharacters) {
+        string typed = word[..typedCharacters].ToUpperInvariant();
+        string remaining = word[typedCharacters..].ToUpperInvariant();
+        return $"[ <color=#FFD166>{typed}</color>{remaining} ]";
+    }
+
+    private static string GetWord(TitleCommand command) {
+        return command switch {
+            TitleCommand.Start => StartWord,
+            TitleCommand.Tutorial => TutorialWord,
+            _ => string.Empty
+        };
+    }
+
+    private void LoadScene(string sceneName) {
+        if (_isLoading) return;
+        if (!Application.CanStreamedLevelBeLoaded(sceneName)) {
+            Debug.LogError($"Scene '{sceneName}' is not included in the build settings.", this);
+            return;
+        }
+
+        _isLoading = true;
+        SceneManager.LoadScene(sceneName);
     }
 
     public void QuitGame() {
