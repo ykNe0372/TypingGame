@@ -20,6 +20,10 @@ public class RunManager : MonoBehaviour {
     [SerializeField] private MapGenerator _mapGenerator;
     [Header("マップ選択UI")]
     [SerializeField] private DestinationSelectionUI _destinationSelectionUI;
+    [Header("ゲームクリア")]
+    [SerializeField] private bool _gameClearEnabled = true;
+    [SerializeField, Min(1)] private int _finalHierarchy = 3;
+    [SerializeField] private GameObject _gameClearPanel;
 
     private int _currentHierarchy = 1;    // ボス撃破までは「階層」とする
     private MapData _nextHierarchyMap;
@@ -31,6 +35,7 @@ public class RunManager : MonoBehaviour {
     public MapData MapData { get; private set; }
     public MapNavigator Navigator { get; private set; }
     public int CurrentHierarchy => _currentHierarchy;
+    public bool IsFinalHierarchy => _gameClearEnabled && _currentHierarchy >= _finalHierarchy;
     public MapSelectionMode SelectionMode => _selectionMode;
 
     private void Start() {
@@ -206,6 +211,11 @@ public class RunManager : MonoBehaviour {
                 break;
             case BattleType.Boss:
                 Debug.Log("[Boss] Victory");
+                if (_bossAreaSystem.IsFinalBossVictory) {
+                    ShowGameClear();
+                    return;
+                }
+
                 _rewardSystem.ShowBossReward(_player);
                 break;
         }
@@ -300,6 +310,16 @@ public class RunManager : MonoBehaviour {
 
     private void HandleRewardClosed() {
         GameStateManager.Instance.ChangeState(GameState.MapSelect);
+    }
+
+    private void ShowGameClear() {
+        GameStateManager.Instance.ChangeState(GameState.Result);
+        if (_gameClearPanel == null) {
+            Debug.LogError("Game clear panel is not assigned.", this);
+            return;
+        }
+
+        _gameClearPanel.SetActive(true);
     }
 
     private void HandleGameStateChanged(GameState state) {

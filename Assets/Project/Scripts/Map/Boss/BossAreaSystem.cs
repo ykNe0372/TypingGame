@@ -9,6 +9,7 @@ public class BossAreaSystem : MonoBehaviour {
     private BossAreaState _state;
 
     public BossAreaState State => _state;
+    public bool IsFinalBossVictory { get; private set; }
 
     private void Awake() {
         _combatSystem.OnBattleVictory += HandleBattleVictory;
@@ -23,6 +24,7 @@ public class BossAreaSystem : MonoBehaviour {
     public void EnterBossArea(Character player, List<Character> boss) {
         _player = player;
         _boss = boss;
+        IsFinalBossVictory = false;
         EnterPreOrganize();
     }
 
@@ -65,6 +67,12 @@ public class BossAreaSystem : MonoBehaviour {
         if (battleType != BattleType.Boss) return;
 
         Debug.Log("[Boss] Victory");
+        if (RunManager.Instance.IsFinalHierarchy) {
+            IsFinalBossVictory = true;
+            Complete();
+            return;
+        }
+
         EnterPostOrganize();
 
         // TODO: 勝利演出・リザルトUIなど
