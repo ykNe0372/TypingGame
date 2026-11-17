@@ -24,6 +24,7 @@ public class RunManager : MonoBehaviour {
     private int _currentHierarchy = 1;    // ボス撃破までは「階層」とする
     private MapData _nextHierarchyMap;
     private MapSelectionMode _selectionMode;
+    private bool _isSubscribedRunEvents;
 
     public static RunManager Instance;
 
@@ -36,6 +37,7 @@ public class RunManager : MonoBehaviour {
         _combatSystem.OnBattleVictory += HandleBattleVictory;
         _combatSystem.OnBattleDefeat += HandleBattleDefeat;
         _rewardSystem.OnRewardFinished += HandleRewardClosed;
+        _isSubscribedRunEvents = true;
         SubscribeGameState();
 
         MapData mapData = _mapGenerator.Generate(_currentHierarchy);
@@ -55,9 +57,17 @@ public class RunManager : MonoBehaviour {
     }
 
     private void OnDisable() {
-        if (!_isSubscribedState) return;
-        if (GameStateManager.Instance != null) GameStateManager.Instance.OnStateChanged -= HandleGameStateChanged;
-        _isSubscribedState = false;
+        if (_isSubscribedRunEvents) {
+            _combatSystem.OnBattleVictory -= HandleBattleVictory;
+            _combatSystem.OnBattleDefeat -= HandleBattleDefeat;
+            _rewardSystem.OnRewardFinished -= HandleRewardClosed;
+            _isSubscribedRunEvents = false;
+        }
+
+        if (_isSubscribedState) {
+            if (GameStateManager.Instance != null) GameStateManager.Instance.OnStateChanged -= HandleGameStateChanged;
+            _isSubscribedState = false;
+        }
     }
 
     private void SubscribeGameState() {

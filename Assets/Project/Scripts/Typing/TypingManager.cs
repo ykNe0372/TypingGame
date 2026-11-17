@@ -224,6 +224,14 @@ public partial class TypingManager : MonoBehaviour {
         return text;
     }
 
+    public void ShowCommandPrompt(string displayText, string readingText, string command, int typedCharacters) {
+        int progress = Mathf.Clamp(typedCharacters, 0, command.Length);
+        textJapanese.text = displayText;
+        textRuby.text = readingText;
+        textRoman.text = $"<style=typed>{command[..progress]}</style><style=untyped>{command[progress..]}</style>";
+        textNext.text = string.Empty;
+    }
+
     private void OnSpecialInput() {
         _combatSystem.RequestChargedSpecialAttack();
     }

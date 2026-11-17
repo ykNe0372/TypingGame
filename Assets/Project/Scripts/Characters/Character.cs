@@ -28,6 +28,7 @@ public class Character : MonoBehaviour {
     private float _currentHP;
     private float _currentMP;
     private bool _isDead;
+    private bool _isInvulnerable;
     private float _regenTimer = 0f;
     private int _currentSkillIndex = 0;
     private int _specialChargePoints;
@@ -58,10 +59,12 @@ public class Character : MonoBehaviour {
     public event Action<float, float> OnHPChanged;
     public event Action<float, float> OnMPChanged;
     public event Action<DamageContext> OnDamaged;
+    public event Action<DamageContext> OnDamageBlocked;
     public event Action<DamageContext> OnDodged;
     public event Action<ElementType> OnElementChanged;
     public event Action<int> OnSkillChanged;
     public event Action<int> OnSpecialLevelCharged;
+    public event Action<StatusEffectType> OnStatusEffectApplied;
 
     private void Awake() {
         _statusManager = new StatusManager(this);
@@ -392,6 +395,12 @@ public class Character : MonoBehaviour {
 
     // ダメージ適応（仮）
     public void TakeDamage(DamageContext ctx) {
+        if (_isInvulnerable) {
+            ctx.ActualDamage = 0;
+            OnDamageBlocked?.Invoke(ctx);
+            return;
+        }
+
         bool wasDead = _isDead;
         if (!wasDead) Hooks.ModifyIncomingDamage(ctx);  // 被ダメージ補正（無敵・軽減・食いしばりなど）
 
@@ -429,6 +438,10 @@ public class Character : MonoBehaviour {
         foreach (var effect in _dodgeEffects) effect.OnDodge(ctx);
         Hooks.Dodge(ctx);
         OnDodged?.Invoke(ctx);
+    }
+
+    public void SetInvulnerable(bool isInvulnerable) {
+        _isInvulnerable = isInvulnerable;
     }
 
     public void TakePercentDamage(float percent) {
@@ -491,7 +504,9 @@ public class Character : MonoBehaviour {
     }
 
     public bool TryApplyStatus(Character attacker, StatusEffectData data) {
-        return _statusManager.TryApply(attacker, data);
+        bool applied = _statusManager.TryApply(attacker, data);
+        if (applied) OnStatusEffectApplied?.Invoke(data.type);
+        return applied;
     }
 
     public StatusEffectInstance GetStatus(StatusEffectType type) {

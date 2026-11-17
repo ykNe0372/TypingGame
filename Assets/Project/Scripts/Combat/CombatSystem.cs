@@ -22,6 +22,8 @@ public class CombatSystem : MonoBehaviour {
 
     public event Action<BattleType> OnBattleVictory;
     public event Action OnBattleDefeat;
+    public event Action OnPlayerWordCompleted;
+    public event Action<int> OnPlayerSpecialAttackExecuted;
 
     private void Update() {
         if (_player == null) return;  // 戦闘開始前
@@ -179,6 +181,7 @@ public class CombatSystem : MonoBehaviour {
     public void NotifyWordCompleted() {
         if (_player == null || _state != CombatState.Playing) return;
         _player.Hooks.WordCompleted();
+        OnPlayerWordCompleted?.Invoke();
     }
 
     public void AddSpecialCharge(int amount) {
@@ -206,6 +209,7 @@ public class CombatSystem : MonoBehaviour {
 
         var ctx = AttackContextFactory.CreateSpecialAttack(_player, targets, special);
         _player.TriggerAttack(ctx);
+        OnPlayerSpecialAttackExecuted?.Invoke(level);
     }
 
     private AttackContext CreateEnemyContext(Character attacker, SkillData skill, EnemyData data) {
