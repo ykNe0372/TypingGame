@@ -125,4 +125,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _character: {fileID: 6336224040686788610}
-  _data: {fileID: 0}
+  _data: {fileID: 11400000, guid: 13503205fc1d74e748388af9f6bd720e, type: 2}
